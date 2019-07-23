@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import java.awt.Component;
+import kr.or.yi.food_mgm_program.ui.insert.InsertFood;
 
 public class PanelFood extends JPanel {
 	private JTextField textField;
@@ -21,13 +22,13 @@ public class PanelFood extends JPanel {
 		initComponents();
 	}
 	private void initComponents() {
-		setLayout(new GridLayout(0, 1, 0, 10));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel panel = new JPanel();
 		add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
-		JPanel panel_2 = new JPanel();
+		InsertFood panel_2 = new InsertFood();
 		panel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
