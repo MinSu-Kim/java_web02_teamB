@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import javax.swing.JLabel;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
+import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 
 public class MainFrame extends JFrame {
 
@@ -44,8 +46,9 @@ public class MainFrame extends JFrame {
 		initComponents();
 	}
 	private void initComponents() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(350, 150, 1200, 700);
+		setBounds(250, 150, 1400, 700);
 		setMinimumSize(new Dimension(1200, 700));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,10 +65,10 @@ public class MainFrame extends JFrame {
 		JPanel pSale = new JPanel();
 		tabbedPane.addTab("매출 관리", null, pSale, null);
 		
-		JPanel pMember = new JPanel();
+		PanelMember pMember = new PanelMember();
 		tabbedPane.addTab("회원 관리", null, pMember, null);
 		
-		JPanel pFood = new JPanel();
+		PanelFood pFood = new PanelFood();
 		tabbedPane.addTab("음식 관리", null, pFood, null);
 		
 		
