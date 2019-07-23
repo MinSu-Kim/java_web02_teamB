@@ -1,198 +1,198 @@
--- À½½Ä
+-- ìŒì‹
 DROP SCHEMA IF EXISTS `food`;
 
--- À½½Ä
+-- ìŒì‹
 CREATE SCHEMA `food`;
 
--- À½½Ä
+-- ìŒì‹
 CREATE TABLE `food`.`food` (
-	`fd_no` INT         NOT NULL COMMENT 'À½½Ä¹øÈ£', -- À½½Ä¹øÈ£
-	`price` INT         NULL     COMMENT 'À½½Ä°¡°Ý', -- À½½Ä°¡°Ý
-	`name`  VARCHAR(40) NULL     COMMENT 'À½½Ä¸í', -- À½½Ä¸í
-	`fk_no` INT         NULL     COMMENT 'À½½ÄÁ¾·ù¹øÈ£' -- À½½ÄÁ¾·ù¹øÈ£
+	`fd_no` INT         NOT NULL COMMENT 'ìŒì‹ë²ˆí˜¸', -- ìŒì‹ë²ˆí˜¸
+	`price` INT         NULL     COMMENT 'ìŒì‹ê°€ê²©', -- ìŒì‹ê°€ê²©
+	`name`  VARCHAR(40) NULL     COMMENT 'ìŒì‹ëª…', -- ìŒì‹ëª…
+	`fk_no` INT         NULL     COMMENT 'ìŒì‹ì¢…ë¥˜ë²ˆí˜¸' -- ìŒì‹ì¢…ë¥˜ë²ˆí˜¸
 )
-COMMENT 'À½½Ä';
+COMMENT 'ìŒì‹';
 
--- À½½Ä
+-- ìŒì‹
 ALTER TABLE `food`.`food`
-	ADD CONSTRAINT `PK_food` -- À½½Ä ±âº»Å°
+	ADD CONSTRAINT `PK_food` -- ìŒì‹ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`fd_no` -- À½½Ä¹øÈ£
+			`fd_no` -- ìŒì‹ë²ˆí˜¸
 		);
 
--- À½½ÄÁ¾·ù
+-- ìŒì‹ì¢…ë¥˜
 CREATE TABLE `food`.`foodKind` (
-	`fk_no` INT         NOT NULL COMMENT 'À½½ÄÁ¾·ù¹øÈ£', -- À½½ÄÁ¾·ù¹øÈ£
-	`name`  VARCHAR(40) NULL     COMMENT 'À½½ÄÁ¾·ù¸í' -- À½½ÄÁ¾·ù¸í
+	`fk_no` INT         NOT NULL COMMENT 'ìŒì‹ì¢…ë¥˜ë²ˆí˜¸', -- ìŒì‹ì¢…ë¥˜ë²ˆí˜¸
+	`name`  VARCHAR(40) NULL     COMMENT 'ìŒì‹ì¢…ë¥˜ëª…' -- ìŒì‹ì¢…ë¥˜ëª…
 )
-COMMENT 'À½½ÄÁ¾·ù';
+COMMENT 'ìŒì‹ì¢…ë¥˜';
 
--- À½½ÄÁ¾·ù
+-- ìŒì‹ì¢…ë¥˜
 ALTER TABLE `food`.`foodKind`
-	ADD CONSTRAINT `PK_foodKind` -- À½½ÄÁ¾·ù ±âº»Å°
+	ADD CONSTRAINT `PK_foodKind` -- ìŒì‹ì¢…ë¥˜ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`fk_no` -- À½½ÄÁ¾·ù¹øÈ£
+			`fk_no` -- ìŒì‹ì¢…ë¥˜ë²ˆí˜¸
 		);
 
--- È¸¿ø
+-- íšŒì›
 CREATE TABLE `food`.`member` (
-	`mb_no`   INT         NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	`name`    VARCHAR(10) NULL     COMMENT 'È¸¿ø¸í', -- È¸¿ø¸í
-	`birth`   DATE        NULL     COMMENT '»ý³â¿ùÀÏ', -- »ý³â¿ùÀÏ
-	`tel`     INT         NULL     COMMENT 'ÀüÈ­¹øÈ£', -- ÀüÈ­¹øÈ£
-	`Mileage` INT         NULL     COMMENT '¸¶ÀÏ¸®Áö', -- ¸¶ÀÏ¸®Áö
-	`grade`   CHAR(10)    NULL     COMMENT '°í°´µî±Þ', -- °í°´µî±Þ
-	`address` VARCHAR(50) NULL     COMMENT 'ÁÖ¼Ò' -- ÁÖ¼Ò
+	`mb_no`   INT         NOT NULL COMMENT 'íšŒì›ë²ˆí˜¸', -- íšŒì›ë²ˆí˜¸
+	`name`    VARCHAR(10) NULL     COMMENT 'íšŒì›ëª…', -- íšŒì›ëª…
+	`birth`   DATE        NULL     COMMENT 'ìƒë…„ì›”ì¼', -- ìƒë…„ì›”ì¼
+	`tel`     INT         NULL     COMMENT 'ì „í™”ë²ˆí˜¸', -- ì „í™”ë²ˆí˜¸
+	`Mileage` INT         NULL     COMMENT 'ë§ˆì¼ë¦¬ì§€', -- ë§ˆì¼ë¦¬ì§€
+	`grade`   CHAR(10)    NULL     COMMENT 'ê³ ê°ë“±ê¸‰', -- ê³ ê°ë“±ê¸‰
+	`address` VARCHAR(50) NULL     COMMENT 'ì£¼ì†Œ' -- ì£¼ì†Œ
 )
-COMMENT 'È¸¿ø';
+COMMENT 'íšŒì›';
 
--- È¸¿ø
+-- íšŒì›
 ALTER TABLE `food`.`member`
-	ADD CONSTRAINT `PK_member` -- È¸¿ø ±âº»Å°
+	ADD CONSTRAINT `PK_member` -- íšŒì› ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`mb_no` -- È¸¿ø¹øÈ£
+			`mb_no` -- íšŒì›ë²ˆí˜¸
 		);
 
--- ÄíÆù
+-- ì¿ í°
 CREATE TABLE `food`.`coupon` (
-	`cp_no`    INT         NOT NULL COMMENT 'ÄíÆù¹øÈ£', -- ÄíÆù¹øÈ£
-	`name`     VARCHAR(10) NULL     COMMENT 'ÄíÆù¸í', -- ÄíÆù¸í
-	`discount` INT         NULL     COMMENT 'ÇÒÀÎÀ²' -- ÇÒÀÎÀ²
+	`cp_no`    INT         NOT NULL COMMENT 'ì¿ í°ë²ˆí˜¸', -- ì¿ í°ë²ˆí˜¸
+	`name`     VARCHAR(10) NULL     COMMENT 'ì¿ í°ëª…', -- ì¿ í°ëª…
+	`discount` INT         NULL     COMMENT 'í• ì¸ìœ¨' -- í• ì¸ìœ¨
 )
-COMMENT 'ÄíÆù';
+COMMENT 'ì¿ í°';
 
--- ÄíÆù
+-- ì¿ í°
 ALTER TABLE `food`.`coupon`
-	ADD CONSTRAINT `PK_coupon` -- ÄíÆù ±âº»Å°
+	ADD CONSTRAINT `PK_coupon` -- ì¿ í° ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`cp_no` -- ÄíÆù¹øÈ£
+			`cp_no` -- ì¿ í°ë²ˆí˜¸
 		);
 
--- µî±Þ
+-- ë“±ê¸‰
 CREATE TABLE `food`.`grade` (
-	`grade`    CHAR(10) NOT NULL COMMENT '°í°´µî±Þ', -- °í°´µî±Þ
-	`discount` INT      NULL     COMMENT 'ÇÒÀÎÀ²' -- ÇÒÀÎÀ²
+	`grade`    CHAR(10) NOT NULL COMMENT 'ê³ ê°ë“±ê¸‰', -- ê³ ê°ë“±ê¸‰
+	`discount` INT      NULL     COMMENT 'í• ì¸ìœ¨' -- í• ì¸ìœ¨
 )
-COMMENT 'µî±Þ';
+COMMENT 'ë“±ê¸‰';
 
--- µî±Þ
+-- ë“±ê¸‰
 ALTER TABLE `food`.`grade`
-	ADD CONSTRAINT `PK_grade` -- µî±Þ ±âº»Å°
+	ADD CONSTRAINT `PK_grade` -- ë“±ê¸‰ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`grade` -- °í°´µî±Þ
+			`grade` -- ê³ ê°ë“±ê¸‰
 		);
 
--- È¸¿ø,ÄíÆù
+-- íšŒì›,ì¿ í°
 CREATE TABLE `food`.`member_coupon` (
-	`mb_no` INT NOT NULL COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	`cp_no` INT NOT NULL COMMENT 'ÄíÆù¹øÈ£' -- ÄíÆù¹øÈ£
+	`mb_no` INT NOT NULL COMMENT 'íšŒì›ë²ˆí˜¸', -- íšŒì›ë²ˆí˜¸
+	`cp_no` INT NOT NULL COMMENT 'ì¿ í°ë²ˆí˜¸' -- ì¿ í°ë²ˆí˜¸
 )
-COMMENT 'È¸¿ø,ÄíÆù';
+COMMENT 'íšŒì›,ì¿ í°';
 
--- È¸¿ø,ÄíÆù
+-- íšŒì›,ì¿ í°
 ALTER TABLE `food`.`member_coupon`
-	ADD CONSTRAINT `PK_member_coupon` -- È¸¿ø,ÄíÆù ±âº»Å°
+	ADD CONSTRAINT `PK_member_coupon` -- íšŒì›,ì¿ í° ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`mb_no`, -- È¸¿ø¹øÈ£
-			`cp_no`  -- ÄíÆù¹øÈ£
+			`mb_no`, -- íšŒì›ë²ˆí˜¸
+			`cp_no`  -- ì¿ í°ë²ˆí˜¸
 		);
 
--- ÆÇ¸Å
+-- íŒë§¤
 CREATE TABLE `food`.`sale` (
-	`sal_no`     INT      NOT NULL COMMENT 'ÆÇ¸Å¹øÈ£', -- ÆÇ¸Å¹øÈ£
-	`fd_no`      INT      NOT NULL COMMENT 'À½½Ä¹øÈ£', -- À½½Ä¹øÈ£
-	`date`       DATE     NULL     COMMENT '³¯Â¥', -- ³¯Â¥
-	`time`       DATETIME NULL     COMMENT '½Ã°£', -- ½Ã°£
-	`order_cnt`  INT      NULL     COMMENT 'ÁÖ¹®¼ö·®', -- ÁÖ¹®¼ö·®
-	`mb_no`      INT      NULL     COMMENT 'È¸¿ø¹øÈ£', -- È¸¿ø¹øÈ£
-	`order_kind` TINYINT  NULL     COMMENT 'ÁÖ¹®Á¾·ù' -- ÁÖ¹®Á¾·ù
+	`sal_no`     INT      NOT NULL COMMENT 'íŒë§¤ë²ˆí˜¸', -- íŒë§¤ë²ˆí˜¸
+	`fd_no`      INT      NOT NULL COMMENT 'ìŒì‹ë²ˆí˜¸', -- ìŒì‹ë²ˆí˜¸
+	`date`       DATE     NULL     COMMENT 'ë‚ ì§œ', -- ë‚ ì§œ
+	`time`       DATETIME NULL     COMMENT 'ì‹œê°„', -- ì‹œê°„
+	`order_cnt`  INT      NULL     COMMENT 'ì£¼ë¬¸ìˆ˜ëŸ‰', -- ì£¼ë¬¸ìˆ˜ëŸ‰
+	`mb_no`      INT      NULL     COMMENT 'íšŒì›ë²ˆí˜¸', -- íšŒì›ë²ˆí˜¸
+	`order_kind` TINYINT  NULL     COMMENT 'ì£¼ë¬¸ì¢…ë¥˜' -- ì£¼ë¬¸ì¢…ë¥˜
 )
-COMMENT 'ÆÇ¸Å';
+COMMENT 'íŒë§¤';
 
--- ÆÇ¸Å
+-- íŒë§¤
 ALTER TABLE `food`.`sale`
-	ADD CONSTRAINT `PK_sale` -- ÆÇ¸Å ±âº»Å°
+	ADD CONSTRAINT `PK_sale` -- íŒë§¤ ê¸°ë³¸í‚¤
 		PRIMARY KEY (
-			`sal_no` -- ÆÇ¸Å¹øÈ£
+			`sal_no` -- íŒë§¤ë²ˆí˜¸
 		);
 
--- °ü¸®ÀÚ
+-- ê´€ë¦¬ìž
 CREATE TABLE `food`.`manager` (
-	`m_no` INT         NULL COMMENT '°ü¸®ÀÚ¹øÈ£', -- °ü¸®ÀÚ¹øÈ£
-	`id`   VARCHAR(20) NULL COMMENT '°ü¸®ÀÚid', -- °ü¸®ÀÚid
-	`pwd`  VARCHAR(20) NULL COMMENT '°ü¸®ÀÚpw' -- °ü¸®ÀÚpw
+	`m_no` INT         NULL COMMENT 'ê´€ë¦¬ìžë²ˆí˜¸', -- ê´€ë¦¬ìžë²ˆí˜¸
+	`id`   VARCHAR(20) NULL COMMENT 'ê´€ë¦¬ìžid', -- ê´€ë¦¬ìžid
+	`pwd`  VARCHAR(20) NULL COMMENT 'ê´€ë¦¬ìžpw' -- ê´€ë¦¬ìžpw
 )
-COMMENT '°ü¸®ÀÚ';
+COMMENT 'ê´€ë¦¬ìž';
 
--- ¿ìÆí¹øÈ£
+-- ìš°íŽ¸ë²ˆí˜¸
 CREATE TABLE `food`.`post` (
-	`zipcode`  CHAR(5)      NULL COMMENT '¿ìÆí¹øÈ£', -- ¿ìÆí¹øÈ£
-	`doro`     VARCHAR(100) NULL COMMENT '½Ãµµ', -- ½Ãµµ
-	`old_doro` VARCHAR(100) NULL COMMENT '±¸µµ·Î' -- ±¸µµ·Î
+	`zipcode`  CHAR(5)      NULL COMMENT 'ìš°íŽ¸ë²ˆí˜¸', -- ìš°íŽ¸ë²ˆí˜¸
+	`doro`     VARCHAR(100) NULL COMMENT 'ì‹œë„', -- ì‹œë„
+	`old_doro` VARCHAR(100) NULL COMMENT 'êµ¬ë„ë¡œ' -- êµ¬ë„ë¡œ
 )
-COMMENT '¿ìÆí¹øÈ£';
+COMMENT 'ìš°íŽ¸ë²ˆí˜¸';
 
--- À½½Ä
+-- ìŒì‹
 ALTER TABLE `food`.`food`
-	ADD CONSTRAINT `FK_foodKind_TO_food` -- À½½ÄÁ¾·ù -> À½½Ä
+	ADD CONSTRAINT `FK_foodKind_TO_food` -- ìŒì‹ì¢…ë¥˜ -> ìŒì‹
 		FOREIGN KEY (
-			`fk_no` -- À½½ÄÁ¾·ù¹øÈ£
+			`fk_no` -- ìŒì‹ì¢…ë¥˜ë²ˆí˜¸
 		)
-		REFERENCES `food`.`foodKind` ( -- À½½ÄÁ¾·ù
-			`fk_no` -- À½½ÄÁ¾·ù¹øÈ£
+		REFERENCES `food`.`foodKind` ( -- ìŒì‹ì¢…ë¥˜
+			`fk_no` -- ìŒì‹ì¢…ë¥˜ë²ˆí˜¸
 		);
 
--- È¸¿ø
+-- íšŒì›
 ALTER TABLE `food`.`member`
-	ADD CONSTRAINT `FK_grade_TO_member` -- µî±Þ -> È¸¿ø
+	ADD CONSTRAINT `FK_grade_TO_member` -- ë“±ê¸‰ -> íšŒì›
 		FOREIGN KEY (
-			`grade` -- °í°´µî±Þ
+			`grade` -- ê³ ê°ë“±ê¸‰
 		)
-		REFERENCES `food`.`grade` ( -- µî±Þ
-			`grade` -- °í°´µî±Þ
+		REFERENCES `food`.`grade` ( -- ë“±ê¸‰
+			`grade` -- ê³ ê°ë“±ê¸‰
 		);
 
--- È¸¿ø,ÄíÆù
+-- íšŒì›,ì¿ í°
 ALTER TABLE `food`.`member_coupon`
-	ADD CONSTRAINT `FK_member_TO_member_coupon` -- È¸¿ø -> È¸¿ø,ÄíÆù
+	ADD CONSTRAINT `FK_member_TO_member_coupon` -- íšŒì› -> íšŒì›,ì¿ í°
 		FOREIGN KEY (
-			`mb_no` -- È¸¿ø¹øÈ£
+			`mb_no` -- íšŒì›ë²ˆí˜¸
 		)
-		REFERENCES `food`.`member` ( -- È¸¿ø
-			`mb_no` -- È¸¿ø¹øÈ£
+		REFERENCES `food`.`member` ( -- íšŒì›
+			`mb_no` -- íšŒì›ë²ˆí˜¸
 		);
 
--- È¸¿ø,ÄíÆù
+-- íšŒì›,ì¿ í°
 ALTER TABLE `food`.`member_coupon`
-	ADD CONSTRAINT `FK_coupon_TO_member_coupon` -- ÄíÆù -> È¸¿ø,ÄíÆù
+	ADD CONSTRAINT `FK_coupon_TO_member_coupon` -- ì¿ í° -> íšŒì›,ì¿ í°
 		FOREIGN KEY (
-			`cp_no` -- ÄíÆù¹øÈ£
+			`cp_no` -- ì¿ í°ë²ˆí˜¸
 		)
-		REFERENCES `food`.`coupon` ( -- ÄíÆù
-			`cp_no` -- ÄíÆù¹øÈ£
+		REFERENCES `food`.`coupon` ( -- ì¿ í°
+			`cp_no` -- ì¿ í°ë²ˆí˜¸
 		);
 
--- ÆÇ¸Å
+-- íŒë§¤
 ALTER TABLE `food`.`sale`
-	ADD CONSTRAINT `FK_food_TO_sale` -- À½½Ä -> ÆÇ¸Å
+	ADD CONSTRAINT `FK_food_TO_sale` -- ìŒì‹ -> íŒë§¤
 		FOREIGN KEY (
-			`fd_no` -- À½½Ä¹øÈ£
+			`fd_no` -- ìŒì‹ë²ˆí˜¸
 		)
-		REFERENCES `food`.`food` ( -- À½½Ä
-			`fd_no` -- À½½Ä¹øÈ£
+		REFERENCES `food`.`food` ( -- ìŒì‹
+			`fd_no` -- ìŒì‹ë²ˆí˜¸
 		);
 
--- ÆÇ¸Å
+-- íŒë§¤
 ALTER TABLE `food`.`sale`
-	ADD CONSTRAINT `FK_member_TO_sale` -- È¸¿ø -> ÆÇ¸Å
+	ADD CONSTRAINT `FK_member_TO_sale` -- íšŒì› -> íŒë§¤
 		FOREIGN KEY (
-			`mb_no` -- È¸¿ø¹øÈ£
+			`mb_no` -- íšŒì›ë²ˆí˜¸
 		)
-		REFERENCES `food`.`member` ( -- È¸¿ø
-			`mb_no` -- È¸¿ø¹øÈ£
+		REFERENCES `food`.`member` ( -- íšŒì›
+			`mb_no` -- íšŒì›ë²ˆí˜¸
 		);
 	
--- °èÁ¤°ú ±ÇÇÑºÎ¿©
+-- ê³„ì •ê³¼ ê¶Œí•œë¶€ì—¬
 grant all privileges 
 on food.* 
 to 'user_food'@'localhost' 
