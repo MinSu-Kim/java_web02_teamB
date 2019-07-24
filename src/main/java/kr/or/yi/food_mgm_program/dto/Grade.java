@@ -1,8 +1,8 @@
 package kr.or.yi.food_mgm_program.dto;
 
 public class Grade {
-	public String grade;
-	public int discount;
+	private String grade;
+	private int discount;
 
 	public String getGrade() {
 		return grade;

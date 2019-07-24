@@ -40,7 +40,7 @@ CREATE TABLE food.member (
 	mb_no   INT         NOT NULL COMMENT '회원번호', -- 회원번호
 	name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
 	birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
-	tel     INT         NULL     COMMENT '전화번호', -- 전화번호
+	tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
 	Mileage INT         NULL     COMMENT '마일리지', -- 마일리지
 	grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
 	address VARCHAR(50) NULL     COMMENT '주소' -- 주소

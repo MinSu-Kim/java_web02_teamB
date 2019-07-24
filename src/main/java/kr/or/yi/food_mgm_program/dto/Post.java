@@ -1,9 +1,9 @@
 package kr.or.yi.food_mgm_program.dto;
 
 public class Post {
-	public String zipcode;
-	public String doro;
-	public String oldDoro;
+	private String zipcode;
+	private String doro;
+	private String oldDoro;
 
 	public String getZipcode() {
 		return zipcode;

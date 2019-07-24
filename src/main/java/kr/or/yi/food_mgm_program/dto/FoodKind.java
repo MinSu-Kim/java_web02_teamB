@@ -1,10 +1,10 @@
 package kr.or.yi.food_mgm_program.dto;
 
 public class FoodKind {
-	public int fkNo;
-	public String name;
+	private int fkNo;
+	private String name;
+	private Menu menuNo;
 	
-
 	public int getFkNo() {
 		return fkNo;
 	}
@@ -19,6 +19,14 @@ public class FoodKind {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Menu getMenuNo() {
+		return menuNo;
+	}
+
+	public void setMenuNo(Menu menuNo) {
+		this.menuNo = menuNo;
 	}
 
 	@Override

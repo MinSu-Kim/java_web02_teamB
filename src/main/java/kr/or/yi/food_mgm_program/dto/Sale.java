@@ -3,74 +3,69 @@ package kr.or.yi.food_mgm_program.dto;
 import java.util.Date;
 
 public class Sale {
-	private int salNo;
-	private Food fdNo;
-	private Date date;
-	private Date time;
+	private int no;
+	private int saleNo;
+	private Date saletime;
 	private int orderCnt;
-	private Member mbNo;
 	private boolean orderKind;
+	private int saleType;
+	private Food fdNo;
+	private Member mbNo;
 
-	public int getSalNo() {
-		return salNo;
+	public int getNo() {
+		return no;
 	}
-
-	public void setSalNo(int salNo) {
-		this.salNo = salNo;
+	public void setNo(int no) {
+		this.no = no;
 	}
-
-	public Food getFdNo() {
-		return fdNo;
+	public int getSaleNo() {
+		return saleNo;
 	}
-
-	public void setFdNo(Food fdNo) {
-		this.fdNo = fdNo;
+	public void setSaleNo(int saleNo) {
+		this.saleNo = saleNo;
 	}
-
-	public Date getDate() {
-		return date;
+	public Date getSaletime() {
+		return saletime;
 	}
-
-	public void setDate(Date date) {
-		this.date = date;
+	public void setSaletime(Date saletime) {
+		this.saletime = saletime;
 	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
 	public int getOrderCnt() {
 		return orderCnt;
 	}
-
 	public void setOrderCnt(int orderCnt) {
 		this.orderCnt = orderCnt;
 	}
-
-	public Member getMbNo() {
-		return mbNo;
-	}
-
-	public void setMbNo(Member mbNo) {
-		this.mbNo = mbNo;
-	}
-
 	public boolean isOrderKind() {
 		return orderKind;
 	}
-
 	public void setOrderKind(boolean orderKind) {
 		this.orderKind = orderKind;
 	}
-
+	public int getSaleType() {
+		return saleType;
+	}
+	public void setSaleType(int saleType) {
+		this.saleType = saleType;
+	}
+	public Food getFdNo() {
+		return fdNo;
+	}
+	public void setFdNo(Food fdNo) {
+		this.fdNo = fdNo;
+	}
+	public Member getMbNo() {
+		return mbNo;
+	}
+	public void setMbNo(Member mbNo) {
+		this.mbNo = mbNo;
+	}
+	
 	@Override
 	public String toString() {
-		return String.format("Sale [salNo=%s, fdNo=%s, date=%s, time=%s, orderCnt=%s, mbNo=%s, orderKind=%s]", salNo,
-				fdNo, date, time, orderCnt, mbNo, orderKind);
+		return String.format(
+				"Sale [no=%s, saleNo=%s, saletime=%s, orderCnt=%s, orderKind=%s, saleType=%s, fdNo=%s, mbNo=%s]", no,
+				saleNo, saletime, orderCnt, orderKind, saleType, fdNo, mbNo);
 	}
 
 }
