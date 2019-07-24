@@ -5,7 +5,7 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	<typeAliases>
-		
+		<package name="kr.or.yi.food_mgm_program.dto"/>
 	</typeAliases>
 	<typeHandlers>
 		
@@ -22,6 +22,6 @@
 		</environment>
 	</environments>
 	<mappers>
-		
+		<package name="kr.or.yi.food_mgm_program.dao"/>
 	</mappers>
 </configuration>

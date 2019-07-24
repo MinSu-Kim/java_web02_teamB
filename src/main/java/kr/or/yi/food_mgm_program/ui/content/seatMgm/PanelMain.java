@@ -33,6 +33,10 @@ public class PanelMain extends JPanel {
 	private PanelMenuList panel_2;
 	private JPanel panel_3;
 	private JButton btnPay;
+	private JPanel panel_4;
+	private JButton btnMainMenu;
+	private JButton btnSide;
+	private JButton btnDrink;
 
 	
 	public PanelMain() {
@@ -95,6 +99,19 @@ public class PanelMain extends JPanel {
 		pMenu = new JPanel();
 		pPay.add(pMenu);
 		pMenu.setLayout(new BorderLayout(0, 0));
+		
+		panel_4 = new JPanel();
+		pMenu.add(panel_4, BorderLayout.NORTH);
+		panel_4.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		btnMainMenu = new JButton("주메뉴");
+		panel_4.add(btnMainMenu);
+		
+		btnSide = new JButton("부메뉴");
+		panel_4.add(btnSide);
+		
+		btnDrink = new JButton("음료");
+		panel_4.add(btnDrink);
 		
 		panel_2 = new PanelMenuList();
 		pMenu.add(panel_2, BorderLayout.CENTER);

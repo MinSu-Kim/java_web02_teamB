@@ -30,7 +30,7 @@ select * from manager;
 -- select length(password('aaaa')) from dual;
 
 desc member;
-
+select name from foodkind where menu_no=1;
 /*
 set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
