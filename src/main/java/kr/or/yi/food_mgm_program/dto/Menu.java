@@ -4,7 +4,6 @@ public class Menu {
 	private int menuNo;
 	private String menuKind;
 	
-	
 	public int getMenuNo() {
 		return menuNo;
 	}

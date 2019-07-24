@@ -5,7 +5,10 @@ public class FoodKind {
 	private String name;
 	private Menu menuNo;
 	
-	
+	public FoodKind(int fkNo) {
+		this.fkNo = fkNo;
+	}
+
 	public int getFkNo() {
 		return fkNo;
 	}
