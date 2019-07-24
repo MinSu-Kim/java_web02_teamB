@@ -1,5 +1,3 @@
-select * from sale;
-
 show tables;
 
 desc post;

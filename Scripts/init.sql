@@ -22,8 +22,9 @@ ALTER TABLE food.food
 
 -- 음식종류
 CREATE TABLE food.foodKind (
-	fk_no INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
-	name  VARCHAR(40) NULL     COMMENT '음식종류명' -- 음식종류명
+	fk_no   INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
+	name    VARCHAR(40) NOT NULL COMMENT '음식종류명', -- 음식종류명
+	menu_no INT         NULL     COMMENT '메뉴번호' -- 메뉴번호
 )
 COMMENT '음식종류';
 
@@ -39,7 +40,7 @@ CREATE TABLE food.member (
 	mb_no   INT         NOT NULL COMMENT '회원번호', -- 회원번호
 	name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
 	birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
-	tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
+	tel     INT         NULL     COMMENT '전화번호', -- 전화번호
 	Mileage INT         NULL     COMMENT '마일리지', -- 마일리지
 	grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
 	address VARCHAR(50) NULL     COMMENT '주소' -- 주소
@@ -128,6 +129,7 @@ ALTER TABLE food.sale
 
 -- 관리자
 CREATE TABLE food.manager (
+	m_no INT         NULL COMMENT '관리자번호', -- 관리자번호
 	id   VARCHAR(20) NULL COMMENT '관리자id', -- 관리자id
 	pwd  CHAR(41)    NULL COMMENT '관리자pw' -- 관리자pw
 )
@@ -141,6 +143,20 @@ CREATE TABLE food.post (
 )
 COMMENT '우편번호';
 
+-- 메뉴분류
+CREATE TABLE food.menu (
+	menu_no   INT         NOT NULL COMMENT '메뉴번호', -- 메뉴번호
+	menu_kind VARCHAR(10) NOT NULL COMMENT '메뉴종류' -- 메뉴종류
+)
+COMMENT '메뉴분류';
+
+-- 메뉴분류
+ALTER TABLE food.menu
+	ADD CONSTRAINT PK_menu -- 메뉴분류 기본키
+		PRIMARY KEY (
+			menu_no -- 메뉴번호
+		);
+
 -- 음식
 ALTER TABLE food.food
 	ADD CONSTRAINT FK_foodKind_TO_food -- 음식종류 -> 음식
@@ -149,6 +165,16 @@ ALTER TABLE food.food
 		)
 		REFERENCES food.foodKind ( -- 음식종류
 			fk_no -- 음식종류번호
+		);
+
+-- 음식종류
+ALTER TABLE food.foodKind
+	ADD CONSTRAINT FK_menu_TO_foodKind -- 메뉴분류 -> 음식종류
+		FOREIGN KEY (
+			menu_no -- 메뉴번호
+		)
+		REFERENCES food.menu ( -- 메뉴분류
+			menu_no -- 메뉴번호
 		);
 
 -- 회원
