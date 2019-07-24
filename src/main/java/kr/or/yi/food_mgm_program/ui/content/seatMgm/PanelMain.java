@@ -8,6 +8,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+import java.awt.Component;
 
 public class PanelMain extends JPanel {
 
@@ -16,18 +20,19 @@ public class PanelMain extends JPanel {
 	private JPanel pCCN;
 	private JPanel pCCC;
 	private PanelSeat pSeat;
+	private JPanel pS;
 	private JPanel pPay;
-	private JPanel pOrder;
-	private JPanel pBtn;
+	private JPanel pOder;
 	private JPanel pMenu;
-	private JPanel pPayment;
+	private JPanel panel;
+	private JPanel panel_1;
 	private JButton btnAllCancel;
 	private JButton btnSelectCancel;
 	private JButton btnPlus;
 	private JButton btnMinus;
-	private JPanel panel_5;
-	private JButton btnCash;
-	private JPanel pS;
+	private PanelMenuList panel_2;
+	private JPanel panel_3;
+	private JButton btnPay;
 
 	
 	public PanelMain() {
@@ -61,47 +66,49 @@ public class PanelMain extends JPanel {
 		
 		pPay = new JPanel();
 		pCCC.add(pPay, BorderLayout.WEST);
+		pPay.setLayout(new GridLayout(0, 1, 0, 10));
 		pPay.setPreferredSize(new Dimension(300, 30));
-		pPay.setLayout(new BoxLayout(pPay, BoxLayout.Y_AXIS));
 		
-		pOrder = new JPanel();
-		pPay.add(pOrder);
+		pOder = new JPanel();
+		pPay.add(pOder);
+		pOder.setLayout(new BorderLayout(0, 0));
 		
-		pBtn = new JPanel();
-		pPay.add(pBtn);
-		pBtn.setLayout(new BoxLayout(pBtn, BoxLayout.X_AXIS));
+		panel = new JPanel();
+		pOder.add(panel, BorderLayout.CENTER);
+		
+		panel_1 = new JPanel();
+		pOder.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnAllCancel = new JButton("전체취소");
-		pBtn.add(btnAllCancel);
+		panel_1.add(btnAllCancel);
 		
 		btnSelectCancel = new JButton("선택취소");
-		pBtn.add(btnSelectCancel);
+		panel_1.add(btnSelectCancel);
 		
 		btnPlus = new JButton("+");
-		pBtn.add(btnPlus);
+		panel_1.add(btnPlus);
 		
 		btnMinus = new JButton("-");
-		pBtn.add(btnMinus);
+		panel_1.add(btnMinus);
 		
 		pMenu = new JPanel();
 		pPay.add(pMenu);
+		pMenu.setLayout(new BorderLayout(0, 0));
 		
-		pPayment = new JPanel();
-		pPay.add(pPayment);
-		pPayment.setLayout(new BoxLayout(pPayment, BoxLayout.Y_AXIS));
+		panel_2 = new PanelMenuList();
+		pMenu.add(panel_2, BorderLayout.CENTER);
 		
-		panel_5 = new JPanel();
-		pPayment.add(panel_5);
-		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.X_AXIS));
+		panel_3 = new JPanel();
+		pMenu.add(panel_3, BorderLayout.SOUTH);
+		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnCash = new JButton("결제");
-		btnCash.setFont(new Font("굴림", Font.BOLD, 25));
-		panel_5.add(btnCash);
-		btnCash.setPreferredSize(new Dimension(200, 50));
+		btnPay = new JButton("결제");
+		panel_3.add(btnPay);
 		
 		pS = new JPanel();
 		add(pS, BorderLayout.SOUTH);
-		pS.setPreferredSize(new Dimension(200, 50));
+		pS.setPreferredSize(new Dimension(200, 30));
 	}
 
 }

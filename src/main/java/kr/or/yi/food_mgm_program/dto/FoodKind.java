@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.dto;
 public class FoodKind {
 	public int fkNo;
 	public String name;
+	
 
 	public int getFkNo() {
 		return fkNo;

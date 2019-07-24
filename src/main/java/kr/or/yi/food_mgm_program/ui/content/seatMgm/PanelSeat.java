@@ -35,15 +35,19 @@ public class PanelSeat extends JPanel {
 		
 		p1 = new PanelSeatOne();
 		pC.add(p1);
+		p1.setSeatNumber("no.1");
 		
 		p2 = new PanelSeatOne();
 		pC.add(p2);
+		p2.setSeatNumber("no.2");
 		
 		p3 = new PanelSeatOne();
 		pC.add(p3);
+		p3.setSeatNumber("no.3");
 		
 		p4 = new PanelSeatOne();
 		pC.add(p4);
+		p4.setSeatNumber("no.4");
 		
 		pEmpty = new JPanel();
 		pC.add(pEmpty);
@@ -53,12 +57,15 @@ public class PanelSeat extends JPanel {
 		
 		p5 = new PanelSeatOne();
 		pC.add(p5);
+		p5.setSeatNumber("no.5");
 		
 		p6 = new PanelSeatOne();
 		pC.add(p6);
+		p6.setSeatNumber("no.6");
 		
 		p7 = new PanelSeatOne();
 		pC.add(p7);
+		p7.setSeatNumber("no.7");
 		
 		pN = new JPanel();
 		add(pN, BorderLayout.NORTH);
