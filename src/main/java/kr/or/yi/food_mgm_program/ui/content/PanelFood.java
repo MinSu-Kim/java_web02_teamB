@@ -23,28 +23,28 @@ public class PanelFood extends JPanel {
 	private void initComponents() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		JPanel panel = new JPanel();
-		add(panel);
+		JPanel pInsert = new JPanel();
+		add(pInsert);
 		
 		JLabel label = new JLabel("");
 		
 		JLabel label_1 = new JLabel("");
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		pInsert.setLayout(new BoxLayout(pInsert, BoxLayout.X_AXIS));
 		
-		InsertFood panel_2 = new InsertFood();
-		GridLayout gridLayout = (GridLayout) panel_2.getLayout();
-		gridLayout.setHgap(10);
-		panel.add(panel_2);
+		InsertFood pFood = new InsertFood();
+		GridLayout gl_pFood = (GridLayout) pFood.getLayout();
+		gl_pFood.setHgap(10);
+		pInsert.add(pFood);
 		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3);
-		panel_3.setLayout(new BoxLayout(panel_3, BoxLayout.Y_AXIS));
+		JPanel pBtn = new JPanel();
+		pInsert.add(pBtn);
+		pBtn.setLayout(new BoxLayout(pBtn, BoxLayout.Y_AXIS));
 		
 		JButton btnNewButton = new JButton("추가");
-		panel_3.add(btnNewButton);
+		pBtn.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("취소");
-		panel_3.add(btnNewButton_1);
+		pBtn.add(btnNewButton_1);
 		
 		
 		
@@ -52,19 +52,19 @@ public class PanelFood extends JPanel {
 		add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_4 = new JPanel();
-		panel_1.add(panel_4, BorderLayout.NORTH);
-		panel_4.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		JPanel pSearch = new JPanel();
+		panel_1.add(pSearch, BorderLayout.NORTH);
+		pSearch.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		textField = new JTextField();
-		panel_4.add(textField);
+		pSearch.add(textField);
 		textField.setColumns(30);
 		
 		JButton btnNewButton_2 = new JButton("검색");
-		panel_4.add(btnNewButton_2);
+		pSearch.add(btnNewButton_2);
 		
-		FoodList panel_5 = new FoodList((String) null);
-		panel_1.add(panel_5, BorderLayout.CENTER);
+		FoodList pList = new FoodList((String) null);
+		panel_1.add(pList, BorderLayout.CENTER);
 	}
 
 }

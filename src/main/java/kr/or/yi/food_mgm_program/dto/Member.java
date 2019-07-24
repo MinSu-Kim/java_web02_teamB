@@ -1,6 +1,7 @@
 package kr.or.yi.food_mgm_program.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Member {
 	private int mbNo;
@@ -10,7 +11,7 @@ public class Member {
 	private int Mileage;
 	private Grade grade;
 	private String address;
-	
+	private List<Coupon> coupon;
 	
 	public int getMbNo() {
 		return mbNo;
@@ -54,11 +55,16 @@ public class Member {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public List<Coupon> getCoupon() {
+		return coupon;
+	}
+	public void setCoupon(List<Coupon> coupon) {
+		this.coupon = coupon;
+	}
 	
 	@Override
 	public String toString() {
-		return String.format("Member [mbNo=%s, name=%s, birth=%s, tel=%s, Mileage=%s, grade=%s, address=%s]", mbNo,
-				name, birth, tel, Mileage, grade, address);
+		return String.format("Member [mbNo=%s, name=%s, birth=%s, tel=%s, Mileage=%s, grade=%s, address=%s, coupon=%s]",
+				mbNo, name, birth, tel, Mileage, grade, address, coupon);
 	}
-	
 }
