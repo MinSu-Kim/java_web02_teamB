@@ -53,7 +53,7 @@ public class PaymentFrame extends JFrame {
 
 		PanelPaymentInfo panel = new PanelPaymentInfo();
 		contentPane.add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
