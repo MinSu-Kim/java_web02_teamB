@@ -11,6 +11,7 @@ public class Member {
 	private Grade grade;
 	private String address;
 	
+	
 	public int getMbNo() {
 		return mbNo;
 	}

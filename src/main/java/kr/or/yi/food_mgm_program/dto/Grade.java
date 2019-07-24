@@ -4,6 +4,7 @@ public class Grade {
 	private String grade;
 	private int discount;
 
+	
 	public String getGrade() {
 		return grade;
 	}
