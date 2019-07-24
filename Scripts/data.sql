@@ -15,7 +15,7 @@ update food set fd_no = 1 where fd_no = 0;
 select * from food;
 
 desc grade;
-insert into grade values ('vip',10),('gold',7),('silver',5);
+insert into grade values ('vip',15),('gold',10),('silver',5);
 select * from grade;
 
 desc coupon;
@@ -23,7 +23,7 @@ insert into coupon values (1,'생일쿠폰',10);
 select * from coupon;
 
 desc manager;
-insert into manager values ('test1', password('rootroot'));
+insert into manager() values ('test1', password('rootroot'));
 select * from manager;
 
 -- select * from manager where pwd = password('rooroot');
@@ -31,10 +31,19 @@ select * from manager;
 
 desc member;
 
+/*
 set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
 set foreign_key_checks = 1;
+*/
 
-alter table member change column Mileage mileage int(11);
+insert into member(name, birth, tel, mileage, grade, address) values ('김우빈',now(),0101234567,1200,'gold','서울');
+insert into member(name, birth, tel, mileage, grade, address) values ('김재욱',now(),0101234568,1500,'vip','서울');
+select * from member;
 
-insert into (name, birth, tel, mileage, grade, address) values ('김우빈',now(),0101234567,1200,'gold','서울') from member;
+insert into post values ('42448', '대명로54길','대명동');
+
+insert into sale values (1,1,now(),2,0,0,3,1);
+select * from sale;
+
+delete from sale;
