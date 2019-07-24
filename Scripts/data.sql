@@ -23,7 +23,7 @@ insert into coupon values (1,'생일쿠폰',10);
 select * from coupon;
 
 desc manager;
-insert into manager() values ('test1', password('rootroot'));
+insert into manager values (1, 'test1', password('rootroot'));
 select * from manager;
 
 -- select * from manager where pwd = password('rooroot');
@@ -43,8 +43,7 @@ select * from member;
 
 insert into post values ('42448', '대명로54길','대명동');
 
-insert into sale values (1,1,now(),2,0,0,3,1);
-select * from sale;
-delete from sale;
-
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
+select * from menu;
+
+select * from foodkind;
