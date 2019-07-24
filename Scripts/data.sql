@@ -45,3 +45,7 @@ insert into post values ('42448', '대명로54길','대명동');
 
 insert into sale values (1,1,now(),2,0,0,3,1);
 select * from sale;
+
+
+delete from sale;
+
