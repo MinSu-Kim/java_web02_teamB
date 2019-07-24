@@ -5,6 +5,7 @@ public class Manager {
 	private int id;
 	private int pwd;
 
+	
 	public int getmNo() {
 		return mNo;
 	}

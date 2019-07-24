@@ -6,6 +6,7 @@ public class Food {
 	private String name;
 	private FoodKind fkNo;
 
+	
 	public int getFdNo() {
 		return fdNo;
 	}

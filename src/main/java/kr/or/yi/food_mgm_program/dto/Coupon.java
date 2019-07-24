@@ -4,7 +4,8 @@ public class Coupon {
 	private int cpNo;
 	private String name;
 	private int discount;
-
+	
+	
 	public int getCpNo() {
 		return cpNo;
 	}

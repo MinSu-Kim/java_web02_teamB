@@ -5,6 +5,7 @@ public class Post {
 	private String doro;
 	private String oldDoro;
 
+	
 	public String getZipcode() {
 		return zipcode;
 	}

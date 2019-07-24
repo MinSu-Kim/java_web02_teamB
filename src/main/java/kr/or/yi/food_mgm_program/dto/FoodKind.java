@@ -5,6 +5,7 @@ public class FoodKind {
 	private String name;
 	private Menu menuNo;
 	
+	
 	public int getFkNo() {
 		return fkNo;
 	}

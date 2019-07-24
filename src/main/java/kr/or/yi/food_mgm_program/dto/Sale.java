@@ -12,6 +12,7 @@ public class Sale {
 	private Food fdNo;
 	private Member mbNo;
 
+	
 	public int getNo() {
 		return no;
 	}
