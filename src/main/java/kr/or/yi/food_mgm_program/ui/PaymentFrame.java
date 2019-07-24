@@ -11,16 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
 
 public class PaymentFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
 
 	/**
 	 * Launch the application.
@@ -48,65 +45,15 @@ public class PaymentFrame extends JFrame {
 	private void initComponents() {
 		setTitle("결제화면");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 828, 386);
+		setBounds(100, 100, 1014, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 3, 15, 0));
 
-		JPanel panel = new JPanel();
+		PanelPaymentInfo panel = new PanelPaymentInfo();
 		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JLabel lblNewLabel = new JLabel("총 금액");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel);
-
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
-
-		JLabel lblNewLabel_1 = new JLabel("할인 금액");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_1);
-
-		textField_1 = new JTextField();
-		panel.add(textField_1);
-		textField_1.setColumns(10);
-
-		JLabel lblNewLabel_2 = new JLabel("받을 금액");
-		lblNewLabel_2.setForeground(Color.RED);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_2);
-
-		textField_2 = new JTextField();
-		panel.add(textField_2);
-		textField_2.setColumns(10);
-
-		JLabel lblNewLabel_3 = new JLabel("받은 금액");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_3);
-
-		textField_3 = new JTextField();
-		panel.add(textField_3);
-		textField_3.setColumns(10);
-
-		JLabel lblNewLabel_4 = new JLabel("거스름돈");
-		lblNewLabel_4.setForeground(Color.RED);
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_4);
-
-		textField_4 = new JTextField();
-		panel.add(textField_4);
-		textField_4.setColumns(10);
-
-		JLabel lblNewLabel_5 = new JLabel("할인정보");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_5);
-
-		textField_5 = new JTextField();
-		panel.add(textField_5);
-		textField_5.setColumns(10);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
