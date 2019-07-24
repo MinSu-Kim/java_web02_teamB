@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class PanelSeatOne extends JPanel {
 	private JPanel pOrder;
@@ -21,6 +22,7 @@ public class PanelSeatOne extends JPanel {
 	private JPanel pW;
 	private JPanel pE;
 	private JLabel lblPrice;
+	private JButton btnNumber;
 
 	
 	public PanelSeatOne() {
@@ -41,6 +43,7 @@ public class PanelSeatOne extends JPanel {
 		pC.setLayout(new BorderLayout(0, 0));
 		
 		pCC = new JPanel();
+		pCC.setBackground(Color.WHITE);
 		pCC.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		pC.add(pCC, BorderLayout.CENTER);
 		
@@ -54,28 +57,43 @@ public class PanelSeatOne extends JPanel {
 		pCS.add(lblPrice, BorderLayout.CENTER);
 		
 		pN = new JPanel();
+		pN.setBackground(new Color(205, 133, 63));
 		pOrder.add(pN, BorderLayout.NORTH);
 		
 		pS = new JPanel();
+		pS.setBackground(new Color(205, 133, 63));
 		pOrder.add(pS, BorderLayout.SOUTH);
 		
 		pW = new JPanel();
+		pW.setBackground(new Color(205, 133, 63));
 		pOrder.add(pW, BorderLayout.WEST);
 		pW.setPreferredSize(new Dimension(10, 10));
 		
 		pE = new JPanel();
+		pE.setBackground(new Color(205, 133, 63));
 		pOrder.add(pE, BorderLayout.EAST);
 		pE.setPreferredSize(new Dimension(10, 10));
 		
 		pNumber = new JPanel();
 		pNumber.setBorder(new MatteBorder(2, 2, 2, 0, (Color) new Color(0, 0, 0)));
 		add(pNumber, BorderLayout.WEST);
-		pNumber.setPreferredSize(new Dimension(50, 10));
+		pNumber.setPreferredSize(new Dimension(70, 10));
 		pNumber.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNumber = new JLabel("number");
-		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		pNumber.add(lblNumber, BorderLayout.CENTER);
+		btnNumber = new JButton("no");
+		btnNumber.setBackground(new Color(205, 133, 63));
+		pNumber.add(btnNumber, BorderLayout.CENTER);
+	}
+	
+	public void setSeatNumber(String number) {
+		btnNumber.setText(number);
 	}
 
 }
+
+
+
+
+
+
+
