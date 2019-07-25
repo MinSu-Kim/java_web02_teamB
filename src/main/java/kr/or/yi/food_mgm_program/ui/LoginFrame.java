@@ -95,6 +95,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		}else {
 			MainFrame frame = new MainFrame();
 			frame.setVisible(true);
+			frame.setLoginForm(this);
 			this.setVisible(false);
 		}
 	}
@@ -109,6 +110,9 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		manager.setId(id);
 		manager.setPwd(password);
 		return manager;
+	}
+	public void setVisible() {
+		this.setVisible(true);
 	}
 }
 

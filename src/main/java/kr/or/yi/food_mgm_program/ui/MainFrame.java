@@ -4,6 +4,8 @@ package kr.or.yi.food_mgm_program.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,12 +19,13 @@ import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import javax.swing.JLabel;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JPanel pLogout;
 	private JTabbedPane tabbedPane;
-	
+	private JButton btnLogout;
+	private LoginFrame parent;
 
 	public MainFrame() {
 		initComponents();
@@ -68,11 +71,34 @@ public class MainFrame extends JFrame {
 			
 			panel.add(lblManager);
 			
-			JButton btnLogout = new JButton("로그 아웃");
+			btnLogout = new JButton("로그 아웃");
 			panel.add(btnLogout);
+			btnLogout.addActionListener(this);
 		}
 		
 
 	}
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnLogout) {
+			int a = JOptionPane.showConfirmDialog(null, "로그아웃 하시겠습니까?", "", JOptionPane.YES_NO_OPTION);
+			if(a==0) {
+				this.setVisible(false);
+				parent.setVisible();
+			}else {
+				return;
+			}
+			
+			
+		}
+		
+	}
+	public void setLoginForm(LoginFrame frame) {
+		this.parent = frame;
+	}
 }
+
+
+
+
+
