@@ -114,4 +114,8 @@ public class Member {
 		return String.format("Member [mbNo=%s, name=%s, birth=%s, tel=%s, Mileage=%s, grade=%s, address=%s, coupon=%s]",
 				mbNo, name, birth, tel, Mileage, grade, address, coupon);
 	}
+
+	public Object[] toArray() {
+		return new Object[]{String.format("M%03d", mbNo), name, birth, tel, Mileage, grade, address, coupon};
+	}
 }

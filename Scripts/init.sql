@@ -226,3 +226,9 @@ ALTER TABLE food.sale
 		REFERENCES food.member ( -- 회원
 			mb_no -- 회원번호
 		);
+	
+-- 계정과 권한부여
+grant all privileges 
+on food.* 
+to 'user_food'@'localhost' 
+identified by 'rootroot';
