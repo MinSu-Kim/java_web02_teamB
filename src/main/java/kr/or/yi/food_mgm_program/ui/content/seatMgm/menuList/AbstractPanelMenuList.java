@@ -1,6 +1,7 @@
 package kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -11,9 +12,9 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Menu;
 
-public abstract class AbstractPanelMenuList extends JPanel {
+public abstract class AbstractPanelMenuList extends JPanel implements ActionListener {
 	
-	private List<FoodKind> list;
+	protected List<FoodKind> list;
 	private FoodKindDao dao;
 	private FoodKind foodkind;
 	protected Menu menu;
@@ -29,13 +30,9 @@ public abstract class AbstractPanelMenuList extends JPanel {
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		dao = new FoodKindDaoImpl();
-		
 		setting();
 		
 		foodkind = new FoodKind(menu);
-		
-		
-		
 		
 		list = dao.selectByNo(foodkind);
 		addBtn(list);
@@ -47,6 +44,7 @@ public abstract class AbstractPanelMenuList extends JPanel {
 		for(int i=0; i<list2.size(); i++) {
 			JButton btn = new JButton(list2.get(i).getName());
 			panel.add(btn);
+			btn.addActionListener(this);
 		}
 		
 	}
