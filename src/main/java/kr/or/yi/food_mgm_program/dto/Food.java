@@ -43,5 +43,5 @@ public class Food {
 	public String toString() {
 		return String.format("Food [fdNo=%s, price=%s, name=%s, fkNo=%s]", fdNo, price, name, fkNo);
 	}
-
+	
 }

@@ -26,6 +26,8 @@
 	</environments>
 	
 	<mappers>
-		<package name="kr.or.yi.food_mgm_program.dao"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/FoodKindMapper.xml"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/MenuMapper.xml"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/ManagerMapper.xml"/>
 	</mappers>
 </configuration>

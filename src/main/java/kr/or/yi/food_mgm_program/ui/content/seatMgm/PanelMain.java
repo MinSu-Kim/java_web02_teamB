@@ -8,12 +8,21 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelDrink;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelSide;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.seat.PanelSeat;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import java.awt.Component;
+import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class PanelMain extends JPanel {
+public class PanelMain extends JPanel implements ActionListener {
 
 	private JPanel pC;
 	private JPanel pCC;
@@ -30,14 +39,19 @@ public class PanelMain extends JPanel {
 	private JButton btnSelectCancel;
 	private JButton btnPlus;
 	private JButton btnMinus;
-	private PanelMenuList panel_2;
-	private JPanel panel_3;
+	private JPanel pPayment;
 	private JButton btnPay;
-	private JPanel panel_4;
+	private JPanel pBtn;
 	private JButton btnMainMenu;
 	private JButton btnSide;
 	private JButton btnDrink;
-
+	private JPanel pMenuList;
+	private PanelMenuList pMainMenu;
+	private PanelSide pSideMenu;
+	private PanelDrink pDrink;
+	private CardLayout cards = new CardLayout();
+	
+	
 	
 	public PanelMain() {
 
@@ -71,7 +85,7 @@ public class PanelMain extends JPanel {
 		pPay = new JPanel();
 		pCCC.add(pPay, BorderLayout.WEST);
 		pPay.setLayout(new GridLayout(0, 1, 0, 10));
-		pPay.setPreferredSize(new Dimension(300, 30));
+		pPay.setPreferredSize(new Dimension(500, 30));
 		
 		pOder = new JPanel();
 		pPay.add(pOder);
@@ -100,32 +114,66 @@ public class PanelMain extends JPanel {
 		pPay.add(pMenu);
 		pMenu.setLayout(new BorderLayout(0, 0));
 		
-		panel_4 = new JPanel();
-		pMenu.add(panel_4, BorderLayout.NORTH);
-		panel_4.setLayout(new GridLayout(0, 3, 0, 0));
+		pBtn = new JPanel();
+		pMenu.add(pBtn, BorderLayout.NORTH);
+		pBtn.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		btnMainMenu = new JButton("주메뉴");
-		panel_4.add(btnMainMenu);
+		btnMainMenu.addActionListener(this);
+		pBtn.add(btnMainMenu);
 		
 		btnSide = new JButton("부메뉴");
-		panel_4.add(btnSide);
+		btnSide.addActionListener(this);
+		pBtn.add(btnSide);
 		
 		btnDrink = new JButton("음료");
-		panel_4.add(btnDrink);
+		btnDrink.addActionListener(this);
+		pBtn.add(btnDrink);
 		
-		panel_2 = new PanelMenuList();
-		pMenu.add(panel_2, BorderLayout.CENTER);
-		
-		panel_3 = new JPanel();
-		pMenu.add(panel_3, BorderLayout.SOUTH);
-		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pPayment = new JPanel();
+		pMenu.add(pPayment, BorderLayout.SOUTH);
+		pPayment.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnPay = new JButton("결제");
-		panel_3.add(btnPay);
+		pPayment.add(btnPay);
+		
+		pMenuList = new JPanel();
+		pMenuList.setBorder(new EmptyBorder(5, 0, 0, 0));
+		pMenu.add(pMenuList, BorderLayout.CENTER);
+		pMenuList.setLayout(cards);
+		
+		pMainMenu = new PanelMenuList();
+		pMenuList.add(pMainMenu, "pMain");
+		
+		pSideMenu = new PanelSide();
+		pMenuList.add(pSideMenu, "pSide");
+		
+		pDrink = new PanelDrink();
+		pMenuList.add(pDrink, "pDrink");
 		
 		pS = new JPanel();
 		add(pS, BorderLayout.SOUTH);
 		pS.setPreferredSize(new Dimension(200, 30));
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnMainMenu) {
+			actionPerformedBtnMainMenu(e);
+		}
+		if (e.getSource() == btnSide) {
+			actionPerformedBtnSide(e);
+		}
+		if (e.getSource() == btnDrink) {
+			actionPerformedBtnDrink(e);
+		}
+	}
+	protected void actionPerformedBtnDrink(ActionEvent e) {
+		cards.show(pMenuList, "pDrink");
+	}
+	protected void actionPerformedBtnSide(ActionEvent e) {
+		cards.show(pMenuList, "pSide");
+	}
+	protected void actionPerformedBtnMainMenu(ActionEvent e) {
+		cards.show(pMenuList, "pMain");
+	}
 }

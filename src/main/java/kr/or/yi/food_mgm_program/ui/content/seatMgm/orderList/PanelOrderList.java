@@ -1,4 +1,4 @@
-package kr.or.yi.food_mgm_program.ui.content.seatMgm;
+package kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;

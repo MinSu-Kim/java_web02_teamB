@@ -10,7 +10,7 @@ import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
 
 public class FoodKindDaoImpl implements FoodKindDao {
-	private static final String namespace = "kr.or.yi.food_mgm_program.dao.FoodKindMapper";
+	private String namespace = "kr.or.yi.food_mgm_program.dao.FoodKindMapper";
 	
 	@Override
 	public List<FoodKind> selectByNo(FoodKind foodkind) {

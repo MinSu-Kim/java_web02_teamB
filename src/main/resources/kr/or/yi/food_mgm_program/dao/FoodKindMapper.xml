@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.yi.food_mgm_program.dao.FoodKindMapper">
+	
+	
+	<resultMap type="FoodKind" id="resultFood">
+		<id column="fk_no" property="fkNo"/>
+		<result column="name" property="name"/>
+		<collection property="menuNo" resultMap="kr.or.yi.food_mgm_program.dao.MenuMapper.resultMenu"></collection>
+	</resultMap>
 
-	<select id="selectByNo" parameterType="FoodKind" resultType="FoodKind">
-	 	select name from foodkind where menu_no = #{menuNo}
+
+	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFood">
+	 	select name from foodkind where menu_no = #{menuNo.menuNo}
 	</select>
 </mapper>

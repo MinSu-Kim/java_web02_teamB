@@ -45,5 +45,5 @@ insert into post values ('42448', '대명로54길','대명동');
 
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
-
+select name from foodkind where menu_no =1;
 select * from foodkind;

@@ -18,6 +18,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 
 	public LoginFrame() {
@@ -49,11 +50,15 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		btnNewButton.setBounds(42, 278, 117, 44);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("관리자 로그인");
+		btnNewButton_1 = new JButton("관리자 로그인");
+		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setBounds(169, 278, 123, 44);
 		contentPane.add(btnNewButton_1);
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton_1) {
+			actionPerformedBtnNewButton_1(e);
+		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
@@ -70,6 +75,9 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 	}
 	protected void focusGainedTextField(FocusEvent e) {
 		textField.setText("");
+	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		
 	}
 }
 
