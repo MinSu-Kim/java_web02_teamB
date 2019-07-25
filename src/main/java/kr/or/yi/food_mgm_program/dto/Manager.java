@@ -2,8 +2,8 @@ package kr.or.yi.food_mgm_program.dto;
 
 public class Manager {
 	private int mNo;
-	private int id;
-	private int pwd;
+	private String id;
+	private String pwd;
 
 	
 	public int getmNo() {
@@ -14,19 +14,19 @@ public class Manager {
 		this.mNo = mNo;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getPwd() {
+	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(int pwd) {
+	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
 
