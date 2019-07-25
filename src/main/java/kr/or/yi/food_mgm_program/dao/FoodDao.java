@@ -9,4 +9,5 @@ public interface FoodDao {
 	int insertFood(Food food);
 	List<Food> selectByNo(Food food);
 	int updateFood(Food food);
+	public List<Food> selectByFkNo(Food food);
 }

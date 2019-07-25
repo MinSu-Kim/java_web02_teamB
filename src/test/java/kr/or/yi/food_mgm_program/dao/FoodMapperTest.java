@@ -37,27 +37,39 @@ public class FoodMapperTest extends AbstractTest {
 	}
 	
 	@Test
-	public void test02InsertFood() {
+	public void test02SelectByFkNo() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Food food = new Food(75, 1000, "공기밥", new FoodKind(1));
-		int res = foodDao.insertFood(food);
-		Assert.assertEquals(1, res);
+		Food food = new Food();
+		food.setFkNo(new FoodKind(1));
+		List<Food> list = foodDao.selectByFkNo(food);
+		log.debug(list.toString());
+		Assert.assertNotNull(list);
 	}
 	
-	@Test
-	public void test03SelectByNo() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Food selfood = new Food(1);
-		List<Food> lists = foodDao.selectByNo(selfood);
-		log.debug(lists.toString());
-		Assert.assertNotNull(lists);
-	}
+//	@Test
+//	public void test02InsertFood() {
+//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+//		Food food = new Food(75, 1000, "공기밥", new FoodKind(1));
+//		int res = foodDao.insertFood(food);
+//		Assert.assertEquals(1, res);
+//	}
+//	
+//	@Test
+//	public void test03SelectByNo() {
+//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+//		Food selfood = new Food(1);
+//		List<Food> lists = foodDao.selectByNo(selfood);
+//		log.debug(lists.toString());
+//		Assert.assertNotNull(lists);
+//	}
+//	
+//	@Test
+//	public void test04UpdateFood() {
+//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+//		Food food = new Food(75, 2000, "공기밥", new FoodKind(2));
+//		int res = foodDao.updateFood(food);
+//		Assert.assertEquals(1, res);
+//	}
 	
-	@Test
-	public void test04UpdateFood() {
-		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Food food = new Food(75, 2000, "공기밥", new FoodKind(2));
-		int res = foodDao.updateFood(food);
-		Assert.assertEquals(1, res);
-	}
+	
 }

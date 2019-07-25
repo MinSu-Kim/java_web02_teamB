@@ -23,11 +23,15 @@
 	</insert>
 	
 	<select id="selectByNo" resultType="Food" parameterType="Food">
-		select name, price from food where fk_no = #{fdNo}
+		select name, price from food where fk_no = #{fdNo} <!-- 변지영 -->
 	</select>
 	
 	<update id="updateFood">
 		update food set price = #{price} where name = #{name}
 	</update>
+	
+	<select id="selectByFkNo" parameterType="Food" resultMap="resultFood">
+		select name, price from food where fk_no = #{fkNo}
+	</select>
 </mapper>
 

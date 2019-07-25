@@ -50,3 +50,4 @@ select name from foodkind where menu_no =1;
 select * from foodkind;
 select * from manager where pwd = password('rootroot');
 select * from manager where id='jongho1227' and pwd = password('whdgh123');
+
