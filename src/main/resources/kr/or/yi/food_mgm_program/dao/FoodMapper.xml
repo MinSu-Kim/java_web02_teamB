@@ -27,7 +27,7 @@
 	</select>
 	
 	<update id="updateFood">
-		update food set price = #{price} where name = #{name}
+		update food set price = #{price}, fk_no = #{fkNo.fkNo} where name = #{name}
 	</update>
 </mapper>
 
