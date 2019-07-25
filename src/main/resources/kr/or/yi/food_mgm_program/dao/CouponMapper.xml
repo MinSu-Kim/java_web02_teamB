@@ -9,7 +9,7 @@
 	
 	<resultMap type="Coupon" id="resultCouponBJY">
 		<id column="cp_no" property="cpNo"/>
-		<result column="cp_name" property="name"/>
+		<result column="name" property="name"/>
 		<result column="cp_discount" property="discount"/>
 	</resultMap>
 </mapper>

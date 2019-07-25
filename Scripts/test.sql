@@ -38,3 +38,20 @@ from sale s left join food f on s.fd_no = f.fd_no
 group by s.fd_no
 order by ssTotalPrice desc) sub1
 cross join (select @rank:=0) sub2;
+
+
+select name, count, price, ssTotalPrice, round(ssTotalPrice/sum(ssTotalPrice) * 100,1) as percent
+from(
+	select f.name as name, sum(order_cnt) as count, f.price as price, sum(order_cnt*f.price) as ssTotalPrice
+	from sale s left join food f on s.fd_no = f.fd_no
+	group by s.fd_no
+) sub1
+group by sub1.price
+order by ssTotalPrice desc;
+
+
+
+
+
+
+

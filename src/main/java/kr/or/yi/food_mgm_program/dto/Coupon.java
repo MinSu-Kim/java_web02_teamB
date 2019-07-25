@@ -5,7 +5,14 @@ public class Coupon {
 	private String name;
 	private int discount;
 	
+	public Coupon() {
+		// TODO Auto-generated constructor stub
+	}
 	
+	public Coupon(int cpNo) {
+		this.cpNo = cpNo;
+	}
+
 	public int getCpNo() {
 		return cpNo;
 	}

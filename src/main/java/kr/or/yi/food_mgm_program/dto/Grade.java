@@ -3,8 +3,15 @@ package kr.or.yi.food_mgm_program.dto;
 public class Grade {
 	private String grade;
 	private int discount;
-
 	
+	public Grade() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Grade(String grade) {
+		this.grade = grade;
+	}
+
 	public String getGrade() {
 		return grade;
 	}

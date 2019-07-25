@@ -17,8 +17,31 @@
 	</resultMap>
 	
 	<select id="selectMemberByAll" resultMap="resultMemberBJY">
-		select m.mb_no, m.name, birth, tel, Mileage, grade, address, c.cp_no, m.name as cp_name, discount as cp_discount
-		from member m join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
+		select m.mb_no, m.name, birth, tel, Mileage, grade, address, c.cp_no, c.name, discount as cp_discount
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		insert into member(name, birth, tel, Mileage, grade, address) 
+		values (#{name},#{birth},#{tel},#{Mileage},#{grade.grade},#{address})
+	</insert>
+	
+	<select id="selectMemberByTel" resultType="Member" parameterType="Member">
+		select * from member where right(tel,8) like concat('%',#{tel},'%')
+	</select>
+	
+	<update id="updateMember" parameterType="Member">
+		update member set Mileage = #{mileage}, grade = #{grade.grade}, address = #{address} where mb_no = #{mbNo};		
+	</update>
+	
+	<delete id="deleteMember" parameterType="Member">
+		delete from member where mb_no = #{mbNo}
+	</delete>
+
+	<select id="selectMemberByNo" resultType="Member" parameterType="Member">
+		select m.name, g.grade, g.discount as g_discount, m.Mileage, c.name, c.discount as cp_discount
+		from member m join grade g on m.grade = g.grade join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
+		where m.mb_no = #{mbNo}
 	</select>
 	
 </mapper>

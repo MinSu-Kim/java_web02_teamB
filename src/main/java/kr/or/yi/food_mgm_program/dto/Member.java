@@ -13,6 +13,24 @@ public class Member {
 	private String address;
 	private List<Coupon> coupon;
 	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Member(int mbNo) {
+		this.mbNo = mbNo;
+	}
+
+	public Member(String name, Date birth, String tel, int mileage, Grade grade, String address, List<Coupon> coupon) {
+		this.name = name;
+		this.birth = birth;
+		this.tel = tel;
+		Mileage = mileage;
+		this.grade = grade;
+		this.address = address;
+		this.coupon = coupon;
+	}
+
 	public int getMbNo() {
 		return mbNo;
 	}
