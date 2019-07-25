@@ -6,4 +6,5 @@ import kr.or.yi.food_mgm_program.dto.Member;
 
 public interface MemberDao {
 	public List<Member> selectMemberByAll();
+	
 }

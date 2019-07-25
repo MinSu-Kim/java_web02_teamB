@@ -60,4 +60,12 @@ public class FoodDaoTest extends AbstractTest {
 		int res = foodDao.updateFood(food);
 		Assert.assertEquals(1, res);
 	}
+	
+	@Test
+	public void test05DeleteFood() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Food food = new Food(75);
+		int res = foodDao.deletFood(food);
+		Assert.assertEquals(1, res);
+	}
 }

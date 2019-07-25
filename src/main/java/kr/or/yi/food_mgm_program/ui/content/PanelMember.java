@@ -11,7 +11,7 @@ import kr.or.yi.food_mgm_program.ui.list.memberList;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import kr.or.yi.food_mgm_program.ui.insert.InsertMember;
+import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
 
 public class PanelMember extends JPanel {
@@ -31,7 +31,7 @@ public class PanelMember extends JPanel {
 		add(pInsert);
 		pInsert.setLayout(new BorderLayout(0, 0));
 		
-		InsertMember pMember = new InsertMember();
+		PanelMemberInfo pMember = new PanelMemberInfo();
 		pMember.setBorder(new EmptyBorder(30, 0, 0, 0));
 		pInsert.add(pMember, BorderLayout.CENTER);
 		

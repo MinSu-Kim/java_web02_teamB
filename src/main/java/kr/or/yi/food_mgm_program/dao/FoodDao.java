@@ -9,4 +9,5 @@ public interface FoodDao {
 	public int insertFood(Food food);
 	public List<Food> selectByNo(Food food);
 	public int updateFood(Food food);
+	public int deletFood(Food food);
 }

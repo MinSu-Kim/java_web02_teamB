@@ -9,7 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
 
-public class InsertMember extends JPanel {
+public class PanelMemberInfo extends JPanel {
 	private JTextField tfId;
 	private JTextField tfName;
 	private JTextField tfTel;
@@ -20,7 +20,7 @@ public class InsertMember extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public InsertMember() {
+	public PanelMemberInfo() {
 
 		initComponents();
 	}

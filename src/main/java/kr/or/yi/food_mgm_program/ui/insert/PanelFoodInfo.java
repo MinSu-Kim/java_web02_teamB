@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.border.EmptyBorder;
 
-public class InsertFood extends JPanel {
+public class PanelFoodInfo extends JPanel {
 	private JComboBox tfKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
@@ -16,7 +16,7 @@ public class InsertFood extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public InsertFood() {
+	public PanelFoodInfo() {
 
 		initComponents();
 	}

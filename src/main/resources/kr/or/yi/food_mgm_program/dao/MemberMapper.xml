@@ -13,7 +13,7 @@
 	
 	<resultMap type="Member" id="resultMemberBJY" extends="resultMember">
 		<association property="grade" resultMap="kr.or.yi.food_mgm_program.dao.GradeMapper.resultGrade"/>
-		<collection property="coupon" resultMap="kr.or.yi.food_mgm_program.dao.CouponMapper.resultCouponBJY"></collection>
+		<collection property="coupon" resultMap="kr.or.yi.food_mgm_program.dao.CouponMapper.resultCouponBJY"/>
 	</resultMap>
 	
 	<select id="selectMemberByAll" resultMap="resultMemberBJY">

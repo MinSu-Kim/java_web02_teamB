@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<select id="selectFoodByAll" resultMap="resultFoodBJY">
-		select f.name, f.price, fk.name from food f join foodkind fk on f.fk_no = fk.fk_no
+		select f.fd_no, f.name, f.price, fk.name from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
 	
 	<insert id="insertFood" parameterType="Food">
@@ -23,11 +23,15 @@
 	</insert>
 	
 	<select id="selectByNo" resultType="Food" parameterType="Food">
-		select name, price from food where fk_no = #{fkNo.fkNo}
+		select fd_no, name, price from food where fk_no = #{fkNo.fkNo}
 	</select>
 	
-	<update id="updateFood">
+	<update id="updateFood" parameterType="Food">
 		update food set price = #{price}, fk_no = #{fkNo.fkNo} where name = #{name}
 	</update>
+	
+	<delete id="deletFood" parameterType="Food">
+		delete from food where fd_no = #{fdNo};
+	</delete>
 </mapper>
 

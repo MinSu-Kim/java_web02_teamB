@@ -42,5 +42,14 @@ public class FoodDaoImpl implements FoodDao {
 			return res;
 		}
 	}
+
+	@Override
+	public int deletFood(Food food) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.delete(namespace + ".deletFood", food);
+			sqlSession.commit();
+			return res;
+		}
+	}
 	
 }

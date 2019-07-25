@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import javax.swing.JLabel;
-import kr.or.yi.food_mgm_program.ui.insert.InsertFood;
+import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import java.awt.Component;
 import javax.swing.border.EmptyBorder;
 
@@ -32,7 +32,7 @@ public class PanelFood extends JPanel {
 		JLabel label_1 = new JLabel("");
 		pInsert.setLayout(new BoxLayout(pInsert, BoxLayout.X_AXIS));
 		
-		InsertFood pFood = new InsertFood();
+		PanelFoodInfo pFood = new PanelFoodInfo();
 		GridLayout gl_pFood = (GridLayout) pFood.getLayout();
 		gl_pFood.setHgap(10);
 		pInsert.add(pFood);
