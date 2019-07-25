@@ -9,12 +9,12 @@ import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
 public class MemberDaoImpl implements MemberDao {
-	private String namespace = "kr.or.yi.food_mgm_program.dao.MemberMapper.";
+	private String namespace = "kr.or.yi.food_mgm_program.dao.MemberMapper";
 	
 	@Override
 	public List<Member> selectMemberByAll() {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + "selectMemberByAll");
+			return sqlSession.selectList(namespace + ".selectMemberByAll");
 		}
 	}
 
