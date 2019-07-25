@@ -39,7 +39,7 @@ public class FoodMapperTest extends AbstractTest {
 	@Test
 	public void test02SelectByFkNo() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Food food = new Food();
+	Food food = new Food();
 		food.setFkNo(new FoodKind(1));
 		List<Food> list = foodDao.selectByFkNo(food);
 		log.debug(list.toString());
