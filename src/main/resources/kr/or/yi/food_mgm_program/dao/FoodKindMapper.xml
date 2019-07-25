@@ -13,7 +13,7 @@
 		<association property="menuNo" resultMap="kr.or.yi.food_mgm_program.dao.MenuMapper.resultMenu"></association>
 	</resultMap>
 
-	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFood2">
+	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFoodKind">
 	 	select name from foodkind where menu_no = #{menuNo.menuNo}
 	</select>
 </mapper>

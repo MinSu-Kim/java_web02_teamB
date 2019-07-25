@@ -4,18 +4,31 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.FoodMapper">
 
 	<resultMap type="Food" id="resultFood">
-		<id property="fdNo" column="fd_no"
+		<id property="fdNo" column="fd_no"/>
 		<result property="price" column="price" />
 		<result property="name" column="name" />
 	</resultMap>
 	
-	<resultMap type="Food" id="resultFoodKCM" extends="resultFood">
-		<association property="fkNo" resultMap="kr.or.yi.food_mgm_program.dao.FoodKindMapper.resultFoodKindKCM"></association>
+	
+	<resultMap type="Food" id="resultFoodBJY" extends="resultFood">
+		<association property="fkNo" resultMap="kr.or.yi.food_mgm_program.dao.FoodKindMapper.resultFoodKind"/>
 	</resultMap>
 	
-	<select id="selectFoodByAll" resultMap="foodResult">
-		select f.name, f.price, fk.fk_no from food f join foodkind fk on f.fk_no = fk.fk_no
+	<select id="selectFoodByAll" resultMap="resultFoodBJY">
+		select f.name, f.price, fk.name from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
-	 
+
+	
+	<insert id="insertFood" parameterType="Food">
+		insert into food values (#{fdNo},#{price},#{name},#{fkNo.fkNo})
+	</insert>
+	
+	<select id="selectByNo" resultType="Food" parameterType="Food">
+		select name, price from food where fk_no = #{fdNo}
+	</select>
+	
+	<update id="updateFood">
+		update food set price = #{price} where name = #{name}
+	</update>
 </mapper>
 

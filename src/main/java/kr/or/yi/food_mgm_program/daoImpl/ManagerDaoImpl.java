@@ -9,10 +9,11 @@ import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 public class ManagerDaoImpl implements ManagerDao {
 	private String namespace = "kr.or.yi.food_mgm_program.dao.ManagerMapper";
 	
+
 	@Override
-	public Manager selectById(Manager manager) {
+	public Manager selectByPass(Manager manager) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
-			return sqlSession.selectOne(namespace+".selectById", manager);
+			return sqlSession.selectOne(namespace+".selectByPass", manager);
 		}
 	}
 }
