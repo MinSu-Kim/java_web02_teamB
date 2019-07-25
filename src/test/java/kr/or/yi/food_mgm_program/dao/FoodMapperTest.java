@@ -10,17 +10,17 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import kr.or.yi.food_mgm_program.AbstractTest;
-import kr.or.yi.food_mgm_program.daoImpl.FoodMapperImpl;
+import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FoodMapperTest extends AbstractTest {
-	private static FoodMapper foodDao;
+	private static FoodDao foodDao;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		foodDao = new FoodMapperImpl();
+		foodDao = new FoodDaoImpl();
 	}
 
 	@AfterClass
@@ -29,18 +29,35 @@ public class FoodMapperTest extends AbstractTest {
 	}
 
 	@Test
-	public void test01selectFoodByAll() {
+	public void test01SelectFoodByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Food> lists = foodDao.selectFoodByAll();
 		log.debug(lists.toString());
 		Assert.assertNotNull(lists);
 	}
 	
-//	@Test
-//	public void test02InsertFood() {
-//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-//		Food food = new Food(75, 1000, "공기밥", new FoodKind(1));
-//		int res = foodDao.insertFood(food);
-//		Assert.assertEquals(1, res);
-//	}
+	@Test
+	public void test02InsertFood() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Food food = new Food(75, 1000, "공기밥", new FoodKind(1));
+		int res = foodDao.insertFood(food);
+		Assert.assertEquals(1, res);
+	}
+	
+	@Test
+	public void test03SelectByNo() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Food selfood = new Food(1);
+		List<Food> lists = foodDao.selectByNo(selfood);
+		log.debug(lists.toString());
+		Assert.assertNotNull(lists);
+	}
+	
+	@Test
+	public void test04UpdateFood() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Food food = new Food(75, 2000, "공기밥", new FoodKind(2));
+		int res = foodDao.updateFood(food);
+		Assert.assertEquals(1, res);
+	}
 }

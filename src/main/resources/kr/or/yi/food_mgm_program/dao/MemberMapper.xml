@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.food_mgm_program.dao.MemberMapper">
+	
+	<resultMap type="Member" id="resultMember">
+		<id column="mb_no" property="mbNo"/>
+		<result column="name" property="name"/>
+		<result column="birth" property="birth"/>
+		<result column="tel" property="tel"/>
+		<result column="Mileage" property="Mileage"/>
+		<result column="address" property="address"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="resultMemberBJY" extends="resultMember">
+		<association property="grade" resultMap="kr.or.yi.food_mgm_program.dao.GradeMapper.resultGrade"/>
+		<collection property="coupon" resultMap="kr.or.yi.food_mgm_program.dao.CouponMapper.resultCouponBJY"></collection>
+	</resultMap>
+	
+	<select id="selectMemberByAll" resultMap="resultMemberBJY">
+		select m.mb_no, m.name, birth, tel, Mileage, grade, address, c.cp_no, m.name as cp_name, discount as cp_discount
+		from member m join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
+	</select>
+	
+</mapper>
