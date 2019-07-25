@@ -11,6 +11,7 @@ import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import javax.swing.JLabel;
 import kr.or.yi.food_mgm_program.ui.insert.InsertFood;
 import java.awt.Component;
+import javax.swing.border.EmptyBorder;
 
 public class PanelFood extends JPanel {
 	private JTextField textField;
@@ -37,23 +38,24 @@ public class PanelFood extends JPanel {
 		pInsert.add(pFood);
 		
 		JPanel pBtn = new JPanel();
+		pBtn.setBorder(new EmptyBorder(0, 0, 0, 30));
 		pInsert.add(pBtn);
 		pBtn.setLayout(new BoxLayout(pBtn, BoxLayout.Y_AXIS));
 		
-		JButton btnNewButton = new JButton("추가");
-		pBtn.add(btnNewButton);
+		JButton btnAdd = new JButton("추가");
+		pBtn.add(btnAdd);
 		
-		JButton btnNewButton_1 = new JButton("취소");
-		pBtn.add(btnNewButton_1);
+		JButton btnCancel = new JButton("취소");
+		pBtn.add(btnCancel);
 		
 		
 		
-		JPanel panel_1 = new JPanel();
-		add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel pList = new JPanel();
+		add(pList);
+		pList.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pSearch = new JPanel();
-		panel_1.add(pSearch, BorderLayout.NORTH);
+		pList.add(pSearch, BorderLayout.NORTH);
 		pSearch.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		textField = new JTextField();
@@ -63,8 +65,8 @@ public class PanelFood extends JPanel {
 		JButton btnNewButton_2 = new JButton("검색");
 		pSearch.add(btnNewButton_2);
 		
-		FoodList pList = new FoodList((String) null);
-		panel_1.add(pList, BorderLayout.CENTER);
+		FoodList pFoodList = new FoodList((String) null);
+		pList.add(pFoodList, BorderLayout.CENTER);
 	}
 
 }

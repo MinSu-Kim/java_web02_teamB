@@ -7,16 +7,15 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.border.EmptyBorder;
 
 public class InsertMember extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JPanel pN;
-	private JPanel pS;
-	private JPanel pC;
-	private JTextField textField_5;
+	private JTextField tfId;
+	private JTextField tfName;
+	private JTextField tfTel;
+	private JTextField tfBirth;
+	private JPanel pMember;
+	private JTextField tfAddr;
 
 	/**
 	 * Create the panel.
@@ -27,56 +26,50 @@ public class InsertMember extends JPanel {
 	}
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
+		pMember = new JPanel();
+		pMember.setBorder(new EmptyBorder(50, 0, 50, 10));
+		add(pMember, BorderLayout.CENTER);
+		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
-		pN = new JPanel();
-		add(pN, BorderLayout.NORTH);
-		pN.setPreferredSize(new Dimension(100, 70));
-		pS = new JPanel();
-		add(pS, BorderLayout.SOUTH);
-		pS.setPreferredSize(new Dimension(100, 30));
-		pC = new JPanel();
-		add(pC, BorderLayout.CENTER);
-		pC.setLayout(new GridLayout(0, 2, 10, 15));
+		JLabel lblId = new JLabel("아이디");
+		pMember.add(lblId);
+		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel label = new JLabel("아이디");
-		pC.add(label);
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfId = new JTextField();
+		pMember.add(tfId);
+		tfId.setColumns(10);
 		
-		textField = new JTextField();
-		pC.add(textField);
-		textField.setColumns(10);
+		JLabel lblName = new JLabel("이름");
+		pMember.add(lblName);
+		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel label_1 = new JLabel("이름");
-		pC.add(label_1);
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfName = new JTextField();
+		pMember.add(tfName);
+		tfName.setColumns(10);
 		
-		textField_1 = new JTextField();
-		pC.add(textField_1);
-		textField_1.setColumns(10);
+		JLabel lblTel = new JLabel("전화번호");
+		pMember.add(lblTel);
+		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel label_2 = new JLabel("전화번호");
-		pC.add(label_2);
-		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfTel = new JTextField();
+		pMember.add(tfTel);
+		tfTel.setColumns(10);
 		
-		textField_2 = new JTextField();
-		pC.add(textField_2);
-		textField_2.setColumns(10);
+		JLabel lblBirth = new JLabel("생년월일");
+		pMember.add(lblBirth);
+		lblBirth.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel label_3 = new JLabel("생년월일");
-		pC.add(label_3);
-		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		tfBirth = new JTextField();
+		pMember.add(tfBirth);
+		tfBirth.setColumns(10);
 		
-		textField_3 = new JTextField();
-		pC.add(textField_3);
-		textField_3.setColumns(10);
+		JLabel lblAddr = new JLabel("주소");
+		pMember.add(lblAddr);
+		lblAddr.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JLabel label_4 = new JLabel("주소");
-		pC.add(label_4);
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		textField_5 = new JTextField();
-		pC.add(textField_5);
-		textField_5.setColumns(10);
+		tfAddr = new JTextField();
+		pMember.add(tfAddr);
+		tfAddr.setColumns(10);
 	}
 
 }

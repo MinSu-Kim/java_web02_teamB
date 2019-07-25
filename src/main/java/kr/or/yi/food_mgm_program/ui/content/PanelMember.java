@@ -12,9 +12,10 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import kr.or.yi.food_mgm_program.ui.insert.InsertMember;
+import javax.swing.border.EmptyBorder;
 
 public class PanelMember extends JPanel {
-	private JTextField textField_5;
+	private JTextField tfSearch;
 
 	/**
 	 * Create the panel.
@@ -26,52 +27,47 @@ public class PanelMember extends JPanel {
 	private void initComponents() {
 		setLayout(new GridLayout(1, 0, 20, 0));
 		
-		JPanel panel = new JPanel();
-		add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		JPanel pInsert = new JPanel();
+		add(pInsert);
+		pInsert.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_6 = new JPanel();
-		panel.add(panel_6, BorderLayout.NORTH);
-		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		InsertMember pMember = new InsertMember();
+		pMember.setBorder(new EmptyBorder(30, 0, 0, 0));
+		pInsert.add(pMember, BorderLayout.CENTER);
 		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3, BorderLayout.SOUTH);
-		panel_3.setLayout(new BorderLayout(0, 0));
+		JPanel pBtns = new JPanel();
+		pInsert.add(pBtns, BorderLayout.SOUTH);
+		pBtns.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_7 = new JPanel();
-		panel_3.add(panel_7, BorderLayout.NORTH);
+		JPanel pBtn = new JPanel();
+		pBtn.setBorder(new EmptyBorder(0, 0, 40, 0));
+		pBtns.add(pBtn, BorderLayout.NORTH);
 		
-		JButton btnNewButton = new JButton("가입");
-		panel_7.add(btnNewButton);
+		JButton btnJoin = new JButton("가입");
+		pBtn.add(btnJoin);
 		
-		JButton btnNewButton_1 = new JButton("취소");
-		panel_7.add(btnNewButton_1);
+		JButton btnCancel = new JButton("취소");
+		pBtn.add(btnCancel);
 		
-		JPanel panel_8 = new JPanel();
-		panel_3.add(panel_8, BorderLayout.SOUTH);
-		panel_8.setPreferredSize(new Dimension(1, 30));
-		
-		InsertMember panel_2 = new InsertMember();
-		panel.add(panel_2, BorderLayout.CENTER);
-		
-		JPanel panel_1 = new JPanel();
-		add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel pList = new JPanel();
+		add(pList);
+		pList.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new EmptyBorder(0, 0, 0, 10));
 		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		panel_1.add(panel_4, BorderLayout.NORTH);
+		pList.add(panel_4, BorderLayout.NORTH);
 		
-		textField_5 = new JTextField();
-		panel_4.add(textField_5);
-		textField_5.setColumns(30);
+		tfSearch = new JTextField();
+		panel_4.add(tfSearch);
+		tfSearch.setColumns(30);
 		
-		JButton btnNewButton_2 = new JButton("검색");
-		panel_4.add(btnNewButton_2);
+		JButton btnSearch = new JButton("검색");
+		panel_4.add(btnSearch);
 		
-		memberList panel_5 = new memberList((String) null);
-		panel_1.add(panel_5, BorderLayout.CENTER);
+		memberList pMemberList = new memberList((String) null);
+		pList.add(pMemberList, BorderLayout.CENTER);
 	}
 
 }

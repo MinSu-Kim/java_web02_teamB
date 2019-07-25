@@ -5,7 +5,13 @@ public class Food {
 	private int price;
 	private String name;
 	private FoodKind fkNo;
-
+	
+	public Food(int fdNo, int price, String name, FoodKind fkNo) {
+		this.fdNo = fdNo;
+		this.price = price;
+		this.name = name;
+		this.fkNo = fkNo;
+	}
 	
 	public int getFdNo() {
 		return fdNo;
