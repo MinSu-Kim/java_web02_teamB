@@ -3,15 +3,19 @@
 
 <mapper namespace="kr.or.yi.food_mgm_program.dao.FoodMapper">
 
-	<resultMap type="Food" id="foodResult">
+	<resultMap type="Food" id="resultFood">
+		<id property="fdNo" column="fd_no"
 		<result property="price" column="price" />
 		<result property="name" column="name" />
-		<result property="fkNo.fkNo" column="fk_no" />
+	</resultMap>
+	
+	<resultMap type="Food" id="resultFoodKCM" extends="resultFood">
+		<association property="fkNo" resultMap="kr.or.yi.food_mgm_program.dao.FoodKindMapper.resultFoodKindKCM"></association>
 	</resultMap>
 	
 	<select id="selectFoodByAll" resultMap="foodResult">
 		select f.name, f.price, fk.fk_no from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
-	
+	 
 </mapper>
 

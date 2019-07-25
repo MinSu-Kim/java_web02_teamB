@@ -1,3 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.yi.food_mgm_program.dao.SaleMapper"></mapper>
+<mapper namespace="kr.or.yi.food_mgm_program.dao.SaleMapper">
+	<resultMap type="Sale" id="resultSale">
+		<id column="no" property="no" />
+		<result column="sale_no" property="saleNo" />
+		<result column="sale-time" property="saletime" />
+		<result column="order_cnt" property="orderCnt" />
+		<result column="order_kind" property="orderKind" />
+	</resultMap>
+
+
+	<resultMap type="Sale" id="resultSaleKCM" extends="resultSale">
+		<association property="fdNo"
+			resultMap="kr.or.yi.food_mgm_program.dao.FoodMapper.resultFoodKCM"></association>
+		<association property="mbNo"
+			resultMap="kr.or.yi.food_mgm_program.dao.ManagerMapper.">
+		</association>
+	</resultMap>
+	
+	<insert id="insertSale" parameterType="map">
+        insert into sale(sale_no, sale_time, order_cnt, order_kind, sale_type, mb_no, fd_no)
+        values
+        <foreach collection="list" item="item" separator=" , ">
+            (#{item.sale_no}, #{item.sale_time}.#{item.order_cnt},#{item.order_cnt},#{item.sale_type},#{item.mb_no.mb_no},#{item.fd_no.fd_no})
+        </foreach>
+ 	</insert>
+ 	
+ 	<select id="selectSaleByAll" resultMap="resultSaleKCM">
+ 		select no,sale_no, sale_time, order_cnt, order_kind, sale_type, mb_no, fd_no 
+ 		from sale
+ 	</select>
+	
+	
+</mapper>
+
+

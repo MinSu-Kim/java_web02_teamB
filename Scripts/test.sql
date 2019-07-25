@@ -38,3 +38,9 @@ from sale s left join food f on s.fd_no = f.fd_no
 group by s.fd_no
 order by ssTotalPrice desc) sub1
 cross join (select @rank:=0) sub2;
+
+select * from sale;
+
+select *
+from sale s left join food f on s.fd_no = f.fd_no
+where s.sale_no = 1;
