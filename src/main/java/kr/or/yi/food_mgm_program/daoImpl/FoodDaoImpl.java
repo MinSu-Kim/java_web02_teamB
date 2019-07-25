@@ -9,19 +9,19 @@ import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
 public class FoodDaoImpl implements FoodDao {
-	private String namespace = "kr.or.yi.food_mgm_program.dao.FoodMapper.";
+	private String namespace = "kr.or.yi.food_mgm_program.dao.FoodMapper";
 	
 	@Override
 	public List<Food> selectFoodByAll() {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + "selectFoodByAll");
+			return sqlSession.selectList(namespace + ".selectFoodByAll");
 		}
 	}
 	
 	@Override
 	public int insertFood(Food food) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			int res = sqlSession.insert(namespace + "insertFood", food);
+			int res = sqlSession.insert(namespace + ".insertFood", food);
 			sqlSession.commit();
 			return res;
 		}
@@ -30,17 +30,19 @@ public class FoodDaoImpl implements FoodDao {
 	@Override
 	public List<Food> selectByNo(Food food) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + "selectByNo", food);
+			return sqlSession.selectList(namespace + ".selectByNo", food);
 		}
 	}
 
 	@Override
 	public int updateFood(Food food) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			int res = sqlSession.update(namespace + "updateFood", food);
+			int res = sqlSession.update(namespace + ".updateFood", food);
 			sqlSession.commit();
 			return res;
 		}
 	}
+
+	
 	
 }

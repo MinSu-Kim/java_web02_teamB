@@ -15,7 +15,7 @@ import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FoodMapperTest extends AbstractTest {
+public class FoodDaoTest extends AbstractTest {
 	private static FoodDao foodDao;
 	
 	@BeforeClass
@@ -47,7 +47,7 @@ public class FoodMapperTest extends AbstractTest {
 	@Test
 	public void test03SelectByNo() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		Food selfood = new Food(1);
+		Food selfood = new Food(new FoodKind(1));
 		List<Food> lists = foodDao.selectByNo(selfood);
 		log.debug(lists.toString());
 		Assert.assertNotNull(lists);

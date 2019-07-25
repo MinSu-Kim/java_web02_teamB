@@ -23,6 +23,7 @@ public class PanelSeatOne extends JPanel {
 	private JPanel pE;
 	private JLabel lblPrice;
 	private JButton btnNumber;
+	private JLabel lblNewLabel;
 
 	
 	public PanelSeatOne() {
@@ -46,6 +47,12 @@ public class PanelSeatOne extends JPanel {
 		pCC.setBackground(Color.WHITE);
 		pCC.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		pC.add(pCC, BorderLayout.CENTER);
+		pCC.setLayout(new BorderLayout(0, 0));
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setText("갈비탕<br>스테이크");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pCC.add(lblNewLabel, BorderLayout.CENTER);
 		
 		pCS = new JPanel();
 		pC.add(pCS, BorderLayout.SOUTH);

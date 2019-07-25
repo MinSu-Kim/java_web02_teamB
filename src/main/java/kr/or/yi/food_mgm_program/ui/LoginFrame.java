@@ -26,6 +26,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 	private JButton btnLogin;
 	private JButton btnMLogin;
 	private ManagerDao dao;
+	public static Manager manager;
 
 	public LoginFrame() {
 		dao = new ManagerDaoImpl();
@@ -42,6 +43,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		contentPane.setLayout(null);
 		
 		tfId = new JTextField();
+		tfId.setText("jongho1227");
 		
 		tfId.addFocusListener(this);
 		
@@ -50,6 +52,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		tfId.setColumns(10);
 		
 		pfPass = new JPasswordField();
+		pfPass.setText("whdgh123");
 		pfPass.setBounds(42, 195, 250, 44);
 		contentPane.add(pfPass);
 		
@@ -82,16 +85,18 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		
 	}
 	protected void focusGainedTextField(FocusEvent e) {
-		tfId.setText("");
+		
 	}
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
-		Manager manager = inputManager(); // 입력한 정보
-		Manager manager1 = dao.selectByPass(manager);
-		if(manager1 == null) {
+
+		manager = dao.selectByPass(inputManager());
+		if(manager == null) {
 			JOptionPane.showMessageDialog(null, "아이디가 없거나 비밀번호가 일치하지 않습니다.");
 		}else {
 			MainFrame frame = new MainFrame();
 			frame.setVisible(true);
+			frame.setLoginForm(this);
+			this.setVisible(false);
 		}
 	}
 	
@@ -106,6 +111,9 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		manager.setId(id);
 		manager.setPwd(password);
 		return manager;
+	}
+	public void setVisible() {
+		this.setVisible(true);
 	}
 }
 

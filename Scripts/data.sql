@@ -13,6 +13,7 @@ fields terminated by ',';
 update food set fd_no = 1 where fd_no = 0;
 
 select * from food;
+delete from food where fd_no = 75;
 
 desc grade;
 insert into grade values ('vip',15),('gold',10),('silver',5);
@@ -50,3 +51,4 @@ select name from foodkind where menu_no =1;
 select * from foodkind;
 select * from manager where pwd = password('rootroot');
 select * from manager where id='jongho1227' and pwd = password('whdgh123');
+

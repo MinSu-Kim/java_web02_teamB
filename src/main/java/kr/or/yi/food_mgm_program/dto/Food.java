@@ -10,10 +10,15 @@ public class Food {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Food(FoodKind fkNo) {
+		this.fkNo = fkNo;
+	}
+
 	public Food(int fdNo) {
 		this.fdNo = fdNo;
 	}
 
+	
 	public Food(int fdNo, int price, String name, FoodKind fkNo) {
 		this.fdNo = fdNo;
 		this.price = price;

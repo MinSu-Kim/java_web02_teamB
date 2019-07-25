@@ -5,8 +5,10 @@ import java.util.List;
 import kr.or.yi.food_mgm_program.dto.Food;
 
 public interface FoodDao {
-	List<Food> selectFoodByAll();
-	int insertFood(Food food);
-	List<Food> selectByNo(Food food);
-	int updateFood(Food food);
+
+	public List<Food> selectFoodByAll();
+	public int insertFood(Food food);
+	public List<Food> selectByNo(Food food);
+	public int updateFood(Food food);
+
 }
