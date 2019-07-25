@@ -6,11 +6,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.border.EmptyBorder;
 
 public class InsertFood extends JPanel {
-	private JComboBox textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JComboBox tfKind;
+	private JTextField tfName;
+	private JTextField tfPrice;
 
 	/**
 	 * Create the panel.
@@ -20,30 +21,31 @@ public class InsertFood extends JPanel {
 		initComponents();
 	}
 	private void initComponents() {
+		setBorder(new EmptyBorder(10, 10, 10, 20));
 		setLayout(new GridLayout(0, 2, 20, 10));
 		
-		JLabel lblNewLabel = new JLabel("음식 종류");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(lblNewLabel);
+		JLabel lblKind = new JLabel("음식 종류");
+		lblKind.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(lblKind);
 		
-		textField = new JComboBox();
-		add(textField);
+		tfKind = new JComboBox();
+		add(tfKind);
 		
-		JLabel label = new JLabel("음식명");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label);
+		JLabel lblName = new JLabel("음식명");
+		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(lblName);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		add(textField_1);
+		tfName = new JTextField();
+		tfName.setColumns(10);
+		add(tfName);
 		
-		JLabel label_1 = new JLabel("가격");
-		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(label_1);
+		JLabel lblPrice = new JLabel("가격");
+		lblPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(lblPrice);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		add(textField_2);
+		tfPrice = new JTextField();
+		tfPrice.setColumns(10);
+		add(tfPrice);
 	}
 
 }

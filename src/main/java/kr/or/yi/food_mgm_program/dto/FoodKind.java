@@ -5,8 +5,6 @@ public class FoodKind {
 	private String name;
 	private Menu menuNo;
 	
-	
-	
 	public FoodKind() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -30,6 +28,7 @@ public class FoodKind {
 		this.name = name;
 		this.menuNo = menuNo;
 	}
+
 
 
 	public int getFkNo() {

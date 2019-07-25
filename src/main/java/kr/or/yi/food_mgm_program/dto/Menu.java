@@ -4,6 +4,7 @@ public class Menu {
 	private int menuNo;
 	private String menuKind;
 	
+
 	
 	public Menu() {
 		super();
