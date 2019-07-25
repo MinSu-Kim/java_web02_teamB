@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.food_mgm_program.dao.CouponMapper">
+	<resultMap type="Coupon" id="resultCoupon">
+		<id column="cp_no" property="cpNo"/>
+		<result column="name" property="name"/>
+		<result column="discount" property="discount"/>
+	</resultMap>
+	
+	<resultMap type="Coupon" id="resultCouponBJY">
+		<id column="cp_no" property="cpNo"/>
+		<result column="cp_name" property="name"/>
+		<result column="cp_discount" property="discount"/>
+	</resultMap>
+</mapper>

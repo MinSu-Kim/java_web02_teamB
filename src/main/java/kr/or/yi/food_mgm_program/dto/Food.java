@@ -6,6 +6,14 @@ public class Food {
 	private String name;
 	private FoodKind fkNo;
 	
+	public Food() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Food(int fdNo) {
+		this.fdNo = fdNo;
+	}
+
 	public Food(int fdNo, int price, String name, FoodKind fkNo) {
 		this.fdNo = fdNo;
 		this.price = price;
