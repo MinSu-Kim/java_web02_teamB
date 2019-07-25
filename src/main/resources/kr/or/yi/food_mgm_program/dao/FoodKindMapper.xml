@@ -6,9 +6,12 @@
 	<resultMap type="FoodKind" id="resultFoodKind">
 		<id column="fk_no" property="fkNo"/>
 		<result column="name" property="name"/>
-		<collection property="menuNo" resultMap="kr.or.yi.food_mgm_program.dao.MenuMapper.resultMenu"></collection>
+		
 	</resultMap>
-
+	
+	<resultMap type="FoodKind" id="resultFoodKindKCM" extends="resultFoodKind">
+		<association property="menuNo" resultMap="kr.or.yi.food_mgm_program.dao.MenuMapper.resultMenu"></association>
+	</resultMap>
 
 	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFoodKind">
 	 	select name, fk_no from foodkind where menu_no = #{menuNo.menuNo}
