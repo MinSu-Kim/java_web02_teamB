@@ -26,6 +26,7 @@ public class PanelMenuList extends AbstractPanelMenuList {
 		for(FoodKind fk : list) {
 			if(e.getActionCommand().equals(fk.getName())) {
 				JOptionPane.showMessageDialog(null, e.getActionCommand());
+				JOptionPane.showMessageDialog(null, fk.toString());
 				actionPerformedBtn(fk);
 			}
 		}
@@ -34,8 +35,10 @@ public class PanelMenuList extends AbstractPanelMenuList {
 	}
 
 	private void actionPerformedBtn(FoodKind fk) {
-		
-		
+		food.setFkNo(fk);
+		JOptionPane.showMessageDialog(null, food.toString());
+		Fdao.selectByNo(food);
+		JOptionPane.showMessageDialog(null, (Fdao.selectByNo(food)).toString());
 	}
 
 	

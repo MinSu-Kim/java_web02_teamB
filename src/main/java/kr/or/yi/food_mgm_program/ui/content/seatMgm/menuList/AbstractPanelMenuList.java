@@ -7,8 +7,11 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import kr.or.yi.food_mgm_program.dao.FoodDao;
 import kr.or.yi.food_mgm_program.dao.FoodKindDao;
+import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Menu;
 
@@ -17,6 +20,8 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	protected List<FoodKind> list;
 	private FoodKindDao dao;
 	private FoodKind foodkind;
+	protected Food food;
+	protected FoodDao Fdao;
 	protected Menu menu;
 	protected JPanel panel;
 	
@@ -30,6 +35,8 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		dao = new FoodKindDaoImpl();
+		Fdao = new FoodDaoImpl();
+		food = new Food();
 		setting();
 		
 		foodkind = new FoodKind(menu);
