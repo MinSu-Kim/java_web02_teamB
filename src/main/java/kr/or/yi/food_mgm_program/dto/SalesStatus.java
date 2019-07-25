@@ -5,13 +5,13 @@ public class SalesStatus {
 	private String ssName;
 	private int ssCount;
 	private int ssTotalPrice;
-	private int ssShare;
+	private double ssShare;
 
 	public SalesStatus() {
 		super();
 	}
 
-	public SalesStatus(int ssNo, String ssName, int ssCount, int ssTotalPrice, int ssShare) {
+	public SalesStatus(int ssNo, String ssName, int ssCount, int ssTotalPrice, double ssShare) {
 		super();
 		this.ssNo = ssNo;
 		this.ssName = ssName;
@@ -52,7 +52,7 @@ public class SalesStatus {
 		this.ssTotalPrice = ssTotalPrice;
 	}
 
-	public int getSsShare() {
+	public double getSsShare() {
 		return ssShare;
 	}
 

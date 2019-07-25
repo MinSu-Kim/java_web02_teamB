@@ -20,6 +20,13 @@ public class SaleDaoImpl implements SaleDao {
 			return sqlSession.selectList(namespace + "selectSaleByAll");
 		}
 	}
+	
+	@Override
+	public List<Sale> selectSaleByDate(String date) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + "selectSaleByDate",date);
+		}
+	}
 
 	@Override
 	public List<SalesStatus> selectSalesStatusByAll() {
@@ -29,19 +36,21 @@ public class SaleDaoImpl implements SaleDao {
 	}
 
 	@Override
-	public List<SalesStatus> selectSalesStatusByDate(Date date) {
+	public List<SalesStatus> selectSalesStatusByDate(String date) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
 			return sqlSession.selectList(namespace + "selectSalesStatusByDate",date);
 		}
 	}
 
 	@Override
-	public int insertSale(Map<String, Object> map) {
+	public int insertSale(Map<String, List<Sale>> map) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
 			int res = sqlSession.insert(namespace + "insertSale", map);
 			sqlSession.commit();
 			return res;
 		}
 	}
+
+	
 	
 }

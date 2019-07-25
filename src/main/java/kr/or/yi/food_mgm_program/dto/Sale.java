@@ -13,6 +13,38 @@ public class Sale {
 	private Member mbNo;
 
 	
+	public Sale() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Sale(int saleNo, Date saletime, int orderCnt, boolean orderKind, int saleType, Food fdNo, Member mbNo) {
+		super();
+		this.saleNo = saleNo;
+		this.saletime = saletime;
+		this.orderCnt = orderCnt;
+		this.orderKind = orderKind;
+		this.saleType = saleType;
+		this.fdNo = fdNo;
+		this.mbNo = mbNo;
+	}
+
+
+	public Sale(int no, int saleNo, Date saletime, int orderCnt, boolean orderKind, int saleType, Food fdNo,
+			Member mbNo) {
+		super();
+		this.no = no;
+		this.saleNo = saleNo;
+		this.saletime = saletime;
+		this.orderCnt = orderCnt;
+		this.orderKind = orderKind;
+		this.saleType = saleType;
+		this.fdNo = fdNo;
+		this.mbNo = mbNo;
+	}
+
+
 	public int getNo() {
 		return no;
 	}
@@ -66,7 +98,7 @@ public class Sale {
 	public String toString() {
 		return String.format(
 				"Sale [no=%s, saleNo=%s, saletime=%s, orderCnt=%s, orderKind=%s, saleType=%s, fdNo=%s, mbNo=%s]", no,
-				saleNo, saletime, orderCnt, orderKind, saleType, fdNo, mbNo);
+				saleNo, saletime, orderCnt, orderKind, saleType, fdNo.getName(), mbNo.getName());
 	}
 
 }

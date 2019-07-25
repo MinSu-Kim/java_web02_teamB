@@ -94,6 +94,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 			frame.setVisible(true);
 		}
 	}
+	
 	public Manager inputManager() {
 		String id = tfId.getText();
 		char[] pass = pfPass.getPassword();
