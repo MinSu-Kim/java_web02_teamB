@@ -30,7 +30,7 @@ public class SaleDaoTest extends AbstractTest{
 		dao = null;
 	}
 
-	//@Test
+	@Test
 	public void test01selectSaleByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Sale> lists = dao.selectSaleByAll();
