@@ -18,6 +18,7 @@ import kr.or.yi.food_mgm_program.dto.Manager;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends JFrame implements ActionListener, FocusListener {
 
 	private JPanel contentPane;

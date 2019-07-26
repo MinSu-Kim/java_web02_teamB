@@ -28,7 +28,7 @@ public class FoodDaoTest extends AbstractTest {
 		foodDao = null;
 	}
 
-	@Test
+	//@Test
 	public void test01SelectFoodByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Food> lists = foodDao.selectFoodByAll();
@@ -36,7 +36,7 @@ public class FoodDaoTest extends AbstractTest {
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test02InsertFood() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Food food = new Food(75, 1000, "공기밥", new FoodKind(1));
@@ -44,7 +44,7 @@ public class FoodDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test03SelectByNo() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Food selfood = new Food(new FoodKind(1));
@@ -53,7 +53,7 @@ public class FoodDaoTest extends AbstractTest {
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test04UpdateFood() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Food food = new Food(75, 2000, "공기밥", new FoodKind(2));
@@ -61,7 +61,7 @@ public class FoodDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test05DeleteFood() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Food food = new Food(75);

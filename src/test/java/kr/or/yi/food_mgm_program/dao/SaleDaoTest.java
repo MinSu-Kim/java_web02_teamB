@@ -30,7 +30,7 @@ public class SaleDaoTest extends AbstractTest{
 		dao = null;
 	}
 
-	@Test
+	//@Test
 	public void test01selectSaleByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Sale> lists = dao.selectSaleByAll();
@@ -38,7 +38,7 @@ public class SaleDaoTest extends AbstractTest{
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test02selectSaleByDate() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Sale> lists = dao.selectSaleByDate("2019-07-24");
@@ -46,7 +46,7 @@ public class SaleDaoTest extends AbstractTest{
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test04selectSalesStatusByDate() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<SalesStatus> lists = dao.selectSalesStatusByDate("2019-07-24");
@@ -54,7 +54,7 @@ public class SaleDaoTest extends AbstractTest{
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test03selectSalesStatusByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<SalesStatus> lists = dao.selectSalesStatusByAll();

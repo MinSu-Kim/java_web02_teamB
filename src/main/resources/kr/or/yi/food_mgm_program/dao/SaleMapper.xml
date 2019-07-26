@@ -36,8 +36,8 @@
  	</insert>
  	
  	<select id="selectSaleByAll" resultMap="resultSaleKCM">
- 		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.name, m.name
-		from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no;
+ 		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.name,m.name
+		from sale s left join food food on s.fd_no = food.fd_no join member as m on s.mb_no = m.mb_no;
  	</select>
 	
 	<select id="selectSaleByDate" resultMap="resultSaleKCM">

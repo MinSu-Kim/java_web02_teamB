@@ -17,8 +17,11 @@ import javax.swing.border.EmptyBorder;
 import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
+
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -48,7 +51,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			PanelMain pSeat = new PanelMain();
 			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 			
-			JPanel pSale = new JPanel();
+			JPanel pSale = new PanelSaleList();
 			tabbedPane.addTab("매출 관리", null, pSale, null);
 			
 			PanelMember pMember = new PanelMember();
