@@ -21,7 +21,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	private FoodKindDao dao;
 	private FoodKind foodkind;
 	protected Food food;
-	protected FoodDao Fdao;
+	protected FoodDao fDao;
 	protected Menu menu;
 	protected JPanel panel;
 	
@@ -35,7 +35,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		dao = new FoodKindDaoImpl();
-		Fdao = new FoodDaoImpl();
+		fDao = new FoodDaoImpl();
 		food = new Food();
 		setting();
 		

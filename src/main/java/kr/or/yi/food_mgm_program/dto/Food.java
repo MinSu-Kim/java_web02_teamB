@@ -1,10 +1,15 @@
 package kr.or.yi.food_mgm_program.dto;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+
 public class Food {
 	private int fdNo;
 	private int price;
 	private String name;
 	private FoodKind fkNo;
+	private int count = 1;
 	
 	public Food() {
 		// TODO Auto-generated constructor stub
@@ -26,6 +31,14 @@ public class Food {
 		this.fkNo = fkNo;
 	}
 	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 	public int getFdNo() {
 		return fdNo;
 	}
@@ -63,8 +76,15 @@ public class Food {
 		return String.format("Food [fdNo=%s, price=%s, name=%s, fkNo=%s]", fdNo, price, name, fkNo);
 	}
 
+	/*
+	 * public Object[] toArray() { return new Object[]{fkNo.getName() ,
+	 * String.format("F%03d", fdNo), name, price};
+	 */
 	public Object[] toArray() {
-		return new Object[]{fkNo.getName() , String.format("F%03d", fdNo), name, price};
+		NumberFormat formatter = new DecimalFormat("###,###");
+		String price = formatter.format(this.price);
+		String total = formatter.format(this.price*this.count);
+		return new Object[]{name, price, count, total };
 	}
 	
 }

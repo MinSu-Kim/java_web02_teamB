@@ -17,7 +17,10 @@
 	<select id="selectFoodByAll" resultMap="resultFoodBJY">
 		select f.fd_no, f.name, f.price, fk.name from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
-
+	
+	<select id="selectByName" resultMap="resultFoodBJY">
+		select * from food where name = #{name}
+	</select>
 	
 	<insert id="insertFood" parameterType="Food">
 		insert into food values (#{fdNo},#{price},#{name},#{fkNo.fkNo})

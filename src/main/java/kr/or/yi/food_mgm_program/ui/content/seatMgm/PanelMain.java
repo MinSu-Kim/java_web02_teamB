@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
 public class PanelMain extends JPanel implements ActionListener {
 
@@ -33,7 +34,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	private JPanel pPay;
 	private JPanel pOder;
 	private JPanel pMenu;
-	private JPanel panel;
+	private PanelOrderList panel;
 	private JPanel panel_1;
 	private JButton btnAllCancel;
 	private JButton btnSelectCancel;
@@ -91,7 +92,7 @@ public class PanelMain extends JPanel implements ActionListener {
 		pPay.add(pOder);
 		pOder.setLayout(new BorderLayout(0, 0));
 		
-		panel = new JPanel();
+		panel = new PanelOrderList();
 		pOder.add(panel, BorderLayout.CENTER);
 		
 		panel_1 = new JPanel();
