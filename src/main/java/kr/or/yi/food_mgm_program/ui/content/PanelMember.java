@@ -32,6 +32,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JButton btnJoin;
 	private JButton btnCancel;
 	private JButton btnSearch;
+	private JButton btnList;
 
 	public PanelMember() {
 		dao = new MemberDaoImpl();
@@ -89,6 +90,11 @@ public class PanelMember extends JPanel implements ActionListener {
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		panel_4.add(btnSearch);
 		
+		btnList = new JButton("전체보기");
+		btnList.addActionListener(this);
+		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
+		panel_4.add(btnList);
+		
 		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
 		reloadList();
@@ -102,6 +108,9 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnList) {
+			actionPerformedBtnList(e);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
@@ -127,7 +136,13 @@ public class PanelMember extends JPanel implements ActionListener {
 		Member member = new Member();
 		member.setMbTel(tfSearch.getText());
 		
-		dao.selectMemberByTel(member);
-		JOptionPane.showMessageDialog(null, member);
+		list = dao.selectMemberByTel(member);
+		pMemberList.setItemList(list);
+		pMemberList.reloadData();
+	}
+	
+	protected void actionPerformedBtnList(ActionEvent e) {
+		reloadList();
+		tfSearch.setText("");
 	}
 }

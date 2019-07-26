@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -39,6 +40,8 @@ public class PanelFood extends JPanel implements ActionListener {
 
 	private PanelFoodInfo pFood;
 	public DefaultComboBoxModel<FoodKind> fkModels;
+	private JButton btnSearch;
+	private JButton btnList;
 	
 	public PanelFood() {
 		fDao = new FoodDaoImpl();
@@ -92,9 +95,15 @@ public class PanelFood extends JPanel implements ActionListener {
 		pSearch.add(tfSearch);
 		tfSearch.setColumns(30);
 		
-		JButton btnSearch = new JButton("검색");
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnSearch);
+		
+		btnList = new JButton("전체보기");
+		btnList.addActionListener(this);
+		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
+		pSearch.add(btnList);
 		
 		pFoodList = new FoodList((String) null);
 		pList.add(pFoodList, BorderLayout.CENTER);
@@ -108,6 +117,12 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnList) {
+			actionPerformedBtnList(e);
+		}
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
 		if (e.getSource() == btnCancel) {
 			actionPerformedBtnCancel(e);
 		}
@@ -124,5 +139,19 @@ public class PanelFood extends JPanel implements ActionListener {
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		pFood.clearFoodInfo();
+	}
+	
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		Food food = new Food();
+		food.setFdName(tfSearch.getText());
+		
+		fList = fDao.selectByName(food);
+		pFoodList.setItemList(fList);
+		pFoodList.reloadData();
+	}
+	
+	protected void actionPerformedBtnList(ActionEvent e) {
+		reloadList();
+		tfSearch.setText("");
 	}
 }

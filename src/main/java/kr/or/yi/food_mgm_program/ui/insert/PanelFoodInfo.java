@@ -20,7 +20,6 @@ public class PanelFoodInfo extends JPanel {
 	public JComboBox<FoodKind> cmbKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
-	public DefaultComboBoxModel<FoodKind> fkModels;
 
 	public PanelFoodInfo() {
 		initComponents();
@@ -30,7 +29,7 @@ public class PanelFoodInfo extends JPanel {
 		setBorder(new EmptyBorder(10, 10, 10, 20));
 		setLayout(new GridLayout(0, 2, 20, 10));
 		
-		JLabel lblKind = new JLabel("음식 종류000");
+		JLabel lblKind = new JLabel("음식 종류");
 		lblKind.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblKind);
 		
@@ -55,7 +54,7 @@ public class PanelFoodInfo extends JPanel {
 	}
 	
 	public void setFoodKindCmbModel(List<FoodKind> fkList) {
-		fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
+		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
 		cmbKind.setModel(fkModels);
 	}
 	

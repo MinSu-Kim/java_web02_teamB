@@ -50,4 +50,6 @@ group by s.fd_no
 order by ssTotalPrice desc;
 
 select * from manager;
+select * from `member`;
 
+delete from member where mb_no = 3;

@@ -27,7 +27,7 @@
 	</insert>
 	
 	<select id="selectMemberByTel" resultType="Member" parameterType="Member">
-		select * from member where right(mb_tel,8) like concat('%',#{mb_tel},'%')
+		select * from member where right(mb_tel,8) like concat('%',#{mbTel},'%')
 	</select>
 	
 	<update id="updateMember" parameterType="Member">

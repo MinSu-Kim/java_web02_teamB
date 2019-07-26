@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dto.Member;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class PanelMemberInfo extends JPanel {
@@ -36,42 +37,57 @@ public class PanelMemberInfo extends JPanel {
 		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
 		JLabel lblId = new JLabel("아이디");
+		lblId.setBorder(new EmptyBorder(0, 0, 0, 20));
+		lblId.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(lblId);
 		lblId.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		tfId = new JTextField();
+		tfId.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(tfId);
 		tfId.setColumns(10);
 		
 		JLabel lblName = new JLabel("이름");
+		lblName.setBorder(new EmptyBorder(0, 0, 0, 20));
+		lblName.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(lblName);
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		tfName = new JTextField();
+		tfName.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(tfName);
 		tfName.setColumns(10);
 		
 		JLabel lblTel = new JLabel("전화번호");
+		lblTel.setBorder(new EmptyBorder(0, 0, 0, 20));
+		lblTel.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(lblTel);
 		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		tfTel = new JTextField();
+		tfTel.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(tfTel);
 		tfTel.setColumns(10);
 		
 		JLabel lblBirth = new JLabel("생년월일");
+		lblBirth.setBorder(new EmptyBorder(0, 0, 0, 20));
+		lblBirth.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(lblBirth);
 		lblBirth.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		tfBirth = new JTextField();
+		tfBirth.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(tfBirth);
 		tfBirth.setColumns(10);
 		
 		JLabel lblAddr = new JLabel("주소");
+		lblAddr.setBorder(new EmptyBorder(0, 0, 0, 20));
+		lblAddr.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(lblAddr);
 		lblAddr.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		tfAddr = new JTextField();
+		tfAddr.setFont(new Font("굴림", Font.PLAIN, 18));
 		pMember.add(tfAddr);
 		tfAddr.setColumns(10);
 	}
