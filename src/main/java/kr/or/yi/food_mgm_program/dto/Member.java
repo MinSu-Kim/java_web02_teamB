@@ -22,18 +22,6 @@ public class Member {
 		super();
 		this.mbNo = mbNo;
 	}
-
-	public Member(int mbNo, String name, Date birth, String tel, int mileage, Grade grade, String address, List<Coupon> coupon) {
-		super();
-		this.mbNo = mbNo;
-		this.name = name;
-		this.birth = birth;
-		this.tel = tel;
-		Mileage = mileage;
-		this.grade = grade;
-		this.address = address;
-		this.coupon = coupon;
-	}
 	
 	public Member(String name, Date birth, String tel, int mileage, Grade grade, String address, List<Coupon> coupon) {
 		this.name = name;
@@ -45,6 +33,14 @@ public class Member {
 		this.coupon = coupon;
 	}
 	
+	public Member(int mbNo, String name, Date birth, String tel, String address) {
+		this.mbNo = mbNo;
+		this.name = name;
+		this.birth = birth;
+		this.tel = tel;
+		this.address = address;
+	}
+
 	public int getMbNo() {
 		return mbNo;
 	}
@@ -116,6 +112,10 @@ public class Member {
 	}
 
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), name, birth, tel, Mileage, grade, address, coupon};
+		return new Object[]{String.format("M%03d", mbNo), name, String.format("%tF", birth), tel, address};
+	}
+	
+	public Object[] toArray2() {
+		return new Object[]{String.format("M%03d", mbNo), name, String.format("%tF", birth), tel, Mileage, String.format("%s", grade.getGrade()), address};
 	}
 }

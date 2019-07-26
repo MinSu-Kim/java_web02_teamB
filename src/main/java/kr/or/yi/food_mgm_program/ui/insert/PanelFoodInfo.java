@@ -1,15 +1,17 @@
 package kr.or.yi.food_mgm_program.ui.insert;
 
-import javax.swing.JPanel;
 import java.awt.GridLayout;
+
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class PanelFoodInfo extends JPanel {
-	private JComboBox tfKind;
+	private JComboBox cmbKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
 
@@ -28,8 +30,8 @@ public class PanelFoodInfo extends JPanel {
 		lblKind.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblKind);
 		
-		tfKind = new JComboBox();
-		add(tfKind);
+		cmbKind = new JComboBox();
+		add(cmbKind);
 		
 		JLabel lblName = new JLabel("음식명");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -47,5 +49,9 @@ public class PanelFoodInfo extends JPanel {
 		tfPrice.setColumns(10);
 		add(tfPrice);
 	}
-
+	
+	public void clearFoodInfo() {
+		cmbKind.setSelectedIndex(-1);
+		
+	}
 }
