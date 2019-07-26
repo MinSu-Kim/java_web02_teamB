@@ -15,19 +15,17 @@ import kr.or.yi.food_mgm_program.daoImpl.MenuDaoImpl;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Menu;
 
-public class FoodKindTest extends AbstractTest {
+public class FoodKindDaoTest extends AbstractTest {
 	private static FoodKindDao dao;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		dao = new FoodKindDaoImpl();
-	
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		dao = null;
-		
 	}
 
 	@Test

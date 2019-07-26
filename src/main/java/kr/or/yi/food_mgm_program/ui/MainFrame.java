@@ -35,7 +35,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	private void initComponents() {
 		if(LoginFrame.manager!=null) {
-			JOptionPane.showMessageDialog(null, LoginFrame.manager.getId()+"님 환영합니다.");
+			JOptionPane.showMessageDialog(null, LoginFrame.manager.getMgId()+"님 환영합니다.");
 			setResizable(false);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(50, 100, 1800, 800);
@@ -68,7 +68,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			JPanel panel = new JPanel();
 			pLogout.add(panel, BorderLayout.EAST);
 			
-			JLabel lblManager = new JLabel("관리자["+LoginFrame.manager.getId()+"]");
+			JLabel lblManager = new JLabel("관리자["+LoginFrame.manager.getMgId()+"]");
 			lblManager.setForeground(Color.magenta);
 			lblManager.setFont(new Font("궁서", Font.BOLD, 18));
 			

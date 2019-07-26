@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Member {
 	private int mbNo;
-	private String name;
-	private Date birth;
-	private String tel;
-	private int Mileage;
-	private Grade grade;
-	private String address;
+	private String mbName;
+	private Date mbBirth;
+	private String mbTel;
+	private int mbMileage;
+	private Grade mbGrade;
+	private String mbAddress;
 	private List<Coupon> coupon;
 
 	public Member() {
@@ -23,22 +23,23 @@ public class Member {
 		this.mbNo = mbNo;
 	}
 	
-	public Member(String name, Date birth, String tel, int mileage, Grade grade, String address, List<Coupon> coupon) {
-		this.name = name;
-		this.birth = birth;
-		this.tel = tel;
-		Mileage = mileage;
-		this.grade = grade;
-		this.address = address;
+	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, int mbMileage, Grade mbGrade, String mbAddress, List<Coupon> coupon) {
+		this.mbNo = mbNo;
+		this.mbName = mbName;
+		this.mbBirth = mbBirth;
+		this.mbTel = mbTel;
+		this.mbMileage = mbMileage;
+		this.mbGrade = mbGrade;
+		this.mbAddress = mbAddress;
 		this.coupon = coupon;
 	}
 	
-	public Member(int mbNo, String name, Date birth, String tel, String address) {
+	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, String mbAddress) {
 		this.mbNo = mbNo;
-		this.name = name;
-		this.birth = birth;
-		this.tel = tel;
-		this.address = address;
+		this.mbName = mbName;
+		this.mbBirth = mbBirth;
+		this.mbTel = mbTel;
+		this.mbAddress = mbAddress;
 	}
 
 	public int getMbNo() {
@@ -49,52 +50,52 @@ public class Member {
 		this.mbNo = mbNo;
 	}
 
-	public String getName() {
-		return name;
+	public String getMbName() {
+		return mbName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMbName(String mbName) {
+		this.mbName = mbName;
 	}
 
-	public Date getBirth() {
-		return birth;
+	public Date getMbBirth() {
+		return mbBirth;
 	}
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
+	public void setMbBirth(Date mbBirth) {
+		this.mbBirth = mbBirth;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getMbTel() {
+		return mbTel;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setMbTel(String mbTel) {
+		this.mbTel = mbTel;
 	}
 
-	public int getMileage() {
-		return Mileage;
+	public int getMbMileage() {
+		return mbMileage;
 	}
 
-	public void setMileage(int mileage) {
-		Mileage = mileage;
+	public void setMbMileage(int mbMileage) {
+		this.mbMileage = mbMileage;
 	}
 
-	public Grade getGrade() {
-		return grade;
+	public Grade getMbGrade() {
+		return mbGrade;
 	}
 
-	public void setGrade(Grade grade) {
-		this.grade = grade;
+	public void setMbGrade(Grade mbGrade) {
+		this.mbGrade = mbGrade;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getMbAddress() {
+		return mbAddress;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setMbAddress(String mbAddress) {
+		this.mbAddress = mbAddress;
 	}
 
 	public List<Coupon> getCoupon() {
@@ -104,18 +105,21 @@ public class Member {
 	public void setCoupon(List<Coupon> coupon) {
 		this.coupon = coupon;
 	}
-
+	
 	@Override
 	public String toString() {
-		return String.format("Member [mbNo=%s, name=%s, birth=%s, tel=%s, Mileage=%s, grade=%s, address=%s, coupon=%s]",
-				mbNo, name, birth, tel, Mileage, grade, address, coupon);
+		final int maxLen = 10;
+		return String.format(
+				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s]",
+				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
+				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null);
 	}
 
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), name, String.format("%tF", birth), tel, address};
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress};
 	}
 	
 	public Object[] toArray2() {
-		return new Object[]{String.format("M%03d", mbNo), name, String.format("%tF", birth), tel, Mileage, String.format("%s", grade.getGrade()), address};
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbMileage, String.format("%s", mbGrade.getGrade()), mbAddress};
 	}
 }

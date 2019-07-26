@@ -87,10 +87,10 @@ public class PanelMemberInfo extends JPanel {
 	
 	public void setMember(Member member) {
 		tfId.setText(String.format("%03d", member.getMbNo()));
-		tfName.setText(member.getName());
-		tfTel.setText(member.getTel());
-		tfBirth.setText(String.format("%tF", member.getBirth()));
-		tfAddr.setText(member.getAddress());
+		tfName.setText(member.getMbName());
+		tfTel.setText(member.getMbTel());
+		tfBirth.setText(String.format("%tF", member.getMbBirth()));
+		tfAddr.setText(member.getMbAddress());
 	}
 	
 	public Member getMember() {

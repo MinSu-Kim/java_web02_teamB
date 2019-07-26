@@ -3,13 +3,13 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.CouponMapper">
 	<resultMap type="Coupon" id="resultCoupon">
 		<id column="cp_no" property="cpNo"/>
-		<result column="name" property="name"/>
-		<result column="discount" property="discount"/>
+		<result column="cp_name" property="cpName"/>
+		<result column="cp_discount" property="cpDiscount"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="resultCouponBJY">
 		<id column="cp_no" property="cpNo"/>
-		<result column="name" property="name"/>
-		<result column="cp_discount" property="discount"/>
+		<result column="cp_name" property="cpName"/>
+		<result column="cp_discount2" property="cpDiscount"/>
 	</resultMap>
 </mapper>

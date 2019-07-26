@@ -4,9 +4,9 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.FoodMapper">
 
 	<resultMap type="Food" id="resultFood">
-		<id property="fdNo" column="fd_no"/>
-		<result property="price" column="price" />
-		<result property="name" column="name" />
+		<id column="fd_no" property="fdNo"/>
+		<result column="fd_price" property="fdPrice"/>
+		<result column="fd_name" property="fdName"/>
 	</resultMap>
 	
 	
@@ -15,23 +15,23 @@
 	</resultMap>
 	
 	<select id="selectFoodByAll" resultMap="resultFoodBJY">
-		select f.fd_no, f.name, f.price, fk.name from food f join foodkind fk on f.fk_no = fk.fk_no
+		select f.fd_no, f.fd_name, f.fd_price, fk.fk_name from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
 	
 	<select id="selectByName" resultMap="resultFoodBJY">
-		select * from food where name = #{name}
+		select * from food where fd_name = #{fdName}
 	</select>
 	
 	<insert id="insertFood" parameterType="Food">
-		insert into food values (#{fdNo},#{price},#{name},#{fkNo.fkNo})
+		insert into food values (#{fdNo},#{fdPrice},#{fdName},#{fkNo.fkNo})
 	</insert>
 	
 	<select id="selectByNo" resultType="Food" parameterType="Food">
-		select fd_no, name, price from food where fk_no = #{fkNo.fkNo}
+		select fd_no, fd_name, fd_price from food where fk_no = #{fkNo.fkNo}
 	</select>
 	
 	<update id="updateFood" parameterType="Food">
-		update food set price = #{price}, fk_no = #{fkNo.fkNo} where name = #{name}
+		update food set price = #{fdPrice}, fk_no = #{fkNo.fkNo} where fd_name = #{fdName}
 	</update>
 	
 	<delete id="deletFood" parameterType="Food">

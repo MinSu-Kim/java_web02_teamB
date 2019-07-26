@@ -109,8 +109,8 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 			password+=cha;
 		}
 		Manager manager = new Manager();
-		manager.setId(id);
-		manager.setPwd(password);
+		manager.setMgId(id);
+		manager.setMgPwd(password);
 		return manager;
 	}
 	public void setVisible() {

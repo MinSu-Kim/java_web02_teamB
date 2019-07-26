@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 
 public class Food {
 	private int fdNo;
-	private int price;
-	private String name;
+	private int fdPrice;
+	private String fdName;
 	private FoodKind fkNo;
+	
 	private int count = 1;
 	
 	public Food() {
@@ -22,12 +23,11 @@ public class Food {
 	public Food(int fdNo) {
 		this.fdNo = fdNo;
 	}
-
 	
-	public Food(int fdNo, int price, String name, FoodKind fkNo) {
+	public Food(int fdNo, int fdPrice, String fdName, FoodKind fkNo) {
 		this.fdNo = fdNo;
-		this.price = price;
-		this.name = name;
+		this.fdPrice = fdPrice;
+		this.fdName = fdName;
 		this.fkNo = fkNo;
 	}
 	
@@ -47,20 +47,20 @@ public class Food {
 		this.fdNo = fdNo;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getFdPrice() {
+		return fdPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setFdPrice(int fdPrice) {
+		this.fdPrice = fdPrice;
 	}
 
-	public String getName() {
-		return name;
+	public String getFdName() {
+		return fdName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFdName(String fdName) {
+		this.fdName = fdName;
 	}
 
 	public FoodKind getFkNo() {
@@ -73,18 +73,19 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return String.format("Food [fdNo=%s, price=%s, name=%s, fkNo=%s]", fdNo, price, name, fkNo);
+		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo, count);
 	}
 
 	/*
 	 * public Object[] toArray() { return new Object[]{fkNo.getName() ,
 	 * String.format("F%03d", fdNo), name, price};
 	 */
+	
 	public Object[] toArray() {
 		NumberFormat formatter = new DecimalFormat("###,###");
-		String price = formatter.format(this.price);
-		String total = formatter.format(this.price*this.count);
-		return new Object[]{name, price, count, total };
+		String price = formatter.format(this.fdPrice);
+		String total = formatter.format(this.fdPrice*this.count);
+		return new Object[]{fdName, price, count, total };
 	}
 	
 }
