@@ -52,6 +52,7 @@ public class PanelSaleList extends JPanel   {
 
 		panel.add(datePicker);
 
+		
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
