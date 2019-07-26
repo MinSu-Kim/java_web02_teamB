@@ -3,6 +3,8 @@ package kr.or.yi.food_mgm_program.ui.content.statistics;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -21,12 +23,13 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 @SuppressWarnings("serial")
-public class PanelSaleList extends JPanel {
+public class PanelSaleList extends JPanel   {
 	private JPanel panel_1;
 	private SaleList panel_2;
 	private JPanel panel_3;
 	private List<Sale> itemList;
 	private SaleDao dao;
+	private JDatePickerImpl datePicker;
 
 	public PanelSaleList() {
 		dao = new SaleDaoImpl();
@@ -43,10 +46,13 @@ public class PanelSaleList extends JPanel {
 		//jdatepicker 생성
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+		datePicker = new JDatePickerImpl(datePanel);
+		
+		
 
 		panel.add(datePicker);
 
+		
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
@@ -83,6 +89,12 @@ public class PanelSaleList extends JPanel {
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
 	}
+
+
+
 	
+	
+
+
 
 }
