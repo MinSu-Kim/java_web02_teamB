@@ -1,7 +1,10 @@
 package kr.or.yi.food_mgm_program.ui.insert;
 
 import java.awt.GridLayout;
+import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,28 +12,29 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.dto.FoodKind;
+
 @SuppressWarnings("serial")
 public class PanelFoodInfo extends JPanel {
-	private JComboBox cmbKind;
+	public JComboBox<FoodKind> cmbKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
+	public DefaultComboBoxModel<FoodKind> fkModels;
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelFoodInfo() {
-
 		initComponents();
 	}
+	
 	private void initComponents() {
 		setBorder(new EmptyBorder(10, 10, 10, 20));
 		setLayout(new GridLayout(0, 2, 20, 10));
 		
-		JLabel lblKind = new JLabel("음식 종류");
+		JLabel lblKind = new JLabel("음식 종류000");
 		lblKind.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblKind);
 		
-		cmbKind = new JComboBox();
+		cmbKind = new JComboBox<FoodKind>();
 		add(cmbKind);
 		
 		JLabel lblName = new JLabel("음식명");
@@ -50,8 +54,31 @@ public class PanelFoodInfo extends JPanel {
 		add(tfPrice);
 	}
 	
+	public void setFoodKindCmbModel(List<FoodKind> fkList) {
+		fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
+		cmbKind.setModel(fkModels);
+	}
+	
+//	public JComboBox<FoodKind> getCmbFoodKind() {
+//		return cmbKind;
+//	}
+	
 	public void clearFoodInfo() {
 		cmbKind.setSelectedIndex(-1);
-		
+		tfName.setText("");
+		tfPrice.setText("");
+	}
+	
+	public void setFood(Food food) {
+		cmbKind.setSelectedItem(food.getFkNo());
+		tfName.setText(food.getFdName());
+		tfPrice.setText(food.getFdPrice()+"");
+	}
+	
+	public Food getFood() {
+		FoodKind fk = (FoodKind) cmbKind.getSelectedItem();
+		String name = tfName.getText().trim();
+		int price = Integer.parseInt(tfPrice.getText().trim());
+		return new Food(0, price, name, fk);
 	}
 }

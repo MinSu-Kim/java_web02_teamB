@@ -1,5 +1,6 @@
 package kr.or.yi.food_mgm_program.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class Member {
 				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
 				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null);
 	}
-
+	
 	public Object[] toArray() {
 		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress};
 	}

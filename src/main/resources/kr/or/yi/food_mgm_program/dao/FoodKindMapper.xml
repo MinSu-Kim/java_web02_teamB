@@ -5,7 +5,7 @@
 	
 	<resultMap type="FoodKind" id="resultFoodKind">
 		<id column="fk_no" property="fkNo"/>
-		<result column="kf_name" property="fkName"/>
+		<result column="fk_name" property="fkName"/>
 	</resultMap>
 	
 	<resultMap type="FoodKind" id="resultFoodKindKCM" extends="resultFoodKind">
@@ -14,5 +14,9 @@
 
 	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFoodKind">
 	 	select fk_name, fk_no from foodkind where menu_no = #{menuNo.menuNo}
+	</select>
+	
+	<select id="selectFoodKindByAll" resultMap="resultFoodKind">
+		select fk_name, fk_no from foodkind
 	</select>
 </mapper>

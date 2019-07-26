@@ -86,7 +86,7 @@ public class PanelMemberInfo extends JPanel {
 	}
 	
 	public void setMember(Member member) {
-		tfId.setText(String.format("%03d", member.getMbNo()));
+		tfId.setText(String.format("M%03d", member.getMbNo()));
 		tfName.setText(member.getMbName());
 		tfTel.setText(member.getMbTel());
 		tfBirth.setText(String.format("%tF", member.getMbBirth()));
@@ -98,7 +98,7 @@ public class PanelMemberInfo extends JPanel {
 		String name = tfName.getText().trim();
 		Date birth = null;
 		try {
-			birth = new SimpleDateFormat("yyyy-mm-dd").parse(tfBirth.getText().trim());
+			birth = new SimpleDateFormat("yyyymmdd").parse(tfBirth.getText().trim());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

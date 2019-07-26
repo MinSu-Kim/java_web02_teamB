@@ -75,17 +75,16 @@ public class Food {
 	public String toString() {
 		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo, count);
 	}
-
-	/*
-	 * public Object[] toArray() { return new Object[]{fkNo.getName() ,
-	 * String.format("F%03d", fdNo), name, price};
-	 */
 	
 	public Object[] toArray() {
 		NumberFormat formatter = new DecimalFormat("###,###");
 		String price = formatter.format(this.fdPrice);
 		String total = formatter.format(this.fdPrice*this.count);
 		return new Object[]{fdName, price, count, total };
+	}
+
+	public Object[] toArray2() {
+		return new Object[]{fkNo.getFkName(), String.format("F%03d", fdNo), fdName, fdPrice};
 	}
 	
 }

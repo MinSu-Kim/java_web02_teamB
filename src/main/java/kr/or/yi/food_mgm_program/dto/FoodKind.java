@@ -73,6 +73,6 @@ public class FoodKind {
 
 	@Override
 	public String toString() {
-		return String.format("FoodKind [fkNo=%s, fkName=%s, menuNo=%s]", fkNo, fkName, menuNo);
+		return String.format("%s", fkName);
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import kr.or.yi.food_mgm_program.ui.list.memberList;
 import java.awt.FlowLayout;
 
@@ -29,7 +31,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JPanel pList;
 	private JButton btnJoin;
 	private JButton btnCancel;
-	
+	private JButton btnSearch;
 
 	public PanelMember() {
 		dao = new MemberDaoImpl();
@@ -45,7 +47,8 @@ public class PanelMember extends JPanel implements ActionListener {
 		pInsert.setLayout(new BorderLayout(0, 0));
 		
 		pMember = new PanelMemberInfo();
-		pMember.setBorder(new EmptyBorder(30, 0, 0, 0));
+		pMember.clearMemberInfo(list.size()+1);
+		pMember.setBorder(new EmptyBorder(50, 0, 0, 0));
 		pInsert.add(pMember, BorderLayout.CENTER);
 		
 		JPanel pBtns = new JPanel();
@@ -53,14 +56,16 @@ public class PanelMember extends JPanel implements ActionListener {
 		pBtns.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pBtn = new JPanel();
-		pBtn.setBorder(new EmptyBorder(0, 0, 40, 0));
+		pBtn.setBorder(new EmptyBorder(0, 0, 50, 0));
 		pBtns.add(pBtn, BorderLayout.NORTH);
 		
 		btnJoin = new JButton("가입");
+		btnJoin.setBorder(new EmptyBorder(20, 100, 20, 100));
 		btnJoin.addActionListener(this);
 		pBtn.add(btnJoin);
 		
 		btnCancel = new JButton("취소");
+		btnCancel.setBorder(new EmptyBorder(20, 100, 20, 100));
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 		
@@ -75,10 +80,13 @@ public class PanelMember extends JPanel implements ActionListener {
 		pList.add(panel_4, BorderLayout.NORTH);
 		
 		tfSearch = new JTextField();
+		tfSearch.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panel_4.add(tfSearch);
 		tfSearch.setColumns(30);
 		
-		JButton btnSearch = new JButton("검색");
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		panel_4.add(btnSearch);
 		
 		pMemberList = new memberList((String) null);
@@ -90,9 +98,13 @@ public class PanelMember extends JPanel implements ActionListener {
 		list = dao.selectMemberByAll();
 		pMemberList.setItemList(list);
 		pMemberList.reloadData();
+		pMember.clearMemberInfo(list.size()+1);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
 		if (e.getSource() == btnCancel) {
 			actionPerformedBtnCancel(e);
 		}
@@ -109,5 +121,13 @@ public class PanelMember extends JPanel implements ActionListener {
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		pMember.clearMemberInfo(list.size()==0? 1 : list.size()+1);
+	}
+	
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		Member member = new Member();
+		member.setMbTel(tfSearch.getText());
+		
+		dao.selectMemberByTel(member);
+		JOptionPane.showMessageDialog(null, member);
 	}
 }
