@@ -3,15 +3,20 @@ package kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Menu;
+import kr.or.yi.food_mgm_program.ui.MenuListFrame;
 
 public class PanelMenuList extends AbstractPanelMenuList {
 		
+	private MenuListFrame frame;
+
 	public PanelMenuList() {
 		super();
+		frame = new MenuListFrame();
 	}
 
 	@Override
@@ -25,8 +30,7 @@ public class PanelMenuList extends AbstractPanelMenuList {
 	public void actionPerformed(ActionEvent e) {
 		for(FoodKind fk : list) {
 			if(e.getActionCommand().equals(fk.getName())) {
-				JOptionPane.showMessageDialog(null, e.getActionCommand());
-				JOptionPane.showMessageDialog(null, fk.toString());
+			
 				actionPerformedBtn(fk);
 			}
 		}
@@ -35,10 +39,15 @@ public class PanelMenuList extends AbstractPanelMenuList {
 	}
 
 	private void actionPerformedBtn(FoodKind fk) {
-		food.setFkNo(fk);
-		JOptionPane.showMessageDialog(null, food.toString());
-		Fdao.selectByNo(food);
-		JOptionPane.showMessageDialog(null, (Fdao.selectByNo(food)).toString());
+		food.setFkNo(fk);//음식종류
+		fDao.selectByNo(food); // 해당 종류의 음식리스트
+		frame.setFood(fDao.selectByNo(food));
+		showMainMenu();
+	}
+
+	private void showMainMenu() {
+		frame.reloadData();
+		frame.setVisible(true);
 	}
 
 	
