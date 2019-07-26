@@ -4,7 +4,7 @@
 	<resultMap type="Sale" id="resultSale">
 		<id column="no" property="no" />
 		<result column="sale_no" property="saleNo" />
-		<result column="sale-time" property="saletime" />
+		<result column="sale_time" property="saletime" />
 		<result column="order_cnt" property="orderCnt" />
 		<result column="order_kind" property="orderKind" />
 		<result column="sale_type" property="saleType"/>
@@ -39,8 +39,8 @@
 	
 	<select id="selectSaleByDate" resultMap="resultSaleKCM">
 
-		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name, m.md_name
-		from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no where sale_time like CONCAT( #{date}, '%');
+		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name,m.mb_name
+		from sale s left join food as f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no where sale_time like CONCAT( #{date}, '%');
 	</select>
 	
 	<!-- <select id="selectSalesStatusByAll" resultMap="resultSalesStatus">
