@@ -8,10 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JTable;
 
 public class AAA extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -43,9 +45,8 @@ public class AAA extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setFont(new Font("궁서", Font.BOLD, 18));
-		contentPane.add(lblNewLabel, BorderLayout.WEST);
+		table = new JTable();
+		contentPane.add(table, BorderLayout.CENTER);
 	}
 
 }
