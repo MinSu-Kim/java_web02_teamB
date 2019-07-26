@@ -3,6 +3,6 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.ManagerMapper">
 
 	<select id="selectByPass" parameterType="Manager" resultType="Manager">
-		select * from manager where id=#{id} and pwd = password(#{pwd});
+		select * from manager where mg_id=#{mgId} and mg_pwd = password(#{mgPwd});
 	</select>
 </mapper>

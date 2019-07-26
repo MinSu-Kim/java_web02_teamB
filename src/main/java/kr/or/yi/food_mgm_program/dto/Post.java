@@ -4,7 +4,6 @@ public class Post {
 	private String zipcode;
 	private String doro;
 	private String oldDoro;
-
 	
 	public String getZipcode() {
 		return zipcode;

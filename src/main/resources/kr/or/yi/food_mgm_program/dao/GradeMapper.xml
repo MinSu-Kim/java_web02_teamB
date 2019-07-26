@@ -4,7 +4,6 @@
 	
 	<resultMap type="Grade" id="resultGrade">
 		<id column="grade" property="grade"/>
-		<result column="g_discount" property="discount"/>
+		<result column="g_discount2" property="gDiscount"/>
 	</resultMap>
-
 </mapper>

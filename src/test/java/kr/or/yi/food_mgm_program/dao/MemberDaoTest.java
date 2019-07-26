@@ -1,19 +1,15 @@
 package kr.or.yi.food_mgm_program.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import kr.or.yi.food_mgm_program.AbstractTest;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
-import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -43,17 +39,17 @@ public class MemberDaoTest extends AbstractTest {
 	public void test02InsertMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
-		Member member = new Member("변지영", new Date(), "01020544177", 1000, new Grade("bronze"), "대구", null);
-		int res = memberDao.insertMember(member);
-		Assert.assertEquals(1, res);
+		//Member member = new Member("변지영", new Date(), "01020544177", 1000, new Grade("bronze"), "대구", null);
+		//int res = memberDao.insertMember(member);
+		//Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test03SelectMemberByTel() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
 		Member member = new Member();
-		member.setTel("1234");
+//		member.setTel("1234");
 		
 		List<Member> lists = memberDao.selectMemberByTel(member);
 		log.debug(lists.toString());
@@ -74,13 +70,13 @@ public class MemberDaoTest extends AbstractTest {
 	public void test04UpdateMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
-		Member member = new Member(1);
-		member.setMileage(10000);
-		member.setGrade(new Grade("vip"));
-		member.setAddress("대구시");
+//		Member member = new Member(1);
+//		member.setMileage(10000);
+//		member.setGrade(new Grade("vip"));
+//		member.setAddress("대구시");
 		
-		int res = memberDao.updateMember(member);
-		Assert.assertEquals(1, res);
+//		int res = memberDao.updateMember(member);
+//		Assert.assertEquals(1, res);
 	}
 	
 	//@Test

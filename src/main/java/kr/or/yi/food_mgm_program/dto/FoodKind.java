@@ -2,34 +2,25 @@ package kr.or.yi.food_mgm_program.dto;
 
 public class FoodKind {
 	private int fkNo;
-	private String name;
+	private String fkName;
 	private Menu menuNo;
 	
 	public FoodKind() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	public FoodKind(int fkNo) {
 		this.fkNo = fkNo;
 	}
 
-
-
 	public FoodKind(Menu menuNo) {
 		this.menuNo = menuNo;
 	}
-
 	
-	public FoodKind(int fkNo, String name, Menu menuNo) {
+	public FoodKind(int fkNo, String fkName, Menu menuNo) {
 		this.fkNo = fkNo;
-		this.name = name;
+		this.fkName = fkName;
 		this.menuNo = menuNo;
 	}
-
-
 
 	public int getFkNo() {
 		return fkNo;
@@ -39,14 +30,14 @@ public class FoodKind {
 		this.fkNo = fkNo;
 	}
 
-	public String getName() {
-		return name;
+	public String getFkName() {
+		return fkName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFkName(String fkName) {
+		this.fkName = fkName;
 	}
-	
+
 	public Menu getMenuNo() {
 		return menuNo;
 	}
@@ -54,8 +45,6 @@ public class FoodKind {
 	public void setMenuNo(Menu menuNo) {
 		this.menuNo = menuNo;
 	}
-
-	
 	
 	@Override
 	public int hashCode() {
@@ -64,8 +53,6 @@ public class FoodKind {
 		result = prime * result + ((menuNo == null) ? 0 : menuNo.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -84,11 +71,8 @@ public class FoodKind {
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return String.format("FoodKind [fkNo=%s, name=%s]", fkNo, name);
+		return String.format("FoodKind [fkNo=%s, fkName=%s, menuNo=%s]", fkNo, fkName, menuNo);
 	}
-
 }

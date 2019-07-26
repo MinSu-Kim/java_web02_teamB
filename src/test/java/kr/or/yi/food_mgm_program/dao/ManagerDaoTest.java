@@ -9,7 +9,7 @@ import kr.or.yi.food_mgm_program.AbstractTest;
 import kr.or.yi.food_mgm_program.daoImpl.ManagerDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Manager;
 
-public class ManagerTest extends AbstractTest {
+public class ManagerDaoTest extends AbstractTest {
 	private static ManagerDao dao;
 	
 	@BeforeClass

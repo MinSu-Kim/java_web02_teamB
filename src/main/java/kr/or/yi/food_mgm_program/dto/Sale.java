@@ -14,12 +14,8 @@ public class Sale {
 	private Food fdNo;
 	private Member mbNo;
 
-	
 	public Sale() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-	
 	
 	public Sale(int saleNo, Date saletime, int orderCnt, boolean orderKind, int saleType, Food fdNo, Member mbNo) {
 		super();
@@ -100,7 +96,7 @@ public class Sale {
 	public String toString() {
 		return String.format(
 				"Sale [no=%s, saleNo=%s, saletime=%s, orderCnt=%s, orderKind=%s, saleType=%s, fdNo=%s, mbNo=%s]", no,
-				saleNo, saletime, orderCnt, orderKind, saleType, fdNo.getName(), mbNo.getName());
+				saleNo, saletime, orderCnt, orderKind, saleType, fdNo.getFdName(), mbNo.getMbName());
 	}
 	
 	public Object[] toArray() {
@@ -110,8 +106,8 @@ public class Sale {
 				String.format("%tF", saletime),
 				String.format("%d개", orderCnt),
 				saleType==1?"현금" : "카드",
-				fdNo.getName(),
-				mbNo
+				fdNo.getFdName(),
+				mbNo.getMbName()
 				
 		};
 	}

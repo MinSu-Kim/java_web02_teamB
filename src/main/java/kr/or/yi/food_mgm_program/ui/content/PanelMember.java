@@ -2,36 +2,49 @@ package kr.or.yi.food_mgm_program.ui.content;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.util.List;
 import java.awt.BorderLayout;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import kr.or.yi.food_mgm_program.ui.list.memberList;
-import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
+
+import kr.or.yi.food_mgm_program.dao.MemberDao;
+import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class PanelMember extends JPanel {
+@SuppressWarnings("serial")
+public class PanelMember extends JPanel implements ActionListener {
 	private JTextField tfSearch;
+	
+	private memberList pMemberList;
+	private PanelMemberInfo pMember;
+	private MemberDao dao;
+	private List<Member> list;
+	private JPanel pInsert;
+	private JPanel pList;
+	private JButton btnJoin;
+	private JButton btnCancel;
+	
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelMember() {
-
+		dao = new MemberDaoImpl();
+		list = dao.selectMemberByAll();
 		initComponents();
 	}
+	
 	private void initComponents() {
 		setLayout(new GridLayout(1, 0, 20, 0));
 		
-		JPanel pInsert = new JPanel();
+		pInsert = new JPanel();
 		add(pInsert);
 		pInsert.setLayout(new BorderLayout(0, 0));
 		
-		PanelMemberInfo pMember = new PanelMemberInfo();
+		pMember = new PanelMemberInfo();
 		pMember.setBorder(new EmptyBorder(30, 0, 0, 0));
 		pInsert.add(pMember, BorderLayout.CENTER);
 		
@@ -43,13 +56,15 @@ public class PanelMember extends JPanel {
 		pBtn.setBorder(new EmptyBorder(0, 0, 40, 0));
 		pBtns.add(pBtn, BorderLayout.NORTH);
 		
-		JButton btnJoin = new JButton("가입");
+		btnJoin = new JButton("가입");
+		btnJoin.addActionListener(this);
 		pBtn.add(btnJoin);
 		
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 		
-		JPanel pList = new JPanel();
+		pList = new JPanel();
 		add(pList);
 		pList.setLayout(new BorderLayout(0, 0));
 		
@@ -66,8 +81,33 @@ public class PanelMember extends JPanel {
 		JButton btnSearch = new JButton("검색");
 		panel_4.add(btnSearch);
 		
-		memberList pMemberList = new memberList((String) null);
+		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
+		reloadList();
 	}
 
+	public void reloadList() {
+		list = dao.selectMemberByAll();
+		pMemberList.setItemList(list);
+		pMemberList.reloadData();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			actionPerformedBtnCancel(e);
+		}
+		if (e.getSource() == btnJoin) {
+			actionPerformedBtnJoin(e);
+		}
+	}
+	
+	protected void actionPerformedBtnJoin(ActionEvent e) {
+		Member member = pMember.getMember();
+		dao.insertMember(member);
+		reloadList();
+	}
+	
+	protected void actionPerformedBtnCancel(ActionEvent e) {
+		pMember.clearMemberInfo(list.size()==0? 1 : list.size()+1);
+	}
 }

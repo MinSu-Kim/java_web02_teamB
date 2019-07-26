@@ -1,38 +1,31 @@
 package kr.or.yi.food_mgm_program.dto;
 
 public class Manager {
-	private int mNo;
-	private String id;
-	private String pwd;
-
+	private String mgId;
+	private String mgPwd;
 	
-	public int getmNo() {
-		return mNo;
+	public Manager() {
+	}
+	
+	public Manager(String mgId) {
+		this.mgId = mgId;
 	}
 
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
+	public String getMgId() {
+		return mgId;
 	}
-
-	public String getId() {
-		return id;
+	public void setMgId(String mgId) {
+		this.mgId = mgId;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	public String getMgPwd() {
+		return mgPwd;
 	}
-
-	public String getPwd() {
-		return pwd;
+	public void setMgPwd(String mgPwd) {
+		this.mgPwd = mgPwd;
 	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
+	
 	@Override
 	public String toString() {
-		return String.format("Manager [mNo=%s, id=%s, pwd=%s]", mNo, id, pwd);
+		return String.format("Manager [mgId=%s, mgPwd=%s]", mgId, mgPwd);
 	}
-
 }

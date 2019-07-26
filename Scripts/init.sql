@@ -6,10 +6,10 @@ CREATE SCHEMA food;
 
 -- 음식
 CREATE TABLE food.food (
-	fd_no INT         NOT NULL COMMENT '음식번호', -- 음식번호
-	price INT         NULL     COMMENT '음식가격', -- 음식가격
-	name  VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
-	fk_no INT         NULL     COMMENT '음식종류번호' -- 음식종류번호
+	fd_no    INT         NOT NULL COMMENT '음식번호', -- 음식번호
+	fd_price INT         NULL     COMMENT '음식가격', -- 음식가격
+	fd_name  VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
+	fk_no    INT         NULL     COMMENT '음식종류번호' -- 음식종류번호
 )
 COMMENT '음식';
 
@@ -23,7 +23,7 @@ ALTER TABLE food.food
 -- 음식종류
 CREATE TABLE food.foodKind (
 	fk_no   INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
-	name    VARCHAR(40) NOT NULL COMMENT '음식종류명', -- 음식종류명
+	fk_name VARCHAR(40) NOT NULL COMMENT '음식종류명', -- 음식종류명
 	menu_no INT         NULL     COMMENT '메뉴번호' -- 메뉴번호
 )
 COMMENT '음식종류';
@@ -37,13 +37,13 @@ ALTER TABLE food.foodKind
 
 -- 회원
 CREATE TABLE food.member (
-	mb_no   INT         NOT NULL COMMENT '회원번호', -- 회원번호
-	name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
-	birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
-	tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
-	Mileage INT         NULL     COMMENT '마일리지', -- 마일리지
-	grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
-	address VARCHAR(50) NULL     COMMENT '주소' -- 주소
+	mb_no      INT         NOT NULL COMMENT '회원번호', -- 회원번호
+	mb_name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
+	mb_birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
+	mb_tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
+	mb_mileage INT         NULL     COMMENT '마일리지', -- 마일리지
+	mb_grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
+	mb_address VARCHAR(50) NULL     COMMENT '주소' -- 주소
 )
 COMMENT '회원';
 
@@ -59,9 +59,9 @@ ALTER TABLE food.member
 
 -- 쿠폰
 CREATE TABLE food.coupon (
-	cp_no    INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
-	name     VARCHAR(10) NULL     COMMENT '쿠폰명', -- 쿠폰명
-	discount INT         NULL     COMMENT '할인율' -- 할인율
+	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
+	cp_name     VARCHAR(10) NULL     COMMENT '쿠폰명', -- 쿠폰명
+	cp_discount INT         NULL     COMMENT '할인율' -- 할인율
 )
 COMMENT '쿠폰';
 
@@ -77,8 +77,8 @@ ALTER TABLE food.coupon
 
 -- 등급
 CREATE TABLE food.grade (
-	grade    CHAR(10) NOT NULL COMMENT '고객등급', -- 고객등급
-	discount INT      NULL     COMMENT '할인율' -- 할인율
+	grade      CHAR(10) NOT NULL COMMENT '고객등급', -- 고객등급
+	g_discount INT      NULL     COMMENT '할인율' -- 할인율
 )
 COMMENT '등급';
 
@@ -129,11 +129,17 @@ ALTER TABLE food.sale
 
 -- 관리자
 CREATE TABLE food.manager (
-	m_no INT         NULL COMMENT '관리자번호', -- 관리자번호
-	id   VARCHAR(20) NULL COMMENT '관리자id', -- 관리자id
-	pwd  CHAR(41)    NULL COMMENT '관리자pw' -- 관리자pw
+	mg_id  VARCHAR(20) NOT NULL COMMENT '관리자id', -- 관리자id
+	mg_pwd CHAR(41)    NOT NULL COMMENT '관리자pw' -- 관리자pw
 )
 COMMENT '관리자';
+
+-- 관리자
+ALTER TABLE food.manager
+	ADD CONSTRAINT PK_manager -- 관리자 기본키
+		PRIMARY KEY (
+			mg_id -- 관리자id
+		);
 
 -- 우편번호
 CREATE TABLE food.post (
@@ -155,6 +161,20 @@ ALTER TABLE food.menu
 	ADD CONSTRAINT PK_menu -- 메뉴분류 기본키
 		PRIMARY KEY (
 			menu_no -- 메뉴번호
+		);
+
+-- 비관리자
+CREATE TABLE food.no_manager (
+	nmg_id  VARCHAR(20) NOT NULL COMMENT '비관리자id', -- 비관리자id
+	nmg_pwd char(41)    NOT NULL COMMENT '비관리자pw' -- 비관리자pw
+)
+COMMENT '비관리자';
+
+-- 비관리자
+ALTER TABLE food.no_manager
+	ADD CONSTRAINT PK_no_manager -- 비관리자 기본키
+		PRIMARY KEY (
+			nmg_id -- 비관리자id
 		);
 
 -- 음식
@@ -181,7 +201,7 @@ ALTER TABLE food.foodKind
 ALTER TABLE food.member
 	ADD CONSTRAINT FK_grade_TO_member -- 등급 -> 회원
 		FOREIGN KEY (
-			grade -- 고객등급
+			mb_grade -- 고객등급
 		)
 		REFERENCES food.grade ( -- 등급
 			grade -- 고객등급

@@ -1,18 +1,20 @@
 package kr.or.yi.food_mgm_program.ui.content;
 
-import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import javax.swing.JLabel;
-import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
-import java.awt.Component;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
+import kr.or.yi.food_mgm_program.ui.list.FoodList;
+
+@SuppressWarnings("serial")
 public class PanelFood extends JPanel {
 	private JTextField textField;
 

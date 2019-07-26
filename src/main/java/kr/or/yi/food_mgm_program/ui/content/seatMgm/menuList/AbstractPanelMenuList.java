@@ -49,7 +49,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	
 	private void addBtn(List<FoodKind> list2) {
 		for(int i=0; i<list2.size(); i++) {
-			JButton btn = new JButton(list2.get(i).getName());
+			JButton btn = new JButton(list2.get(i).getFkName());
 			panel.add(btn);
 			btn.addActionListener(this);
 		}

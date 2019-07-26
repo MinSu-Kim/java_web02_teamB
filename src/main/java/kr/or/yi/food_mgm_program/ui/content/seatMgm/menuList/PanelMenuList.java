@@ -29,7 +29,7 @@ public class PanelMenuList extends AbstractPanelMenuList {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for(FoodKind fk : list) {
-			if(e.getActionCommand().equals(fk.getName())) {
+			if(e.getActionCommand().equals(fk.getFkName())) {
 			
 				actionPerformedBtn(fk);
 			}

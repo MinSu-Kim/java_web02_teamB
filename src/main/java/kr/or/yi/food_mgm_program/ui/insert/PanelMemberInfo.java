@@ -2,6 +2,10 @@ package kr.or.yi.food_mgm_program.ui.insert;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -9,6 +13,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.dto.Member;
+
+@SuppressWarnings("serial")
 public class PanelMemberInfo extends JPanel {
 	private JTextField tfId;
 	private JTextField tfName;
@@ -17,13 +24,10 @@ public class PanelMemberInfo extends JPanel {
 	private JPanel pMember;
 	private JTextField tfAddr;
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelMemberInfo() {
-
 		initComponents();
 	}
+	
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
 		pMember = new JPanel();
@@ -71,5 +75,36 @@ public class PanelMemberInfo extends JPanel {
 		pMember.add(tfAddr);
 		tfAddr.setColumns(10);
 	}
-
+	
+	public void clearMemberInfo(int nextNo) {
+		tfId.setText(String.format("M%03d", nextNo));
+		tfName.setText("");
+		tfTel.setText("");
+		tfBirth.setText("");
+		tfAddr.setText("");
+		tfId.setEditable(false);
+	}
+	
+	public void setMember(Member member) {
+		tfId.setText(String.format("%03d", member.getMbNo()));
+		tfName.setText(member.getMbName());
+		tfTel.setText(member.getMbTel());
+		tfBirth.setText(String.format("%tF", member.getMbBirth()));
+		tfAddr.setText(member.getMbAddress());
+	}
+	
+	public Member getMember() {
+		int mbNo = Integer.parseInt(tfId.getText().trim().substring(1));
+		String name = tfName.getText().trim();
+		Date birth = null;
+		try {
+			birth = new SimpleDateFormat("yyyy-mm-dd").parse(tfBirth.getText().trim());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String tel = tfTel.getText().trim();
+		String address = tfAddr.getText().trim();
+		
+		return new Member(mbNo, name, birth, tel, address);
+	}
 }

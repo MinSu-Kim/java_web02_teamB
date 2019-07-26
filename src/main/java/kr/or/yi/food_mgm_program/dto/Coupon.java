@@ -2,15 +2,10 @@ package kr.or.yi.food_mgm_program.dto;
 
 public class Coupon {
 	private int cpNo;
-	private String name;
-	private int discount;
+	private String cpName;
+	private int cpDiscount;
 	
 	public Coupon() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Coupon(int cpNo) {
-		this.cpNo = cpNo;
 	}
 
 	public int getCpNo() {
@@ -21,25 +16,25 @@ public class Coupon {
 		this.cpNo = cpNo;
 	}
 
-	public String getName() {
-		return name;
+	public String getCpName() {
+		return cpName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCpName(String cpName) {
+		this.cpName = cpName;
 	}
 
-	public int getDiscount() {
-		return discount;
+	public int getCpDiscount() {
+		return cpDiscount;
 	}
 
-	public void setDiscount(int discount) {
-		this.discount = discount;
+	public void setCpDiscount(int cpDiscount) {
+		this.cpDiscount = cpDiscount;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Coupon [cpNo=%s, name=%s, discount=%s]", cpNo, name, discount);
+		return String.format("Coupon [cpNo=%s, cpName=%s, cpDiscount=%s]", cpNo, cpName, cpDiscount);
 	}
-
+	
 }
