@@ -11,7 +11,6 @@ character set 'utf8'
 fields terminated by ',';
 
 update food set fd_no = 1 where fd_no = 0;
-
 select * from food;
 delete from food where fd_no = 75;
 

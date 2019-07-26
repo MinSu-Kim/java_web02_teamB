@@ -3,26 +3,35 @@ package kr.or.yi.food_mgm_program.ui.content.statistics;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
+import kr.or.yi.food_mgm_program.dao.SaleDao;
+import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.ui.list.SaleList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import kr.or.yi.food_mgm_program.ui.list.SaleList;
 
 @SuppressWarnings("serial")
 public class PanelSaleList extends JPanel {
+	private JPanel panel_1;
+	private SaleList panel_2;
+	private JPanel panel_3;
+	private List<Sale> itemList;
+	private SaleDao dao;
 
 	public PanelSaleList() {
+		dao = new SaleDaoImpl();
 		initComponents();
-
+		setList();
 	}
 
 	private void initComponents() {
@@ -38,14 +47,16 @@ public class PanelSaleList extends JPanel {
 
 		panel.add(datePicker);
 
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
 
-		SaleList panel_2 = new SaleList((String) null);
+		panel_2 = new SaleList((String) null);
 		panel_1.add(panel_2);
+		
+		
 
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
 		//jfreeChart
@@ -60,10 +71,18 @@ public class PanelSaleList extends JPanel {
 		   ("음식 판매 순위", pieDataset, true,true,true);
 		  chart.getTitle().setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		  panel_3.setLayout(new BorderLayout(0, 0));
-		  ChartPanel chartPanel = new ChartPanel(chart);
+		  JPanel chartPanel = new ChartPanel(chart);
+		  
 		  panel_3.add(chartPanel);
 		  chartPanel.setLayout(new BorderLayout(0, 0));
-		  
 	}
+	
+	
+	public void setList() {
+		itemList = dao.selectSaleByAll();
+		panel_2.setItemList(itemList);
+		panel_2.reloadData();
+	}
+	
 
 }

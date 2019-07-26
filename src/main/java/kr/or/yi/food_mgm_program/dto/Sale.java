@@ -2,6 +2,8 @@ package kr.or.yi.food_mgm_program.dto;
 
 import java.util.Date;
 
+import org.apache.logging.log4j.core.pattern.MdcPatternConverter;
+
 public class Sale {
 	private int no;
 	private int saleNo;
@@ -99,6 +101,19 @@ public class Sale {
 		return String.format(
 				"Sale [no=%s, saleNo=%s, saletime=%s, orderCnt=%s, orderKind=%s, saleType=%s, fdNo=%s, mbNo=%s]", no,
 				saleNo, saletime, orderCnt, orderKind, saleType, fdNo.getName(), mbNo.getName());
+	}
+	
+	public Object[] toArray() {
+		return new Object[] {
+				no,
+				saleNo, 
+				String.format("%tF", saletime),
+				String.format("%d개", orderCnt),
+				saleType==1?"현금" : "카드",
+				fdNo.getName(),
+				mbNo
+				
+		};
 	}
 
 }
