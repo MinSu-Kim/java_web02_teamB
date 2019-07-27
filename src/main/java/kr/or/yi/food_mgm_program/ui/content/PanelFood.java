@@ -200,12 +200,16 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
-		Food food = new Food();
-		food.setFdName(tfSearch.getText());
-		
-		fList = fDao.selectByName(food);
-		pFoodList.setItemList(fList);
-		pFoodList.reloadData();
+		if(tfSearch.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "검색어를 입력하세요.");
+		}else {
+			Food food = new Food();
+			food.setFdName(tfSearch.getText());
+			
+			fList = fDao.selectByName(food);
+			pFoodList.setItemList(fList);
+			pFoodList.reloadData();
+		}
 	}
 	
 	protected void actionPerformedBtnList(ActionEvent e) {

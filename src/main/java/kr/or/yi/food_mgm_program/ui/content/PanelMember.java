@@ -181,6 +181,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
+		btnJoin.setText("가입");
 		lastNum();
 	}
 
@@ -194,12 +195,16 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
-		Member member = new Member();
-		member.setMbTel(tfSearch.getText());
-		
-		list = dao.selectMemberByTel(member);
-		pMemberList.setItemList(list);
-		pMemberList.reloadData();
+		if(tfSearch.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "검색어를 입력하세요.");
+		}else {
+			Member member = new Member();
+			member.setMbTel(tfSearch.getText());
+			
+			list = dao.selectMemberByTel(member);
+			pMemberList.setItemList(list);
+			pMemberList.reloadData();
+		}
 	}
 	
 	protected void actionPerformedBtnList(ActionEvent e) {
