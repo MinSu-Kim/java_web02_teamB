@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -18,8 +19,7 @@ import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
-
-import javax.swing.JLabel;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
@@ -52,7 +52,10 @@ public class MainFrame extends JFrame implements ActionListener {
 			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 			
 			JPanel pSale = new PanelSaleList();
-			tabbedPane.addTab("매출 관리", null, pSale, null);
+			tabbedPane.addTab("판매 관리", null, pSale, null);
+			
+			JPanel pSales = new PanelSalesList();
+			tabbedPane.addTab("매출 관리", null, pSales, null);
 			
 			PanelMember pMember = new PanelMember();
 			tabbedPane.addTab("회원 관리", null, pMember, null);

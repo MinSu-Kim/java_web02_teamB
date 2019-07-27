@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.food_mgm_program.dao.PaymentMapper">
+	<resultMap type="Payment" id="resultPayment">
+		<result property="payNo" column="payNo" />
+		<result property="payTime" column="payTime" />
+		<result property="payMenu" column="payMenu" />
+		<result property="PayPrice" column="PayPrice" />
+		<result property="payType" column="payType" />
+		<result property="PayMember" column="payMemeber" />
+	</resultMap>
+	
+	<select id="selectPaymentByAll" resultMap="resultPayment">
+		select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment
+	</select>
+	
+	<select id="selectPaymentByDate" resultMap="resultPayment">
+		select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment where payTime like CONCAT( #{date}, '%')
+	</select>
+	
+</mapper>
