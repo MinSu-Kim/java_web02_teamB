@@ -253,6 +253,8 @@ on food.*
 to 'user_food'@'localhost' 
 identified by 'rootroot';
 
+use food;
+
 -- 음식판매 통계 쿼리 (view)
 create view stateFood as 
 select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
