@@ -21,6 +21,7 @@ import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
 public class PanelMember extends JPanel implements ActionListener {
@@ -49,15 +50,15 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 	
 	private void initComponents() {
-		setLayout(new GridLayout(1, 0, 20, 0));
+		setLayout(new BorderLayout(0, 0));
 		
 		pInsert = new JPanel();
-		add(pInsert);
+		add(pInsert, BorderLayout.WEST);
 		pInsert.setLayout(new BorderLayout(0, 0));
 		
 		pMember = new PanelMemberInfo();
 		lastNum();
-		pMember.setBorder(new EmptyBorder(50, 0, 0, 0));
+		pMember.setBorder(new EmptyBorder(50, 0, 0, 50));
 		pInsert.add(pMember, BorderLayout.CENTER);
 		
 		JPanel pBtns = new JPanel();
@@ -65,16 +66,16 @@ public class PanelMember extends JPanel implements ActionListener {
 		pBtns.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pBtn = new JPanel();
-		pBtn.setBorder(new EmptyBorder(0, 0, 50, 0));
+		pBtn.setBorder(new EmptyBorder(0, 50, 50, 50));
 		pBtns.add(pBtn, BorderLayout.NORTH);
 		
 		btnJoin = new JButton("가입");
-		btnJoin.setBorder(new EmptyBorder(20, 100, 20, 100));
+		btnJoin.setBorder(new EmptyBorder(20, 50, 20, 50));
 		btnJoin.addActionListener(this);
 		pBtn.add(btnJoin);
 		
 		btnCancel = new JButton("취소");
-		btnCancel.setBorder(new EmptyBorder(20, 100, 20, 100));
+		btnCancel.setBorder(new EmptyBorder(20, 50, 20, 50));
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 		

@@ -36,6 +36,7 @@ select * from manager;
 
 desc member;
 select fk_name from foodkind where menu_no=1;
+
 /*
 set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
@@ -81,5 +82,11 @@ insert into sale values (18,6,now(),1,1,0,32,2);
 insert into sale values (19,6,now(),1,1,0,33,2);
 insert into sale values (20,6,now(),1,1,0,13,2);
 
-
 select * from sale;
+
+-- member_coupon 데이터 추가
+select * from coupon;
+insert into coupon values (2, '졸업쿠폰',5);
+
+select * from member_coupon;
+insert into member_coupon values (1, 1), (1,2), (2,1);

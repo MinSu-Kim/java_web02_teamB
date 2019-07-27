@@ -31,8 +31,8 @@ public class PanelMemberInfo extends JPanel {
 	private JDateChooser tfBirth;
 	private JPanel pMember;
 	private JTextField tfAddr;
-	private JPanel panel;
-	private JLabel lblImg;
+//	private JPanel panel;
+//	private JLabel lblImg;
 	
 	public PanelMemberInfo() {
 		initComponents();
@@ -41,17 +41,17 @@ public class PanelMemberInfo extends JPanel {
 	private void initComponents() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(0, 40, 0, 0));
-		add(panel);
+//		panel = new JPanel();
+//		panel.setBorder(new EmptyBorder(0, 40, 0, 0));
+//		add(panel);
 		
-		lblImg = new JLabel();
-		createImage();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.add(lblImg);		
+//		lblImg = new JLabel();
+//		createImage();
+//		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+//		panel.add(lblImg);		
 		
 		pMember = new JPanel();
-		pMember.setBorder(new EmptyBorder(50, 0, 50, 10));
+		pMember.setBorder(new EmptyBorder(100, 0, 100, 10));
 		add(pMember);
 		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
@@ -65,7 +65,7 @@ public class PanelMemberInfo extends JPanel {
 		tfId = new JTextField();
 		tfId.setFont(new Font("굴림", Font.PLAIN, 15));
 		pMember.add(tfId);
-		tfId.setColumns(10);
+		tfId.setColumns(15);
 		
 		JLabel lblName = new JLabel("이름");
 		lblName.setHorizontalTextPosition(SwingConstants.LEADING);
@@ -77,7 +77,7 @@ public class PanelMemberInfo extends JPanel {
 		tfName = new JTextField();
 		tfName.setFont(new Font("굴림", Font.PLAIN, 15));
 		pMember.add(tfName);
-		tfName.setColumns(10);
+		tfName.setColumns(15);
 		
 		JLabel lblTel = new JLabel("전화번호");
 		lblTel.setHorizontalTextPosition(SwingConstants.LEADING);
@@ -89,7 +89,7 @@ public class PanelMemberInfo extends JPanel {
 		tfTel = new JTextField();
 		tfTel.setFont(new Font("굴림", Font.PLAIN, 15));
 		pMember.add(tfTel);
-		tfTel.setColumns(10);
+		tfTel.setColumns(15);
 		
 		JLabel lblBirth = new JLabel("생년월일");
 		lblBirth.setHorizontalTextPosition(SwingConstants.LEADING);
@@ -113,14 +113,14 @@ public class PanelMemberInfo extends JPanel {
 		tfAddr = new JTextField();
 		tfAddr.setFont(new Font("굴림", Font.PLAIN, 15));
 		pMember.add(tfAddr);
-		tfAddr.setColumns(10);
+		tfAddr.setColumns(15);
 	}
 	
-	private void createImage() {
-		Image img = new ImageIcon("image/백종원.jpg").getImage().getScaledInstance(300, 500, Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(img);
-		lblImg.setIcon(imageIcon);
-	}
+//	private void createImage() {
+//		Image img = new ImageIcon("image/백종원.jpg").getImage().getScaledInstance(150, 300, Image.SCALE_SMOOTH);
+//		ImageIcon imageIcon = new ImageIcon(img);
+//		lblImg.setIcon(imageIcon);
+//	}
 
 	public void clearMemberInfo(int nextNo) {
 		tfId.setText(String.format("M%03d", nextNo));

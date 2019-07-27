@@ -118,6 +118,6 @@ public class Member {
 	}
 	
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, mbMileage};
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, mbMileage, coupon};
 	}
 }
