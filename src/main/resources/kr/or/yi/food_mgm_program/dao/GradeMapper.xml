@@ -3,7 +3,7 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.GradeMapper">
 	
 	<resultMap type="Grade" id="resultGrade">
-		<id column="grade" property="grade"/>
+		<id column="mb_grade" property="grade"/>
 		<result column="g_discount2" property="gDiscount"/>
 	</resultMap>
 </mapper>

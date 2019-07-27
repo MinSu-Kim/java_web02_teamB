@@ -111,7 +111,6 @@ public class Sale {
 				saleType==1?"현금" : "카드",
 				fdNo.getFdName(),
 				mbNo.getMbName()
-				
 		};
 	}
 

@@ -10,6 +10,9 @@ load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
 
+set foreign_key_checks = 1;
+delete from food;
+
 update food set fd_no = 1 where fd_no = 0;
 select * from food;
 delete from food where fd_no = 75;

@@ -50,6 +50,10 @@ group by s.fd_no
 order by ssTotalPrice desc;
 
 select * from manager;
-select * from `member`;
+select * from member;
+set foreign_key_checks = 1;
+truncate table member;
 
 delete from member where mb_no = 3;
+
+select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member;

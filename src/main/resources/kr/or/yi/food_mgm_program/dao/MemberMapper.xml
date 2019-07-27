@@ -17,6 +17,10 @@
 	</resultMap>
 	
 	<select id="selectMemberByAll" resultMap="resultMemberBJY">
+		select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member
+	</select>
+	
+	<select id="selectMemberByAllC" resultMap="resultMemberBJY">
 		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_no, c.cp_name, cp_discount as cp_discount2
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 	</select>
@@ -31,17 +35,17 @@
 	</select>
 	
 	<update id="updateMember" parameterType="Member">
-		update member set mb_mileage = #{mbMileage}, mb_grade = #{mbGrade.grade}, mb_address = #{mbAddress} where mb_no = #{mbNo};		
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_address = #{mbAddress} where mb_no = #{mbNo};		
 	</update>
 	
 	<delete id="deleteMember" parameterType="Member">
 		delete from member where mb_no = #{mbNo}
 	</delete>
 
-	<select id="selectMemberByNo" resultType="Member" parameterType="Member">
+	<!-- <select id="selectMemberByNo" resultType="Member" parameterType="Member">
 		select m.mb_name, g.mb_grade, g.g_discount as g_discount2, m.mb_mileage, c.cp_name, c.cp_discount as cp_discount2
 		from member m join grade g on m.grade = g.grade join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
 		where m.mb_no = #{mbNo}
-	</select>
+	</select> -->
 	
 </mapper>

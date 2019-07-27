@@ -20,7 +20,9 @@ public class PanelFoodInfo extends JPanel {
 	public JComboBox<FoodKind> cmbKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
-
+	
+	private int no = 0;
+	
 	public PanelFoodInfo() {
 		initComponents();
 	}
@@ -56,6 +58,15 @@ public class PanelFoodInfo extends JPanel {
 	public void setFoodKindCmbModel(List<FoodKind> fkList) {
 		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
 		cmbKind.setModel(fkModels);
+		
+		/*
+		String[] array = new String[fkList.size()];
+			for (int i = 0; i < fkList.size(); i++) {
+			    array[i] = fkList.get(i).toString();
+		}
+		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel(array);
+		cmbKind.setModel(fkModels);
+		*/
 	}
 	
 //	public JComboBox<FoodKind> getCmbFoodKind() {
@@ -63,21 +74,45 @@ public class PanelFoodInfo extends JPanel {
 //	}
 	
 	public void clearFoodInfo() {
-		cmbKind.setSelectedIndex(-1);
+		cmbKind.setSelectedIndex(0);
 		tfName.setText("");
 		tfPrice.setText("");
 	}
 	
 	public void setFood(Food food) {
+		no = food.getFdNo();
 		cmbKind.setSelectedItem(food.getFkNo());
 		tfName.setText(food.getFdName());
 		tfPrice.setText(food.getFdPrice()+"");
 	}
 	
-	public Food getFood() {
+	public Food getFood() throws Exception {
+		validCheck();
+		
 		FoodKind fk = (FoodKind) cmbKind.getSelectedItem();
 		String name = tfName.getText().trim();
 		int price = Integer.parseInt(tfPrice.getText().trim());
 		return new Food(0, price, name, fk);
+	}
+	
+	public Food getFoodUP() throws Exception {
+		validCheck();
+		
+		FoodKind fk = (FoodKind) cmbKind.getSelectedItem();
+		String name = tfName.getText().trim();
+		int price = Integer.parseInt(tfPrice.getText().trim());
+		return new Food(no, price, name, fk);
+	}
+		
+	private void validCheck() throws Exception {
+		if(tfName.getText().equals("")) {
+			throw new Exception("이름을 입력하세요.");
+		}
+		if(tfPrice.getText().equals("")) {
+			throw new Exception("가격을 입력하세요.");
+		}
+		if(cmbKind.getSelectedItem() == null) {
+			throw new Exception("음식종류를 선택하세요.");
+		}
 	}
 }

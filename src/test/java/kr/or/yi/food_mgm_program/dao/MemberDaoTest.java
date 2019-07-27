@@ -7,6 +7,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import kr.or.yi.food_mgm_program.AbstractTest;
@@ -28,7 +29,7 @@ public class MemberDaoTest extends AbstractTest {
 		memberDao = null;
 	}
 
-	//@Test
+	@Test
 	public void test01SelectMemberByAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -46,7 +47,7 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	//@Test
+	@Test
 	public void test03SelectMemberByTel() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -68,7 +69,7 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertNotNull(lists);
 	}
 	
-	//@Test
+	@Test
 	public void test04UpdateMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		

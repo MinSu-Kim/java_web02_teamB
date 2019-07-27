@@ -9,8 +9,10 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -20,6 +22,7 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import java.awt.event.ActionListener;
@@ -42,6 +45,10 @@ public class PanelFood extends JPanel implements ActionListener {
 	public DefaultComboBoxModel<FoodKind> fkModels;
 	private JButton btnSearch;
 	private JButton btnList;
+
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmUpdate;
+	private JMenuItem mntmDelete;
 	
 	public PanelFood() {
 		fDao = new FoodDaoImpl();
@@ -108,12 +115,24 @@ public class PanelFood extends JPanel implements ActionListener {
 		pFoodList = new FoodList((String) null);
 		pList.add(pFoodList, BorderLayout.CENTER);
 		reloadList();
+		
+		popupMenu = new JPopupMenu();
+		mntmUpdate = new JMenuItem("수정");
+		mntmUpdate.addActionListener(this);
+		popupMenu.add(mntmUpdate);
+
+		mntmDelete = new JMenuItem("삭제");
+		mntmDelete.addActionListener(this);
+		popupMenu.add(mntmDelete);
+
+		pFoodList.setPopupMenu(popupMenu);
 	}
 	
 	public void reloadList() {
 		fList = fDao.selectFoodByAll();
 		pFoodList.setItemList(fList);
 		pFoodList.reloadData();
+		pFood.clearFoodInfo();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -127,12 +146,51 @@ public class PanelFood extends JPanel implements ActionListener {
 			actionPerformedBtnCancel(e);
 		}
 		if (e.getSource() == btnAdd) {
-			actionPerformedBtnAdd(e);
+			try {
+				if(e.getActionCommand().equals("추가")) {
+					actionPerformedBtnAdd(e);
+				}else if(e.getActionCommand().equals("수정")) {
+					actionPerformedBtnUpdate(e);
+				}
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
+		}
+		if (e.getSource() == mntmDelete) {
+			actionPerformedMntmDelete(e);
+		}
+		if (e.getSource() == mntmUpdate) {
+			actionPerformedMntmUpdate(e);
 		}
 	}
 	
-	protected void actionPerformedBtnAdd(ActionEvent e) {
+	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
+		Food food = pFood.getFoodUP();
+		fDao.updateFood(food);
+		reloadList();
+	}
+
+	private void actionPerformedMntmUpdate(ActionEvent e) {
+		Food food = pFoodList.getSelectedItem();
+		pFood.setFood(food);
+		btnAdd.setText("수정");
+	}
+
+	private void actionPerformedMntmDelete(ActionEvent e) {
+		Food food = pFoodList.getSelectedItem();
+		fDao.deletFood(food);
+		reloadList();
+	}
+
+	protected void actionPerformedBtnAdd(ActionEvent e) throws Exception {
 		Food food = pFood.getFood();
+		
+		int lastNo = 0;
+		if(!fList.isEmpty()) {
+			Food last = fList.get(fList.size()-1);
+			lastNo = last.getFdNo()+1;
+		}
+		food.setFdNo(lastNo);
 		fDao.insertFood(food);
 		reloadList();
 	}

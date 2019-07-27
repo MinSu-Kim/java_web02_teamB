@@ -1,11 +1,14 @@
 package kr.or.yi.food_mgm_program.ui.content;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
 import java.awt.GridLayout;
 import java.util.List;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import kr.or.yi.food_mgm_program.ui.list.memberList;
@@ -27,12 +30,17 @@ public class PanelMember extends JPanel implements ActionListener {
 	private PanelMemberInfo pMember;
 	private MemberDao dao;
 	private List<Member> list;
+	
 	private JPanel pInsert;
 	private JPanel pList;
 	private JButton btnJoin;
 	private JButton btnCancel;
 	private JButton btnSearch;
 	private JButton btnList;
+	
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmUpdate;
+	private JMenuItem mntmDelete;
 
 	public PanelMember() {
 		dao = new MemberDaoImpl();
@@ -48,7 +56,7 @@ public class PanelMember extends JPanel implements ActionListener {
 		pInsert.setLayout(new BorderLayout(0, 0));
 		
 		pMember = new PanelMemberInfo();
-		pMember.clearMemberInfo(list.size()+1);
+		lastNum();
 		pMember.setBorder(new EmptyBorder(50, 0, 0, 0));
 		pInsert.add(pMember, BorderLayout.CENTER);
 		
@@ -98,13 +106,24 @@ public class PanelMember extends JPanel implements ActionListener {
 		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
 		reloadList();
+		
+		popupMenu = new JPopupMenu();
+		mntmUpdate = new JMenuItem("수정");
+		mntmUpdate.addActionListener(this);
+		popupMenu.add(mntmUpdate);
+
+		mntmDelete = new JMenuItem("삭제");
+		mntmDelete.addActionListener(this);
+		popupMenu.add(mntmDelete);
+
+		pMemberList.setPopupMenu(popupMenu);
 	}
 
 	public void reloadList() {
 		list = dao.selectMemberByAll();
 		pMemberList.setItemList(list);
 		pMemberList.reloadData();
-		pMember.clearMemberInfo(list.size()+1);
+		lastNum();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -118,18 +137,60 @@ public class PanelMember extends JPanel implements ActionListener {
 			actionPerformedBtnCancel(e);
 		}
 		if (e.getSource() == btnJoin) {
-			actionPerformedBtnJoin(e);
+			try {
+				if(e.getActionCommand().equals("가입")) {
+						actionPerformedBtnJoin(e);
+				}else if(e.getActionCommand().equals("수정")) {
+					actionPerformedBtnUpdate(e);
+				}
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
+		}
+		if (e.getSource() == mntmDelete) {
+			actionPerformedMntmDelete(e);
+		}
+		if (e.getSource() == mntmUpdate) {
+			actionPerformedMntmUpdate(e);
 		}
 	}
 	
-	protected void actionPerformedBtnJoin(ActionEvent e) {
+	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
+		Member member = pMember.getMember();
+		dao.updateMember(member);
+		reloadList();
+		btnJoin.setText("가입");
+	}
+
+	private void actionPerformedMntmUpdate(ActionEvent e) {
+		Member member = pMemberList.getSelectedItem();
+		pMember.setMember(member);
+		btnJoin.setText("수정");
+	}
+
+	private void actionPerformedMntmDelete(ActionEvent e) {
+		Member member = pMemberList.getSelectedItem();
+		dao.deleteMember(member);
+		reloadList();
+	}
+
+	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
 		dao.insertMember(member);
 		reloadList();
 	}
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
-		pMember.clearMemberInfo(list.size()==0? 1 : list.size()+1);
+		lastNum();
+	}
+
+	public void lastNum() {
+		int lastNo = 0;
+		if(!list.isEmpty()) {
+			Member last = list.get(list.size()-1);
+			lastNo = last.getMbNo()+1;
+		}
+		pMember.clearMemberInfo(lastNo);
 	}
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {

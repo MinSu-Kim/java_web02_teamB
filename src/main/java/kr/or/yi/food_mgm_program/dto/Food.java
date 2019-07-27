@@ -30,7 +30,7 @@ public class Food {
 		this.fdName = fdName;
 		this.fkNo = fkNo;
 	}
-	
+
 	public int getCount() {
 		return count;
 	}
@@ -84,7 +84,7 @@ public class Food {
 	}
 
 	public Object[] toArray2() {
-		return new Object[]{fkNo.getFkName(), String.format("F%03d", fdNo), fdName, fdPrice};
+		return new Object[]{fkNo.getFkName(), String.format("F%03d", fdNo), fdName, String.format("%,d", fdPrice)};
 	}
 	
 }
