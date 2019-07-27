@@ -253,7 +253,7 @@ on food.*
 to 'user_food'@'localhost' 
 identified by 'rootroot';
 
--- 음식판매 통계 쿼리 
+-- 음식판매 통계 쿼리 (view)
 create view stateFood as 
 select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
@@ -268,4 +268,9 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	)sub2;
 ;
 
+-- 결제 통계 쿼리 (view)
+create view payment as
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+sum(f.fd_price) as payPrice,s.sale_type as payType ,
+m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
 select * from statefood;
