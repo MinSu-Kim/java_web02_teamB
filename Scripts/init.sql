@@ -266,3 +266,6 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	select sum(order_cnt*f.fd_price) as sum1
 	from sale s left join food f on s.fd_no = f.fd_no
 	)sub2;
+;
+
+select * from statefood;
