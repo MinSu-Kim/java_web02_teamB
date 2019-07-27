@@ -24,15 +24,19 @@ import kr.or.yi.food_mgm_program.ui.list.SaleList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelSaleList extends JPanel implements DocumentListener {
+public class PanelSaleList extends JPanel implements DocumentListener, ActionListener {
 	private JPanel panel_1;
 	private SaleList panel_2;
 	private ChartPanel panel_3;
 	private List<Payment> itemList;
 	private PaymentDao dao;
 	private JDatePickerImpl datePicker;
+	private JButton btnSelectByAll;
 
 	public PanelSaleList() {
 		dao = new PaymentDaoImpl();
@@ -52,6 +56,10 @@ public class PanelSaleList extends JPanel implements DocumentListener {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		panel.add(datePicker);
+		
+		btnSelectByAll = new JButton("전체보기");
+		btnSelectByAll.addActionListener(this);
+		panel.add(btnSelectByAll);
 
 		datePicker.getJFormattedTextField().getDocument().addDocumentListener(this);
 
@@ -115,5 +123,15 @@ public class PanelSaleList extends JPanel implements DocumentListener {
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSelectByAll) {
+			actionPerformedBtnSelectByAll(e);
+		}
+	}
+	protected void actionPerformedBtnSelectByAll(ActionEvent e) {
+		datePicker.getJFormattedTextField().setValue(null);
+		setListAll();
+		
 	}
 }
