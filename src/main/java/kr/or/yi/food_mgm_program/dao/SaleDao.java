@@ -10,8 +10,7 @@ import kr.or.yi.food_mgm_program.dto.SalesStatus;
 public interface SaleDao {
 	public List<Sale> selectSaleByAll();
 	public List<Sale> selectSaleByDate(String date);
-	public List<SalesStatus> selectSalesStatusByAll();
-	public List<SalesStatus> selectSalesStatusByDate(String date);
+	
 	
 	public int insertSale(Map<String, List<Sale>> map);
 }

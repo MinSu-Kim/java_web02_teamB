@@ -20,7 +20,7 @@ public class FoodList extends AbstractList<Food> {
 	@Override
 	protected Object[] toArray(int idx) {
 		Food food = itemList.get(idx);
-		return food.toArray();
+		return food.toArray2();
 	}
 
 	@Override

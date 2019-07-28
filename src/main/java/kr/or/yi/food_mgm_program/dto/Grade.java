@@ -30,6 +30,6 @@ public class Grade {
 
 	@Override
 	public String toString() {
-		return String.format("Grade [grade=%s, g_discount=%s]", grade, gDiscount);
+		return String.format("%s", grade);
 	}
 }

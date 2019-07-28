@@ -34,5 +34,7 @@
 		<mapper resource="kr/or/yi/food_mgm_program/dao/CouponMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/GradeMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/SaleMapper.xml"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/SalesStatusMapper.xml"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/PaymentMapper.xml"/>
 	</mappers>
 </configuration>

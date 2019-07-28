@@ -4,72 +4,47 @@
 	<resultMap type="Sale" id="resultSale">
 		<id column="no" property="no" />
 		<result column="sale_no" property="saleNo" />
-		<result column="sale-time" property="saletime" />
+		<result column="sale_time" property="saletime" />
 		<result column="order_cnt" property="orderCnt" />
 		<result column="order_kind" property="orderKind" />
-		<result column="sale_type" property="saleType"/>
-	</resultMap>
-	
-	<resultMap type="SalesStatus" id="resultSalesStatus">
-		<id column="ssNo" property="ssNo" />
-		<result column="ssName" property="ssName" />
-		<result column="ssCount" property="ssCount" />
-		<result column="ssTotalPrice" property="ssTotalPrice" />
-		<result column="ssShare" property="ssShare"/>
+		<result column="sale_type" property="saleType" />
 	</resultMap>
 
 
-	<resultMap type="Sale" id="resultSaleKCM" extends="resultSale">
-		<association property="fdNo" resultMap="kr.or.yi.food_mgm_program.dao.FoodMapper.resultFoodBJY" />
-		<association property="mbNo" resultMap="kr.or.yi.food_mgm_program.dao.MemberMapper.resultMemberBJY" />
+	<resultMap type="Sale" id="resultSaleKCM"
+		extends="resultSale">
+		<association property="fdNo"
+			resultMap="kr.or.yi.food_mgm_program.dao.FoodMapper.resultFoodBJY" />
+		<association property="mbNo"
+			resultMap="kr.or.yi.food_mgm_program.dao.MemberMapper.resultMemberBJY" />
 	</resultMap>
-	
+
+
 	<insert id="insertSale" parameterType="map">
-        insert into sale(sale_no, sale_time, order_cnt, order_kind, sale_type, mb_no, fd_no)
-        values
-        <foreach collection="list" item="item" separator=" , ">
-            (#{item.saleNo}, #{item.saletime}, #{item.orderCnt}, #{item.orderKind}, #{item.saleType}, #{item.mbNo.mbNo}, #{item.fdNo.fdNo})
-        </foreach>
- 	</insert>
- 	
- 	<select id="selectSaleByAll" resultMap="resultSaleKCM">
- 		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name,m.mb_name
-		from sale s left join food as f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no;
- 	</select>
-	
-	<select id="selectSaleByDate" resultMap="resultSaleKCM">
+		insert into sale(sale_no, sale_time, order_cnt, order_kind, sale_type,
+		mb_no, fd_no)
+		values
+		<foreach collection="list" item="item" separator=" , ">
+			(#{item.saleNo}, #{item.saletime}, #{item.orderCnt},
+			#{item.orderKind}, #{item.saleType}, #{item.mbNo.mbNo},
+			#{item.fdNo.fdNo})
+		</foreach>
+	</insert>
+	<select id="selectSaleByAll" resultMap="resultSaleKCM">
+		select
+		no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name,m.mb_name
+		from sale s left join food as f on s.fd_no = f.fd_no join member as m
+		on s.mb_no = m.mb_no;
+	</select>
 
-		select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name, m.md_name
-		from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no where sale_time like CONCAT( #{date}, '%');
+	<select id="selectSaleByDate" resultMap="resultSaleKCM">
+		select
+		no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name,m.mb_name
+		from sale s left join food as f on s.fd_no = f.fd_no join member as m
+		on s.mb_no = m.mb_no where sale_time like CONCAT( #{date}, '%');
 	</select>
-	
-	<!-- <select id="selectSalesStatusByAll" resultMap="resultSalesStatus">
-	select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
-	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
-	from(
-	select f.fd_name as name, sum(order_cnt) as count, f.fd_price as price,
-	sum(order_cnt*f.price) as ssTotalPrice
-	from sale s left join food f on s.fd_no = f.fd_no
-	group by s.fd_no
-	order by ssTotalPrice desc) sub1 join (
-	select sum(order_cnt*f.fd_price) as sum1
-	from sale s left join food f on s.fd_no = f.fd_no
-	)sub2;
-	</select>
-	
-	<select id="selectSalesStatusByDate" resultMap="resultSalesStatus">
-	select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
-	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
-	from(
-	select f.fd_name as name, sum(order_cnt) as count, f.fd_price as price,
-	sum(order_cnt*f.fd_price) as ssTotalPrice
-	from sale s left join food f on s.fd_no = f.fd_no where s.sale_time like CONCAT( #{date}, '%')
-	group by s.fd_no
-	order by ssTotalPrice desc) sub1 join (
-	select sum(order_cnt*f.fd_price) as sum1
-	from sale s left join food f on s.fd_no = f.fd_no where s.sale_time like CONCAT( #{date}, '%')
-	)sub2;
-	</select> -->
+
+
 </mapper>
 
 

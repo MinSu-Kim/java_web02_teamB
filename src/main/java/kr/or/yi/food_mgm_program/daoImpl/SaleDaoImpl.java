@@ -28,19 +28,7 @@ public class SaleDaoImpl implements SaleDao {
 		}
 	}
 
-	@Override
-	public List<SalesStatus> selectSalesStatusByAll() {
-		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + "selectSalesStatusByAll");
-		}
-	}
-
-	@Override
-	public List<SalesStatus> selectSalesStatusByDate(String date) {
-		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + "selectSalesStatusByDate",date);
-		}
-	}
+	
 
 	@Override
 	public int insertSale(Map<String, List<Sale>> map) {

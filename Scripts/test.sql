@@ -31,31 +31,33 @@ insert into sale values (5,1,now(),2,1,0,2,1);
 insert into sale values (6,1,now(),1,1,0,3,1);
 insert into sale values (7,1,now(),3,1,0,4,1);
 
+insert into sale values (8,2,now(),1,1,0,1,1);
+insert into sale values (9,2,now(),3,1,0,1,1);
+insert into sale values (10,2,now(),4,1,0,2,1);
+insert into sale values (11,3,now(),5,1,0,2,1);
+insert into sale values (12,3,now(),2,1,0,2,1);
+insert into sale values (13,3,now(),1,1,0,3,1);
+insert into sale values (14,3,now(),3,1,0,4,1);
 
-select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssSharem
-from(
-select f.name as name, sum(order_cnt) as count, f.price as price, sum(order_cnt*f.price) as ssTotalPrice,s.sale_time as saleTime
-from sale s left join food f on s.fd_no = f.fd_no where s.sale_time like "2019-07-26%"
-group by s.fd_no
-order by ssTotalPrice desc) sub1 join (
-select  sum(order_cnt*f.price) as sum1 
-from sale s left join food f on s.fd_no = f.fd_no where s.sale_time like "2019-07-26%"
-)sub2;
+insert into sale values (15,4,now(),3,1,0,32,1);
+insert into sale values (16,5,now(),5,1,0,14,1);
+insert into sale values (17,5,now(),2,1,0,42,2);
+insert into sale values (18,6,now(),1,1,0,32,2);
+insert into sale values (19,6,now(),1,1,0,33,2);
+insert into sale values (20,6,now(),1,1,0,13,2);
+
+select ssName, ssCount, ssTotalPrice, ssShare from stateFood;
 
 
-select * from sale;
 
 select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.name, m.name
 from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no;
 
-select no,sale_no, sale_time, order_cnt, order_kind, sale_type, mb_no, fd_no 
- 		from sale;
+select no,sale_no, sale_time, order_cnt, order_kind, sale_type, mb_no, fd_no from sale;
  		
 select sale_time from sale where sale_time like "2019-07-26%";
 
-select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.name, m.name
-		from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no where sale_time like "2019-07-26%";
-	
+select no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.name, m.name from sale s left join food f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no where sale_time like "2019-07-26%";
 	
 select f.name as name, sum(order_cnt) as count, sum(order_cnt*f.price) as ssTotalPrice
 from sale s left join food f on s.fd_no = f.fd_no 
@@ -63,3 +65,19 @@ group by s.fd_no
 order by ssTotalPrice desc;
 
 select * from manager;
+select * from member;
+set foreign_key_checks = 1;
+truncate table member;
+
+delete from member where mb_no = 3;
+
+select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member;
+create view payment as
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,sum(f.fd_price) as payPrice,s.sale_type as payType ,m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+
+select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment where payTime like "2019-07-27%";
+
+
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
+from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+group by mb_no;

@@ -9,7 +9,6 @@
 		<result column="fd_name" property="fdName"/>
 	</resultMap>
 	
-	
 	<resultMap type="Food" id="resultFoodBJY" extends="resultFood">
 		<association property="fkNo" resultMap="kr.or.yi.food_mgm_program.dao.FoodKindMapper.resultFoodKind"/>
 	</resultMap>
@@ -19,7 +18,7 @@
 	</select>
 	
 	<select id="selectByName" resultMap="resultFoodBJY">
-		select * from food where fd_name = #{fdName}
+		select f.fd_no, f.fd_name, f.fd_price, fk.fk_name from food f join foodkind fk on f.fk_no = fk.fk_no where fd_name like concat('%',#{fdName},'%')
 	</select>
 	
 	<insert id="insertFood" parameterType="Food">
@@ -31,7 +30,7 @@
 	</select>
 	
 	<update id="updateFood" parameterType="Food">
-		update food set price = #{fdPrice}, fk_no = #{fkNo.fkNo} where fd_name = #{fdName}
+		update food set fd_price = #{fdPrice}, fd_name = #{fdName} where fd_no = #{fdNo}
 	</update>
 	
 	<delete id="deletFood" parameterType="Food">

@@ -34,12 +34,14 @@ public class Member {
 		this.coupon = coupon;
 	}
 	
-	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, String mbAddress) {
+	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, String mbAddress, Grade mbGrade, int mbMileage) {
 		this.mbNo = mbNo;
 		this.mbName = mbName;
 		this.mbBirth = mbBirth;
 		this.mbTel = mbTel;
 		this.mbAddress = mbAddress;
+		this.mbGrade = mbGrade;
+		this.mbMileage = mbMileage;
 	}
 
 	public int getMbNo() {
@@ -114,12 +116,8 @@ public class Member {
 				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
 				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null);
 	}
-
-	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress};
-	}
 	
-	public Object[] toArray2() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbMileage, String.format("%s", mbGrade.getGrade()), mbAddress};
+	public Object[] toArray() {
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, mbMileage, coupon};
 	}
 }

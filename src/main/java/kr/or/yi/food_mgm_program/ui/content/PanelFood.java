@@ -3,23 +3,59 @@ package kr.or.yi.food_mgm_program.ui.content;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.dao.FoodDao;
+import kr.or.yi.food_mgm_program.dao.FoodKindDao;
+import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
+import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.dto.FoodKind;
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelFood extends JPanel {
-	private JTextField textField;
+public class PanelFood extends JPanel implements ActionListener {
+	private JTextField tfSearch;
+	
+	private FoodDao fDao;
+	private FoodKindDao fkDao;
+	private List<Food> fList;
+	private List<FoodKind> fkList;
 
+	private FoodList pFoodList;
+	private JButton btnAdd;
+	private JButton btnCancel;
+
+	private PanelFoodInfo pFood;
+	public DefaultComboBoxModel<FoodKind> fkModels;
+	private JButton btnSearch;
+	private JButton btnList;
+
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmUpdate;
+	private JMenuItem mntmDelete;
+	
 	public PanelFood() {
-
+		fDao = new FoodDaoImpl();
+		fkDao = new FoodKindDaoImpl();
+		
+		fList = fDao.selectFoodByAll();
+		fkList = fkDao.selectFoodKindByAll();
 		initComponents();
 	}
 	
@@ -29,12 +65,11 @@ public class PanelFood extends JPanel {
 		JPanel pInsert = new JPanel();
 		add(pInsert);
 		
-		JLabel label = new JLabel("");
-		
-		JLabel label_1 = new JLabel("");
 		pInsert.setLayout(new BoxLayout(pInsert, BoxLayout.X_AXIS));
 		
-		PanelFoodInfo pFood = new PanelFoodInfo();
+		pFood = new PanelFoodInfo();
+		pFood.setFoodKindCmbModel(fkList);
+		
 		GridLayout gl_pFood = (GridLayout) pFood.getLayout();
 		gl_pFood.setHgap(10);
 		pInsert.add(pFood);
@@ -44,13 +79,15 @@ public class PanelFood extends JPanel {
 		pInsert.add(pBtn);
 		pBtn.setLayout(new BoxLayout(pBtn, BoxLayout.Y_AXIS));
 		
-		JButton btnAdd = new JButton("추가");
+		btnAdd = new JButton("추가");
+		btnAdd.setBorder(new EmptyBorder(10, 20, 10, 20));
+		btnAdd.addActionListener(this);
 		pBtn.add(btnAdd);
 		
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
+		btnCancel.setBorder(new EmptyBorder(10, 20, 10, 20));
+		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
-		
-		
 		
 		JPanel pList = new JPanel();
 		add(pList);
@@ -60,15 +97,123 @@ public class PanelFood extends JPanel {
 		pList.add(pSearch, BorderLayout.NORTH);
 		pSearch.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
-		textField = new JTextField();
-		pSearch.add(textField);
-		textField.setColumns(30);
+		tfSearch = new JTextField();
+		tfSearch.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pSearch.add(tfSearch);
+		tfSearch.setColumns(30);
 		
-		JButton btnNewButton_2 = new JButton("검색");
-		pSearch.add(btnNewButton_2);
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
+		pSearch.add(btnSearch);
 		
-		FoodList pFoodList = new FoodList((String) null);
+		btnList = new JButton("전체보기");
+		btnList.addActionListener(this);
+		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
+		pSearch.add(btnList);
+		
+		pFoodList = new FoodList((String) null);
 		pList.add(pFoodList, BorderLayout.CENTER);
+		reloadList();
+		
+		popupMenu = new JPopupMenu();
+		mntmUpdate = new JMenuItem("수정");
+		mntmUpdate.addActionListener(this);
+		popupMenu.add(mntmUpdate);
+
+		mntmDelete = new JMenuItem("삭제");
+		mntmDelete.addActionListener(this);
+		popupMenu.add(mntmDelete);
+
+		pFoodList.setPopupMenu(popupMenu);
+	}
+	
+	public void reloadList() {
+		fList = fDao.selectFoodByAll();
+		pFoodList.setItemList(fList);
+		pFoodList.reloadData();
+		pFood.clearFoodInfo();
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnList) {
+			actionPerformedBtnList(e);
+		}
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
+		if (e.getSource() == btnCancel) {
+			actionPerformedBtnCancel(e);
+		}
+		if (e.getSource() == btnAdd) {
+			try {
+				if(e.getActionCommand().equals("추가")) {
+					actionPerformedBtnAdd(e);
+				}else if(e.getActionCommand().equals("수정")) {
+					actionPerformedBtnUpdate(e);
+				}
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
+		}
+		if (e.getSource() == mntmDelete) {
+			actionPerformedMntmDelete(e);
+		}
+		if (e.getSource() == mntmUpdate) {
+			actionPerformedMntmUpdate(e);
+		}
+	}
+	
+	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
+		Food food = pFood.getFoodUP();
+		fDao.updateFood(food);
+		reloadList();
 	}
 
+	private void actionPerformedMntmUpdate(ActionEvent e) {
+		Food food = pFoodList.getSelectedItem();
+		pFood.setFood(food);
+		btnAdd.setText("수정");
+	}
+
+	private void actionPerformedMntmDelete(ActionEvent e) {
+		Food food = pFoodList.getSelectedItem();
+		fDao.deletFood(food);
+		reloadList();
+	}
+
+	protected void actionPerformedBtnAdd(ActionEvent e) throws Exception {
+		Food food = pFood.getFood();
+		
+		int lastNo = 0;
+		if(!fList.isEmpty()) {
+			Food last = fList.get(fList.size()-1);
+			lastNo = last.getFdNo()+1;
+		}
+		food.setFdNo(lastNo);
+		fDao.insertFood(food);
+		reloadList();
+	}
+	
+	protected void actionPerformedBtnCancel(ActionEvent e) {
+		pFood.clearFoodInfo();
+	}
+	
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		if(tfSearch.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "검색어를 입력하세요.");
+		}else {
+			Food food = new Food();
+			food.setFdName(tfSearch.getText());
+			
+			fList = fDao.selectByName(food);
+			pFoodList.setItemList(fList);
+			pFoodList.reloadData();
+		}
+	}
+	
+	protected void actionPerformedBtnList(ActionEvent e) {
+		reloadList();
+		tfSearch.setText("");
+	}
 }

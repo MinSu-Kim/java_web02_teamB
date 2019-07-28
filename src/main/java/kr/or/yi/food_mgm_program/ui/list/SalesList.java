@@ -2,13 +2,13 @@ package kr.or.yi.food_mgm_program.ui.list;
 
 import javax.swing.SwingConstants;
 
-import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.dto.SalesStatus;
 
 @SuppressWarnings("serial")
-public class SaleList extends AbstractList<Payment> {
+public class SalesList extends AbstractList<SalesStatus> {
 
-	public SaleList(String title) {
+	public SalesList(String title) {
 		super("판매");
 		// TODO Auto-generated constructor stub
 	}
@@ -27,14 +27,14 @@ public class SaleList extends AbstractList<Payment> {
 
 	@Override
 	protected Object[] toArray(int idx) {
-		Payment sale = itemList.get(idx);
-		return sale.toArray();
+		SalesStatus sales = itemList.get(idx);
+		return sales.toArray();
 	}
 
 	@Override
 	protected String[] getColumnNames() {
 		// TODO Auto-generated method stub
-		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","결제방식","회원"};
+		return new String[] {"순위","음식명","판매수량","판매금액","점유율"};
 	}
 
 	

@@ -36,5 +36,4 @@ public class Coupon {
 	public String toString() {
 		return String.format("Coupon [cpNo=%s, cpName=%s, cpDiscount=%s]", cpNo, cpName, cpDiscount);
 	}
-	
 }

@@ -15,4 +15,8 @@
 	<select id="selectByNo" parameterType="FoodKind" resultMap="resultFoodKind">
 	 	select fk_name, fk_no from foodkind where menu_no = #{menuNo.menuNo}
 	</select>
+	
+	<select id="selectFoodKindByAll" resultMap="resultFoodKind">
+		select fk_name, fk_no from foodkind
+	</select>
 </mapper>

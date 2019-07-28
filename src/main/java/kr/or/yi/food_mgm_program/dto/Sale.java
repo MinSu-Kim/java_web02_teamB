@@ -1,8 +1,8 @@
 package kr.or.yi.food_mgm_program.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.logging.log4j.core.pattern.MdcPatternConverter;
 
 public class Sale {
 	private int no;
@@ -100,15 +100,17 @@ public class Sale {
 	}
 	
 	public Object[] toArray() {
+		SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+		
+		
 		return new Object[] {
 				no,
 				saleNo, 
-				String.format("%tF", saletime),
+				sDate.format(saletime),
 				String.format("%d개", orderCnt),
 				saleType==1?"현금" : "카드",
 				fdNo.getFdName(),
 				mbNo.getMbName()
-				
 		};
 	}
 

@@ -1,17 +1,19 @@
 package kr.or.yi.food_mgm_program.dto;
 
+import java.text.SimpleDateFormat;
+
 public class SalesStatus {
 	private int ssNo;
 	private String ssName;
 	private int ssCount;
 	private int ssTotalPrice;
-	private double ssShare;
+	private String ssShare;
 
 	public SalesStatus() {
 		super();
 	}
 
-	public SalesStatus(int ssNo, String ssName, int ssCount, int ssTotalPrice, double ssShare) {
+	public SalesStatus(int ssNo, String ssName, int ssCount, int ssTotalPrice, String ssShare) {
 		super();
 		this.ssNo = ssNo;
 		this.ssName = ssName;
@@ -52,11 +54,11 @@ public class SalesStatus {
 		this.ssTotalPrice = ssTotalPrice;
 	}
 
-	public double getSsShare() {
+	public String getSsShare() {
 		return ssShare;
 	}
 
-	public void setSsShare(int ssShare) {
+	public void setSsShare(String ssShare) {
 		this.ssShare = ssShare;
 	}
 
@@ -64,6 +66,11 @@ public class SalesStatus {
 	public String toString() {
 		return String.format("SalesStatus [ssNo=%s, ssName=%s, ssCount=%s, ssTotalPrice=%s, ssShare=%s]", ssNo, ssName,
 				ssCount, ssTotalPrice, ssShare);
+	}
+
+	public Object[] toArray() {
+
+		return new Object[] { ssNo, ssName, ssCount, ssTotalPrice, String.format("%s%%", ssShare) };
 	}
 
 }

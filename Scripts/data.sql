@@ -10,6 +10,9 @@ load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
 
+set foreign_key_checks = 1;
+delete from food;
+
 update food set fd_no = 1 where fd_no = 0;
 select * from food;
 delete from food where fd_no = 75;
@@ -33,6 +36,7 @@ select * from manager;
 
 desc member;
 select fk_name from foodkind where menu_no=1;
+
 /*
 set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
@@ -53,3 +57,36 @@ select * from sale;
 select * from manager where mg_pwd = password('rootroot');
 select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123');
 
+
+-- sale 테이블 데이터
+insert into sale values (1,1,now(),1,1,0,1,1);
+insert into sale values (2,1,now(),3,1,0,1,1);
+insert into sale values (3,1,now(),4,1,0,2,1);
+insert into sale values (4,1,now(),5,1,0,2,1);
+insert into sale values (5,1,now(),2,1,0,2,1);
+insert into sale values (6,1,now(),1,1,0,3,1);
+insert into sale values (7,1,now(),3,1,0,4,1);
+
+insert into sale values (8,2,now(),1,1,0,1,1);
+insert into sale values (9,2,now(),3,1,0,1,1);
+insert into sale values (10,2,now(),4,1,0,2,1);
+insert into sale values (11,3,now(),5,1,0,2,1);
+insert into sale values (12,3,now(),2,1,0,2,1);
+insert into sale values (13,3,now(),1,1,0,3,1);
+insert into sale values (14,3,now(),3,1,0,4,1);
+
+insert into sale values (15,4,now(),3,1,0,32,1);
+insert into sale values (16,5,now(),5,1,0,14,1);
+insert into sale values (17,5,now(),2,1,0,42,2);
+insert into sale values (18,6,now(),1,1,0,32,2);
+insert into sale values (19,6,now(),1,1,0,33,2);
+insert into sale values (20,6,now(),1,1,0,13,2);
+
+select * from sale;
+
+-- member_coupon 데이터 추가
+select * from coupon;
+insert into coupon values (2, '졸업쿠폰',5);
+
+select * from member_coupon;
+insert into member_coupon values (1, 1), (1,2), (2,1);

@@ -252,3 +252,27 @@ grant all privileges
 on food.* 
 to 'user_food'@'localhost' 
 identified by 'rootroot';
+
+use food;
+
+-- 음식판매 통계 쿼리 (view)
+create view stateFood as 
+select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
+	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
+	from(
+	select f.fd_name as name, sum(order_cnt) as count, f.fd_price as price,
+	sum(order_cnt*f.fd_price) as ssTotalPrice
+	from sale s left join food f on s.fd_no = f.fd_no
+	group by s.fd_no
+	order by ssTotalPrice desc) sub1 join (
+	select sum(order_cnt*f.fd_price) as sum1
+	from sale s left join food f on s.fd_no = f.fd_no
+	)sub2;
+;
+
+-- 결제 통계 쿼리 (view)
+create view payment as
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+sum(f.fd_price) as payPrice,s.sale_type as payType ,
+m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+select * from statefood;
