@@ -28,6 +28,7 @@ public class PanelMenuList extends AbstractPanelMenuList {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+//		JOptionPane.showMessageDialog(null, "dd");
 		for(FoodKind fk : list) {
 			if(e.getActionCommand().equals(fk.getFkName())) {
 			
@@ -40,8 +41,12 @@ public class PanelMenuList extends AbstractPanelMenuList {
 
 	private void actionPerformedBtn(FoodKind fk) {
 		food.setFkNo(fk);//음식종류
+//		JOptionPane.showMessageDialog(null, fk.toString());
 		fDao.selectByNo(food); // 해당 종류의 음식리스트
+//		JOptionPane.showMessageDialog(null, fDao.selectByNo(food).toString());
 		frame.setFood(fDao.selectByNo(food));
+		frame.setDao(fDao);
+		frame.setPOrder(pOrder);
 		showMainMenu();
 	}
 

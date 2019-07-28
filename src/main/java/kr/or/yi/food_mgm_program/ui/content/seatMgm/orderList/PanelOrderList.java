@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import kr.or.yi.food_mgm_program.dao.FoodDao;
+import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 
 import java.awt.BorderLayout;
@@ -17,8 +19,9 @@ import java.util.List;
 public class PanelOrderList extends JPanel {
 	private JTable table;
 	private List<Food> list;
+	private FoodDao dao = new FoodDaoImpl();
 	public PanelOrderList() {
-
+	
 		initComponents();
 		reloadData();
 	}
@@ -39,13 +42,14 @@ public class PanelOrderList extends JPanel {
 		tableCellAlignment(SwingConstants.CENTER, 0, 2);
 		tableCellAlignment(SwingConstants.RIGHT,1,3);
 		
-		tableSetWidth(100, 100, 50, 100);
+		tableSetWidth(150, 70, 70, 70);
 	}
 
 	private Object[][] getRows() {
 		if(list==null) {
 			list = new ArrayList<Food>();
 		}
+		
 		Object[][] rows = new Object[list.size()][];
 		for (int i = 0; i < list.size(); i++) {
 			rows[i] = list.get(i).toArray();
@@ -80,4 +84,44 @@ public class PanelOrderList extends JPanel {
 	public void setList(Food food) {
 		list.add(food);
 	}
+	public void resetList() {
+		list.clear();
+		reloadData();
+	}
+	public void selectCancel() {
+		int i = table.getSelectedRow();
+		list.remove(i);
+		reloadData();
+		
+	}
+	public void setPlus() {
+		int i = table.getSelectedRow();
+		list.get(i).plusCount();
+		reloadData();
+		
+	}
+	
+	public void setMinus() {
+		int i = table.getSelectedRow();
+		list.get(i).minusCount();
+		if(list.get(i).getCount()<1) {
+			list.get(i).plusCount();
+			return;
+		}
+		reloadData();
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,7 +18,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import kr.or.yi.food_mgm_program.dao.FoodDao;
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
 public class MenuListFrame extends JFrame implements ActionListener {
 
@@ -27,8 +30,8 @@ public class MenuListFrame extends JFrame implements ActionListener {
 	private JTable table;
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmPopAdd;
-
-	
+	private FoodDao dao;
+	private PanelOrderList pOrder;
 
 	public MenuListFrame() {
 
@@ -37,7 +40,7 @@ public class MenuListFrame extends JFrame implements ActionListener {
 	}
 	private void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(300, 300, 450, 300);
+		setBounds(300, 300, 300, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -70,7 +73,7 @@ public class MenuListFrame extends JFrame implements ActionListener {
 		tableCellAlignment(SwingConstants.CENTER, 0);
 		tableCellAlignment(SwingConstants.RIGHT, 1);
 		
-		tableSetWidth(100,80);
+		tableSetWidth(100,30);
 	}
 
 	private Object[][] getRows() {
@@ -109,9 +112,20 @@ public class MenuListFrame extends JFrame implements ActionListener {
 		if(e.getSource()==mntmPopAdd) {
 			int i = table.getSelectedRow();
 			String fName = (String) table.getModel().getValueAt(i, 0);
+			Food food = new Food();
+			food.setFdName(fName);
+			Food food1 = dao.selectByName(food);
+			pOrder.setList(food1);
+			pOrder.reloadData();
 			
 		}
 		
+	}
+	public void setDao(FoodDao fDao) {
+		this.dao = fDao;
+	}
+	public void setPOrder(PanelOrderList orderList) {
+		this.pOrder = orderList;
 	}
 }
 

@@ -39,6 +39,14 @@ public class Food {
 		this.count = count;
 	}
 
+	public void plusCount() {
+		this.count+=1;
+	}
+	
+	public void minusCount() {
+		this.count-=1;
+	}
+
 	public int getFdNo() {
 		return fdNo;
 	}

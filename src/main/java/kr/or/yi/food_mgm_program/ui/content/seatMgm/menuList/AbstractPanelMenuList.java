@@ -14,6 +14,7 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Menu;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
 public abstract class AbstractPanelMenuList extends JPanel implements ActionListener {
 	
@@ -24,7 +25,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	protected FoodDao fDao;
 	protected Menu menu;
 	protected JPanel panel;
-	
+	protected PanelOrderList pOrder;
 	
 	public AbstractPanelMenuList() {
 		
@@ -54,6 +55,9 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 			btn.addActionListener(this);
 		}
 		
+	}
+	public void setOrderList(PanelOrderList orderlist) {
+		this.pOrder = orderlist;
 	}
 
 }

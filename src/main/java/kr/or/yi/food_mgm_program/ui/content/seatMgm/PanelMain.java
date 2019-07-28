@@ -34,8 +34,8 @@ public class PanelMain extends JPanel implements ActionListener {
 	private JPanel pPay;
 	private JPanel pOder;
 	private JPanel pMenu;
-	private PanelOrderList panel;
-	private JPanel panel_1;
+	private PanelOrderList pList;
+	private JPanel pCancel;
 	private JButton btnAllCancel;
 	private JButton btnSelectCancel;
 	private JButton btnPlus;
@@ -92,24 +92,28 @@ public class PanelMain extends JPanel implements ActionListener {
 		pPay.add(pOder);
 		pOder.setLayout(new BorderLayout(0, 0));
 		
-		panel = new PanelOrderList();
-		pOder.add(panel, BorderLayout.CENTER);
+		pList = new PanelOrderList();
+		pOder.add(pList, BorderLayout.CENTER);
 		
-		panel_1 = new JPanel();
-		pOder.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		pCancel = new JPanel();
+		pOder.add(pCancel, BorderLayout.SOUTH);
+		pCancel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnAllCancel = new JButton("전체취소");
-		panel_1.add(btnAllCancel);
+		btnAllCancel.addActionListener(this);
+		pCancel.add(btnAllCancel);
 		
 		btnSelectCancel = new JButton("선택취소");
-		panel_1.add(btnSelectCancel);
+		btnSelectCancel.addActionListener(this);
+		pCancel.add(btnSelectCancel);
 		
 		btnPlus = new JButton("+");
-		panel_1.add(btnPlus);
+		btnPlus.addActionListener(this);
+		pCancel.add(btnPlus);
 		
 		btnMinus = new JButton("-");
-		panel_1.add(btnMinus);
+		btnMinus.addActionListener(this);
+		pCancel.add(btnMinus);
 		
 		pMenu = new JPanel();
 		pPay.add(pMenu);
@@ -155,6 +159,8 @@ public class PanelMain extends JPanel implements ActionListener {
 		pS = new JPanel();
 		add(pS, BorderLayout.SOUTH);
 		pS.setPreferredSize(new Dimension(200, 30));
+		
+		pMainMenu.setOrderList(pList);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -167,6 +173,35 @@ public class PanelMain extends JPanel implements ActionListener {
 		if (e.getSource() == btnDrink) {
 			actionPerformedBtnDrink(e);
 		}
+		if (e.getSource() == btnAllCancel) {
+			actionPerformedBtnAllCancel(e);
+		}
+		if (e.getSource() == btnSelectCancel) {
+			actionPerformedBtnSelectCancel(e);
+		}
+		if (e.getSource() == btnPlus) {
+			actionPerformedBtnPlus(e);
+		}
+		if (e.getSource() == btnMinus) {
+			actionPerformedBtnMinus(e);
+		}
+	}
+	private void actionPerformedBtnMinus(ActionEvent e) {
+		pList.setMinus();
+		
+	}
+	private void actionPerformedBtnPlus(ActionEvent e) {
+		pList.setPlus();
+		
+	}
+	private void actionPerformedBtnSelectCancel(ActionEvent e) {
+		pList.selectCancel();
+		
+	}
+	private void actionPerformedBtnAllCancel(ActionEvent e) {
+		pList.resetList();
+		
+		
 	}
 	protected void actionPerformedBtnDrink(ActionEvent e) {
 		cards.show(pMenuList, "pDrink");
