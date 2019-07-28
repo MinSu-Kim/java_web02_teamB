@@ -30,6 +30,13 @@ public class Food {
 		this.fdName = fdName;
 		this.fkNo = fkNo;
 	}
+	
+	public Food(int fdPrice, String fdName, FoodKind fkNo) {
+		super();
+		this.fdPrice = fdPrice;
+		this.fdName = fdName;
+		this.fkNo = fkNo;
+	}
 
 	public int getCount() {
 		return count;

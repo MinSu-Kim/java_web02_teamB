@@ -3,6 +3,8 @@ package kr.or.yi.food_mgm_program.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Member {
 	private int mbNo;
 	private String mbName;
@@ -118,6 +120,6 @@ public class Member {
 	}
 	
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, mbMileage, coupon};
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d", mbMileage), coupon};
 	}
 }
