@@ -114,9 +114,9 @@ public class MenuListFrame extends JFrame implements ActionListener {
 			String fName = (String) table.getModel().getValueAt(i, 0);
 			Food food = new Food();
 			food.setFdName(fName);
-			Food food1 = dao.selectByName(food);
+			Food food1 = dao.selectByNames(food);
 			pOrder.setList(food1);
-			pOrder.reloadData();
+			
 			
 		}
 		

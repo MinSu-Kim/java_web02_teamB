@@ -12,14 +12,17 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dao.ManagerDao;
+import kr.or.yi.food_mgm_program.dao.NoManagerDao;
 import kr.or.yi.food_mgm_program.daoImpl.ManagerDaoImpl;
+import kr.or.yi.food_mgm_program.daoImpl.NoManagerDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Manager;
+import kr.or.yi.food_mgm_program.dto.NoManager;
 
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 
 @SuppressWarnings("serial")
-public class LoginFrame extends JFrame implements ActionListener, FocusListener {
+public class LoginFrame extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField tfId;
@@ -27,10 +30,13 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 	private JButton btnLogin;
 	private JButton btnMLogin;
 	private ManagerDao dao;
+	private NoManagerDao nDao;
 	public static Manager manager;
-
+	public static NoManager noManager;
+	
 	public LoginFrame() {
 		dao = new ManagerDaoImpl();
+		nDao = new NoManagerDaoImpl();
 		initComponents();
 	}
 	private void initComponents() {
@@ -46,7 +52,7 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		tfId = new JTextField();
 		tfId.setText("jongho1227");
 		
-		tfId.addFocusListener(this);
+		
 		
 		tfId.setBounds(42, 149, 250, 44);
 		contentPane.add(tfId);
@@ -76,18 +82,17 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		}
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-	}
-	public void focusGained(FocusEvent e) {
-		if (e.getSource() == tfId) {
-			focusGainedTextField(e);
+		noManager = nDao.selectByPass(inputNoManager());
+		if(noManager == null) {
+			JOptionPane.showMessageDialog(null, "아이디가 없거나 비밀번호가 일치하지 않습니다.");
+		}else {
+			MainFrame frame = new MainFrame();
+			frame.setVisible(true);
+			frame.setLoginForm(this);
+			this.setVisible(false);
 		}
 	}
-	public void focusLost(FocusEvent e) {
-		
-	}
-	protected void focusGainedTextField(FocusEvent e) {
-		
-	}
+	
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
 
 		manager = dao.selectByPass(inputManager());
@@ -112,6 +117,19 @@ public class LoginFrame extends JFrame implements ActionListener, FocusListener 
 		manager.setMgId(id);
 		manager.setMgPwd(password);
 		return manager;
+	}
+	
+	public NoManager inputNoManager() {
+		String id = tfId.getText();
+		char[] pass = pfPass.getPassword();
+		String password = "";
+		for(char cha : pass) {
+			password+=cha;
+		}
+		NoManager noManager = new NoManager();
+		noManager.setNmgId(id);
+		noManager.setNmgPwd(password);
+		return noManager;
 	}
 	public void setVisible() {
 		this.setVisible(true);

@@ -14,6 +14,9 @@ public class Manager {
 	public String getMgId() {
 		return mgId;
 	}
+	public String getMgId2() {
+		return "관리자["+mgId+"]";
+	}
 	public void setMgId(String mgId) {
 		this.mgId = mgId;
 	}

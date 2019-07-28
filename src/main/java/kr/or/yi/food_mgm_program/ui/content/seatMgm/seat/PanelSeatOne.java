@@ -4,14 +4,25 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+
+import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
 
-public class PanelSeatOne extends JPanel {
+public class PanelSeatOne extends JPanel implements ActionListener {
 	private JPanel pOrder;
 	private JPanel pNumber;
 	private JPanel pC;
@@ -23,8 +34,11 @@ public class PanelSeatOne extends JPanel {
 	private JPanel pE;
 	private JLabel lblPrice;
 	private JButton btnNumber;
-	private JLabel lblNewLabel;
-
+	private JLabel lbl;
+	private PanelOrderList pList;
+	private List<JLabel> labelList;
+	private List<Food> foodList;
+	private PanelMain panelMain;
 	
 	public PanelSeatOne() {
 
@@ -47,19 +61,16 @@ public class PanelSeatOne extends JPanel {
 		pCC.setBackground(Color.WHITE);
 		pCC.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		pC.add(pCC, BorderLayout.CENTER);
-		pCC.setLayout(new BorderLayout(0, 0));
+		pCC.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setText("갈비탕<br>스테이크");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		pCC.add(lblNewLabel, BorderLayout.CENTER);
+	
 		
 		pCS = new JPanel();
 		pC.add(pCS, BorderLayout.SOUTH);
 		pCS.setPreferredSize(new Dimension(10, 40));
 		pCS.setLayout(new BorderLayout(0, 0));
 		
-		lblPrice = new JLabel("가격");
+		lblPrice = new JLabel();
 		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		pCS.add(lblPrice, BorderLayout.CENTER);
 		
@@ -87,7 +98,8 @@ public class PanelSeatOne extends JPanel {
 		pNumber.setPreferredSize(new Dimension(70, 10));
 		pNumber.setLayout(new BorderLayout(0, 0));
 		
-		btnNumber = new JButton("no");
+		btnNumber = new JButton("");
+		btnNumber.addActionListener(this);
 		btnNumber.setBackground(new Color(205, 133, 63));
 		pNumber.add(btnNumber, BorderLayout.CENTER);
 	}
@@ -96,6 +108,64 @@ public class PanelSeatOne extends JPanel {
 		btnNumber.setText(number);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNumber) {
+			actionPerformedBtnNumber(e);
+		}
+	}
+	protected void actionPerformedBtnNumber(ActionEvent e) {
+		String no = btnNumber.getText();
+			
+			pList.setList(foodList);
+			pList.setTableNo(no);
+			panelMain.setSeatOne(this);
+			
+	
+		
+		
+	}
+	public void setPcc(List<Food> list) {
+		pCC.removeAll();
+		if(list==null) {
+			return;
+		}
+		for(Food fd : list) {
+			lbl = new JLabel(fd.toString2());
+			lbl.setHorizontalAlignment(SwingConstants.CENTER);
+			pCC.add(lbl);
+			
+		}
+		foodList = list;
+		revalidate();
+		repaint();
+		
+	}
+	public void setPlist(PanelOrderList plist) {
+		this.pList = plist;
+	}
+	public void setPanelMain(PanelMain main) {
+		this.panelMain = main;
+	}
+	
+	public String getNo() {
+		return btnNumber.getText();
+	}
+	
+	public void setLblPrice(String price) {
+		if(price.equals("")) {
+			lblPrice.setText("");
+		}else {
+			lblPrice.setText(price+"원");
+		}
+		
+	}
+	
+	public String getEmptyNo() {
+		if(lbl==null) {
+			return btnNumber.getText();
+		}
+		return null;
+	}
 }
 
 

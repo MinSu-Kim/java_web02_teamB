@@ -29,6 +29,7 @@
 		<mapper resource="kr/or/yi/food_mgm_program/dao/FoodKindMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/MenuMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/ManagerMapper.xml"/>
+		<mapper resource="kr/or/yi/food_mgm_program/dao/NoManagerMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/FoodMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/MemberMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/CouponMapper.xml"/>

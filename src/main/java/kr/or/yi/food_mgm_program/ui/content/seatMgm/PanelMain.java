@@ -6,13 +6,16 @@ import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelDrink;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelSide;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.seat.PanelSeat;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.seat.PanelSeatOne;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -51,7 +54,8 @@ public class PanelMain extends JPanel implements ActionListener {
 	private PanelSide pSideMenu;
 	private PanelDrink pDrink;
 	private CardLayout cards = new CardLayout();
-	
+	private JButton btnAdd;
+	private PanelSeatOne seatOne;
 	
 	
 	public PanelMain() {
@@ -115,6 +119,10 @@ public class PanelMain extends JPanel implements ActionListener {
 		btnMinus.addActionListener(this);
 		pCancel.add(btnMinus);
 		
+		btnAdd = new JButton("확인");
+		btnAdd.addActionListener(this);
+		pCancel.add(btnAdd);
+		
 		pMenu = new JPanel();
 		pPay.add(pMenu);
 		pMenu.setLayout(new BorderLayout(0, 0));
@@ -161,9 +169,19 @@ public class PanelMain extends JPanel implements ActionListener {
 		pS.setPreferredSize(new Dimension(200, 30));
 		
 		pMainMenu.setOrderList(pList);
+		pSideMenu.setOrderList(pList);
+		pDrink.setOrderList(pList);
+		pSeat.setPlist(pList);
+		pSeat.setPanelMain(this);
+		pSeat.setPanelSeatOne();
+		pSeat.setEmpty();
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAdd) {
+			actionPerformedBtnAdd(e);
+		}
 		if (e.getSource() == btnMainMenu) {
 			actionPerformedBtnMainMenu(e);
 		}
@@ -212,4 +230,31 @@ public class PanelMain extends JPanel implements ActionListener {
 	protected void actionPerformedBtnMainMenu(ActionEvent e) {
 		cards.show(pMenuList, "pMain");
 	}
+	protected void actionPerformedBtnAdd(ActionEvent e) {
+		seatOne.setPcc(pList.getList());
+		int price = 0;
+		String price1 = "";
+		for(Food food : pList.getList()) {
+			price += food.getFdPrice()*food.getCount();
+		}
+		if(price == 0) {
+			seatOne.setLblPrice(price1);
+			pSeat.setEmpty();
+			pSeat.revalidate();
+			pSeat.repaint();
+			return;
+		}
+		price1 = Food.formatter.format(price);
+		seatOne.setLblPrice(price1);
+		pSeat.setEmpty();
+		pSeat.revalidate();
+		pSeat.repaint();
+		
+		
+		
+	}
+	public void setSeatOne(PanelSeatOne seatOne) {
+		this.seatOne = seatOne;
+	}
+	
 }

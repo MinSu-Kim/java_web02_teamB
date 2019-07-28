@@ -9,8 +9,8 @@ public class Food {
 	private int fdPrice;
 	private String fdName;
 	private FoodKind fkNo;
-	
 	private int count = 1;
+	public static NumberFormat formatter = new DecimalFormat("###,###");
 	
 	public Food() {
 		// TODO Auto-generated constructor stub
@@ -78,17 +78,48 @@ public class Food {
 	public void setFkNo(FoodKind fkNo) {
 		this.fkNo = fkNo;
 	}
+	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fdName == null) ? 0 : fdName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Food other = (Food) obj;
+		if (fdName == null) {
+			if (other.fdName != null)
+				return false;
+		} else if (!fdName.equals(other.fdName))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
 		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo, count);
 	}
 	
+	public String toString2() {
+		
+		return fdName+"   "+formatter.format(fdPrice*count)+"원";
+	}
+	
 	public Object[] toArray() {
-		NumberFormat formatter = new DecimalFormat("###,###");
 		String price = formatter.format(this.fdPrice);
 		String total = formatter.format(this.fdPrice*this.count);
-		return new Object[]{fdName, price, count, total };
+		return new Object[]{fdName, price+"원", count, total+"원" };
 	}
 
 	public Object[] toArray2() {

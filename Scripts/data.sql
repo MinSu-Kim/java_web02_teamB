@@ -90,3 +90,8 @@ insert into coupon values (2, '졸업쿠폰',5);
 
 select * from member_coupon;
 insert into member_coupon values (1, 1), (1,2), (2,1);
+
+select * from no_manager;
+delete from no_manager where nmg_id = '1jongho1227';
+insert into no_manager values ('1jongho1227', password('whdgh123'));
+

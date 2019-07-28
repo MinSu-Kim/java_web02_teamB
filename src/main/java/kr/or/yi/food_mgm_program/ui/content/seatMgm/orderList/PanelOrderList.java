@@ -1,5 +1,11 @@
 package kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList;
 
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -12,14 +18,13 @@ import kr.or.yi.food_mgm_program.dao.FoodDao;
 import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 
-import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 public class PanelOrderList extends JPanel {
 	private JTable table;
 	private List<Food> list;
 	private FoodDao dao = new FoodDaoImpl();
+	private String no;
+	private JLabel lblNewLabel;
+	private JPanel panel_1;
 	public PanelOrderList() {
 	
 		initComponents();
@@ -28,12 +33,22 @@ public class PanelOrderList extends JPanel {
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
 		
+		JPanel panel = new JPanel();
+		add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane);
+		panel.add(scrollPane, BorderLayout.NORTH);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);	
+		
+		panel_1 = new JPanel();
+		add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		lblNewLabel = new JLabel("테이블 번호 :");
+		panel_1.add(lblNewLabel, BorderLayout.WEST);
 	}
 	
 	public void reloadData() {
@@ -54,6 +69,7 @@ public class PanelOrderList extends JPanel {
 		for (int i = 0; i < list.size(); i++) {
 			rows[i] = list.get(i).toArray();
 		}
+		
 		return rows;
 	}
 
@@ -82,7 +98,14 @@ public class PanelOrderList extends JPanel {
 	}
 	
 	public void setList(Food food) {
-		list.add(food);
+		if(list.contains(food)) {
+			int a = list.indexOf(food);
+			list.get(a).plusCount();
+		}else {
+			list.add(food);
+		}
+		
+		reloadData();
 	}
 	public void resetList() {
 		list.clear();
@@ -109,6 +132,26 @@ public class PanelOrderList extends JPanel {
 			return;
 		}
 		reloadData();
+	}
+	
+	public List<Food> getList(){
+		return list;
+	}
+	
+	public void setList(List<Food> list) {
+		this.list = list;
+		reloadData();
+	}
+	public void setTableNo(String no) {
+		this.no = no;
+		if(this.no==null) {
+			this.no="";
+		}
+		lblNewLabel.setText("테이블 번호 : "+this.no);
+		
+	}
+	public String getTableNo() {
+		return no;
 	}
 	
 }

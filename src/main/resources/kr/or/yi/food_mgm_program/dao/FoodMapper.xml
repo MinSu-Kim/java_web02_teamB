@@ -21,6 +21,10 @@
 		select f.fd_no, f.fd_name, f.fd_price, fk.fk_name from food f join foodkind fk on f.fk_no = fk.fk_no where fd_name like concat('%',#{fdName},'%')
 	</select>
 	
+	<select id="selectByNames" resultMap="resultFoodBJY">
+		select * from food where fd_name = #{fdName}
+	</select>
+	
 	<insert id="insertFood" parameterType="Food">
 		insert into food values (#{fdNo},#{fdPrice},#{fdName},#{fkNo.fkNo})
 	</insert>
