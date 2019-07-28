@@ -4,16 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dao.FoodDao;
@@ -22,10 +22,10 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
-import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
@@ -42,7 +42,6 @@ public class PanelFood extends JPanel implements ActionListener {
 	private JButton btnCancel;
 
 	private PanelFoodInfo pFood;
-	public DefaultComboBoxModel<FoodKind> fkModels;
 	private JButton btnSearch;
 	private JButton btnList;
 
@@ -99,10 +98,12 @@ public class PanelFood extends JPanel implements ActionListener {
 		
 		tfSearch = new JTextField();
 		tfSearch.setBorder(new EmptyBorder(10, 10, 10, 10));
+		tfSearch.registerKeyboardAction(this, "search", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
 		pSearch.add(tfSearch);
 		tfSearch.setColumns(30);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.setActionCommand("search"); //해당 버튼에 부여할 액션명령에 대한 명칭을 부여한다.
 		btnSearch.addActionListener(this);
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnSearch);
@@ -139,7 +140,7 @@ public class PanelFood extends JPanel implements ActionListener {
 		if (e.getSource() == btnList) {
 			actionPerformedBtnList(e);
 		}
-		if (e.getSource() == btnSearch) {
+		if (e.getActionCommand() == "search") {
 			actionPerformedBtnSearch(e);
 		}
 		if (e.getSource() == btnCancel) {
@@ -184,13 +185,12 @@ public class PanelFood extends JPanel implements ActionListener {
 
 	protected void actionPerformedBtnAdd(ActionEvent e) throws Exception {
 		Food food = pFood.getFood();
-		
-		int lastNo = 0;
-		if(!fList.isEmpty()) {
-			Food last = fList.get(fList.size()-1);
-			lastNo = last.getFdNo()+1;
-		}
-		food.setFdNo(lastNo);
+//		int lastNo = 0;
+//		if(!fList.isEmpty()) {
+//			Food last = fList.get(fList.size()-1);
+//			lastNo = last.getFdNo()+1;
+//		}
+//		food.setFdNo(lastNo);
 		fDao.insertFood(food);
 		reloadList();
 	}

@@ -8,6 +8,11 @@ public class Coupon {
 	public Coupon() {
 	}
 
+	public Coupon(int cpNo) {
+		super();
+		this.cpNo = cpNo;
+	}
+
 	public int getCpNo() {
 		return cpNo;
 	}
@@ -34,6 +39,6 @@ public class Coupon {
 
 	@Override
 	public String toString() {
-		return String.format("Coupon [cpNo=%s, cpName=%s, cpDiscount=%s]", cpNo, cpName, cpDiscount);
+		return String.format("%s", cpName);
 	}
 }

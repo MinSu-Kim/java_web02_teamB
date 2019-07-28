@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -69,12 +70,12 @@ public class PanelFoodInfo extends JPanel {
 		*/
 	}
 	
-//	public JComboBox<FoodKind> getCmbFoodKind() {
-//		return cmbKind;
-//	}
+	public JComboBox<FoodKind> getCmbFoodKind() {
+		return cmbKind;
+	}
 	
 	public void clearFoodInfo() {
-		cmbKind.setSelectedIndex(0);
+		cmbKind.setSelectedIndex(-1);
 		tfName.setText("");
 		tfPrice.setText("");
 	}
@@ -92,7 +93,7 @@ public class PanelFoodInfo extends JPanel {
 		FoodKind fk = (FoodKind) cmbKind.getSelectedItem();
 		String name = tfName.getText().trim();
 		int price = Integer.parseInt(tfPrice.getText().trim());
-		return new Food(0, price, name, fk);
+		return new Food(price, name, fk);
 	}
 	
 	public Food getFoodUP() throws Exception {
@@ -105,14 +106,14 @@ public class PanelFoodInfo extends JPanel {
 	}
 		
 	private void validCheck() throws Exception {
+		if(cmbKind.getSelectedItem() == null) {
+			throw new Exception("음식종류를 선택하세요.");
+		}
 		if(tfName.getText().equals("")) {
 			throw new Exception("이름을 입력하세요.");
 		}
 		if(tfPrice.getText().equals("")) {
 			throw new Exception("가격을 입력하세요.");
-		}
-		if(cmbKind.getSelectedItem() == null) {
-			throw new Exception("음식종류를 선택하세요.");
 		}
 	}
 }

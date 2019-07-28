@@ -7,7 +7,9 @@ import java.awt.GridLayout;
 import java.util.List;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -20,6 +22,7 @@ import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 
@@ -83,26 +86,28 @@ public class PanelMember extends JPanel implements ActionListener {
 		add(pList);
 		pList.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new EmptyBorder(0, 0, 0, 10));
-		FlowLayout flowLayout = (FlowLayout) panel_4.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		pList.add(panel_4, BorderLayout.NORTH);
+		JPanel pSearch = new JPanel();
+		pSearch.setBorder(new EmptyBorder(0, 0, 0, 10));
+		FlowLayout fl_pSearch = (FlowLayout) pSearch.getLayout();
+		fl_pSearch.setAlignment(FlowLayout.RIGHT);
+		pList.add(pSearch, BorderLayout.NORTH);
 		
 		tfSearch = new JTextField();
 		tfSearch.setBorder(new EmptyBorder(10, 10, 10, 10));
-		panel_4.add(tfSearch);
+		tfSearch.registerKeyboardAction(this, "search", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
+		pSearch.add(tfSearch);
 		tfSearch.setColumns(30);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.setActionCommand("search"); //해당 버튼에 부여할 액션명령에 대한 명칭을 부여한다.
 		btnSearch.addActionListener(this);
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
-		panel_4.add(btnSearch);
+		pSearch.add(btnSearch);
 		
 		btnList = new JButton("전체보기");
 		btnList.addActionListener(this);
 		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
-		panel_4.add(btnList);
+		pSearch.add(btnList);
 		
 		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
@@ -131,7 +136,7 @@ public class PanelMember extends JPanel implements ActionListener {
 		if (e.getSource() == btnList) {
 			actionPerformedBtnList(e);
 		}
-		if (e.getSource() == btnSearch) {
+		if (e.getActionCommand() == "search") {
 			actionPerformedBtnSearch(e);
 		}
 		if (e.getSource() == btnCancel) {

@@ -26,7 +26,7 @@
 	</select>
 	
 	<insert id="insertFood" parameterType="Food">
-		insert into food values (#{fdNo},#{fdPrice},#{fdName},#{fkNo.fkNo})
+		insert into food(fd_price, fd_name, fk_no) values (#{fdPrice},#{fdName},#{fkNo.fkNo})
 	</insert>
 	
 	<select id="selectByNo" resultType="Food" parameterType="Food">
