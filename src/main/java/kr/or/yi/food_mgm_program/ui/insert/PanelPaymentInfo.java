@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 
@@ -106,30 +107,36 @@ public class PanelPaymentInfo extends JPanel {
 		tfMember.setColumns(10);
 	}
 	
-	public void setMemberInfo(Member mem) {
+	public void setMemberInfo(Member mem,int sum) {
 		System.out.println(mem);
 		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
 	}
 	
-	public void setDiscountInfoMileage(int mileage) {
+	public void setDiscountInfoMileage(int mileage,int sum) {
 		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
+		tfDiscountPrice.setText(mileage+"원");
+		tfReceive.setText(String.format("%,d원",sum-mileage));
 			
 	}
 	
-	public void setDiscountInfoCoupon(String coupon) {
-		tfDisCountInfo.setText("쿠폰 : " + coupon);
-			
+	public void setDiscountInfoCoupon(Coupon searchCoupon,int sum) {
+		tfDisCountInfo.setText("쿠폰 : " + searchCoupon.getCpName() + "("+searchCoupon.getCpDiscount()+"%)");
+		double disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
+		tfDiscountPrice.setText(String.format("%,d원", (int)disPrice));
+		tfReceive.setText(String.format("%d원",(int)(sum-disPrice)));
 
 	}
 	
-	public void setDiscountInfoGrade(Member mem) {
+	public void setDiscountInfoGrade(Member mem,int sum) {
 		tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
-		
+		double disPrice = sum*((double)mem.getMbGrade().getG_discount()/100);
+		tfDiscountPrice.setText(String.format("%,d원",(int)disPrice));
+		tfReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 	}
 	
-	public void setInitWork(String price, List<Sale> saleList) {
+	public void setInitWork(int  sum, List<Sale> saleList) {
 		this.saleList = saleList;
-		tfTotalPrice.setText(price);
+		tfTotalPrice.setText(String.format("%,d원", sum));
 		tfSaleNo.setText(Integer.toString(saleList.get(0).getSaleNo()));
 		
 	}

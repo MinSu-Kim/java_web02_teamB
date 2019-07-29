@@ -177,7 +177,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		List<Sale> saleList = new ArrayList<Sale>();
 		sales = dao.selectLastNo();
 		int Number = sales.getSaleNo()+1; // 판매번호
-		String price = btnPrice.getText(); // 총금액
+		int sum = 0; //총금액
 		for(Food food : foodList) {
 			Sale sale = new Sale();
 			int foodCount = food.getCount();
@@ -186,11 +186,12 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 			sale.setOrderKind(true);
 			sale.setFdNo(food);
 			saleList.add(sale);
+			 sum += food.getFdPrice();
 			
 		}
 		
 		
-		frame.setInitWork(price, saleList);
+		frame.setInitWork(sum,saleList);
 		frame.setVisible(true);
 	}
 }

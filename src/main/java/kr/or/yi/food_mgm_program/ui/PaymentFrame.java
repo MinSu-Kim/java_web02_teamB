@@ -41,6 +41,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private Member mem;
 	private List<Sale> saleList;
 	private int updateMileage;
+	private int sum;
 
 	public PaymentFrame() {
 		initComponents();
@@ -137,7 +138,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		}
 
 		if (mem != null) {
-			panelInfo.setMemberInfo(mem); // 회원정보가 올라감
+			panelInfo.setMemberInfo(mem,sum); // 회원정보가 올라감
 
 			btnMileage.setEnabled(true);
 			btnCoupon.setEnabled(true);
@@ -167,7 +168,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() +  "원" );
 		}else {
 			int updateMileage = mem.getMbMileage()-mileage;
-			panelInfo.setDiscountInfoMileage(mileage);
+			panelInfo.setDiscountInfoMileage(mileage,sum);
 			
 			
 		}
@@ -185,11 +186,19 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		  "쿠폰 선택", JOptionPane.QUESTION_MESSAGE, null, selectionValues,
 		  selectionValues[0]);
 		  
-		  panelInfo.setDiscountInfoCoupon(coupon);
+		  Coupon searchCoupon = new Coupon(coupon);
+		  
+		  for(Coupon c : couponList) {
+			  if( c.equals(searchCoupon) ) {
+				  searchCoupon = c;
+			  }
+		  }
+		  
+		  panelInfo.setDiscountInfoCoupon(searchCoupon,sum);
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
-		panelInfo.setDiscountInfoGrade(mem);
+		panelInfo.setDiscountInfoGrade(mem,sum);
 	}
 
 	protected void actionPerformedBtnCash(ActionEvent e) { // 현금 결제
@@ -230,9 +239,10 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		}
 	}
 
-	public void setInitWork(String price, List<Sale> saleList) { // 주문창에서 받아온 sale list
+	public void setInitWork(int sum,List<Sale> saleList) { // 주문창에서 받아온 sale list
 		this.saleList = saleList;
-		panelInfo.setInitWork(price, saleList);
+		this.sum = sum;
+		panelInfo.setInitWork(sum, saleList);
 	}
 
 }
