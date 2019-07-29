@@ -2,14 +2,18 @@ package kr.or.yi.food_mgm_program.ui.insert;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.util.List;
+
 import javax.swing.border.TitledBorder;
 
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 
 import javax.swing.UIManager;
@@ -20,7 +24,7 @@ public class PanelPaymentInfo extends JPanel {
 	private JTextField tfTpReceive;
 	private JTextField tfReceive;
 	private JTextField tfChange;
-	private JTextField ftDisCountInfo;
+	private JTextField tfDisCountInfo;
 	private JTextField tfSaleNo;
 	private JLabel lblMember;
 	private JTextField tfMember;
@@ -64,9 +68,9 @@ public class PanelPaymentInfo extends JPanel {
 		lblIDiscountInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblIDiscountInfo);
 		
-		ftDisCountInfo = new JTextField();
-		ftDisCountInfo.setColumns(10);
-		add(ftDisCountInfo);
+		tfDisCountInfo = new JTextField();
+		tfDisCountInfo.setColumns(10);
+		add(tfDisCountInfo);
 		
 		JLabel lblToReceive = new JLabel("받을 금액");
 		lblToReceive.setHorizontalAlignment(SwingConstants.CENTER);
@@ -104,7 +108,52 @@ public class PanelPaymentInfo extends JPanel {
 	}
 	
 	public void setMemberInfo(Member mem) {
-		tfMember.setText(mem.getMbName()+"님");
+		System.out.println(mem);
+		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
+	}
+	
+	public void setDiscountInfo(Member mem,int disCountNo) {
+		if(disCountNo==1) { //마일리지
+			String Smileage = JOptionPane.showInputDialog("사용할 마일리지를 입력하세요. 현재 사용 가능한 마일리지 : "+mem.getMbMileage() + "원" );
+			
+			if(Smileage == null) {
+				return;
+			}
+			
+			if( Smileage.equals("")) {
+				JOptionPane.showMessageDialog(null, "선택된 회원이 없습니다.");
+				return;
+			}
+			
+			int mileage = Integer.parseInt(Smileage);
+			
+			if(mem.getMbMileage() < mileage) {
+				JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() +  "원" );
+			}else {
+				int updateMileage = mem.getMbMileage()-mileage;
+				tfDisCountInfo.setText("마일리지 : " + mileage + "원");
+			}
+			
+			
+			//받을금액 수정
+		}else if(disCountNo==2) { //쿠폰
+			List<Coupon> couponList = mem.getCoupon();
+			String[] selectionValues = new String[couponList.size()];
+			int size = 0;
+			
+			for(Coupon c : couponList) {
+				selectionValues[size++] = c.getCpName();
+			}
+
+			String res = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요", "쿠폰 선택",
+					JOptionPane.QUESTION_MESSAGE, null, selectionValues, selectionValues[0]);
+			
+			
+			
+		}else if(disCountNo==3) { //등급
+			tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
+			//받을금액 수정
+		}
 	}
 
 }

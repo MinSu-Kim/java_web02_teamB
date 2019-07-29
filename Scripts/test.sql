@@ -23,6 +23,9 @@ select f.name, f.price, fk.fk_no
 		
 truncate sale;
 
+select * from `member`;
+select * from grade;
+
 insert into sale values (1,1,now(),1,1,0,1,1);
 insert into sale values (2,1,now(),3,1,0,1,1);
 insert into sale values (3,1,now(),4,1,0,2,1);
@@ -83,4 +86,16 @@ from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon 
 group by mb_no;
 
 
+select * from `member`;
+
 select * from sale;
+select * from member_coupon;
+
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+		group by mb_no;
+		
+	
+	select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+		group by m.mb_no having right(mb_tel,8) like "%87654321%";
