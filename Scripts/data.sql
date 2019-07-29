@@ -89,6 +89,7 @@ insert into coupon values (2, '졸업쿠폰',5,0);
 
 select * from member_coupon;
 insert into member_coupon values (1, 1), (1,2), (2,1);
+insert into member_coupon values (2,2);
 
 
 select * from no_manager;
