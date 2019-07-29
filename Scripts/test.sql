@@ -85,16 +85,18 @@ select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, g
 from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 group by mb_no;
 
+select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber from payment
 
 
 select * from sale;
 select * from foodkind;
 select * from food;
 select f.fd_no, f.fd_price, f.fd_name, f.fk_no, fk.fk_name, fk.menu_no from food f left join foodkind fk on f.fk_no = fk.fk_no where f.fk_no = 1;
-
+saleDiscountPrice
 
 
 select * from `member`;
+
 
 select * from sale;
 select * from member_coupon;

@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.ui.insert;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -28,12 +29,12 @@ public class PanelPaymentInfo extends JPanel {
 	private JLabel lblMember;
 	private JTextField tfMember;
 	private List<Sale> saleList;
+	private double disPrice;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelPaymentInfo() {
-
 		initComponents();
 	}
 	private void initComponents() {
@@ -112,33 +113,56 @@ public class PanelPaymentInfo extends JPanel {
 		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
 	}
 	
-	public void setDiscountInfoMileage(int mileage,int sum) {
+	public void setDiscountInfoMileage(int mileage,int sum) { 
 		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
 		tfDiscountPrice.setText(mileage+"원");
-		tfReceive.setText(String.format("%,d원",sum-mileage));
+		disPrice = sum-mileage;
+		tfTpReceive.setText(String.format("%,d원",(int)disPrice));
 			
 	}
 	
 	public void setDiscountInfoCoupon(Coupon searchCoupon,int sum) {
 		tfDisCountInfo.setText("쿠폰 : " + searchCoupon.getCpName() + "("+searchCoupon.getCpDiscount()+"%)");
-		double disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
+		disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
 		tfDiscountPrice.setText(String.format("%,d원", (int)disPrice));
-		tfReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
+		tfTpReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 
 	}
 	
 	public void setDiscountInfoGrade(Member mem,int sum) {
 		tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
-		double disPrice = sum*((double)mem.getMbGrade().getG_discount()/100);
+		disPrice = sum*((double)mem.getMbGrade().getG_discount()/100);
 		tfDiscountPrice.setText(String.format("%,d원",(int)disPrice));
-		tfReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
+		tfTpReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 	}
 	
 	public void setInitWork(int  sum, List<Sale> saleList) {
 		this.saleList = saleList;
 		tfTotalPrice.setText(String.format("%,d원", sum));
 		tfSaleNo.setText(Integer.toString(saleList.get(0).getSaleNo()));
+		tfTpReceive.setText(String.format("%,d원", sum));
 		
+	}
+	
+	public List<Sale>  getInfo(List<Sale> saleList,Member mem,int type,int sum) {
+		for(Sale s : saleList) {
+			s.setSaletime(new Date());
+			s.setSaleType(type);
+
+			if(mem==null) {
+				s.setMbNo(new Member(0));
+				s.setSaleDiscountPrice(0);
+			}else {
+				s.setMbNo(new Member(mem.getMbNo()));
+				s.setSaleDiscountPrice(sum-(int)disPrice);
+				
+			}
+			s.setSaleDiscountInfo(tfDisCountInfo.getText());
+			
+			
+			
+		}
+		return saleList;
 	}
 
 }

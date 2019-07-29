@@ -5,7 +5,7 @@ fields terminated by ',';
 update foodkind set fk_no = 1 where fk_no = 0;
 
 select * from foodkind;
-
+truncate food;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
