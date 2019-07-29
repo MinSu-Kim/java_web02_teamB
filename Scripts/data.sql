@@ -8,9 +8,9 @@ select * from foodkind;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
+truncate food;
 
 set foreign_key_checks = 1;
-truncate food;
 
 update food set fd_no = 1 where fd_no = 0;
 select * from food;
@@ -56,7 +56,7 @@ select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123')
 
 
 -- sale 테이블 데이터
-insert into sale values (1,1,now(),1,1,0,1,1);
+/*insert into sale values (1,1,now(),1,1,0,1,1);
 insert into sale values (2,1,now(),3,1,0,1,1);
 insert into sale values (3,1,now(),4,1,0,2,1);
 insert into sale values (4,1,now(),5,1,0,2,1);
@@ -77,7 +77,7 @@ insert into sale values (16,5,now(),5,1,0,14,1);
 insert into sale values (17,5,now(),2,1,0,42,2);
 insert into sale values (18,6,now(),1,1,0,32,2);
 insert into sale values (19,6,now(),1,1,0,33,2);
-insert into sale values (20,6,now(),1,1,0,13,2);
+insert into sale values (20,6,now(),1,1,0,13,2);*/
 
 select * from sale;
 
