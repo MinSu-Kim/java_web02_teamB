@@ -81,3 +81,6 @@ select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment where payT
 select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
 from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 group by mb_no;
+
+
+select * from sale;

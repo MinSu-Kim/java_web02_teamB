@@ -7,17 +7,36 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.logging.log4j.core.impl.MementoMessage;
+
+import kr.or.yi.food_mgm_program.dao.MemberDao;
+import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class PaymentFrame extends JFrame {
+public class PaymentFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private JButton btnMember;
+	private PanelPaymentInfo panelInfo;
+	private JPanel panelCal;
+	private JPanel panelButton;
+	private JButton btnCash;
+	private JButton btnCard;
+	private JButton btnMileage;
+	private JButton btnCoupon;
+	private JButton btnExit;
+	private MemberDao mDao;
 
 	/**
 	 * Launch the application.
@@ -40,6 +59,7 @@ public class PaymentFrame extends JFrame {
 	 */
 	public PaymentFrame() {
 		initComponents();
+		mDao = new MemberDaoImpl();
 	}
 
 	private void initComponents() {
@@ -51,37 +71,60 @@ public class PaymentFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 3, 15, 0));
 
-		PanelPaymentInfo panel = new PanelPaymentInfo();
-		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		panelInfo = new PanelPaymentInfo();
+		contentPane.add(panelInfo);
+		panelInfo.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1);
+		panelCal = new JPanel();
+		contentPane.add(panelCal);
 		
 		
 		
 
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		panelButton = new JPanel();
+		contentPane.add(panelButton);
+		panelButton.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JButton btnNewButton = new JButton("현금");
-		panel_2.add(btnNewButton);
+		btnCash = new JButton("현금");
+		panelButton.add(btnCash);
 
-		JButton btnNewButton_1 = new JButton("신용카드");
-		panel_2.add(btnNewButton_1);
+		btnCard = new JButton("신용카드");
+		panelButton.add(btnCard);
 
-		JButton btnNewButton_2 = new JButton("마일리지");
-		panel_2.add(btnNewButton_2);
+		btnMileage = new JButton("마일리지");
+		panelButton.add(btnMileage);
 
-		JButton btnNewButton_3 = new JButton("회원");
-		panel_2.add(btnNewButton_3);
+		btnMember = new JButton("회원");
+		btnMember.addActionListener(this);
+		panelButton.add(btnMember);
 
-		JButton btnNewButton_4 = new JButton("쿠폰");
-		panel_2.add(btnNewButton_4);
+		btnCoupon = new JButton("쿠폰");
+		panelButton.add(btnCoupon);
 
-		JButton btnNewButton_5 = new JButton("종료");
-		panel_2.add(btnNewButton_5);
+		btnExit = new JButton("종료");
+		panelButton.add(btnExit);
+		
+		btnMileage.setEnabled(false);
+		btnCoupon.setEnabled(false);
+		
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnMember) {
+			actionPerformedBtnNewButton_3(e);
+		}
+	}
+	protected void actionPerformedBtnNewButton_3(ActionEvent e) {//회원 버튼 클릭시
+		String sNumber = JOptionPane.showInputDialog("번호를 입력하세요");
+		int number = Integer.parseInt(sNumber);
+		
+		
+		btnMileage.setEnabled(true);
+		btnCoupon.setEnabled(true);
+		
+		//Member mem = mDao.selectMemberByTel(number);
+		//panelInfo.setMemberInfo(mem);
+		
+		
+	}
 }

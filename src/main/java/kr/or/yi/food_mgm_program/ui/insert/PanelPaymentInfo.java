@@ -9,18 +9,21 @@ import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
+
+import kr.or.yi.food_mgm_program.dto.Member;
+
 import javax.swing.UIManager;
 
 public class PanelPaymentInfo extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JLabel lblNewLabel_1;
-	private JTextField textField_7;
+	private JTextField tfTotalPrice;
+	private JTextField tfDiscountPrice;
+	private JTextField tfTpReceive;
+	private JTextField tfReceive;
+	private JTextField tfChange;
+	private JTextField ftDisCountInfo;
+	private JTextField tfSaleNo;
+	private JLabel lblMember;
+	private JTextField tfMember;
 
 	/**
 	 * Create the panel.
@@ -33,71 +36,75 @@ public class PanelPaymentInfo extends JPanel {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uACB0\uC81C\uC815\uBCF4", TitledBorder.LEADING, TitledBorder.TOP, null, Color.RED));
 		setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("번호");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel);
+		JLabel lblSaleNo = new JLabel("번호");
+		lblSaleNo.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblSaleNo);
 		
-		textField_6 = new JTextField();
-		add(textField_6);
-		textField_6.setColumns(10);
+		tfSaleNo = new JTextField();
+		add(tfSaleNo);
+		tfSaleNo.setColumns(10);
 		
-		JLabel label = new JLabel("총 금액");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label);
+		JLabel lblTotalPrice = new JLabel("총 금액");
+		lblTotalPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTotalPrice);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		add(textField);
+		tfTotalPrice = new JTextField();
+		tfTotalPrice.setColumns(10);
+		add(tfTotalPrice);
 		
-		JLabel label_1 = new JLabel("할인 금액");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_1);
+		JLabel lblDiscountPrice = new JLabel("할인 금액");
+		lblDiscountPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblDiscountPrice);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		add(textField_1);
+		tfDiscountPrice = new JTextField();
+		tfDiscountPrice.setColumns(10);
+		add(tfDiscountPrice);
 		
-		JLabel label_5 = new JLabel("할인정보");
-		label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_5);
+		JLabel lblIDiscountInfo = new JLabel("할인정보");
+		lblIDiscountInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblIDiscountInfo);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		add(textField_5);
+		ftDisCountInfo = new JTextField();
+		ftDisCountInfo.setColumns(10);
+		add(ftDisCountInfo);
 		
-		JLabel label_2 = new JLabel("받을 금액");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setForeground(Color.RED);
-		add(label_2);
+		JLabel lblToReceive = new JLabel("받을 금액");
+		lblToReceive.setHorizontalAlignment(SwingConstants.CENTER);
+		lblToReceive.setForeground(Color.RED);
+		add(lblToReceive);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		add(textField_2);
+		tfTpReceive = new JTextField();
+		tfTpReceive.setColumns(10);
+		add(tfTpReceive);
 		
-		JLabel label_3 = new JLabel("받은 금액");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_3);
+		JLabel lblReceive = new JLabel("받은 금액");
+		lblReceive.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblReceive);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		add(textField_3);
+		tfReceive = new JTextField();
+		tfReceive.setColumns(10);
+		add(tfReceive);
 		
-		JLabel label_4 = new JLabel("거스름돈");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		label_4.setForeground(Color.RED);
-		add(label_4);
+		JLabel lblChange = new JLabel("거스름돈");
+		lblChange.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChange.setForeground(Color.RED);
+		add(lblChange);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		add(textField_4);
+		tfChange = new JTextField();
+		tfChange.setColumns(10);
+		add(tfChange);
 		
-		lblNewLabel_1 = new JLabel("회원 정보");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblNewLabel_1);
+		lblMember = new JLabel("회원 정보");
+		lblMember.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblMember);
 		
-		textField_7 = new JTextField();
-		add(textField_7);
-		textField_7.setColumns(10);
+		tfMember = new JTextField();
+		add(tfMember);
+		tfMember.setColumns(10);
+	}
+	
+	public void setMemberInfo(Member mem) {
+		tfMember.setText(mem.getMbName()+"님");
 	}
 
 }
