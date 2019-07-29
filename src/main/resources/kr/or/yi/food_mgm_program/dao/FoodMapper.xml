@@ -29,8 +29,8 @@
 		insert into food(fd_price, fd_name, fk_no) values (#{fdPrice},#{fdName},#{fkNo.fkNo})
 	</insert>
 	
-	<select id="selectByNo" resultType="Food" parameterType="Food">
-		select fd_no, fd_name, fd_price from food where fk_no = #{fkNo.fkNo}
+	<select id="selectByNo" resultType="Food" resultMap="resultFoodBJY">
+		select f.fd_no, f.fd_price, f.fd_name, f.fk_no, fk.fk_name, fk.menu_no from food f left join foodkind fk on f.fk_no = fk.fk_no where f.fk_no = #{fkNo.fkNo}
 	</select>
 	
 	<update id="updateFood" parameterType="Food">

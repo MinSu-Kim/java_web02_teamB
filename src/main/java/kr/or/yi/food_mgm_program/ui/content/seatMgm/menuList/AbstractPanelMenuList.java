@@ -20,6 +20,7 @@ import kr.or.yi.food_mgm_program.dto.Menu;
 import kr.or.yi.food_mgm_program.ui.MenuListFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public abstract class AbstractPanelMenuList extends JPanel implements ActionListener {
 	
@@ -101,7 +102,9 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		food.setFkNo(fk);//음식종류
 //		JOptionPane.showMessageDialog(null, fk.toString());
 		fDao.selectByNo(food); // 해당 종류의 음식리스트
+//		JOptionPane.showMessageDialog(null, food.getFkNo().getFkNo());
 //		JOptionPane.showMessageDialog(null, fDao.selectByNo(food).toString());
+		
 		frame.setFood(fDao.selectByNo(food));
 		frame.setDao(fDao);
 		frame.setPOrder(pOrder);
@@ -110,7 +113,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	}
 
 	private void showMainMenu() {
-		frame.reloadData();
+//		frame.reloadData();
 		frame.setVisible(true);
 	}
 

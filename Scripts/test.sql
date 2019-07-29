@@ -84,3 +84,8 @@ group by mb_no;
 
 
 select * from sale;
+select * from foodkind;
+select * from food;
+select f.fd_no, f.fd_price, f.fd_name, f.fk_no, fk.fk_name, fk.menu_no from food f left join foodkind fk on f.fk_no = fk.fk_no where f.fk_no = 1;
+
+
