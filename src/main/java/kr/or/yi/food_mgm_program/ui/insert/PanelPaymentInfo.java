@@ -123,7 +123,7 @@ public class PanelPaymentInfo extends JPanel {
 		tfDisCountInfo.setText("쿠폰 : " + searchCoupon.getCpName() + "("+searchCoupon.getCpDiscount()+"%)");
 		double disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
 		tfDiscountPrice.setText(String.format("%,d원", (int)disPrice));
-		tfReceive.setText(String.format("%d원",(int)(sum-disPrice)));
+		tfReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 
 	}
 	
