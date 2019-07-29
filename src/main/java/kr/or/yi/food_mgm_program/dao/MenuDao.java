@@ -1,7 +1,7 @@
 package kr.or.yi.food_mgm_program.dao;
 
-import kr.or.yi.food_mgm_program.dto.Menu;
+import kr.or.yi.food_mgm_program.dto.FoodMenu;
 
 public interface MenuDao {
-	public Menu selectByNo(Menu menu);
+	public FoodMenu selectByNo(FoodMenu menu);
 }

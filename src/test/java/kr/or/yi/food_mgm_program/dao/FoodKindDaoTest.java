@@ -13,7 +13,7 @@ import kr.or.yi.food_mgm_program.dao.MenuDao;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.MenuDaoImpl;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
-import kr.or.yi.food_mgm_program.dto.Menu;
+import kr.or.yi.food_mgm_program.dto.FoodMenu;
 
 public class FoodKindDaoTest extends AbstractTest {
 	private static FoodKindDao dao;
@@ -31,7 +31,7 @@ public class FoodKindDaoTest extends AbstractTest {
 	@Test
 	public void test01SelectByNo() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
-		Menu menu = new Menu();
+		FoodMenu menu = new FoodMenu();
 		menu.setMenuNo(1);
 		FoodKind food = new FoodKind();
 		food.setMenuNo(menu);
