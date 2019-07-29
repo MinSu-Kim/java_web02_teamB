@@ -39,6 +39,13 @@ public class SaleDaoImpl implements SaleDao {
 		}
 	}
 
+	@Override
+	public Sale selectLastNo() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectOne(namespace + "selectLastNo");
+		}
+	}
+
 	
 	
 }

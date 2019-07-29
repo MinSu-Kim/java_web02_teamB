@@ -7,7 +7,6 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -21,10 +20,12 @@ public class PanelFoodInfo extends JPanel {
 	public JComboBox<FoodKind> cmbKind;
 	private JTextField tfName;
 	private JTextField tfPrice;
-	
+	private List<FoodKind> fkList;
+	private DefaultComboBoxModel<FoodKind> fkModels;
 	private int no = 0;
 	
 	public PanelFoodInfo() {
+		
 		initComponents();
 	}
 	
@@ -38,6 +39,7 @@ public class PanelFoodInfo extends JPanel {
 		
 		cmbKind = new JComboBox<FoodKind>();
 		add(cmbKind);
+		
 		
 		JLabel lblName = new JLabel("음식명");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -56,22 +58,11 @@ public class PanelFoodInfo extends JPanel {
 		add(tfPrice);
 	}
 	
-	public void setFoodKindCmbModel(List<FoodKind> fkList) {
-		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
+	public void setFoodKindCmbModel() {
+		fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
 		cmbKind.setModel(fkModels);
 		
-		/*
-		String[] array = new String[fkList.size()];
-			for (int i = 0; i < fkList.size(); i++) {
-			    array[i] = fkList.get(i).toString();
-		}
-		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel(array);
-		cmbKind.setModel(fkModels);
-		*/
-	}
-	
-	public JComboBox<FoodKind> getCmbFoodKind() {
-		return cmbKind;
+		
 	}
 	
 	public void clearFoodInfo() {
@@ -115,5 +106,13 @@ public class PanelFoodInfo extends JPanel {
 		if(tfPrice.getText().equals("")) {
 			throw new Exception("가격을 입력하세요.");
 		}
+	}
+	
+	public void setList(List<FoodKind> list) {
+		this.fkList = list;
+	}
+	
+	public FoodKind getFoods() {
+		return (FoodKind) cmbKind.getSelectedItem();
 	}
 }

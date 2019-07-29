@@ -1,16 +1,13 @@
 package kr.or.yi.food_mgm_program.ui.content.seatMgm.seat;
 
-import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PanelSeat extends JPanel {
 	private JPanel pC;
@@ -18,7 +15,7 @@ public class PanelSeat extends JPanel {
 	private PanelSeatOne p2;
 	private PanelSeatOne p3;
 	private PanelSeatOne p4;
-	private PanelCurrent pEmpty;
+	private JPanel pEmpty;
 	private JPanel pEmpty2;
 	private PanelSeatOne p5;
 	private PanelSeatOne p6;
@@ -58,7 +55,7 @@ public class PanelSeat extends JPanel {
 		pC.add(p4);
 		p4.setSeatNumber("no.4");
 		
-		pEmpty = new PanelCurrent();
+		pEmpty = new JPanel();
 		pC.add(pEmpty);
 		
 		pEmpty2 = new JPanel();
@@ -91,7 +88,7 @@ public class PanelSeat extends JPanel {
 		pE = new JPanel();
 		add(pE, BorderLayout.EAST);
 		
-		pEmpty.setSeat(this);
+
 		
 		
 	}
@@ -119,35 +116,7 @@ public class PanelSeat extends JPanel {
 		this.panelMain = main;
 	}
 	
-	public List<String> getEmptyPanel(){
-		List<String> list = new ArrayList<String>();
-		if(p1.getEmptyNo()!=null) {
-			list.add(p1.getEmptyNo());
-		}
-		if(p2.getEmptyNo()!=null) {
-			list.add(p2.getEmptyNo());
-		}
-		if(p3.getEmptyNo()!=null) {
-			list.add(p3.getEmptyNo());
-		}
-		if(p4.getEmptyNo()!=null) {
-			list.add(p4.getEmptyNo());
-		}
-		if(p5.getEmptyNo()!=null) {
-			list.add(p5.getEmptyNo());
-		}
-		if(p6.getEmptyNo()!=null) {
-			list.add(p6.getEmptyNo());
-		}
-		if(p7.getEmptyNo()!=null) {
-			list.add(p7.getEmptyNo());
-		}
-		JOptionPane.showMessageDialog(null, list);
-		return list;
-	}
-	public void setEmpty() {
-		pEmpty.addLabel();
-	}
+
 
 }
 

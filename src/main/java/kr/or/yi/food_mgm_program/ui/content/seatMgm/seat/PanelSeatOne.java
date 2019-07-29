@@ -10,7 +10,11 @@ import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import kr.or.yi.food_mgm_program.dao.SaleDao;
+import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
@@ -32,17 +36,21 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private JPanel pS;
 	private JPanel pW;
 	private JPanel pE;
-	private JLabel lblPrice;
+	private JButton btnPrice;
 	private JButton btnNumber;
 	private JLabel lbl;
 	private PanelOrderList pList;
-	private List<JLabel> labelList;
 	private List<Food> foodList;
 	private PanelMain panelMain;
+	private PaymentFrame frame;
+	private Sale sales;
+	private SaleDao dao;
 	
 	public PanelSeatOne() {
 
 		initComponents();
+		frame = new PaymentFrame();
+		dao = new SaleDaoImpl();
 	}
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
@@ -70,9 +78,10 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		pCS.setPreferredSize(new Dimension(10, 40));
 		pCS.setLayout(new BorderLayout(0, 0));
 		
-		lblPrice = new JLabel();
-		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
-		pCS.add(lblPrice, BorderLayout.CENTER);
+		btnPrice = new JButton();
+		btnPrice.addActionListener(this);
+		btnPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		pCS.add(btnPrice, BorderLayout.CENTER);
 		
 		pN = new JPanel();
 		pN.setBackground(new Color(205, 133, 63));
@@ -109,6 +118,9 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnPrice) {
+			actionPerformedBtnPrice(e);
+		}
 		if (e.getSource() == btnNumber) {
 			actionPerformedBtnNumber(e);
 		}
@@ -153,18 +165,33 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	
 	public void setLblPrice(String price) {
 		if(price.equals("")) {
-			lblPrice.setText("");
+			btnPrice.setText("");
 		}else {
-			lblPrice.setText(price+"원");
+			btnPrice.setText(price+"원");
 		}
 		
 	}
 	
-	public String getEmptyNo() {
-		if(lbl==null) {
-			return btnNumber.getText();
+
+	protected void actionPerformedBtnPrice(ActionEvent e) {
+		List<Sale> saleList = new ArrayList<Sale>();
+		sales = dao.selectLastNo();
+		int Number = sales.getSaleNo()+1; // 판매번호
+		String price = btnPrice.getText(); // 총금액
+		for(Food food : foodList) {
+			Sale sale = new Sale();
+			int foodCount = food.getCount();
+			sale.setSaleNo(Number);
+			sale.setOrderCnt(foodCount);
+			sale.setOrderKind(true);
+			sale.setFdNo(food);
+			saleList.add(sale);
+			
 		}
-		return null;
+		
+		
+		frame.setInitWork(price, saleList);
+		frame.setVisible(true);
 	}
 }
 

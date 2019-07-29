@@ -98,6 +98,10 @@ public class Sale {
 				"Sale [no=%s, saleNo=%s, saletime=%s, orderCnt=%s, orderKind=%s, saleType=%s, fdNo=%s, mbNo=%s]", no,
 				saleNo, saletime, orderCnt, orderKind, saleType, fdNo.getFdName(), mbNo.getMbName());
 	}
+	public String toString2() {
+		return "판매번호 : "+saleNo+"수량"+orderCnt+"종료"+orderKind+"음식번호"+fdNo.getFdNo();
+	}
+	
 	
 	public Object[] toArray() {
 		SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");

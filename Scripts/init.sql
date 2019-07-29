@@ -19,6 +19,7 @@ ALTER TABLE food.food
 		PRIMARY KEY (
 			fd_no -- 음식번호
 		);
+	
 ALTER TABLE food.food
 	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
 
