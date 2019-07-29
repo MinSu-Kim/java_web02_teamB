@@ -90,4 +90,13 @@ public class MemberDaoTest extends AbstractTest {
 		int res = memberDao.deleteMember(member);
 		Assert.assertEquals(1, res);
 	}
+	
+	@Test
+	public void test06SelectByTel() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		
+		Member member = memberDao.selectByTel(12345678);
+		log.debug(member.toString());
+		Assert.assertNotNull(member);
+	}
 }

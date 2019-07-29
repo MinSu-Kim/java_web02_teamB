@@ -11,4 +11,5 @@ public interface MemberDao {
 	public int updateMember(Member member);
 	public int deleteMember(Member member);
 	public List<Member> selectMemberByNo(Member member);
+	public Member selectByTel(int tel);
 }
