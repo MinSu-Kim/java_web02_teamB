@@ -19,7 +19,7 @@ ALTER TABLE food.food
 		PRIMARY KEY (
 			fd_no -- 음식번호
 		);
-	
+
 ALTER TABLE food.food
 	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
 
@@ -37,6 +37,9 @@ ALTER TABLE food.foodKind
 		PRIMARY KEY (
 			fk_no -- 음식종류번호
 		);
+
+ALTER TABLE food.foodKind
+	MODIFY COLUMN fk_no INT NOT NULL AUTO_INCREMENT COMMENT '음식종류번호';
 
 -- 회원
 CREATE TABLE food.member (
@@ -64,7 +67,8 @@ ALTER TABLE food.member
 CREATE TABLE food.coupon (
 	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
 	cp_name     VARCHAR(10) NULL     COMMENT '쿠폰명', -- 쿠폰명
-	cp_discount INT         NULL     COMMENT '할인율' -- 할인율
+	cp_discount INT         NULL     COMMENT '할인율', -- 할인율
+	cp_use      TINYINT     NULL     COMMENT '사용유무' -- 사용유무
 )
 COMMENT '쿠폰';
 
@@ -109,14 +113,16 @@ ALTER TABLE food.member_coupon
 
 -- 결제
 CREATE TABLE food.sale (
-	no         INT      NOT NULL COMMENT '번호', -- 번호
-	sale_no    INT      NOT NULL COMMENT '주문번호', -- 주문번호
-	sale_time  DATETIME NULL     COMMENT '시간', -- 시간
-	order_cnt  INT      NULL     COMMENT '주문수량', -- 주문수량
-	order_kind TINYINT  NULL     COMMENT '주문종류', -- 주문종류
-	sale_type  INT      NULL     COMMENT '결제방식', -- 결제방식
-	fd_no      INT      NULL     COMMENT '음식번호', -- 음식번호
-	mb_no      INT      NULL     COMMENT '회원번호' -- 회원번호
+	no                  INT         NOT NULL COMMENT '번호', -- 번호
+	sale_no             INT         NOT NULL COMMENT '주문번호', -- 주문번호
+	sale_time           DATETIME    NULL     COMMENT '시간', -- 시간
+	sale_order_cnt      INT         NULL     COMMENT '주문수량', -- 주문수량
+	sale_order_kind     TINYINT     NULL     COMMENT '주문종류', -- 주문종류
+	sale_type           INT         NULL     COMMENT '결제방식', -- 결제방식
+	fd_no               INT         NULL     COMMENT '음식번호', -- 음식번호
+	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
+	sale_discount_info  VARCHAR(10) NULL     COMMENT '할인정보', -- 할인정보
+	sale_discount_price INT         NULL     COMMENT '할인금액' -- 할인금액
 )
 COMMENT '결제';
 
@@ -146,9 +152,12 @@ ALTER TABLE food.manager
 
 -- 우편번호
 CREATE TABLE food.post (
-	zipcode  CHAR(5)      NULL COMMENT '우편번호', -- 우편번호
-	doro     VARCHAR(100) NULL COMMENT '시도', -- 시도
-	old_doro VARCHAR(100) NULL COMMENT '구도로' -- 구도로
+	p_zipcode  CHAR(5)      NULL COMMENT '우편번호', -- 우편번호
+	p_sido     VARCHAR(20)  NULL COMMENT '시도', -- 시도
+	p_sigungu  VARCHAR(20)  NULL COMMENT '시군구', -- 시군구
+	p_doro     VARCHAR(100) NULL COMMENT '신도로', -- 신도로
+	p_address1 INT(5)       NULL COMMENT '상세주소1', -- 상세주소1
+	p_address2 INT(5)       NULL COMMENT '상세주소2' -- 상세주소2
 )
 COMMENT '우편번호';
 

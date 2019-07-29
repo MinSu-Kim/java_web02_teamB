@@ -16,7 +16,7 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
-import kr.or.yi.food_mgm_program.dto.Menu;
+import kr.or.yi.food_mgm_program.dto.FoodMenu;
 import kr.or.yi.food_mgm_program.ui.MenuListFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 import javax.swing.JLabel;
@@ -29,7 +29,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	private FoodKind foodkind;
 	protected Food food;
 	protected FoodDao fDao;
-	protected Menu menu;
+	protected FoodMenu menu;
 	protected JPanel panel;
 	protected PanelOrderList pOrder;
 	protected MenuListFrame frame;

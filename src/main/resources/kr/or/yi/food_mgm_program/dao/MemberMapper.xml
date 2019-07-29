@@ -52,6 +52,18 @@
 	</select> -->
 	
 	<select id="selectByTel" parameterType="int" resultMap="resultMemberBJY">
-		select * from member where right(mb_tel,8) like concat('%',#{mbTel},'%')
+
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g.g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount as cp_discount2
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no left join grade g on m.mb_grade = g.grade
+		where right(mb_tel,8) = #{mbTel}
+
 	</select>
+	
+	<update id="mileageUpdate" parameterType="Member">
+		update member set mb_mileage = #{mbMileage} where mb_no = #{mbNo}
+	</update>
+	
+	<!-- <delete id="couponDelete" parameterType="map">
+		update 
+	</delete> -->
 </mapper>

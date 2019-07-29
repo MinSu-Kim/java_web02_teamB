@@ -34,6 +34,7 @@ public class Payment {
 	
 	public Object[] toArray() {
 		SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String[] arrPayMenu = payMenu.split(",");
 		return new Object[] { payNo, sDate.format(payTime), payMenu,PayPrice, payType==1?"현금" : "카드",PayMember };
 	}
 

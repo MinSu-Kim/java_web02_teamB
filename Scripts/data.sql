@@ -3,7 +3,6 @@ character set 'utf8'
 fields terminated by ',';
 
 update foodkind set fk_no = 1 where fk_no = 0;
-
 select * from foodkind;
 
 load data local infile 'd://food.csv' into table food.food
@@ -11,7 +10,7 @@ character set 'utf8'
 fields terminated by ',';
 
 set foreign_key_checks = 1;
-delete from food;
+truncate food;
 
 update food set fd_no = 1 where fd_no = 0;
 select * from food;
@@ -23,7 +22,7 @@ insert into grade values ('bronze',0);
 select * from grade;
 
 desc coupon;
-insert into coupon values (1,'생일쿠폰',10);
+insert into coupon values (1,'생일쿠폰',10,0);
 select * from coupon;
 
 desc manager;
@@ -46,8 +45,6 @@ set foreign_key_checks = 1;
 insert into member(mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) values ('김우빈',now(),'01012345678',1200,'gold','서울');
 insert into member(mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) values ('김재욱',now(),'01087654321',1500,'vip','서울');
 select * from member;
-
-insert into post values ('42448', '대명로54길','대명동');
 
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
@@ -88,10 +85,11 @@ select * from sale order by no desc limit 1;
 
 -- member_coupon 데이터 추가
 select * from coupon;
-insert into coupon values (2, '졸업쿠폰',5);
+insert into coupon values (2, '졸업쿠폰',5,0);
 
 select * from member_coupon;
 insert into member_coupon values (1, 1), (1,2), (2,1);
+insert into member_coupon values (2,2);
 
 
 select * from no_manager;

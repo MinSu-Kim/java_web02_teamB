@@ -1,7 +1,9 @@
 package kr.or.yi.food_mgm_program.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -12,6 +14,7 @@ import org.junit.runners.MethodSorters;
 
 import kr.or.yi.food_mgm_program.AbstractTest;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 
@@ -47,7 +50,7 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test03SelectMemberByTel() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -69,14 +72,14 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test04UpdateMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
 		Member member = new Member(1);
 		member.setMbMileage(10000);
 		member.setMbGrade(new Grade("vip"));
-		member.setMbAddress("대구시");
+		member.setMbAddress("서울");
 		
 		int res = memberDao.updateMember(member);
 		Assert.assertEquals(1, res);
@@ -97,6 +100,32 @@ public class MemberDaoTest extends AbstractTest {
 		
 		Member member = memberDao.selectByTel(12345678);
 		log.debug(member.toString());
+		
+		
+		for(Coupon c : member.getCoupon()) {
+			log.debug(c.toString());
+		}
 		Assert.assertNotNull(member);
 	}
+	
+	//@Test
+	public void test07MileageUpdate() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		
+		Member member = new Member(2);
+		member.setMbMileage(10000);
+		
+		int res = memberDao.mileageUpdate(member);
+		Assert.assertEquals(1, res);
+	}
+	
+//	@Test
+//	public void test08CouponDelete() {
+//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+//		
+//		Map<String, Object> map = new HashMap<>();
+//		
+//		
+//		
+//	}
 }

@@ -1,5 +1,6 @@
 package kr.or.yi.food_mgm_program.ui.insert;
 
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
@@ -14,13 +15,14 @@ import javax.swing.border.TitledBorder;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 
+@SuppressWarnings("serial")
 public class PanelPaymentInfo extends JPanel {
 	private JTextField tfTotalPrice;
 	private JTextField tfDiscountPrice;
 	private JTextField tfTpReceive;
 	private JTextField tfReceive;
 	private JTextField tfChange;
-	private JTextField ftDisCountInfo;
+	private JTextField tfDisCountInfo;
 	private JTextField tfSaleNo;
 	private JLabel lblMember;
 	private JTextField tfMember;
@@ -65,9 +67,9 @@ public class PanelPaymentInfo extends JPanel {
 		lblIDiscountInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblIDiscountInfo);
 		
-		ftDisCountInfo = new JTextField();
-		ftDisCountInfo.setColumns(10);
-		add(ftDisCountInfo);
+		tfDisCountInfo = new JTextField();
+		tfDisCountInfo.setColumns(10);
+		add(tfDisCountInfo);
 		
 		JLabel lblToReceive = new JLabel("받을 금액");
 		lblToReceive.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,7 +107,24 @@ public class PanelPaymentInfo extends JPanel {
 	}
 	
 	public void setMemberInfo(Member mem) {
-		tfMember.setText(mem.getMbName()+"님");
+		System.out.println(mem);
+		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
+	}
+	
+	public void setDiscountInfoMileage(int mileage) {
+		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
+			
+	}
+	
+	public void setDiscountInfoCoupon(String coupon) {
+		tfDisCountInfo.setText("쿠폰 : " + coupon);
+			
+
+	}
+	
+	public void setDiscountInfoGrade(Member mem) {
+		tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
+		
 	}
 	
 	public void setInitWork(String price, List<Sale> saleList) {
