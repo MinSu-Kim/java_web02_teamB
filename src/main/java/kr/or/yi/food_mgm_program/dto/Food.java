@@ -113,7 +113,7 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo, count);
+		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo.getFkNo(), count);
 	}
 	
 	public String toString2() {

@@ -5,11 +5,13 @@
 		<id column="cp_no" property="cpNo"/>
 		<result column="cp_name" property="cpName"/>
 		<result column="cp_discount" property="cpDiscount"/>
+		<result column="cp_use" property="cpUse"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="resultCouponBJY">
 		<id column="cp_no" property="cpNo"/>
 		<result column="coupon" property="cpName"/>
-		<result column="cp_discount2" property="cpDiscount"/>
+		<result column="cp_discount" property="cpDiscount"/>
+		<result column="cp_use" property="cpUse"/>
 	</resultMap>
 </mapper>

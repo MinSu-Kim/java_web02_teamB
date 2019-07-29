@@ -47,6 +47,7 @@ public class AAA extends JFrame {
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setFont(new Font("궁서체", Font.BOLD, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblNewLabel);
 		
