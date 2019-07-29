@@ -43,13 +43,14 @@ ALTER TABLE food.foodKind
 
 -- 회원
 CREATE TABLE food.member (
-	mb_no      INT         NOT NULL COMMENT '회원번호', -- 회원번호
-	mb_name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
-	mb_birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
-	mb_tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
-	mb_mileage INT         NULL     COMMENT '마일리지', -- 마일리지
-	mb_grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
-	mb_address VARCHAR(50) NULL     COMMENT '주소' -- 주소
+	mb_no         INT         NOT NULL COMMENT '회원번호', -- 회원번호
+	mb_name       VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
+	mb_birth      DATE        NULL     COMMENT '생년월일', -- 생년월일
+	mb_tel        VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
+	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
+	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
+	mb_address    VARCHAR(50) NULL     COMMENT '주소', -- 주소
+	mb_withdrawal TINYINT     NULL     COMMENT '탈퇴여부' -- 탈퇴여부
 )
 COMMENT '회원';
 

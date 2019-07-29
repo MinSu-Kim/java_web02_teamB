@@ -45,7 +45,7 @@ public class MemberDaoTest extends AbstractTest {
 	public void test02InsertMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
-		Member member = new Member(0, "변지영", new Date(), "01020544177", 1000, new Grade("bronze"), "대구", null);
+		Member member = new Member(0, "변지영", new Date(), "01020544177", 1000, new Grade("bronze"), "대구", null, false);
 		int res = memberDao.insertMember(member);
 		Assert.assertEquals(1, res);
 	}
@@ -85,11 +85,12 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	//@Test
+	@Test
 	public void test05DeleteMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
-		Member member = new Member(3);
+		Member member = new Member(1);
+		member.setMbWithdrawal(true);
 		int res = memberDao.deleteMember(member);
 		Assert.assertEquals(1, res);
 	}

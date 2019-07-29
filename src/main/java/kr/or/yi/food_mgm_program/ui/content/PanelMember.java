@@ -177,6 +177,7 @@ public class PanelMember extends JPanel implements ActionListener {
 
 	private void actionPerformedMntmDelete(ActionEvent e) {
 		Member member = pMemberList.getSelectedItem();
+		member.setMbWithdrawal(true);
 		dao.deleteMember(member);
 		reloadList();
 	}
@@ -209,8 +210,13 @@ public class PanelMember extends JPanel implements ActionListener {
 			member.setMbTel(tfSearch.getText());
 			
 			list = dao.selectMemberByTel(member);
-			pMemberList.setItemList(list);
-			pMemberList.reloadData();
+			if(list.size() == 0) {
+				JOptionPane.showMessageDialog(null, "검색한 회원이 없습니다.");
+				actionPerformedBtnList(e);
+			}else {
+				pMemberList.setItemList(list);
+				pMemberList.reloadData();
+			}
 		}
 	}
 	

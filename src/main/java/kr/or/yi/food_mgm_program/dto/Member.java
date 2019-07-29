@@ -14,6 +14,7 @@ public class Member {
 	private Grade mbGrade;
 	private String mbAddress;
 	private List<Coupon> coupon;
+	private boolean mbWithdrawal;
 
 	public Member() {
 		super();
@@ -25,7 +26,7 @@ public class Member {
 		this.mbNo = mbNo;
 	}
 	
-	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, int mbMileage, Grade mbGrade, String mbAddress, List<Coupon> coupon) {
+	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, int mbMileage, Grade mbGrade, String mbAddress, List<Coupon> coupon, boolean mbWithdrawal) {
 		this.mbNo = mbNo;
 		this.mbName = mbName;
 		this.mbBirth = mbBirth;
@@ -34,8 +35,9 @@ public class Member {
 		this.mbGrade = mbGrade;
 		this.mbAddress = mbAddress;
 		this.coupon = coupon;
+		this.mbWithdrawal = mbWithdrawal;
 	}
-	
+
 	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, String mbAddress, Grade mbGrade, int mbMileage) {
 		this.mbNo = mbNo;
 		this.mbName = mbName;
@@ -110,16 +112,24 @@ public class Member {
 		this.coupon = coupon;
 	}
 	
+	public boolean isMbWithdrawal() {
+		return mbWithdrawal;
+	}
+
+	public void setMbWithdrawal(boolean mbWithdrawal) {
+		this.mbWithdrawal = mbWithdrawal;
+	}
+
 	@Override
 	public String toString() {
 		final int maxLen = 10;
 		return String.format(
-				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s]",
+				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s, mbWithdrawal=%s]",
 				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
-				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null);
+				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null, mbWithdrawal);
 	}
-	
+
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d", mbMileage), coupon};
+		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), coupon, mbWithdrawal};
 	}
 }

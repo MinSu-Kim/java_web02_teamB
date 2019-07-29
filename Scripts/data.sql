@@ -9,7 +9,6 @@ select * from foodkind;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
-truncate food;
 
 set foreign_key_checks = 1;
 
@@ -40,8 +39,8 @@ alter table member change column mb_no mb_no int(11) auto_increment;
 set foreign_key_checks = 1;
 */
 
-insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) values (1, '김우빈',now(),'01012345678',1200,'gold','서울');
-insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) values (2, '김재욱',now(),'01087654321',1500,'vip','서울');
+insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (1, '김우빈',now(),'01012345678',1200,'gold','서울',false);
+insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (2, '김재욱',now(),'01087654321',1500,'vip','서울',false);
 select * from member;
 
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
@@ -87,3 +86,18 @@ insert into member_coupon values (2,2);
 select * from no_manager;
 delete from no_manager where nmg_id = '1jongho1227';
 insert into no_manager values ('1jongho1227', password('whdgh123'));
+
+select * from member;
+insert into member(mb_no, mb_name) values (0,'비회원');
+
+
+LOAD data LOCAL INFILE 'D:\\zipcode_DB\\대구광역시.txt' 
+INTO table food.post   
+character set 'utf8'  
+fields TERMINATED by '|' 
+IGNORE 1 lines 
+(@zipcode, @sido, @d, @sigungu , @d, @d, @d, @d, @doro, @d, @d, @building1, @building2, @d, @d, @d, @d, @d, @d ,@d, @d, @d, @d, @d, @d, @d) 
+set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_address1=@building1, p_address2=@building2;
+
+select * from post;
+select * from post where p_sigungu like "동구%";
