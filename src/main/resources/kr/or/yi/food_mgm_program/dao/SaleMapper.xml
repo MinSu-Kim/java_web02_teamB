@@ -43,7 +43,10 @@
 		from sale s left join food as f on s.fd_no = f.fd_no join member as m
 		on s.mb_no = m.mb_no where sale_time like CONCAT( #{date}, '%');
 	</select>
-
+	
+	<select id="selectLastNo" resultMap="resultSaleKCM">
+		select * from sale order by no desc limit 1;
+	</select>
 
 </mapper>
 

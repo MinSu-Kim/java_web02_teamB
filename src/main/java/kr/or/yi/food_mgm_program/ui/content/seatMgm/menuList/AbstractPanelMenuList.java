@@ -61,9 +61,9 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 			Image image1 = image.getImage();
 			Image image3 = null;
 			if(list.get(i).getFkName().equals("사이드 메뉴")) {
-				image3 = image1.getScaledInstance(600, 240, Image.SCALE_SMOOTH);
+				image3 = image1.getScaledInstance(600, 260, Image.SCALE_SMOOTH);
 			}else if(list.get(i).getFkName().equals("음료") || list.get(i).getFkName().equals("맥주")) {
-				image3 = image1.getScaledInstance(260, 240, Image.SCALE_SMOOTH);
+				image3 = image1.getScaledInstance(260, 260, Image.SCALE_SMOOTH);
 			}else {
 				image3 = image1.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
 			}
@@ -106,6 +106,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		frame.setDao(fDao);
 		frame.setPOrder(pOrder);
 		showMainMenu();
+		
 	}
 
 	private void showMainMenu() {

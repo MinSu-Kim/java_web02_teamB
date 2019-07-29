@@ -84,6 +84,8 @@ insert into sale values (20,6,now(),1,1,0,13,2);
 
 select * from sale;
 
+select * from sale order by no desc limit 1;
+
 -- member_coupon 데이터 추가
 select * from coupon;
 insert into coupon values (2, '졸업쿠폰',5);
