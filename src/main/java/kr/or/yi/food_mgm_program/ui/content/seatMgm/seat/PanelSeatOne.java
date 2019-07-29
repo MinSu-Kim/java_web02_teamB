@@ -185,7 +185,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 			sale.setSaleOrderKind(true);
 			sale.setFdNo(food);
 			saleList.add(sale);
-			 sum += food.getFdPrice();
+			 sum += food.getFdPrice()*food.getCount();
 			
 		}
 		

@@ -9,6 +9,7 @@ select * from foodkind;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
+truncate food;
 
 set foreign_key_checks = 1;
 
