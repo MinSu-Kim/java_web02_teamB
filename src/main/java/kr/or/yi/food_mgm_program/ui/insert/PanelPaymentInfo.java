@@ -6,17 +6,16 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 
+@SuppressWarnings("serial")
 public class PanelPaymentInfo extends JPanel {
 	private JTextField tfTotalPrice;
 	private JTextField tfDiscountPrice;
@@ -112,48 +111,20 @@ public class PanelPaymentInfo extends JPanel {
 		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
 	}
 	
-	public void setDiscountInfo(Member mem,int disCountNo) {
-		if(disCountNo==1) { //마일리지
-			String Smileage = JOptionPane.showInputDialog("사용할 마일리지를 입력하세요. 현재 사용 가능한 마일리지 : "+mem.getMbMileage() + "원" );
+	public void setDiscountInfoMileage(int mileage) {
+		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
 			
-			if(Smileage == null) {
-				return;
-			}
+	}
+	
+	public void setDiscountInfoCoupon(String coupon) {
+		tfDisCountInfo.setText("쿠폰 : " + coupon);
 			
-			if( Smileage.equals("")) {
-				JOptionPane.showMessageDialog(null, "선택된 회원이 없습니다.");
-				return;
-			}
-			
-			int mileage = Integer.parseInt(Smileage);
-			
-			if(mem.getMbMileage() < mileage) {
-				JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() +  "원" );
-			}else {
-				int updateMileage = mem.getMbMileage()-mileage;
-				tfDisCountInfo.setText("마일리지 : " + mileage + "원");
-			}
-			
-			
-			//받을금액 수정
-		}else if(disCountNo==2) { //쿠폰
-			List<Coupon> couponList = mem.getCoupon();
-			String[] selectionValues = new String[couponList.size()];
-			int size = 0;
-			
-			for(Coupon c : couponList) {
-				selectionValues[size++] = c.getCpName();
-			}
 
-			String res = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요", "쿠폰 선택",
-					JOptionPane.QUESTION_MESSAGE, null, selectionValues, selectionValues[0]);
-			
-			
-			
-		}else if(disCountNo==3) { //등급
-			tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
-			//받을금액 수정
-		}
+	}
+	
+	public void setDiscountInfoGrade(Member mem) {
+		tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
+		
 	}
 	
 	public void setInitWork(String price, List<Sale> saleList) {

@@ -19,10 +19,10 @@ import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
-
 
 public class PaymentFrame extends JFrame implements ActionListener {
 
@@ -39,7 +39,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private MemberDao mDao;
 	private SaleDao sDao;
 	private Member mem;
-
+	private List<Sale> saleList;
+	private int updateMileage;
 
 	public PaymentFrame() {
 		initComponents();
@@ -50,7 +51,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private void initComponents() {
 		setTitle("결제화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		setBounds(100, 100, 1014, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -121,16 +122,15 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	protected void actionPerformedBtnNewButton_3(ActionEvent e) {// 회원 버튼 클릭시
 		String sNumber = JOptionPane.showInputDialog("번호를 입력하세요");
-		if(sNumber == null) {
+		if (sNumber == null) {
 			return;
 		}
-		
-		if( sNumber.equals("")) {
+
+		if (sNumber.equals("")) {
 			JOptionPane.showMessageDialog(null, "선택된 회원이 없습니다.");
 			return;
 		}
-		
-		
+
 		if (sNumber != null) {
 			int number = Integer.parseInt(sNumber);
 			mem = mDao.selectByTel(number); // 번호에 맞는 회원객체
@@ -149,23 +149,54 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	}
 
-	protected void actionPerformedBtnMileage(ActionEvent e) { //마일리지 버튼 클릭시
-		panelInfo.setDiscountInfo(mem, 1);
+	protected void actionPerformedBtnMileage(ActionEvent e) { // 마일리지 버튼 클릭시
+		String Smileage = JOptionPane.showInputDialog("사용할 마일리지를 입력하세요. 현재 사용 가능한 마일리지 : "+mem.getMbMileage() + "원" );
+		
+		if(Smileage == null) {
+			return;
+		}
+		
+		if( Smileage.equals("")) {
+			JOptionPane.showMessageDialog(null, "선택된 회원이 없습니다.");
+			return;
+		}
+		
+		int mileage = Integer.parseInt(Smileage);
+		
+		if(mem.getMbMileage() < mileage) {
+			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() +  "원" );
+		}else {
+			int updateMileage = mem.getMbMileage()-mileage;
+			panelInfo.setDiscountInfoMileage(mileage);
+			
+			
+		}
+		
 	}
 
-	protected void actionPerformedBtnCoupon(ActionEvent e) { //쿠폰 버튼 클릭시
-		panelInfo.setDiscountInfo(mem, 2);
+	protected void actionPerformedBtnCoupon(ActionEvent e) { // 쿠폰 버튼 클릭시
+		List<Coupon> couponList = mem.getCoupon();
+		 String[] selectionValues = new String[couponList.size()];
+		  int size = 0;
+		  
+		  for(Coupon c : couponList) { selectionValues[size++] = c.getCpName(); }
+		  
+		  String coupon = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요",
+		  "쿠폰 선택", JOptionPane.QUESTION_MESSAGE, null, selectionValues,
+		  selectionValues[0]);
+		  
+		  panelInfo.setDiscountInfoCoupon(coupon);
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
-		panelInfo.setDiscountInfo(mem, 3);
+		panelInfo.setDiscountInfoGrade(mem);
 	}
 
 	protected void actionPerformedBtnCash(ActionEvent e) { // 현금 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(현금) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
-			List<Sale> list = new ArrayList<>();
-			for (Sale s : list) {
+
+			for (Sale s : saleList) {
 				s.setSaletime(new Date());
 				s.setSaleType(1);
 				s.setMbNo(new Member(mem.getMbNo()));
@@ -173,7 +204,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			}
 
 			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", list);
+			map.put("list", saleList);
 			sDao.insertSale(map);
 			PaymentFrame.this.dispose();
 		}
@@ -183,8 +214,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	protected void actionPerformedBtnCard(ActionEvent e) { // 신용카드 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(카드) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
-			List<Sale> list = new ArrayList<>();
-			for (Sale s : list) {
+
+			for (Sale s : saleList) {
 				s.setSaletime(new Date());
 				s.setSaleType(0);
 				s.setMbNo(new Member(mem.getMbNo()));
@@ -192,14 +223,16 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			}
 
 			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", list);
+			map.put("list", saleList);
 			sDao.insertSale(map);
+			
 			PaymentFrame.this.dispose();
 		}
 	}
-	
-	public void setInitWork(String price, List<Sale> saleList) {
+
+	public void setInitWork(String price, List<Sale> saleList) { // 주문창에서 받아온 sale list
+		this.saleList = saleList;
 		panelInfo.setInitWork(price, saleList);
 	}
-	
+
 }

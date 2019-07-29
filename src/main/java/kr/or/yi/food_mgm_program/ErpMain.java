@@ -11,11 +11,11 @@ public class ErpMain {
 	public static void main(String[] args) {
 		try {
 			// select Look and Feel
-			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+//			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 			
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-//			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
 			
 			// start application
 		} catch (Exception ex) {
