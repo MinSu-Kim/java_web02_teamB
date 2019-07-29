@@ -1,10 +1,12 @@
 package kr.or.yi.food_mgm_program.daoImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.yi.food_mgm_program.dao.MemberDao;
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
@@ -64,6 +66,24 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectByTel(int tel) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
 			return sqlSession.selectOne(namespace + ".selectByTel", tel);
+		}
+	}
+
+	@Override
+	public int mileageUpdate(Member member) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.update(namespace + ".mileageUpdate", member);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
+	@Override
+	public int couponDelete(Map<String, Object> map) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.delete(namespace + ".couponDelete", map);
+			sqlSession.commit();
+			return res;
 		}
 	}
 

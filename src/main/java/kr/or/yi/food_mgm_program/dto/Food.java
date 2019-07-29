@@ -86,8 +86,6 @@ public class Food {
 		this.fkNo = fkNo;
 	}
 	
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -119,7 +117,6 @@ public class Food {
 	}
 	
 	public String toString2() {
-		
 		return fdName+"   "+formatter.format(fdPrice*count)+"원";
 	}
 	

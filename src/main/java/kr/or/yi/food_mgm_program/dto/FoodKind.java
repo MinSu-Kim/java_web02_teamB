@@ -3,7 +3,7 @@ package kr.or.yi.food_mgm_program.dto;
 public class FoodKind {
 	private int fkNo;
 	private String fkName;
-	private Menu menuNo;
+	private FoodMenu foodMenuNo;
 	
 	public FoodKind() {
 	}
@@ -12,14 +12,14 @@ public class FoodKind {
 		this.fkNo = fkNo;
 	}
 
-	public FoodKind(Menu menuNo) {
-		this.menuNo = menuNo;
+	public FoodKind(FoodMenu menuNo) {
+		this.foodMenuNo = menuNo;
 	}
 	
-	public FoodKind(int fkNo, String fkName, Menu menuNo) {
+	public FoodKind(int fkNo, String fkName, FoodMenu menuNo) {
 		this.fkNo = fkNo;
 		this.fkName = fkName;
-		this.menuNo = menuNo;
+		this.foodMenuNo = menuNo;
 	}
 
 	public int getFkNo() {
@@ -38,38 +38,39 @@ public class FoodKind {
 		this.fkName = fkName;
 	}
 
-	public Menu getMenuNo() {
-		return menuNo;
+	public FoodMenu getMenuNo() {
+		return foodMenuNo;
 	}
 
-	public void setMenuNo(Menu menuNo) {
-		this.menuNo = menuNo;
+	public void setMenuNo(FoodMenu menuNo) {
+		this.foodMenuNo = menuNo;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((menuNo == null) ? 0 : menuNo.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		FoodKind other = (FoodKind) obj;
-		if (menuNo == null) {
-			if (other.menuNo != null)
-				return false;
-		} else if (!menuNo.equals(other.menuNo))
-			return false;
-		return true;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((foodMenuNo == null) ? 0 : foodMenuNo.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		FoodKind other = (FoodKind) obj;
+//		if (foodMenuNo == null) {
+//			if (other.foodMenuNo == null)
+//				return false;
+//		} else if (!foodMenuNo.equals(other.foodMenuNo))
+//			return false;
+//		return true;
+//	}
 
 	@Override
 	public String toString() {

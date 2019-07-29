@@ -14,8 +14,8 @@ public class ErpMain {
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 			
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-//			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
-			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+//			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
 			
 			// start application
 		} catch (Exception ex) {
