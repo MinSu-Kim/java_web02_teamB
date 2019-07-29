@@ -59,15 +59,6 @@ public class PanelFoodInfo extends JPanel {
 	public void setFoodKindCmbModel(List<FoodKind> fkList) {
 		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel<FoodKind>(new Vector<FoodKind>(fkList));
 		cmbKind.setModel(fkModels);
-		
-		/*
-		String[] array = new String[fkList.size()];
-			for (int i = 0; i < fkList.size(); i++) {
-			    array[i] = fkList.get(i).toString();
-		}
-		DefaultComboBoxModel<FoodKind> fkModels = new DefaultComboBoxModel(array);
-		cmbKind.setModel(fkModels);
-		*/
 	}
 	
 	public JComboBox<FoodKind> getCmbFoodKind() {
