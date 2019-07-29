@@ -36,7 +36,6 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private JButton btnNumber;
 	private JLabel lbl;
 	private PanelOrderList pList;
-	private List<JLabel> labelList;
 	private List<Food> foodList;
 	private PanelMain panelMain;
 	
@@ -160,12 +159,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		
 	}
 	
-	public String getEmptyNo() {
-		if(lbl==null) {
-			return btnNumber.getText();
-		}
-		return null;
-	}
+
 }
 
 
