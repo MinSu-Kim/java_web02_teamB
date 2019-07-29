@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="selectMemberByAllC" resultMap="resultMemberBJY">
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_no, c.cp_name, cp_discount as cp_discount2
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_no, c.cp_name, cp_discount
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 	</select>
 	
@@ -46,17 +46,15 @@
 	</delete>
 
 	<!-- <select id="selectMemberByNo" resultType="Member" parameterType="Member">
-		select m.mb_name, g.mb_grade, g.g_discount as g_discount2, m.mb_mileage, c.cp_name, c.cp_discount as cp_discount2
+		select m.mb_name, g.mb_grade, g.g_discount as g_discount2, m.mb_mileage, c.cp_name, c.cp_discount
 		from member m join grade g on m.grade = g.grade join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
 		where m.mb_no = #{mbNo}
 	</select> -->
 	
 	<select id="selectByTel" parameterType="int" resultMap="resultMemberBJY">
-
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g.g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount as cp_discount2
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no left join grade g on m.mb_grade = g.grade
 		where right(mb_tel,8) = #{mbTel}
-
 	</select>
 	
 	<update id="mileageUpdate" parameterType="Member">

@@ -101,7 +101,6 @@ public class MemberDaoTest extends AbstractTest {
 		Member member = memberDao.selectByTel(12345678);
 		log.debug(member.toString());
 		
-		
 		for(Coupon c : member.getCoupon()) {
 			log.debug(c.toString());
 		}
