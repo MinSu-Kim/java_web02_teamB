@@ -67,7 +67,8 @@ public class PanelFood extends JPanel implements ActionListener {
 		pInsert.setLayout(new BoxLayout(pInsert, BoxLayout.X_AXIS));
 		
 		pFood = new PanelFoodInfo();
-		pFood.setFoodKindCmbModel(fkList);
+		pFood.setList(fkList);
+		pFood.setFoodKindCmbModel();
 		
 		GridLayout gl_pFood = (GridLayout) pFood.getLayout();
 		gl_pFood.setHgap(10);
@@ -184,15 +185,16 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 
 	protected void actionPerformedBtnAdd(ActionEvent e) throws Exception {
-		Food food = pFood.getFood();
+//		Food food = pFood.getFood();
 //		int lastNo = 0;
 //		if(!fList.isEmpty()) {
 //			Food last = fList.get(fList.size()-1);
 //			lastNo = last.getFdNo()+1;
 //		}
 //		food.setFdNo(lastNo);
-		fDao.insertFood(food);
-		reloadList();
+//		fDao.insertFood(food);
+//		reloadList();
+		JOptionPane.showMessageDialog(null, pFood.getFoods());
 	}
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
