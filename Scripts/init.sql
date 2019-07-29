@@ -60,9 +60,6 @@ ALTER TABLE food.member
 			mb_no -- 회원번호
 		);
 
-ALTER TABLE food.member
-	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
-
 -- 쿠폰
 CREATE TABLE food.coupon (
 	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
@@ -287,4 +284,3 @@ create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price) as payPrice,s.sale_type as payType ,
 m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
-select * from statefood;

@@ -29,8 +29,8 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
-		insert into member(mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) 
-		values (#{mbName},#{mbBirth},#{mbTel},#{mbMileage},#{mbGrade.grade},#{mbAddress})
+		insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address) 
+		values (#{mbNo},#{mbName},#{mbBirth},#{mbTel},#{mbMileage},#{mbGrade.grade},#{mbAddress})
 	</insert>
 	
 	<select id="selectMemberByTel" resultType="Member" parameterType="Member">
