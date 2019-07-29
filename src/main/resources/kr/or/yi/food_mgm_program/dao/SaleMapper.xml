@@ -22,7 +22,7 @@
 		<foreach collection="list" item="item" separator=" , ">
 			(#{item.saleNo}, #{item.saletime}, #{item.saleOrderCnt},
 			#{item.saleOrderKind}, #{item.saleType}, #{item.mbNo.mbNo},
-			#{item.fdNo.fdNo},#{saleDiscountInfo},#{saleDiscountPrice})
+			#{item.fdNo.fdNo},#{item.saleDiscountInfo},#{item.saleDiscountPrice})
 		</foreach>
 	</insert>
 	

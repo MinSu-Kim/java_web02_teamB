@@ -34,7 +34,7 @@ public class SaleList extends AbstractList<Payment> {
 	@Override
 	protected String[] getColumnNames() {
 		// TODO Auto-generated method stub
-		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","결제방식","회원"};
+		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","할인정보","할인금액","결제방식","회원"};
 	}
 
 	

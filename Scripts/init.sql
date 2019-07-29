@@ -279,8 +279,12 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	)sub2;
 ;
 
+
 -- 결제 통계 쿼리 (view)
+if exists drop view payment;
+
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
-sum(f.fd_price) as payPrice,s.sale_type as payType ,
+sum(f.fd_price)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
 m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+
