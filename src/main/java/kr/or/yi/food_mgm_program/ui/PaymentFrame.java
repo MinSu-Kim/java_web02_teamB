@@ -1,28 +1,20 @@
 package kr.or.yi.food_mgm_program.ui;
 
-import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-import org.apache.logging.log4j.core.impl.MementoMessage;
 
 import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
-import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PaymentFrame extends JFrame implements ActionListener {
 
@@ -38,25 +30,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private JButton btnExit;
 	private MemberDao mDao;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PaymentFrame frame = new PaymentFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public PaymentFrame() {
 		initComponents();
 		mDao = new MemberDaoImpl();
@@ -64,7 +38,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	private void initComponents() {
 		setTitle("결제화면");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		setBounds(100, 100, 1014, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -127,4 +102,9 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		
 		
 	}
+	
+	public void setInitWork(String price, List<Sale> saleList) {
+		panelInfo.setInitWork(price, saleList);
+	}
+	
 }

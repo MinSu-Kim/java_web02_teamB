@@ -1,18 +1,18 @@
 package kr.or.yi.food_mgm_program.ui.insert;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import java.awt.Color;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.food_mgm_program.dto.Member;
-
-import javax.swing.UIManager;
+import kr.or.yi.food_mgm_program.dto.Sale;
 
 public class PanelPaymentInfo extends JPanel {
 	private JTextField tfTotalPrice;
@@ -24,6 +24,7 @@ public class PanelPaymentInfo extends JPanel {
 	private JTextField tfSaleNo;
 	private JLabel lblMember;
 	private JTextField tfMember;
+	private List<Sale> saleList;
 
 	/**
 	 * Create the panel.
@@ -105,6 +106,13 @@ public class PanelPaymentInfo extends JPanel {
 	
 	public void setMemberInfo(Member mem) {
 		tfMember.setText(mem.getMbName()+"님");
+	}
+	
+	public void setInitWork(String price, List<Sale> saleList) {
+		this.saleList = saleList;
+		tfTotalPrice.setText(price);
+		tfSaleNo.setText(Integer.toString(saleList.get(0).getSaleNo()));
+		
 	}
 
 }

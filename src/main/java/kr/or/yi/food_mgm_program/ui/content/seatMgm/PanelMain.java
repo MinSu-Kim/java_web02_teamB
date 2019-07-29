@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelDrink;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelSide;
@@ -44,7 +45,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	private JButton btnPlus;
 	private JButton btnMinus;
 	private JPanel pPayment;
-	private JButton btnPay;
+	
 	private JPanel pBtn;
 	private JButton btnMainMenu;
 	private JButton btnSide;
@@ -147,9 +148,6 @@ public class PanelMain extends JPanel implements ActionListener {
 		pMenu.add(pPayment, BorderLayout.SOUTH);
 		pPayment.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnPay = new JButton("결제");
-		pPayment.add(btnPay);
-		
 		pMenuList = new JPanel();
 		pMenuList.setBorder(new EmptyBorder(5, 0, 0, 0));
 		pMenu.add(pMenuList, BorderLayout.CENTER);
@@ -179,6 +177,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
 		if (e.getSource() == btnAdd) {
 			actionPerformedBtnAdd(e);
 		}
@@ -192,31 +191,31 @@ public class PanelMain extends JPanel implements ActionListener {
 			actionPerformedBtnDrink(e);
 		}
 		if (e.getSource() == btnAllCancel) {
-			actionPerformedBtnAllCancel(e);
+			actionPerformedBtnAllCancel();
 		}
 		if (e.getSource() == btnSelectCancel) {
-			actionPerformedBtnSelectCancel(e);
+			actionPerformedBtnSelectCancel();
 		}
 		if (e.getSource() == btnPlus) {
-			actionPerformedBtnPlus(e);
+			actionPerformedBtnPlus();
 		}
 		if (e.getSource() == btnMinus) {
-			actionPerformedBtnMinus(e);
+			actionPerformedBtnMinus();
 		}
 	}
-	private void actionPerformedBtnMinus(ActionEvent e) {
+	private void actionPerformedBtnMinus() {
 		pList.setMinus();
 		
 	}
-	private void actionPerformedBtnPlus(ActionEvent e) {
+	private void actionPerformedBtnPlus() {
 		pList.setPlus();
 		
 	}
-	private void actionPerformedBtnSelectCancel(ActionEvent e) {
+	private void actionPerformedBtnSelectCancel() {
 		pList.selectCancel();
 		
 	}
-	private void actionPerformedBtnAllCancel(ActionEvent e) {
+	private void actionPerformedBtnAllCancel() {
 		pList.resetList();
 		
 		
@@ -232,6 +231,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		seatOne.setPcc(pList.getList());
+		
 		int price = 0;
 		String price1 = "";
 		for(Food food : pList.getList()) {
@@ -244,13 +244,23 @@ public class PanelMain extends JPanel implements ActionListener {
 		}
 		price1 = Food.formatter.format(price);
 		seatOne.setLblPrice(price1);
-
+		
 		
 		
 		
 	}
+	
+	
 	public void setSeatOne(PanelSeatOne seatOne) {
 		this.seatOne = seatOne;
 	}
 	
+	
 }
+
+
+
+
+
+
+
