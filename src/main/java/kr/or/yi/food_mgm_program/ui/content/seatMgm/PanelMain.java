@@ -192,31 +192,31 @@ public class PanelMain extends JPanel implements ActionListener {
 			actionPerformedBtnDrink(e);
 		}
 		if (e.getSource() == btnAllCancel) {
-			actionPerformedBtnAllCancel(e);
+			actionPerformedBtnAllCancel();
 		}
 		if (e.getSource() == btnSelectCancel) {
-			actionPerformedBtnSelectCancel(e);
+			actionPerformedBtnSelectCancel();
 		}
 		if (e.getSource() == btnPlus) {
-			actionPerformedBtnPlus(e);
+			actionPerformedBtnPlus();
 		}
 		if (e.getSource() == btnMinus) {
-			actionPerformedBtnMinus(e);
+			actionPerformedBtnMinus();
 		}
 	}
-	private void actionPerformedBtnMinus(ActionEvent e) {
+	private void actionPerformedBtnMinus() {
 		pList.setMinus();
 		
 	}
-	private void actionPerformedBtnPlus(ActionEvent e) {
+	private void actionPerformedBtnPlus() {
 		pList.setPlus();
 		
 	}
-	private void actionPerformedBtnSelectCancel(ActionEvent e) {
+	private void actionPerformedBtnSelectCancel() {
 		pList.selectCancel();
 		
 	}
-	private void actionPerformedBtnAllCancel(ActionEvent e) {
+	private void actionPerformedBtnAllCancel() {
 		pList.resetList();
 		
 		
@@ -244,7 +244,7 @@ public class PanelMain extends JPanel implements ActionListener {
 		}
 		price1 = Food.formatter.format(price);
 		seatOne.setLblPrice(price1);
-
+		
 		
 		
 		
@@ -254,3 +254,10 @@ public class PanelMain extends JPanel implements ActionListener {
 	}
 	
 }
+
+
+
+
+
+
+
