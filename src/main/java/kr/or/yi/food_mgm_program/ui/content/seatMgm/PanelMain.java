@@ -174,7 +174,7 @@ public class PanelMain extends JPanel implements ActionListener {
 		pSeat.setPlist(pList);
 		pSeat.setPanelMain(this);
 		pSeat.setPanelSeatOne();
-		pSeat.setEmpty();
+
 		
 	}
 
@@ -239,16 +239,12 @@ public class PanelMain extends JPanel implements ActionListener {
 		}
 		if(price == 0) {
 			seatOne.setLblPrice(price1);
-			pSeat.setEmpty();
-			pSeat.revalidate();
-			pSeat.repaint();
+
 			return;
 		}
 		price1 = Food.formatter.format(price);
 		seatOne.setLblPrice(price1);
-		pSeat.setEmpty();
-		pSeat.revalidate();
-		pSeat.repaint();
+
 		
 		
 		
