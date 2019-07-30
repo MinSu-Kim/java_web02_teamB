@@ -101,3 +101,15 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 
 select * from post;
 select * from post where p_sigungu like "동구%";
+
+select * from reservation;
+
+
+
+
+
+
+
+
+
+
