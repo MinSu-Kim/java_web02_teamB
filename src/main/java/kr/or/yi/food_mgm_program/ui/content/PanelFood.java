@@ -22,6 +22,7 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
+import kr.or.yi.food_mgm_program.service.MenuListService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import java.awt.event.ActionListener;
@@ -32,8 +33,7 @@ import java.awt.event.ActionEvent;
 public class PanelFood extends JPanel implements ActionListener {
 	private JTextField tfSearch;
 	
-	private FoodDao fDao;
-	private FoodKindDao fkDao;
+	private MenuListService service;
 	private List<Food> fList;
 	private List<FoodKind> fkList;
 
@@ -50,11 +50,10 @@ public class PanelFood extends JPanel implements ActionListener {
 	private JMenuItem mntmDelete;
 	
 	public PanelFood() {
-		fDao = new FoodDaoImpl();
-		fkDao = new FoodKindDaoImpl();
+		service = MenuListService.getInstance();
 		
-		fList = fDao.selectFoodByAll();
-		fkList = fkDao.selectFoodKindByAll();
+		fList = service.selectFoodByAll();
+		fkList = service.selectFoodKindByAll();
 		initComponents();
 	}
 	
@@ -129,7 +128,7 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 	
 	public void reloadList() {
-		fList = fDao.selectFoodByAll();
+		fList = service.selectFoodByAll();
 		pFoodList.setItemList(fList);
 		pFoodList.reloadData();
 		pFood.clearFoodInfo();
@@ -166,7 +165,7 @@ public class PanelFood extends JPanel implements ActionListener {
 	
 	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
 		Food food = pFood.getFoodUP();
-		fDao.updateFood(food);
+		service.updateFood(food);
 		reloadList();
 	}
 
@@ -178,7 +177,7 @@ public class PanelFood extends JPanel implements ActionListener {
 
 	private void actionPerformedMntmDelete(ActionEvent e) {
 		Food food = pFoodList.getSelectedItem();
-		fDao.deletFood(food);
+		service.deleteFood(food);
 		reloadList();
 	}
 
@@ -190,7 +189,7 @@ public class PanelFood extends JPanel implements ActionListener {
 //			lastNo = last.getFdNo()+1;
 //		}
 //		food.setFdNo(lastNo);
-		fDao.insertFood(food);
+		service.insertFood(food);
 		reloadList();
 	}
 	
@@ -205,7 +204,7 @@ public class PanelFood extends JPanel implements ActionListener {
 			Food food = new Food();
 			food.setFdName(tfSearch.getText());
 			
-			fList = fDao.selectByName(food);
+			fList = service.selectByName1(food);
 			if(fList.size() == 0) {
 				JOptionPane.showMessageDialog(null, "검색한 음식이 없습니다.");
 				actionPerformedBtnList(e);

@@ -20,6 +20,7 @@ import kr.or.yi.food_mgm_program.daoImpl.PaymentDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.service.PanelSaleListService;
 import kr.or.yi.food_mgm_program.ui.list.SaleList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -34,12 +35,12 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 	private SaleList panel_2;
 	private ChartPanel panel_3;
 	private List<Payment> itemList;
-	private PaymentDao dao;
+	private PanelSaleListService service;
 	private JDatePickerImpl datePicker;
 	private JButton btnSelectByAll;
 
 	public PanelSaleList() {
-		dao = new PaymentDaoImpl();
+		service = PanelSaleListService.getInstance();
 		initComponents();
 		setListAll();
 	}
@@ -94,13 +95,13 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 	}
 
 	public void setListAll() {
-		itemList = dao.selectPaymentByAll();
+		itemList = service.selectPaymentByAll();
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
 	}
 
 	public void setListBydate(String searchDate) {
-		itemList = dao.selectPaymentByDate(searchDate);
+		itemList = service.selectPaymentByDate(searchDate);
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
 	}
@@ -109,7 +110,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 	public void insertUpdate(DocumentEvent e) {
 		System.out.println(datePicker.getJFormattedTextField().getText());
 		String searchDate = datePicker.getJFormattedTextField().getText();
-		itemList = dao.selectPaymentByDate(searchDate);
+		itemList = service.selectPaymentByDate(searchDate);
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
 	}

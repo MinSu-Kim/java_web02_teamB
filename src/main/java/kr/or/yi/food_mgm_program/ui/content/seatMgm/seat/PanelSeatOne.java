@@ -14,6 +14,7 @@ import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.service.PanelSeatService;
 import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
@@ -44,13 +45,13 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private PanelMain panelMain;
 	private PaymentFrame frame;
 	private Sale sales;
-	private SaleDao dao;
+	private PanelSeatService service;
 	
 	public PanelSeatOne() {
 
 		initComponents();
 		frame = new PaymentFrame();
-		dao = new SaleDaoImpl();
+		service = PanelSeatService.getInstance();
 	}
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
@@ -174,7 +175,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 
 	protected void actionPerformedBtnPrice(ActionEvent e) {
 		List<Sale> saleList = new ArrayList<Sale>();
-		sales = dao.selectLastNo();
+		sales = service.selectLastNo();
 		int Number = sales.getSaleNo()+1; // 판매번호
 		int sum = 0; //총금액
 		for(Food food : foodList) {

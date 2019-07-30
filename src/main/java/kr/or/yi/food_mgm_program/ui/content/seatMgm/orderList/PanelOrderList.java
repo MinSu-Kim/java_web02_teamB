@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,14 +13,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import kr.or.yi.food_mgm_program.dao.FoodDao;
-import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 
 public class PanelOrderList extends JPanel {
 	private JTable table;
 	private List<Food> list;
-	private FoodDao dao = new FoodDaoImpl();
 	private String no;
 	private JLabel lblNewLabel;
 	private JPanel panel_1;

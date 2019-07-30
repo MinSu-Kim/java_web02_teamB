@@ -187,6 +187,25 @@ ALTER TABLE food.no_manager
 			nmg_id -- 비관리자id
 		);
 
+-- 예약
+CREATE TABLE food.reservation (
+	rsv_no     INT      NOT NULL COMMENT '예약번호', -- 예약번호
+	mb_no      INT      NOT NULL COMMENT '회원번호', -- 회원번호
+	rsv_number int      NOT NULL COMMENT '인원', -- 인원
+	rsv_time   DATETIME NOT NULL COMMENT '시간' -- 시간
+)
+COMMENT '예약';
+
+-- 예약
+ALTER TABLE food.reservation
+	ADD CONSTRAINT PK_reservation -- 예약 기본키
+		PRIMARY KEY (
+			rsv_no -- 예약번호
+		);
+
+ALTER TABLE food.reservation
+	MODIFY COLUMN rsv_no INT NOT NULL AUTO_INCREMENT COMMENT '예약번호';
+
 -- 음식
 ALTER TABLE food.food
 	ADD CONSTRAINT FK_foodKind_TO_food -- 음식종류 -> 음식
@@ -250,6 +269,16 @@ ALTER TABLE food.sale
 -- 결제
 ALTER TABLE food.sale
 	ADD CONSTRAINT FK_member_TO_sale -- 회원 -> 결제
+		FOREIGN KEY (
+			mb_no -- 회원번호
+		)
+		REFERENCES food.member ( -- 회원
+			mb_no -- 회원번호
+		);
+
+-- 예약
+ALTER TABLE food.reservation
+	ADD CONSTRAINT FK_member_TO_reservation -- 회원 -> 예약
 		FOREIGN KEY (
 			mb_no -- 회원번호
 		)

@@ -17,6 +17,7 @@ import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.FoodMenu;
+import kr.or.yi.food_mgm_program.service.MenuListService;
 import kr.or.yi.food_mgm_program.ui.MenuListFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 import javax.swing.JLabel;
@@ -25,14 +26,13 @@ import javax.swing.JOptionPane;
 public abstract class AbstractPanelMenuList extends JPanel implements ActionListener {
 	
 	protected List<FoodKind> list;
-	private FoodKindDao dao;
 	private FoodKind foodkind;
 	protected Food food;
-	protected FoodDao fDao;
 	protected FoodMenu menu;
 	protected JPanel panel;
 	protected PanelOrderList pOrder;
 	protected MenuListFrame frame;
+	private MenuListService service;
 	
 	public AbstractPanelMenuList() {
 		
@@ -43,14 +43,13 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		setLayout(new BorderLayout(0, 0));
 		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
-		dao = new FoodKindDaoImpl();
-		fDao = new FoodDaoImpl();
+		service = MenuListService.getInstance();
 		food = new Food();
 		setting();
 		
 		foodkind = new FoodKind(menu);
 		
-		list = dao.selectByNo(foodkind);
+		list = service.selectByNo(foodkind);
 		addBtn(list);
 		
 	}
@@ -101,12 +100,12 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 	private void actionPerformedBtn(FoodKind fk) {
 		food.setFkNo(fk);//음식종류
 //		JOptionPane.showMessageDialog(null, fk.toString());
-		fDao.selectByNo(food); // 해당 종류의 음식리스트
+		service.selectByNo(food); // 해당 종류의 음식리스트
 //		JOptionPane.showMessageDialog(null, food.getFkNo().getFkNo());
 //		JOptionPane.showMessageDialog(null, fDao.selectByNo(food).toString());
 		
-		frame.setFood(fDao.selectByNo(food));
-		frame.setDao(fDao);
+		frame.setFood(service.selectByNo(food));
+		frame.setService(service);
 		frame.setPOrder(pOrder);
 		showMainMenu();
 		
