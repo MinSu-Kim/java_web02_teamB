@@ -102,11 +102,17 @@ select * from sale;
 select * from member_coupon;
 
 select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
-		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
-		group by mb_no;
+from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+group by mb_no;
 		
 	
-	select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
-		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
-		group by m.mb_no having right(mb_tel,8) like "%87654321%";
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
+from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+group by m.mb_no having right(mb_tel,8) like "%87654321%";
 
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal
+from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+group by mb_no having not m.mb_no = 0;
+
+update member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no set c.cp_use = true where m.mb_no = 1 and c.cp_name = '생일쿠폰';
+select * from coupon;

@@ -34,6 +34,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		initComponents();
 	}
 	private void initComponents() {
+		setTitle("음식점 관리 프로그램");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(50, 100, 1800, 800);

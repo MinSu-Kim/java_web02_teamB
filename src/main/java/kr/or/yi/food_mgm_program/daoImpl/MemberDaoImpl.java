@@ -27,7 +27,6 @@ public class MemberDaoImpl implements MemberDao {
 			sqlSession.commit();
 			return res;
 		}
-
 	}
 
 	@Override

@@ -206,8 +206,13 @@ public class PanelFood extends JPanel implements ActionListener {
 			food.setFdName(tfSearch.getText());
 			
 			fList = fDao.selectByName(food);
-			pFoodList.setItemList(fList);
-			pFoodList.reloadData();
+			if(fList.size() == 0) {
+				JOptionPane.showMessageDialog(null, "검색한 음식이 없습니다.");
+				actionPerformedBtnList(e);
+			}else {
+				pFoodList.setItemList(fList);
+				pFoodList.reloadData();
+			}
 		}
 	}
 	
