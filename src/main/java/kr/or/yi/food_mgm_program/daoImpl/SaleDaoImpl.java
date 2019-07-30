@@ -56,7 +56,7 @@ public class SaleDaoImpl implements SaleDao {
 			res += sqlSession.insert(namespace + "insertSale", map);
 			res += sqlSession.update(namespace2 + "mileageUpdate",member);
 			
-			if(res ==2) {
+			if(res >=2) {
 				sqlSession.commit();
 			}else {
 				throw new Exception();
