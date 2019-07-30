@@ -15,4 +15,9 @@
 		insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
 		values(#{mbNo.mbNo},#{rsvNumber},#{rsvTime},#{rsvTableNo})
 	</insert>
+	
+	<select id="selectByTime" parameterType="date" resultMap="resultRsvLJH">
+		select * from reservation where rsv_time like concat(current_date(),'%');
+	</select>
+	
 </mapper>
