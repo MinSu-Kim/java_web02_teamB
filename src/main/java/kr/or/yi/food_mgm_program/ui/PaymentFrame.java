@@ -97,7 +97,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		btnMileage.setEnabled(false);
 		btnCoupon.setEnabled(false);
 		btnGrade.setEnabled(false);
-
+		
+		updateMileage = 0;
 	}
 
 	public void actionPerformed(ActionEvent e) {
