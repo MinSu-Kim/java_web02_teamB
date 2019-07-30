@@ -10,6 +10,7 @@ public class Food {
 	private String fdName;
 	private FoodKind fkNo;
 	private int count = 1;
+	
 	public static NumberFormat formatter = new DecimalFormat("###,###");
 	
 	public Food() {
@@ -113,9 +114,9 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo.getFkNo(), count);
+		return String.format("Food [fdNo=%s, fdPrice=%s, fdName=%s, fkNo=%s, count=%s]", fdNo, fdPrice, fdName, fkNo, count);
 	}
-	
+
 	public String toString2() {
 		return fdName+"   "+formatter.format(fdPrice*count)+"원";
 	}

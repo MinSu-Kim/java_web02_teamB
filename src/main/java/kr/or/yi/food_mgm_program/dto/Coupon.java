@@ -13,8 +13,6 @@ public class Coupon {
 		super();
 		this.cpNo = cpNo;
 	}
-
-		
 	
 	public Coupon(String cpName) {
 		super();
@@ -82,6 +80,4 @@ public class Coupon {
 			return false;
 		return true;
 	}
-	
-	
 }

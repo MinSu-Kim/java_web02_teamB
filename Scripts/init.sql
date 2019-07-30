@@ -43,13 +43,14 @@ ALTER TABLE food.foodKind
 
 -- 회원
 CREATE TABLE food.member (
-	mb_no      INT         NOT NULL COMMENT '회원번호', -- 회원번호
-	mb_name    VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
-	mb_birth   DATE        NULL     COMMENT '생년월일', -- 생년월일
-	mb_tel     VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
-	mb_mileage INT         NULL     COMMENT '마일리지', -- 마일리지
-	mb_grade   CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
-	mb_address VARCHAR(50) NULL     COMMENT '주소' -- 주소
+	mb_no         INT         NOT NULL COMMENT '회원번호', -- 회원번호
+	mb_name       VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
+	mb_birth      DATE        NULL     COMMENT '생년월일', -- 생년월일
+	mb_tel        VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
+	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
+	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
+	mb_address    VARCHAR(50) NULL     COMMENT '주소', -- 주소
+	mb_withdrawal TINYINT     NULL     COMMENT '탈퇴여부' -- 탈퇴여부
 )
 COMMENT '회원';
 
@@ -59,9 +60,6 @@ ALTER TABLE food.member
 		PRIMARY KEY (
 			mb_no -- 회원번호
 		);
-
-ALTER TABLE food.member
-	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
 
 -- 쿠폰
 CREATE TABLE food.coupon (
@@ -272,19 +270,22 @@ create view stateFood as
 select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
 	from(
-	select f.fd_name as name, sum(order_cnt) as count, f.fd_price as price,
-	sum(order_cnt*f.fd_price) as ssTotalPrice
+	select f.fd_name as name, sum(sale_order_cnt) as count, f.fd_price as price,
+	sum(sale_order_cnt*f.fd_price) as ssTotalPrice
 	from sale s left join food f on s.fd_no = f.fd_no
 	group by s.fd_no
 	order by ssTotalPrice desc) sub1 join (
-	select sum(order_cnt*f.fd_price) as sum1
+	select sum(sale_order_cnt*f.fd_price) as sum1
 	from sale s left join food f on s.fd_no = f.fd_no
 	)sub2;
 ;
 
+
 -- 결제 통계 쿼리 (view)
+if exists drop view payment;
+
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
-sum(f.fd_price) as payPrice,s.sale_type as payType ,
+sum(f.fd_price)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
 m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
-select * from statefood;
+

@@ -38,7 +38,7 @@ public class PanelFoodInfo extends JPanel {
 		add(lblKind);
 		
 		cmbKind = new JComboBox<FoodKind>();
-		cmbKind.setMaximumRowCount(5);
+		cmbKind.setMaximumRowCount(9);
 		add(cmbKind);
 		
 		JLabel lblName = new JLabel("음식명");

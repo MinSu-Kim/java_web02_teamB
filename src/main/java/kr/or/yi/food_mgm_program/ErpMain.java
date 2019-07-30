@@ -13,10 +13,13 @@ public class ErpMain {
 			// select Look and Feel
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 			
-			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+//			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
-			
+//			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+//			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+//			UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
 			// start application
 		} catch (Exception ex) {
 			ex.printStackTrace();

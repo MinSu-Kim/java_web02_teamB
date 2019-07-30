@@ -169,7 +169,6 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		}else {
 			btnPrice.setText(price+"원");
 		}
-		
 	}
 	
 
@@ -182,14 +181,13 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 			Sale sale = new Sale();
 			int foodCount = food.getCount();
 			sale.setSaleNo(Number);
-			sale.setOrderCnt(foodCount);
-			sale.setOrderKind(true);
+			sale.setSaleOrderCnt(foodCount);
+			sale.setSaleOrderKind(true);
 			sale.setFdNo(food);
 			saleList.add(sale);
 			 sum += food.getFdPrice()*food.getCount();
 			
 		}
-		
 		
 		frame.setInitWork(sum,saleList);
 		frame.setVisible(true);

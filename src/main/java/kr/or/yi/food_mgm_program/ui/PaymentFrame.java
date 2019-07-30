@@ -205,6 +205,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(현금) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
 
+
 			for (Sale s : saleList) {
 				s.setSaletime(new Date());
 				s.setSaleType(1);
@@ -216,6 +217,14 @@ public class PaymentFrame extends JFrame implements ActionListener {
 				}
 
 			}
+
+			saleList = panelInfo.getInfo(saleList, mem, 1,sum);
+
+			Map<String, List<Sale>> map = new HashMap<>();
+			map.put("list", saleList);
+			sDao.insertSale(map);
+			PaymentFrame.this.dispose();
+
 		}
 
 		Map<String, List<Sale>> map = new HashMap<>();
@@ -228,14 +237,10 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	protected void actionPerformedBtnCard(ActionEvent e) { // 신용카드 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(카드) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
-		if (res == 0) {
 
-			for (Sale s : saleList) {
-				s.setSaletime(new Date());
-				s.setSaleType(0);
-				s.setMbNo(new Member(mem.getMbNo()));
-				PaymentFrame.this.dispose();
-			}
+		if (res == 0) {
+			System.out.println(mem);
+			saleList = panelInfo.getInfo(saleList, mem, 0,sum);
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
@@ -243,6 +248,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			PaymentFrame.this.dispose();
 		}
+
 	}
 
 	public void setInitWork(int sum, List<Sale> saleList) { // 주문창에서 받아온 sale list
