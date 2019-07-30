@@ -17,6 +17,7 @@ import kr.or.yi.food_mgm_program.daoImpl.ManagerDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.NoManagerDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Manager;
 import kr.or.yi.food_mgm_program.dto.NoManager;
+import kr.or.yi.food_mgm_program.service.LoginUiService;
 
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
@@ -29,14 +30,12 @@ public class LoginFrame extends JFrame implements ActionListener{
 	private JPasswordField pfPass;
 	private JButton btnLogin;
 	private JButton btnMLogin;
-	private ManagerDao dao;
-	private NoManagerDao nDao;
+	private LoginUiService service;
 	public static Manager manager;
 	public static NoManager noManager;
 	
 	public LoginFrame() {
-		dao = new ManagerDaoImpl();
-		nDao = new NoManagerDaoImpl();
+		service = LoginUiService.getInstance();
 		initComponents();
 	}
 	private void initComponents() {
@@ -82,7 +81,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 		}
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		noManager = nDao.selectByPass(inputNoManager());
+		noManager = service.selectByNoManager(inputNoManager());
 		if(noManager == null) {
 			JOptionPane.showMessageDialog(null, "아이디가 없거나 비밀번호가 일치하지 않습니다.");
 		}else {
@@ -95,7 +94,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 	
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
 
-		manager = dao.selectByPass(inputManager());
+		manager = service.selectByManager(inputManager());
 		if(manager == null) {
 			JOptionPane.showMessageDialog(null, "아이디가 없거나 비밀번호가 일치하지 않습니다.");
 		}else {

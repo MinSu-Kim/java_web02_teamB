@@ -20,6 +20,7 @@ import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
@@ -33,7 +34,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	
 	private memberList pMemberList;
 	private PanelMemberInfo pMember;
-	private MemberDao dao;
+	private PanelMemberService service;
 	private List<Member> list;
 	
 	private JPanel pInsert;
@@ -48,8 +49,8 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JMenuItem mntmDelete;
 
 	public PanelMember() {
-		dao = new MemberDaoImpl();
-		list = dao.selectMemberByAll();
+		service = PanelMemberService.getInstance();
+		list = service.selectMemberByAll();
 		initComponents();
 	}
 	
@@ -127,7 +128,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	public void reloadList() {
-		list = dao.selectMemberByAll();
+		list = service.selectMemberByAll();
 		pMemberList.setItemList(list);
 		pMemberList.reloadData();
 		lastNum();
@@ -164,7 +165,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	
 	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
-		dao.updateMember(member);
+		service.updateMember(member);
 		reloadList();
 		btnJoin.setText("가입");
 	}
@@ -178,13 +179,13 @@ public class PanelMember extends JPanel implements ActionListener {
 	private void actionPerformedMntmDelete(ActionEvent e) {
 		Member member = pMemberList.getSelectedItem();
 		member.setMbWithdrawal(true);
-		dao.deleteMember(member);
+		service.deleteMember(member);
 		reloadList();
 	}
 
 	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
-		dao.insertMember(member);
+		service.insertMember(member);
 		reloadList();
 	}
 	
@@ -209,7 +210,7 @@ public class PanelMember extends JPanel implements ActionListener {
 			Member member = new Member();
 			member.setMbTel(tfSearch.getText());
 			
-			list = dao.selectMemberByTel(member);
+			list = service.selectMemberByTel(member);
 			if(list.size() == 0) {
 				JOptionPane.showMessageDialog(null, "검색한 회원이 없습니다.");
 				actionPerformedBtnList(e);

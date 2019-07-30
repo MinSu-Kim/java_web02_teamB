@@ -207,12 +207,26 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			saleList = panelInfo.getInfo(saleList, mem, 1);
 
-			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", saleList);
-			sDao.insertSale(map);
-			PaymentFrame.this.dispose();
+			for (Sale s : saleList) {
+				s.setSaletime(new Date());
+				s.setSaleType(1);
+
+				if (s.getMbNo() == null) {
+					s.setMbNo(new Member(1));
+				} else {
+					s.setMbNo(new Member(mem.getMbNo()));
+				}
+
+			}
+
 		}
 
+		Map<String, List<Sale>> map = new HashMap<>();
+		map.put("list", saleList);
+
+		sDao.insertSale(map);
+
+		PaymentFrame.this.dispose();
 	}
 
 	protected void actionPerformedBtnCard(ActionEvent e) { // 신용카드 결제
@@ -225,6 +239,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
 			sDao.insertSale(map);
+
 			PaymentFrame.this.dispose();
 		}
 

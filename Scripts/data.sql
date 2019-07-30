@@ -5,7 +5,6 @@ fields terminated by ',';
 update foodkind set fk_no = 1 where fk_no = 0;
 
 select * from foodkind;
-truncate food;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
@@ -47,6 +46,7 @@ insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
 select * from foodkind;
 select * from sale;
+desc sale;
 select * from manager where mg_pwd = password('rootroot');
 select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123');
 
@@ -92,8 +92,8 @@ insert into member(mb_no, mb_name) values (0,'비회원');
 
 
 LOAD data LOCAL INFILE 'D:\\zipcode_DB\\대구광역시.txt' 
-INTO table food.post   
-character set 'utf8'  
+INTO table food.post
+character set 'utf8'
 fields TERMINATED by '|' 
 IGNORE 1 lines 
 (@zipcode, @sido, @d, @sigungu , @d, @d, @d, @d, @doro, @d, @d, @building1, @building2, @d, @d, @d, @d, @d, @d ,@d, @d, @d, @d, @d, @d, @d) 

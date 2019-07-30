@@ -21,6 +21,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import kr.or.yi.food_mgm_program.dao.SalesStatusDao;
 import kr.or.yi.food_mgm_program.daoImpl.SalesStatusDaoImpl;
 import kr.or.yi.food_mgm_program.dto.SalesStatus;
+import kr.or.yi.food_mgm_program.service.PanelSaleListService2;
 import kr.or.yi.food_mgm_program.ui.list.SalesList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -32,14 +33,14 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	private SalesList panel_2;
 	private ChartPanel panel_3;
 	private List<SalesStatus> itemList;
-	private SalesStatusDao dao;
+	private PanelSaleListService2 service;
 	private JDatePickerImpl datePicker;
 	private PiePlot plot;
 	private DefaultPieDataset pieDataset;
 	private JButton btnSelectbyAll;
 
 	public PanelSalesList() {
-		dao = new SalesStatusDaoImpl();
+		service = PanelSaleListService2.getInstance();
 		initComponents();
 		setListAll();
 	}
@@ -72,7 +73,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		panel_1.add(panel_2);
 
 		// jfreeChart
-		itemList = dao.selectSalesStatusByAll();
+		itemList = service.selectSalesStatusByAll();
 		pieDataset = new DefaultPieDataset();
 		setDefaultChart(pieDataset);
 		
@@ -98,7 +99,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	}
 
 	public void setListAll() {
-		itemList = dao.selectSalesStatusByAll();
+		itemList = service.selectSalesStatusByAll();
 		setListRank();
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
@@ -111,7 +112,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	}
 
 	public void setListBydate(String searchDate) {
-		itemList = dao.selectSalesStatusByDate(searchDate);
+		itemList = service.selectSalesStatusByDate(searchDate);
 		setListRank();
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
@@ -121,7 +122,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	public void insertUpdate(DocumentEvent e) {
 		System.out.println(datePicker.getJFormattedTextField().getText());
 		String searchDate = datePicker.getJFormattedTextField().getText();
-		itemList = dao.selectSalesStatusByDate(searchDate);
+		itemList = service.selectSalesStatusByDate(searchDate);
 		setListRank();
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();

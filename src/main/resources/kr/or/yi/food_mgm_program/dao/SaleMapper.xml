@@ -26,6 +26,7 @@
 		</foreach>
 	</insert>
 	
+
 	<select id="selectSaleByAll" resultMap="resultSaleKCM">
 		select no,sale_no,sale_time,sale_order_cnt,sale_order_kind,sale_type,f.fd_name,m.mb_name,sale_discount_info,sale_discount_price
 		from sale s left join food as f on s.fd_no = f.fd_no join member as m on s.mb_no = m.mb_no;
