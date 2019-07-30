@@ -1,6 +1,8 @@
 package kr.or.yi.food_mgm_program.ui;
 
+import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PaymentService;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
 
 public class PaymentFrame extends JFrame implements ActionListener {
@@ -42,6 +46,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private List<Sale> saleList;
 	private int updateMileage;
 	private int sum;
+
 	private MainFrame frame;
 
 	public PaymentFrame() {
@@ -98,7 +103,6 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		btnCoupon.setEnabled(false);
 		btnGrade.setEnabled(false);
 
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -207,23 +211,28 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		if (res == 0) {
 			saleList = panelInfo.getInfo(saleList, mem, 1);
 
-		
-		Map<String, List<Sale>> map = new HashMap<>();
-		map.put("list", saleList);
-		
-		String info = panelInfo.getTfDisCountInfo().getText();
-		if(info.contains("마일리지")) {
-			Member member = mem;
-			member.setMbMileage(updateMileage);
-			service.insertSaleUpdateMileageTransaciton(map, member);
-		}else {
-			Member member = mem;
-			service.insertSaleUpdateMileageTransaciton(map, member);
-		}
-		
-		
+			Map<String, List<Sale>> map = new HashMap<>();
+			map.put("list", saleList);
 
-		PaymentFrame.this.dispose();
+			String info = panelInfo.getTfDisCountInfo().getText();
+			if (info.contains("마일리지") && mem != null) {
+				Member member = mem;
+				member.setMbMileage(updateMileage);
+				System.out.println(member);
+				service.insertSaleUpdateMileageTransaciton(map, member);
+			} else if (mem == null) {
+				service.insertSale(map);
+			} else if (mem != null) {
+				service.insertSale(map);
+			}
+
+			PanelSalesList s = (PanelSalesList) frame.getpSales();
+			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
+
+			s.setListAll();
+			s2.setListAll();
+
+			PaymentFrame.this.dispose();
 		}
 	}
 
@@ -237,17 +246,23 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			map.put("list", saleList);
 
 			String info = panelInfo.getTfDisCountInfo().getText();
-			if(info.contains("마일리지")) {
+			if (info.contains("마일리지") && mem != null) {
 				Member member = mem;
 				member.setMbMileage(updateMileage);
 				System.out.println(member);
 				service.insertSaleUpdateMileageTransaciton(map, member);
-			}else {
-				Member member = mem;
-				System.out.println(member);
-				service.insertSaleUpdateMileageTransaciton(map, member);
+			} else if (mem == null) {
+				service.insertSale(map);
+			} else if (mem != null) {
+				service.insertSale(map);
 			}
+			
+			PanelSalesList s = (PanelSalesList) frame.getpSales();
+			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
 
+			s.setListAll();
+			s2.setListAll();
+			
 			PaymentFrame.this.dispose();
 		}
 
@@ -259,7 +274,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		panelInfo.setSum(sum);
 		panelInfo.setInitWork(sum, saleList);
 	}
-	
+
 	public void setMainFrame(MainFrame frame) {
 		this.frame = frame;
 	}

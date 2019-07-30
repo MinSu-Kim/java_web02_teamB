@@ -251,6 +251,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	public void setSeatOne(PanelSeatOne seatOne) {
 		this.seatOne = seatOne;
 	}
+
 	
 	
 	

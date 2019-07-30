@@ -34,7 +34,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel pSale;
 	private JPanel pSales;
 
-
+	
+	public JPanel getpSale() {
+		return pSale;
+	}
+	public JPanel getpSales() {
+		return pSales;
+	}
 	public MainFrame() {
 		
 		initComponents();
@@ -73,7 +79,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		PanelMain pSeat = new PanelMain(this);
 		tabbedPane.addTab("좌석 관리", null, pSeat, null);
 		
-		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {
+		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {	
+			
+			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 
 			pSale = new PanelSaleList();
 			tabbedPane.addTab("판매 관리", null, pSale, null);
