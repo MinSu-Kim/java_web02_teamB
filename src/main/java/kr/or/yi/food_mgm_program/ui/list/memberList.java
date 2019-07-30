@@ -13,7 +13,7 @@ public class memberList extends AbstractList<Member> {
 	protected void tableAlignmentAndWidth() {
 		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5, 7, 8);
 		tableCellAlignment(SwingConstants.RIGHT,6);
-		//tableSetWidth(100, 200);
+		tableSetWidth(100, 100, 100, 150, 250, 100, 100, 150, 100);
 	}
 
 	@Override

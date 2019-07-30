@@ -4,4 +4,18 @@
 	<select id="selectBySiGunGu" resultType="Post">
 		select * from post where p_sigungu like concat(#{pSigungu},'%')
 	</select>
+	
+	<select id="selectByDoro" resultType="Post">
+		select * from post where p_doro like concat('%',#{pDoro},'%')
+	</select>
+	
+	<select id="selectBySiGunGuDoroAddr1" resultType="Post">
+		select * from post where p_sigungu like concat('%',#{pSigungu},'%') and p_doro like concat('%',#{pDoro},'%') 
+		and p_address1 like concat('%',#{pAddress1},'%')
+	</select>
+	
+	<select id="selectByAll">
+		select * from post where p_sigungu like concat('%',#{pSigungu},'%') and p_doro like concat('%',#{pDoro},'%') 
+		and p_address1 like concat('%',#{pAddress1},'%') and p_address2 like concat('%',#{pAddress2},'%')
+	</select>
 </mapper>

@@ -282,7 +282,7 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
-if exists drop view payment;
+drop view payment;
 
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,

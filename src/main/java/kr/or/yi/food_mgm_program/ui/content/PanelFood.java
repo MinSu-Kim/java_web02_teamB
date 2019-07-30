@@ -190,6 +190,7 @@ public class PanelFood extends JPanel implements ActionListener {
 //			lastNo = last.getFdNo()+1;
 //		}
 //		food.setFdNo(lastNo);
+		
 		fDao.insertFood(food);
 		reloadList();
 	}
