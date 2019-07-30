@@ -168,7 +168,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() + "원");
 		} else {
 			int updateMileage = mem.getMbMileage() - mileage;
-			panelInfo.setDiscountInfoMileage(mileage, sum);
+			panelInfo.setDiscountInfoMileage(mileage);
 
 		}
 
@@ -194,18 +194,18 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			}
 		}
 
-		panelInfo.setDiscountInfoCoupon(searchCoupon, sum);
+		panelInfo.setDiscountInfoCoupon(searchCoupon);
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
-		panelInfo.setDiscountInfoGrade(mem, sum);
+		panelInfo.setDiscountInfoGrade(mem);
 	}
 
 	protected void actionPerformedBtnCash(ActionEvent e) { // 현금 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(현금) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
 
-			saleList = panelInfo.getInfo(saleList, mem, 1,sum);
+			saleList = panelInfo.getInfo(saleList, mem, 1);
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
@@ -220,7 +220,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 		if (res == 0) {
 			System.out.println(mem);
-			saleList = panelInfo.getInfo(saleList, mem, 0,sum);
+			saleList = panelInfo.getInfo(saleList, mem, 0);
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
@@ -233,6 +233,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	public void setInitWork(int sum, List<Sale> saleList) { // 주문창에서 받아온 sale list
 		this.saleList = saleList;
 		this.sum = sum;
+		panelInfo.setSum(sum);
 		panelInfo.setInitWork(sum, saleList);
 	}
 
