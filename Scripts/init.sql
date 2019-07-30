@@ -119,7 +119,7 @@ CREATE TABLE food.sale (
 	sale_type           INT         NULL     COMMENT '결제방식', -- 결제방식
 	fd_no               INT         NULL     COMMENT '음식번호', -- 음식번호
 	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
-	sale_discount_info  VARCHAR(10) NULL     COMMENT '할인정보', -- 할인정보
+	sale_discount_info  VARCHAR(30) NULL     COMMENT '할인정보', -- 할인정보
 	sale_discount_price INT         NULL     COMMENT '할인금액' -- 할인금액
 )
 COMMENT '결제';
@@ -311,7 +311,6 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
-if exists drop view payment;
 
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,

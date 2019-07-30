@@ -22,6 +22,7 @@ import kr.or.yi.food_mgm_program.dao.SalesStatusDao;
 import kr.or.yi.food_mgm_program.daoImpl.SalesStatusDaoImpl;
 import kr.or.yi.food_mgm_program.dto.SalesStatus;
 import kr.or.yi.food_mgm_program.service.PanelSaleListService2;
+import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.list.SalesList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -38,6 +39,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	private PiePlot plot;
 	private DefaultPieDataset pieDataset;
 	private JButton btnSelectbyAll;
+	
 
 	public PanelSalesList() {
 		service = PanelSaleListService2.getInstance();
@@ -147,7 +149,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 			actionPerformedBtnSelectbyAll(e);
 		}
 	}
-	protected void actionPerformedBtnSelectbyAll(ActionEvent e) {
+	protected void actionPerformedBtnSelectbyAll(ActionEvent e) { //전체보기
 		datePicker.getJFormattedTextField().setValue(null);
 		setListAll();
 		pieDataset = new DefaultPieDataset();

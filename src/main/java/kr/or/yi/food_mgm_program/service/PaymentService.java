@@ -15,6 +15,7 @@ public class PaymentService {
 	private SaleDao sDao;
 	private MemberDao mDao;
 	
+	
 	public static PaymentService getInstance() {
 		return service;
 	}
@@ -32,5 +33,8 @@ public class PaymentService {
 		return sDao.insertSale(map);
 	}
 	
+	public void insertSaleUpdateMileageTransaciton(Map<String, List<Sale>> map,Member member) {
+		sDao.insertSaleUpdateMileage(map, member);
+	}
 	
 }

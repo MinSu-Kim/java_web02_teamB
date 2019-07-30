@@ -51,17 +51,8 @@ public abstract class AbstractList<T> extends JPanel {
 		tableAlignmentAndWidth();
 	}
 
-	private Object[][] getRows() {
-		if (itemList==null) {
-			itemList = new ArrayList<>();
-		}
-		Object[][] rows = new Object[itemList.size()][];
-		for (int i = 0; i < itemList.size(); i++) {
-			rows[i] = toArray(i);
-		}
-		return rows;
-	}
-
+	
+	protected abstract Object[][] getRows();
 	protected abstract void tableAlignmentAndWidth();
 
 	protected abstract Object[] toArray(int idx);
