@@ -10,7 +10,7 @@ character set 'utf8'
 fields terminated by ',';
 
 set foreign_key_checks = 1;
-truncate food;
+truncate member;
 
 update food set fd_no = 1 where fd_no = 0;
 select * from food;

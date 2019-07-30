@@ -138,7 +138,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		}
 
 		if (mem != null) {
-			panelInfo.setMemberInfo(mem,sum); // 회원정보가 올라감
+			panelInfo.setMemberInfo(mem, sum); // 회원정보가 올라감
 
 			btnMileage.setEnabled(true);
 			btnCoupon.setEnabled(true);
@@ -151,54 +151,54 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnMileage(ActionEvent e) { // 마일리지 버튼 클릭시
-		String Smileage = JOptionPane.showInputDialog("사용할 마일리지를 입력하세요. 현재 사용 가능한 마일리지 : "+mem.getMbMileage() + "원" );
-		
-		if(Smileage == null) {
+		String Smileage = JOptionPane.showInputDialog("사용할 마일리지를 입력하세요. 현재 사용 가능한 마일리지 : " + mem.getMbMileage() + "원");
+
+		if (Smileage == null) {
 			return;
 		}
-		
-		if( Smileage.equals("")) {
+
+		if (Smileage.equals("")) {
 			JOptionPane.showMessageDialog(null, "선택된 회원이 없습니다.");
 			return;
 		}
-		
+
 		int mileage = Integer.parseInt(Smileage);
-		
-		if(mem.getMbMileage() < mileage) {
-			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() +  "원" );
-		}else {
-			int updateMileage = mem.getMbMileage()-mileage;
-			panelInfo.setDiscountInfoMileage(mileage,sum);
-			
-			
+
+		if (mem.getMbMileage() < mileage) {
+			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() + "원");
+		} else {
+			int updateMileage = mem.getMbMileage() - mileage;
+			panelInfo.setDiscountInfoMileage(mileage, sum);
+
 		}
-		
+
 	}
 
 	protected void actionPerformedBtnCoupon(ActionEvent e) { // 쿠폰 버튼 클릭시
 		List<Coupon> couponList = mem.getCoupon();
-		 String[] selectionValues = new String[couponList.size()];
-		  int size = 0;
-		  
-		  for(Coupon c : couponList) { selectionValues[size++] = c.getCpName(); }
-		  
-		  String coupon = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요",
-		  "쿠폰 선택", JOptionPane.QUESTION_MESSAGE, null, selectionValues,
-		  selectionValues[0]);
-		  
-		  Coupon searchCoupon = new Coupon(coupon);
-		  
-		  for(Coupon c : couponList) {
-			  if( c.equals(searchCoupon) ) {
-				  searchCoupon = c;
-			  }
-		  }
-		  
-		  panelInfo.setDiscountInfoCoupon(searchCoupon,sum);
+		String[] selectionValues = new String[couponList.size()];
+		int size = 0;
+
+		for (Coupon c : couponList) {
+			selectionValues[size++] = c.getCpName();
+		}
+
+		String coupon = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요", "쿠폰 선택",
+				JOptionPane.QUESTION_MESSAGE, null, selectionValues, selectionValues[0]);
+
+		Coupon searchCoupon = new Coupon(coupon);
+
+		for (Coupon c : couponList) {
+			if (c.equals(searchCoupon)) {
+				searchCoupon = c;
+			}
+		}
+
+		panelInfo.setDiscountInfoCoupon(searchCoupon, sum);
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
-		panelInfo.setDiscountInfoGrade(mem,sum);
+		panelInfo.setDiscountInfoGrade(mem, sum);
 	}
 
 	protected void actionPerformedBtnCash(ActionEvent e) { // 현금 결제
@@ -208,16 +208,22 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			for (Sale s : saleList) {
 				s.setSaletime(new Date());
 				s.setSaleType(1);
-				s.setMbNo(new Member(mem.getMbNo()));
+
+				if (s.getMbNo() == null) {
+					s.setMbNo(new Member(1));
+				} else {
+					s.setMbNo(new Member(mem.getMbNo()));
+				}
 
 			}
-
-			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", saleList);
-			sDao.insertSale(map);
-			PaymentFrame.this.dispose();
 		}
 
+		Map<String, List<Sale>> map = new HashMap<>();
+		map.put("list", saleList);
+
+		sDao.insertSale(map);
+
+		PaymentFrame.this.dispose();
 	}
 
 	protected void actionPerformedBtnCard(ActionEvent e) { // 신용카드 결제
@@ -234,12 +240,12 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
 			sDao.insertSale(map);
-			
+
 			PaymentFrame.this.dispose();
 		}
 	}
 
-	public void setInitWork(int sum,List<Sale> saleList) { // 주문창에서 받아온 sale list
+	public void setInitWork(int sum, List<Sale> saleList) { // 주문창에서 받아온 sale list
 		this.saleList = saleList;
 		this.sum = sum;
 		panelInfo.setInitWork(sum, saleList);

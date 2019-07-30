@@ -34,6 +34,8 @@
 	
 	
 	
+	
+	
 	<select id="selectSaleByAll" resultMap="resultSaleKCM">
 		select
 		no,sale_no,sale_time,order_cnt,order_kind,sale_type,f.fd_name,m.mb_name
