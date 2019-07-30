@@ -119,7 +119,7 @@ CREATE TABLE food.sale (
 	sale_type           INT         NULL     COMMENT '결제방식', -- 결제방식
 	fd_no               INT         NULL     COMMENT '음식번호', -- 음식번호
 	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
-	sale_discount_info  VARCHAR(10) NULL     COMMENT '할인정보', -- 할인정보
+	sale_discount_info  VARCHAR(30) NULL     COMMENT '할인정보', -- 할인정보
 	sale_discount_price INT         NULL     COMMENT '할인금액' -- 할인금액
 )
 COMMENT '결제';
@@ -186,6 +186,25 @@ ALTER TABLE food.no_manager
 		PRIMARY KEY (
 			nmg_id -- 비관리자id
 		);
+
+-- 예약
+CREATE TABLE food.reservation (
+	rsv_no     INT      NOT NULL COMMENT '예약번호', -- 예약번호
+	mb_no      INT      NOT NULL COMMENT '회원번호', -- 회원번호
+	rsv_number int      NOT NULL COMMENT '인원', -- 인원
+	rsv_time   DATETIME NOT NULL COMMENT '시간' -- 시간
+)
+COMMENT '예약';
+
+-- 예약
+ALTER TABLE food.reservation
+	ADD CONSTRAINT PK_reservation -- 예약 기본키
+		PRIMARY KEY (
+			rsv_no -- 예약번호
+		);
+
+ALTER TABLE food.reservation
+	MODIFY COLUMN rsv_no INT NOT NULL AUTO_INCREMENT COMMENT '예약번호';
 
 -- 음식
 ALTER TABLE food.food
@@ -256,6 +275,16 @@ ALTER TABLE food.sale
 		REFERENCES food.member ( -- 회원
 			mb_no -- 회원번호
 		);
+
+-- 예약
+ALTER TABLE food.reservation
+	ADD CONSTRAINT FK_member_TO_reservation -- 회원 -> 예약
+		FOREIGN KEY (
+			mb_no -- 회원번호
+		)
+		REFERENCES food.member ( -- 회원
+			mb_no -- 회원번호
+		);
 	
 -- 계정과 권한부여
 grant all privileges 
@@ -282,7 +311,10 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
+<<<<<<< HEAD
 drop view payment;
+=======
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web02_teamB.git
 
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,

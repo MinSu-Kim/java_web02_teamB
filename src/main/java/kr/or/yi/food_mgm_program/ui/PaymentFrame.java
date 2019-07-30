@@ -1,6 +1,8 @@
 package kr.or.yi.food_mgm_program.ui;
 
+import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,6 +24,9 @@ import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.service.PaymentService;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
+import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
 
 public class PaymentFrame extends JFrame implements ActionListener {
@@ -36,17 +41,17 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private JButton btnMileage;
 	private JButton btnCoupon;
 	private JButton btnGrade;
-	private MemberDao mDao;
-	private SaleDao sDao;
+	private PaymentService service;
 	private Member mem;
 	private List<Sale> saleList;
 	private int updateMileage;
 	private int sum;
 
+	private MainFrame frame;
+
 	public PaymentFrame() {
 		initComponents();
-		mDao = new MemberDaoImpl();
-		sDao = new SaleDaoImpl();
+		service = PaymentService.getInstance();
 	}
 
 	private void initComponents() {
@@ -134,7 +139,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 		if (sNumber != null) {
 			int number = Integer.parseInt(sNumber);
-			mem = mDao.selectByTel(number); // 번호에 맞는 회원객체
+			mem = service.selectByTel(number); // 번호에 맞는 회원객체
 		}
 
 		if (mem != null) {
@@ -167,8 +172,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		if (mem.getMbMileage() < mileage) {
 			JOptionPane.showMessageDialog(null, "최대 사용가능한 마일리지 : " + mem.getMbMileage() + "원");
 		} else {
-			int updateMileage = mem.getMbMileage() - mileage;
-			panelInfo.setDiscountInfoMileage(mileage, sum);
+			updateMileage = mem.getMbMileage() - mileage;
+			panelInfo.setDiscountInfoMileage(mileage);
 
 		}
 
@@ -194,37 +199,70 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			}
 		}
 
-		panelInfo.setDiscountInfoCoupon(searchCoupon, sum);
+		panelInfo.setDiscountInfoCoupon(searchCoupon);
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
-		panelInfo.setDiscountInfoGrade(mem, sum);
+		panelInfo.setDiscountInfoGrade(mem);
 	}
 
 	protected void actionPerformedBtnCash(ActionEvent e) { // 현금 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(현금) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
-
-			saleList = panelInfo.getInfo(saleList, mem, 1,sum);
+			saleList = panelInfo.getInfo(saleList, mem, 1);
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
-			sDao.insertSale(map);
+
+			String info = panelInfo.getTfDisCountInfo().getText();
+			if (info.contains("마일리지") && mem != null) {
+				Member member = mem;
+				member.setMbMileage(updateMileage);
+				System.out.println(member);
+				service.insertSaleUpdateMileageTransaciton(map, member);
+			} else if (mem == null) {
+				service.insertSale(map);
+			} else if (mem != null) {
+				service.insertSale(map);
+			}
+
+			PanelSalesList s = (PanelSalesList) frame.getpSales();
+			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
+
+			s.setListAll();
+			s2.setListAll();
+
 			PaymentFrame.this.dispose();
 		}
-
 	}
 
 	protected void actionPerformedBtnCard(ActionEvent e) { // 신용카드 결제
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(카드) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 
 		if (res == 0) {
-			System.out.println(mem);
-			saleList = panelInfo.getInfo(saleList, mem, 0,sum);
+			saleList = panelInfo.getInfo(saleList, mem, 0);
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
-			sDao.insertSale(map);
+
+			String info = panelInfo.getTfDisCountInfo().getText();
+			if (info.contains("마일리지") && mem != null) {
+				Member member = mem;
+				member.setMbMileage(updateMileage);
+				System.out.println(member);
+				service.insertSaleUpdateMileageTransaciton(map, member);
+			} else if (mem == null) {
+				service.insertSale(map);
+			} else if (mem != null) {
+				service.insertSale(map);
+			}
+			
+			PanelSalesList s = (PanelSalesList) frame.getpSales();
+			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
+
+			s.setListAll();
+			s2.setListAll();
+			
 			PaymentFrame.this.dispose();
 		}
 
@@ -233,7 +271,12 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	public void setInitWork(int sum, List<Sale> saleList) { // 주문창에서 받아온 sale list
 		this.saleList = saleList;
 		this.sum = sum;
+		panelInfo.setSum(sum);
 		panelInfo.setInitWork(sum, saleList);
+	}
+
+	public void setMainFrame(MainFrame frame) {
+		this.frame = frame;
 	}
 
 }

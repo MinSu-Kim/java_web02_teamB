@@ -65,4 +65,23 @@
 	<delete id="couponDelete" parameterType="map">
 		
 	</delete>
+	
+	<select id="selectByNameTel" parameterType="Member" resultMap="resultMemberBJY">
+		select * from member where mb_name=#{mbName} and mb_tel=#{mbTel}
+	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

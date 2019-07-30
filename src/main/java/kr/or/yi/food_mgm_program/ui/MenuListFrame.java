@@ -142,7 +142,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -150,6 +149,7 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dao.FoodDao;
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.service.MenuListService;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
 public class MenuListFrame extends JFrame implements ActionListener {
@@ -159,7 +159,7 @@ public class MenuListFrame extends JFrame implements ActionListener {
 	private List<Food> food;
 	private FoodDao dao;
 	private PanelOrderList pOrder;
-	private String name = null;
+	private MenuListService service;
 	public MenuListFrame() {
 		initComponents();
 		
@@ -224,12 +224,12 @@ public class MenuListFrame extends JFrame implements ActionListener {
 		String fdName = o.getName();
 		Food food = new Food();
 		food.setFdName(fdName);
-		Food food1 = dao.selectByNames(food);
+		Food food1 = service.selectByName(food);
 		pOrder.setList(food1);
 	}
 
-	public void setDao(FoodDao fDao) {
-		this.dao = fDao;
+	public void setService(MenuListService service) {
+		this.service = service;
 	}
 	public void setPOrder(PanelOrderList orderList) {
 		this.pOrder = orderList;

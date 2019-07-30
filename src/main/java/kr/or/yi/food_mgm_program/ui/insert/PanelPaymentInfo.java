@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -16,9 +17,11 @@ import javax.swing.border.TitledBorder;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
-public class PanelPaymentInfo extends JPanel {
+public class PanelPaymentInfo extends JPanel implements KeyListener {
 	private JTextField tfTotalPrice;
 	private JTextField tfDiscountPrice;
 	private JTextField tfTpReceive;
@@ -30,10 +33,20 @@ public class PanelPaymentInfo extends JPanel {
 	private JTextField tfMember;
 	private List<Sale> saleList;
 	private double disPrice;
+	private int sum;
+	
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+	
+	
 
-	/**
-	 * Create the panel.
-	 */
+	public JTextField getTfDisCountInfo() {
+		return tfDisCountInfo;
+	}
 	public PanelPaymentInfo() {
 		initComponents();
 	}
@@ -87,6 +100,7 @@ public class PanelPaymentInfo extends JPanel {
 		add(lblReceive);
 		
 		tfReceive = new JTextField();
+		tfReceive.addKeyListener(this);
 		tfReceive.setColumns(10);
 		add(tfReceive);
 		
@@ -106,22 +120,22 @@ public class PanelPaymentInfo extends JPanel {
 		tfMember = new JTextField();
 		add(tfMember);
 		tfMember.setColumns(10);
+		disPrice=0;
 	}
 	
 	public void setMemberInfo(Member mem,int sum) {
-		System.out.println(mem);
 		tfMember.setText(mem.getMbName()+"님("+mem.getMbGrade().getGrade()+")");
 	}
 	
-	public void setDiscountInfoMileage(int mileage,int sum) { 
+	public void setDiscountInfoMileage(int mileage) { 
 		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
 		tfDiscountPrice.setText(mileage+"원");
-		disPrice = sum-mileage;
-		tfTpReceive.setText(String.format("%,d원",(int)disPrice));
+		disPrice = mileage;
+		tfTpReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 			
 	}
 	
-	public void setDiscountInfoCoupon(Coupon searchCoupon,int sum) {
+	public void setDiscountInfoCoupon(Coupon searchCoupon) {
 		tfDisCountInfo.setText("쿠폰 : " + searchCoupon.getCpName() + "("+searchCoupon.getCpDiscount()+"%)");
 		disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
 		tfDiscountPrice.setText(String.format("%,d원", (int)disPrice));
@@ -129,7 +143,7 @@ public class PanelPaymentInfo extends JPanel {
 
 	}
 	
-	public void setDiscountInfoGrade(Member mem,int sum) {
+	public void setDiscountInfoGrade(Member mem) {
 		tfDisCountInfo.setText("등급할인 : " + mem.getMbGrade().getGrade()+"(" + mem.getMbGrade().getG_discount()+"%)");
 		disPrice = sum*((double)mem.getMbGrade().getG_discount()/100);
 		tfDiscountPrice.setText(String.format("%,d원",(int)disPrice));
@@ -144,7 +158,7 @@ public class PanelPaymentInfo extends JPanel {
 		
 	}
 	
-	public List<Sale>  getInfo(List<Sale> saleList,Member mem,int type,int sum) {
+	public List<Sale>  getInfo(List<Sale> saleList,Member mem,int type) {
 		for(Sale s : saleList) {
 			s.setSaletime(new Date());
 			s.setSaleType(type);
@@ -154,7 +168,7 @@ public class PanelPaymentInfo extends JPanel {
 				s.setSaleDiscountPrice(0);
 			}else {
 				s.setMbNo(new Member(mem.getMbNo()));
-				s.setSaleDiscountPrice(sum-(int)disPrice);
+				s.setSaleDiscountPrice((int)disPrice);
 				
 			}
 			s.setSaleDiscountInfo(tfDisCountInfo.getText());
@@ -165,4 +179,30 @@ public class PanelPaymentInfo extends JPanel {
 		return saleList;
 	}
 
+	
+	
+	
+	public void keyReleased(KeyEvent e) {
+		if (e.getSource() == tfReceive) {
+			keyReleasedTfReceive(e);
+		}
+	}
+	protected void keyReleasedTfReceive(KeyEvent e) {
+		if(e.getKeyCode()==10) {
+			int toReceivcePrice = ((int)(sum-disPrice));
+			int receivePrice = Integer.parseInt(tfReceive.getText());
+			tfReceive.setText(String.format("%,d원", Integer.parseInt(tfReceive.getText())));
+			tfChange.setText( String.format("%,d원", receivePrice-toReceivcePrice) );
+		}
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -24,8 +24,8 @@ select f.name, f.price, fk.fk_no
 truncate sale;
 
 select * from `member`;
+insert into member values(0,"비회원",now(),"111111111",0,"vip","o");
 select * from grade;
-
 insert into sale values (1,1,now(),1,1,0,1,1);
 insert into sale values (2,1,now(),3,1,0,1,1);
 insert into sale values (3,1,now(),4,1,0,2,1);

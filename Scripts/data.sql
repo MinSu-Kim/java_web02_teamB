@@ -2,10 +2,7 @@ load data local infile 'd://foodKind.csv' into table food.foodkind
 character set 'utf8'
 fields terminated by ',';
 
-update foodkind set fk_no = 1 where fk_no = 0;
-
 select * from foodkind;
-truncate food;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
@@ -13,7 +10,6 @@ fields terminated by ',';
 set foreign_key_checks = 1;
 
 select * from food;
-delete from food where fd_no = 75;
 
 desc grade;
 insert into grade values ('vip',15),('gold',10),('silver',5);
@@ -47,6 +43,7 @@ insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
 select * from foodkind;
 select * from sale;
+desc sale;
 select * from manager where mg_pwd = password('rootroot');
 select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123');
 
@@ -92,8 +89,8 @@ insert into member(mb_no, mb_name) values (0,'비회원');
 
 
 LOAD data LOCAL INFILE 'D:\\zipcode_DB\\대구광역시.txt' 
-INTO table food.post   
-character set 'utf8'  
+INTO table food.post
+character set 'utf8'
 fields TERMINATED by '|' 
 IGNORE 1 lines 
 (@zipcode, @sido, @d, @sigungu , @d, @d, @d, @d, @doro, @d, @d, @building1, @building2, @d, @d, @d, @d, @d, @d ,@d, @d, @d, @d, @d, @d, @d) 
@@ -101,3 +98,16 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 
 select * from post;
 select * from post where p_sigungu like "동구%";
+
+select * from reservation;
+
+truncate reservation;
+
+alter table reservation add column rsv_tableNo varcharacter(5);
+
+select * from member;
+select * from member where mb_name='김우빈' and mb_tel='01012345678';
+	
+
+
+

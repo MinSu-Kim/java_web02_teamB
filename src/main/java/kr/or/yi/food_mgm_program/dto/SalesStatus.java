@@ -70,7 +70,7 @@ public class SalesStatus {
 
 	public Object[] toArray() {
 
-		return new Object[] { ssNo, ssName, ssCount, ssTotalPrice, String.format("%s%%", ssShare) };
+		return new Object[] { ssNo, ssName, String.format("%d개", ssCount), String.format("%,d원", ssTotalPrice), String.format("%s%%", ssShare) };
 	}
 
 }

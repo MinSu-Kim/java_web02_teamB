@@ -86,4 +86,11 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
+	@Override
+	public Member selectByNameTel(Member member) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectOne(namespace + ".selectByNameTel", member);
+		}
+	}
+
 }

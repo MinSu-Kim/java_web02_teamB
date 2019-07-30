@@ -1,24 +1,18 @@
 package kr.or.yi.food_mgm_program.ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Dimension;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Component;
-import javax.swing.border.BevelBorder;
-import java.awt.Rectangle;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import java.awt.FlowLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
 public class ManagementFrame2 extends JFrame {
 
