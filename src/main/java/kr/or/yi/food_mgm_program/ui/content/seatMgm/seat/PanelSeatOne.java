@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 
 public class PanelSeatOne extends JPanel implements ActionListener {
 	private JPanel pOrder;
@@ -69,7 +70,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		pC.setLayout(new BorderLayout(0, 0));
 		
 		pCC = new JPanel();
-		pCC.setBackground(Color.WHITE);
+		pCC.setBackground(SystemColor.control);
 		pCC.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		pC.add(pCC, BorderLayout.CENTER);
 		pCC.setLayout(new GridLayout(0, 1, 0, 0));
@@ -87,20 +88,20 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		pCS.add(btnPrice, BorderLayout.CENTER);
 		
 		pN = new JPanel();
-		pN.setBackground(new Color(205, 133, 63));
+		pN.setBackground(SystemColor.activeCaption);
 		pOrder.add(pN, BorderLayout.NORTH);
 		
 		pS = new JPanel();
-		pS.setBackground(new Color(205, 133, 63));
+		pS.setBackground(SystemColor.activeCaption);
 		pOrder.add(pS, BorderLayout.SOUTH);
 		
 		pW = new JPanel();
-		pW.setBackground(new Color(205, 133, 63));
+		pW.setBackground(SystemColor.activeCaption);
 		pOrder.add(pW, BorderLayout.WEST);
 		pW.setPreferredSize(new Dimension(10, 10));
 		
 		pE = new JPanel();
-		pE.setBackground(new Color(205, 133, 63));
+		pE.setBackground(SystemColor.activeCaption);
 		pOrder.add(pE, BorderLayout.EAST);
 		pE.setPreferredSize(new Dimension(10, 10));
 		
@@ -112,7 +113,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		
 		btnNumber = new JButton("");
 		btnNumber.addActionListener(this);
-		btnNumber.setBackground(new Color(205, 133, 63));
+		btnNumber.setBackground(SystemColor.activeCaption);
 		pNumber.add(btnNumber, BorderLayout.CENTER);
 	}
 	
