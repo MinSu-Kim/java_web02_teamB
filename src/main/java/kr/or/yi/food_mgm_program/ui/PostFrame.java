@@ -49,7 +49,7 @@ public class PostFrame extends JFrame implements ActionListener {
 	private void initComponents() {
 		setTitle("주소찾기");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(500, 400, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

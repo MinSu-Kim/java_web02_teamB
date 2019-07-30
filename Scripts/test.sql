@@ -116,3 +116,5 @@ group by mb_no having not m.mb_no = 0;
 
 update member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no set c.cp_use = true where m.mb_no = 1 and c.cp_name = '생일쿠폰';
 select * from coupon;
+
+select * from post where replace(p_doro,' ','') like replace('%현충 로 6길%',' ','');
