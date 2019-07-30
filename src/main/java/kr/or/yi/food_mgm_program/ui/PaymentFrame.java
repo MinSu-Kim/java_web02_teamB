@@ -1,5 +1,6 @@
 package kr.or.yi.food_mgm_program.ui;
 
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +43,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private List<Sale> saleList;
 	private int updateMileage;
 	private int sum;
-
+	
 	public PaymentFrame() {
 		initComponents();
 		service = PaymentService.getInstance();

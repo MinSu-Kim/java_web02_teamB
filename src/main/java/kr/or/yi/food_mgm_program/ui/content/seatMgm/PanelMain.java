@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelDrink;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
@@ -254,6 +255,7 @@ public class PanelMain extends JPanel implements ActionListener {
 	public void setSeatOne(PanelSeatOne seatOne) {
 		this.seatOne = seatOne;
 	}
+
 	
 	
 }

@@ -69,6 +69,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {
 			
 			pSeat = new PanelMain();
+			
+			
 			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 			
 			pSale = new PanelSaleList();
