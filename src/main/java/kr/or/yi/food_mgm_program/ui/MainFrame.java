@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.PanelReservation;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
@@ -29,7 +30,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private JButton btnLogout;
 	private LoginFrame parent;
-
+	private JPanel pFood;
 	private JPanel pSale;
 	private JPanel pSales;
 
@@ -87,6 +88,9 @@ public class MainFrame extends JFrame implements ActionListener {
 			
 			pSales = new PanelSalesList();
 			tabbedPane.addTab("매출 관리", null, pSales, null);
+			
+			pFood = new PanelFood();
+			tabbedPane.addTab("음식 관리", null, pFood, null);
 			
 			lblManager.setText(LoginFrame.manager.getMgId2());
 			JOptionPane.showMessageDialog(null, LoginFrame.manager.getMgId()+"님 환영합니다.");

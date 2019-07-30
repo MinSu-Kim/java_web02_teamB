@@ -101,6 +101,10 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
+insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
+		values(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1');
+
+select * from reservation where rsv_time like concat(current_date(),'%');
 truncate reservation;
 
 alter table reservation add column rsv_tableNo varcharacter(5);

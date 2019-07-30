@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.yi.food_mgm_program.dto.Reservation;
+import kr.or.yi.food_mgm_program.ui.content.statistics.DateLabelFormatter;
+import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
+import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +24,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 
 public class PanelCurrentReservation extends JPanel implements ActionListener {
 	private JTable table;
@@ -27,6 +32,8 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	private JMenuItem mntmPopDelete;
 	private List<Reservation> rsvList;
 	private JPanel panel;
+	private JDatePickerImpl datePicker;
+	private JButton btnNewButton;
 	
 	public PanelCurrentReservation() {
 		
@@ -54,6 +61,17 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 		
 		panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
+		
+		// jdatepicker 생성
+		UtilDateModel model = new UtilDateModel();
+
+		JDatePanelImpl datePanel = new JDatePanelImpl(model);
+		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		panel.add(datePicker);
+		
+		btnNewButton = new JButton("검색");
+		btnNewButton.addActionListener(this);
+		panel.add(btnNewButton);
 		
 		
 	}
@@ -101,6 +119,9 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
 		// TODO Auto-generated method stub
 		
 	}
@@ -108,6 +129,6 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	public void setList(List<Reservation> rsvlist) {
 		this.rsvList = rsvlist;
 	}
-	
-
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+	}
 }
