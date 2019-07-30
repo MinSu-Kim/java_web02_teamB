@@ -41,7 +41,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	private JPanel pMember;
 	private JTextField tfAddr;
 	private JPanel pAddr;
-	private JButton btnAddr;
+	private JButton btnSearch;
 //	private JPanel panel;
 //	private JLabel lblImg;
 	
@@ -132,9 +132,9 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfAddr.setFont(new Font("굴림", Font.PLAIN, 15));
 		tfAddr.setColumns(10);
 		
-		btnAddr = new JButton("검색");
-		btnAddr.addActionListener(this);
-		pAddr.add(btnAddr, BorderLayout.EAST);
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		pAddr.add(btnSearch, BorderLayout.EAST);
 	}
 	
 //	private void createImage() {
@@ -184,15 +184,21 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAddr) {
-			actionPerformedBtnAddr(e);
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
 		}
 	}
 	
-	protected void actionPerformedBtnAddr(ActionEvent e) {
+	protected void actionPerformedBtnSearch(ActionEvent e) {
 		if(pFrame == null) {
 			pFrame = new PostFrame();
+			pFrame.setParent(this);
 		}
+		pFrame.clear();
 		pFrame.setVisible(true);
+	}
+	
+	public void setAddr(String addr) {
+		tfAddr.setText(addr);
 	}
 }

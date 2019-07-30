@@ -33,10 +33,9 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public List<Post> selectByAll(Post post) {
+	public List<Post> selectBySiGunGuDoroAddr1Addr2(Post post) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + ".selectByAll", post);
+			return sqlSession.selectList(namespace + ".selectBySiGunGuDoroAddr1Addr2", post);
 		}
 	}
-
 }
