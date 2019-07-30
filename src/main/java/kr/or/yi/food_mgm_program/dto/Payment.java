@@ -31,6 +31,73 @@ public class Payment {
 		this.payDiscountPrice = payDiscountPrice;
 	}
 
+	
+	
+		
+	public int getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
+
+	public Date getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
+
+	public String getPayMenu() {
+		return payMenu;
+	}
+
+	public void setPayMenu(String payMenu) {
+		this.payMenu = payMenu;
+	}
+
+	public int getPayPrice() {
+		return payPrice;
+	}
+
+	public void setPayPrice(int payPrice) {
+		this.payPrice = payPrice;
+	}
+
+	public int getPayType() {
+		return payType;
+	}
+
+	public void setPayType(int payType) {
+		this.payType = payType;
+	}
+
+	public String getPayMember() {
+		return payMember;
+	}
+
+	public void setPayMember(String payMember) {
+		this.payMember = payMember;
+	}
+
+	public String getPayDiscountInfo() {
+		return payDiscountInfo;
+	}
+
+	public void setPayDiscountInfo(String payDiscountInfo) {
+		this.payDiscountInfo = payDiscountInfo;
+	}
+
+	public int getPayDiscountPrice() {
+		return payDiscountPrice;
+	}
+
+	public void setPayDiscountPrice(int payDiscountPrice) {
+		this.payDiscountPrice = payDiscountPrice;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
@@ -41,7 +108,7 @@ public class Payment {
 	public Object[] toArray() {
 		SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String[] arrPayMenu = payMenu.split(",");
-		return new Object[] { payNo, sDate.format(payTime), payMenu, payPrice, payDiscountInfo, payDiscountPrice,
+		return new Object[] { payNo, sDate.format(payTime), payMenu,String.format("%,d원", payPrice) , payDiscountInfo, String.format("%,d원", payDiscountPrice),
 				payType == 1 ? "현금" : "카드", payMember };
 	}
 

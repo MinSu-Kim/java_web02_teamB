@@ -1,6 +1,9 @@
 package kr.or.yi.food_mgm_program.ui.list;
 
 import kr.or.yi.food_mgm_program.dto.Member;
+
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
@@ -25,5 +28,19 @@ public class memberList extends AbstractList<Member> {
 	@Override
 	protected String[] getColumnNames() {
 		return new String[] {"회원번호","회원명","생일","전화번호","주소","등급","마일리지","쿠폰","탈퇴여부"};
+	}
+
+	@Override
+	protected Object[][] getRows() {
+		if (itemList==null) {
+			itemList = new ArrayList<>();
+		}
+		Object[][] rows = new Object[itemList.size()][];
+		for (int i = 0; i < itemList.size(); i++) {
+			rows[i] = toArray(i);
+		}
+		
+	
+		return rows;
 	}
 }

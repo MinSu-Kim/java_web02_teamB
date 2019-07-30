@@ -29,6 +29,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private JButton btnLogout;
 	private LoginFrame parent;
+	private JPanel pSale;
+	private JPanel pSales;
 
 	public MainFrame() {
 		initComponents();
@@ -69,11 +71,13 @@ public class MainFrame extends JFrame implements ActionListener {
 			pSeat = new PanelMain();
 			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 			
-			JPanel pSale = new PanelSaleList();
+			pSale = new PanelSaleList();
 			tabbedPane.addTab("판매 관리", null, pSale, null);
 			
-			JPanel pSales = new PanelSalesList();
+			pSales = new PanelSalesList();
 			tabbedPane.addTab("매출 관리", null, pSales, null);
+			
+			
 			
 			PanelMember pMember = new PanelMember();
 			tabbedPane.addTab("회원 관리", null, pMember, null);

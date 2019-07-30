@@ -2,8 +2,6 @@ load data local infile 'd://foodKind.csv' into table food.foodkind
 character set 'utf8'
 fields terminated by ',';
 
-update foodkind set fk_no = 1 where fk_no = 0;
-
 select * from foodkind;
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
@@ -12,7 +10,6 @@ fields terminated by ',';
 set foreign_key_checks = 1;
 
 select * from food;
-delete from food where fd_no = 75;
 
 desc grade;
 insert into grade values ('vip',15),('gold',10),('silver',5);

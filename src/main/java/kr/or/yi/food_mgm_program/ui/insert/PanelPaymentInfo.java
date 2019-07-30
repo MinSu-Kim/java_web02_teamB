@@ -41,7 +41,12 @@ public class PanelPaymentInfo extends JPanel implements KeyListener {
 	public void setSum(int sum) {
 		this.sum = sum;
 	}
+	
+	
 
+	public JTextField getTfDisCountInfo() {
+		return tfDisCountInfo;
+	}
 	public PanelPaymentInfo() {
 		initComponents();
 	}
@@ -125,8 +130,8 @@ public class PanelPaymentInfo extends JPanel implements KeyListener {
 	public void setDiscountInfoMileage(int mileage) { 
 		tfDisCountInfo.setText("마일리지 : " + mileage + "원");
 		tfDiscountPrice.setText(mileage+"원");
-		disPrice = sum-mileage;
-		tfTpReceive.setText(String.format("%,d원",(int)disPrice));
+		disPrice = mileage;
+		tfTpReceive.setText(String.format("%,d원",(int)(sum-disPrice)));
 			
 	}
 	
