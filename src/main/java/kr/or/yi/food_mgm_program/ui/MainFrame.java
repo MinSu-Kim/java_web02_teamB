@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
+import kr.or.yi.food_mgm_program.ui.content.PanelReservation;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
@@ -29,8 +30,10 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private JButton btnLogout;
 	private LoginFrame parent;
+	
 
 	public MainFrame() {
+		
 		initComponents();
 	}
 	private void initComponents() {
@@ -63,20 +66,16 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		PanelMain pSeat = null;
+		
+		PanelMain pSeat = new PanelMain(this);
+		tabbedPane.addTab("좌석 관리", null, pSeat, null);
+		
 		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {
-			
-			pSeat = new PanelMain();
-			tabbedPane.addTab("좌석 관리", null, pSeat, null);
-			
 			JPanel pSale = new PanelSaleList();
 			tabbedPane.addTab("판매 관리", null, pSale, null);
 			
 			JPanel pSales = new PanelSalesList();
 			tabbedPane.addTab("매출 관리", null, pSales, null);
-			
-			PanelMember pMember = new PanelMember();
-			tabbedPane.addTab("회원 관리", null, pMember, null);
 			
 			PanelFood pFood = new PanelFood();
 			tabbedPane.addTab("음식 관리", null, pFood, null);
@@ -85,16 +84,15 @@ public class MainFrame extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, LoginFrame.manager.getMgId()+"님 환영합니다.");
 			
 		}else if(LoginFrame.noManager!=null && LoginFrame.manager==null) {
-			pSeat = new PanelMain();
-			tabbedPane.addTab("좌석 관리", null, pSeat, null);
-			
-			PanelMember pMember = new PanelMember();
-			tabbedPane.addTab("회원 관리", null, pMember, null);
 			
 			lblManager.setText("["+LoginFrame.noManager.getNmgId()+"]");
 			JOptionPane.showMessageDialog(null, LoginFrame.noManager.getNmgId()+"님 환영합니다.");
 		}
+		PanelMember pMember = new PanelMember();
+		tabbedPane.addTab("회원 관리", null, pMember, null);
 		
+		PanelReservation pRsv = new PanelReservation();
+		tabbedPane.addTab("예약 관리", null, pRsv, null);
 		
 
 	}

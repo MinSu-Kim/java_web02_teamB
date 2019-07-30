@@ -42,6 +42,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private List<Sale> saleList;
 	private int updateMileage;
 	private int sum;
+	private MainFrame frame;
 
 	public PaymentFrame() {
 		initComponents();
@@ -254,6 +255,10 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		this.saleList = saleList;
 		this.sum = sum;
 		panelInfo.setInitWork(sum, saleList);
+	}
+	
+	public void setMainFrame(MainFrame frame) {
+		this.frame = frame;
 	}
 
 }

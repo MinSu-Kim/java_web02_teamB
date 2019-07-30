@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelDrink;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.menuList.PanelMenuList;
@@ -57,10 +58,12 @@ public class PanelMain extends JPanel implements ActionListener {
 	private CardLayout cards = new CardLayout();
 	private JButton btnAdd;
 	private PanelSeatOne seatOne;
+	private MainFrame frame;
 	
 	
-	public PanelMain() {
-
+	
+	public PanelMain(MainFrame frame) {
+		this.frame = frame;
 		initComponents();
 	}
 	private void initComponents() {
@@ -85,7 +88,7 @@ public class PanelMain extends JPanel implements ActionListener {
 		pCC.add(pCCC, BorderLayout.CENTER);
 		pCCC.setLayout(new BorderLayout(0, 0));
 		
-		pSeat = new PanelSeat();
+		pSeat = new PanelSeat(frame);
 		pCCC.add(pSeat, BorderLayout.CENTER);
 		
 		pPay = new JPanel();
@@ -244,16 +247,11 @@ public class PanelMain extends JPanel implements ActionListener {
 		}
 		price1 = Food.formatter.format(price);
 		seatOne.setLblPrice(price1);
-		
-		
-		
-		
 	}
-	
-	
 	public void setSeatOne(PanelSeatOne seatOne) {
 		this.seatOne = seatOne;
 	}
+	
 	
 	
 }

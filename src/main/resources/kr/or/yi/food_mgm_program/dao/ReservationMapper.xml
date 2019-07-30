@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.food_mgm_program.dao.ReservationMapper">
+	
+	<resultMap type="Reservation" id="resultRsvLJH">
+		<result column="rsv_no" property="rsvNo"/>
+		<result column="mb_no" property="mbNo.mbNo"/>
+		<result column="rsv_number" property="rsvNumber"/>
+		<result column="rsv_time" property="rsvTime"/>
+		<result column="rsv_tableNo" property="rsvTableNo"/>
+	</resultMap>
+	
+	
+	<insert id="insertRsv" parameterType="Reservation">
+		insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
+		values(#{mbNo.mbNo},#{rsvNumber},#{rsvTime},#{rsvTableNo})
+	</insert>
+</mapper>

@@ -15,6 +15,7 @@ import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PanelSeatService;
+import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
@@ -43,14 +44,15 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private PanelOrderList pList;
 	private List<Food> foodList;
 	private PanelMain panelMain;
-	private PaymentFrame frame;
+	private PaymentFrame payFrame;
+	private MainFrame frame;
 	private Sale sales;
 	private PanelSeatService service;
 	
-	public PanelSeatOne() {
-
+	public PanelSeatOne(MainFrame frame) {
+		payFrame = new PaymentFrame();
+		this.frame = frame;
 		initComponents();
-		frame = new PaymentFrame();
 		service = PanelSeatService.getInstance();
 	}
 	private void initComponents() {
@@ -187,11 +189,11 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 			sale.setFdNo(food);
 			saleList.add(sale);
 			 sum += food.getFdPrice()*food.getCount();
-			
 		}
 		
-		frame.setInitWork(sum,saleList);
-		frame.setVisible(true);
+		payFrame.setInitWork(sum,saleList);
+		payFrame.setMainFrame(frame);
+		payFrame.setVisible(true);
 	}
 }
 
