@@ -15,4 +15,5 @@ public interface MemberDao {
 	public Member selectByTel(int tel);
 	public int mileageUpdate(Member member);
 	public int couponDelete(Map<String, Object> map);
+	public Member selectByNameTel(Member member);
 }

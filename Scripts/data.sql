@@ -101,12 +101,13 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
+truncate reservation;
 
+alter table reservation add column rsv_tableNo varcharacter(5);
 
-
-
-
-
+select * from member;
+select * from member where mb_name='김우빈' and mb_tel='01012345678';
+	
 
 
 

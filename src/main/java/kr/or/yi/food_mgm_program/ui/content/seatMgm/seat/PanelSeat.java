@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import kr.or.yi.food_mgm_program.ui.MainFrame;
+import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 
@@ -26,9 +28,10 @@ public class PanelSeat extends JPanel {
 	private JPanel pE;
 	private PanelOrderList pList;
 	private PanelMain panelMain;
+	private MainFrame frame;
 	
-	public PanelSeat() {
-
+	public PanelSeat(MainFrame frame) {
+		this.frame = frame;
 		initComponents();
 		
 	}
@@ -39,19 +42,19 @@ public class PanelSeat extends JPanel {
 		add(pC, BorderLayout.CENTER);
 		pC.setLayout(new GridLayout(0, 3, 20, 30));
 		
-		p1 = new PanelSeatOne();
+		p1 = new PanelSeatOne(frame);
 		pC.add(p1);
 		p1.setSeatNumber("no.1");
 		
-		p2 = new PanelSeatOne();
+		p2 = new PanelSeatOne(frame);
 		pC.add(p2);
 		p2.setSeatNumber("no.2");
 		
-		p3 = new PanelSeatOne();
+		p3 = new PanelSeatOne(frame);
 		pC.add(p3);
 		p3.setSeatNumber("no.3");
 		
-		p4 = new PanelSeatOne();
+		p4 = new PanelSeatOne(frame);
 		pC.add(p4);
 		p4.setSeatNumber("no.4");
 		
@@ -61,15 +64,15 @@ public class PanelSeat extends JPanel {
 		pEmpty2 = new JPanel();
 		pC.add(pEmpty2);
 		
-		p5 = new PanelSeatOne();
+		p5 = new PanelSeatOne(frame);
 		pC.add(p5);
 		p5.setSeatNumber("no.5");
 		
-		p6 = new PanelSeatOne();
+		p6 = new PanelSeatOne(frame);
 		pC.add(p6);
 		p6.setSeatNumber("no.6");
 		
-		p7 = new PanelSeatOne();
+		p7 = new PanelSeatOne(frame);
 		pC.add(p7);
 		p7.setSeatNumber("no.7");
 		

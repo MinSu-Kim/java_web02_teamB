@@ -26,6 +26,12 @@ public class Member {
 		this.mbNo = mbNo;
 	}
 	
+	
+	public Member(String mbName, String mbTel) {
+		this.mbName = mbName;
+		this.mbTel = mbTel;
+	}
+
 	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, int mbMileage, Grade mbGrade, String mbAddress, List<Coupon> coupon, boolean mbWithdrawal) {
 		this.mbNo = mbNo;
 		this.mbName = mbName;
