@@ -22,6 +22,7 @@ import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
+import kr.or.yi.food_mgm_program.service.PaymentService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
 
 public class PaymentFrame extends JFrame implements ActionListener {
@@ -36,8 +37,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private JButton btnMileage;
 	private JButton btnCoupon;
 	private JButton btnGrade;
-	private MemberDao mDao;
-	private SaleDao sDao;
+	private PaymentService service;
 	private Member mem;
 	private List<Sale> saleList;
 	private int updateMileage;
@@ -45,8 +45,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	public PaymentFrame() {
 		initComponents();
-		mDao = new MemberDaoImpl();
-		sDao = new SaleDaoImpl();
+		service = PaymentService.getInstance();
 	}
 
 	private void initComponents() {
@@ -97,7 +96,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		btnMileage.setEnabled(false);
 		btnCoupon.setEnabled(false);
 		btnGrade.setEnabled(false);
-		
+
 		updateMileage = 0;
 	}
 
@@ -135,7 +134,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 		if (sNumber != null) {
 			int number = Integer.parseInt(sNumber);
-			mem = mDao.selectByTel(number); // 번호에 맞는 회원객체
+			mem = service.selectByTel(number); // 번호에 맞는 회원객체
 		}
 
 		if (mem != null) {
@@ -225,7 +224,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		Map<String, List<Sale>> map = new HashMap<>();
 		map.put("list", saleList);
 
-		sDao.insertSale(map);
+		service.insertSale(map);
 
 		PaymentFrame.this.dispose();
 	}
@@ -239,7 +238,9 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
-			sDao.insertSale(map);
+
+			service.insertSale(map);
+
 
 			PaymentFrame.this.dispose();
 		}
