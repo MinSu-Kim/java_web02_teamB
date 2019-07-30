@@ -33,7 +33,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel pSale;
 	private JPanel pSales;
 
-
+	
+	public JPanel getpSale() {
+		return pSale;
+	}
+	public JPanel getpSales() {
+		return pSales;
+	}
 	public MainFrame() {
 		
 		initComponents();
