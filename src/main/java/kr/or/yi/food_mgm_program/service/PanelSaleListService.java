@@ -22,6 +22,7 @@ public class PanelSaleListService {
 	private String namespace2 = "kr.or.yi.food_mgm_program.dao.MemberMapper.";
 	private PaymentDao dao;
 	private SaleDao dao2;
+	private MemberDao dao3;
 	
 	public static PanelSaleListService getInstance() {
 		return service;
@@ -30,6 +31,7 @@ public class PanelSaleListService {
 	public PanelSaleListService() {
 		dao = new PaymentDaoImpl();
 		dao2 = new SaleDaoImpl();
+		dao3 = new MemberDaoImpl();
 	}
 	
 	public List<Payment> selectPaymentByAll(){
@@ -44,15 +46,24 @@ public class PanelSaleListService {
 		return dao2.updateSaleByCancel(map);
 	}
 	
+	public int totalPrice(int number) {
+		return dao2.totalPrice(number);
+	}
+	
+	public int updateGrade(Member mem) {
+		return dao3.updateGrade(mem);
+	}
+	
 	public void updateCancelUpdateMileage(Map<String,Integer> map,Member member) {
 		int resUpdateMileage= 0;
 		int resUpdateCancel = 0;
+		int resupdateCount = 0;
 		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
 		try {
 			resUpdateCancel +=  sqlSession.update(namespace + "updateSaleByCancel",map);
 			resUpdateMileage += sqlSession.update(namespace2 + "mileageUpdateKCM", member);
-
-			if (resUpdateCancel > 0 && resUpdateMileage >0) {
+			resupdateCount += sqlSession.update(namespace2 + "CountUpdateKCM2", member);
+			if (resUpdateCancel > 0 && resUpdateMileage >0 && resupdateCount>0) {
 				sqlSession.commit();
 			} else {
 				throw new Exception();

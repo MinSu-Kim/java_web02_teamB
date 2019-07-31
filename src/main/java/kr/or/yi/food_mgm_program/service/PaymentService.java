@@ -39,6 +39,14 @@ public class PaymentService {
 		return sDao.insertSale(map);
 	}
 	
+	public int totalPrice(int number) {
+		return sDao.totalPrice(number);
+	}
+	
+	public int updateGrade(Member mem) {
+		return mDao.updateGrade(mem);
+	}
+	
 
 	
 	public void insertSaleUpdateMileageTransaciton(Map<String, List<Sale>> map,Member member) {
@@ -50,6 +58,54 @@ public class PaymentService {
 			resUpdate += sqlSession.update(namespace2 + "mileageUpdate", member);
 
 			if (resInsert > 0 && resUpdate >0) {
+				sqlSession.commit();
+			} else {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw new RuntimeException(e.getCause());
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public void insertSaleUpdateCountTransaciton(Map<String, List<Sale>> map,Member member) {
+		int resInsert = 0;
+		int resUpdate = 0;
+		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
+		try {
+			resInsert += sqlSession.insert(namespace + "insertSale", map);
+			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);
+
+			if (resInsert > 0 && resUpdate >0) {
+				sqlSession.commit();
+			} else {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw new RuntimeException(e.getCause());
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	
+	public void insertSaleUpdateCountUpdateCouponTransaciton(Map<String, List<Sale>> map,Member member,Map<String, Object> map2) {
+		int resInsert = 0;
+		int resUpdate = 0;
+		int resUpdate2 = 0;
+		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
+		try {
+			resInsert += sqlSession.insert(namespace + "insertSale", map);
+			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);
+			resUpdate2 += sqlSession.update(namespace2 + "couponDelete",map2);
+			if (resInsert > 0 && resUpdate >0 && resUpdate2>0) {
 				sqlSession.commit();
 			} else {
 				throw new Exception();

@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.ui;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
+import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PaymentService;
@@ -82,26 +84,32 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		panelButton.setLayout(new GridLayout(0, 2, 0, 0));
 
 		btnCash = new JButton("현금");
+		btnCash.setBackground(SystemColor.activeCaption);
 		btnCash.addActionListener(this);
 		panelButton.add(btnCash);
 
 		btnCard = new JButton("신용카드");
+		btnCard.setBackground(SystemColor.activeCaption);
 		btnCard.addActionListener(this);
 		panelButton.add(btnCard);
 
 		btnMileage = new JButton("마일리지");
+		btnMileage.setBackground(SystemColor.inactiveCaption);
 		btnMileage.addActionListener(this);
 		panelButton.add(btnMileage);
 
 		btnMember = new JButton("회원");
+		btnMember.setBackground(SystemColor.activeCaption);
 		btnMember.addActionListener(this);
 		panelButton.add(btnMember);
 
 		btnCoupon = new JButton("쿠폰");
+		btnCoupon.setBackground(SystemColor.inactiveCaption);
 		btnCoupon.addActionListener(this);
 		panelButton.add(btnCoupon);
 
 		btnGrade = new JButton("등급 할인");
+		btnGrade.setBackground(SystemColor.inactiveCaption);
 		btnGrade.addActionListener(this);
 		panelButton.add(btnGrade);
 
@@ -223,17 +231,47 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
-
+			Member member = mem;
+			
 			String info = panelInfo.getTfDisCountInfo().getText();
-			if (info.contains("마일리지") && mem != null) {
-				Member member = mem;
-				member.setMbMileage(updateMileage);
-				System.out.println(member);
-				service.insertSaleUpdateMileageTransaciton(map, member);
-			} else if (mem == null) {
+			int a = info.indexOf(":");
+			int b = info.indexOf("(");
+			
+			if (info.contains("마일리지") && mem != null) { //마일리지 사용한 회원 결제시
+				
+				member.setMbMileage(updateMileage); 
+				service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
+			}else if(mem != null && info.contains("쿠폰")) {
+				String cou = info.substring(a+1, b) ;
+				Map<String, Object> map2 = new HashMap<String, Object>();
+				map2.put("whether", 1);
+				map2.put("no", mem.getMbNo());
+				map2.put("cpname", cou);
+				service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
+			}else if (mem == null) { //회원이 아닐시
 				service.insertSale(map);
-			} else if (mem != null) {
-				service.insertSale(map);
+			} else if (mem != null) { //회원인데 마일리지 사용안할시
+				
+				service.insertSaleUpdateCountTransaciton(map, member);
+			}
+			//금액에 따라 등급 변경됨
+			
+			if(mem!=null) {
+				int total = service.totalPrice(mem.getMbNo());
+				Member mem2 = new Member(mem.getMbNo());
+				if(total > 0 && total <= 299999) {
+					mem2.setMbGrade(new Grade("bronze"));
+					service.updateGrade(mem2);
+				}
+				else if(total > 300000 && total <= 499999) {
+					mem2.setMbGrade(new Grade("silver"));
+					service.updateGrade(mem2);
+				}else if(total >500000 && total <=999999) {
+					mem2.setMbGrade(new Grade("gold"));
+				}else if(total > 1000000) {
+					mem2.setMbGrade(new Grade("vip"));
+				}
+				service.updateGrade(mem2);
 			}
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
@@ -256,24 +294,52 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			Map<String, List<Sale>> map = new HashMap<>();
 			map.put("list", saleList);
-
+			Member member = mem;
+			
 			String info = panelInfo.getTfDisCountInfo().getText();
-			if (info.contains("마일리지") && mem != null) {
-				Member member = mem;
-				member.setMbMileage(updateMileage);
-				System.out.println(member);
-				service.insertSaleUpdateMileageTransaciton(map, member);
-			} else if (mem == null) {
+			int a = info.indexOf(":");
+			int b = info.indexOf("(");
+			
+			if (info.contains("마일리지") && mem != null) { //마일리지 사용한 회원 결제시
+				
+				member.setMbMileage(updateMileage); 
+				service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
+			}else if(mem != null && info.contains("쿠폰")) {
+				String cou = info.substring(a+1, b) ;
+				Map<String, Object> map2 = new HashMap<String, Object>();
+				map2.put("whether", 1);
+				map2.put("no", mem.getMbNo());
+				map2.put("cpname", cou);
+				service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
+			}else if (mem == null) { //회원이 아닐시
 				service.insertSale(map);
-			} else if (mem != null) {
-				service.insertSale(map);
+			} else if (mem != null) { //회원인데 마일리지 사용안할시
+				
+				service.insertSaleUpdateCountTransaciton(map, member);
+			}
+			//금액에 따라 등급 변경됨
+			
+			if(mem!=null) {
+				int total = service.totalPrice(mem.getMbNo());
+				Member mem2 = new Member(mem.getMbNo());
+				if(total > 0 && total <= 299999) {
+					mem2.setMbGrade(new Grade("bronze"));
+					service.updateGrade(mem2);
+				}
+				else if(total > 300000 && total <= 499999) {
+					mem2.setMbGrade(new Grade("silver"));
+					service.updateGrade(mem2);
+				}else if(total >500000 && total <=999999) {
+					mem2.setMbGrade(new Grade("gold"));
+				}else if(total > 1000000) {
+					mem2.setMbGrade(new Grade("vip"));
+				}
+				service.updateGrade(mem2);
 			}
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
 			PanelMember m = (PanelMember) frame.getpMember();
-			
-			
 			m.reloadList();
 			s.setListAll();
 			s2.setListAll();

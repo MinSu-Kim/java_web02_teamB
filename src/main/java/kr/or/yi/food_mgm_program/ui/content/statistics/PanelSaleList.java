@@ -26,6 +26,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
@@ -207,6 +208,22 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 				member.setMbNo(pay.getPayMemberNo());
 				member.setMbMileage(pay.getPayDiscountPrice());
 				service.updateCancelUpdateMileage(map, member); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀
+				
+				int total = service.totalPrice(pay.getPayMemberNo());
+				Member mem2 = new Member(pay.getPayMemberNo());
+				if(total > 0 && total <= 299999) {
+					mem2.setMbGrade(new Grade("bronze"));
+					service.updateGrade(mem2);
+				}
+				else if(total > 300000 && total <= 499999) {
+					mem2.setMbGrade(new Grade("silver"));
+					service.updateGrade(mem2);
+				}else if(total >500000 && total <=999999) {
+					mem2.setMbGrade(new Grade("gold"));
+				}else if(total > 1000000) {
+					mem2.setMbGrade(new Grade("vip"));
+				}
+				service.updateGrade(mem2);
 			}
 			 
 			

@@ -155,3 +155,11 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 select * from member;
 update member set mb_mileage = mb_mileage+100 where mb_no = 1;
+
+
+select * from coupon;
+select * from member_coupon;
+
+update member set mb_count = mb_count+1  where mb_no = 2;
+select * from grade;
+select sum(payPrice) as totalPrice from payment where payMemberNo = 2;
