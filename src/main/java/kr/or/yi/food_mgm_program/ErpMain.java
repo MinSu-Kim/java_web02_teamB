@@ -16,7 +16,9 @@ public class ErpMain {
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			
 //			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
 //			UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
 			// start application

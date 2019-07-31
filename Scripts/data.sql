@@ -20,7 +20,7 @@ insert into grade values ('bronze',0);
 select * from grade;
 
 insert into coupon values (1,'생일쿠폰',10);
-insert into coupon values (2, '졸업쿠폰',5);
+insert into coupon values (2,'졸업쿠폰',5);
 select * from coupon;
 
 desc manager;

@@ -47,7 +47,12 @@
 	</select>
 	
 	<update id="updateMember" parameterType="Member">
-		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_address = #{mbAddress} where mb_no = #{mbNo};		
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_address = #{mbAddress}, mb_mileage = #{mbMileage} where mb_no = #{mbNo};		
+	</update>
+	
+	<update id="updateTrnasMember" parameterType="Member">
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade} 
+		where mb_no = #{mbNo};		
 	</update>
 	
 	<delete id="deleteMember" parameterType="Member">

@@ -5,13 +5,15 @@
 		<id column="cp_no" property="cpNo"/>
 		<result column="cp_name" property="cpName"/>
 		<result column="cp_discount" property="cpDiscount"/>
-		<result column="cp_use" property="cpUse"/>
 	</resultMap>
 	
 	<resultMap type="Coupon" id="resultCouponBJY">
 		<id column="cp_no" property="cpNo"/>
 		<result column="coupon" property="cpName"/>
 		<result column="cp_discount" property="cpDiscount"/>
-		<result column="cp_use" property="cpUse"/>
 	</resultMap>
+	
+	<select id="selectByCouponAll" resultMap="resultCouponBJY">
+		select cp_no, cp_name as coupon, cp_discount from coupon
+	</select>
 </mapper>

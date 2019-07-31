@@ -1,7 +1,5 @@
 package kr.or.yi.food_mgm_program.dao;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -12,32 +10,31 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import kr.or.yi.food_mgm_program.AbstractTest;
-import kr.or.yi.food_mgm_program.daoImpl.PostDaoImpl;
-import kr.or.yi.food_mgm_program.dto.Post;
+import kr.or.yi.food_mgm_program.daoImpl.CouponDaoImpl;
+import kr.or.yi.food_mgm_program.daoImpl.ManagerDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Coupon;
+import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.dto.Manager;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PostDaoTest extends AbstractTest{
-	private static PostDao postDao;
+public class CouponDaoTest extends AbstractTest {
+	private static CouponDao couponDao;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		postDao = new PostDaoImpl();
+		couponDao = new CouponDaoImpl();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		postDao = null;
+		couponDao = null;
 	}
 
-	//@Test
-	public void test01SelectBySiGunGu() {
+	@Test
+	public void test01SelectByCouponAll() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		
-		Post post = new Post();
-		post.setpSigungu("동구");
-		List<Post> list = postDao.selectBySiGunGu(post);
-		log.debug(list.toString());
-		Assert.assertNotNull(list);
+		List<Coupon> lists = couponDao.selectByCouponAll();
+		log.debug(lists.toString());
+		Assert.assertNotNull(lists);
 	}
-
 }
