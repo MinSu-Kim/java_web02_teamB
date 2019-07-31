@@ -71,11 +71,20 @@ public class Reservation {
 	}
 	
 	public Object[] toArray() {
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
 		
-		
-		return new Object[]{mbNo.getMbNo(), mbNo.getMbName(), mbNo.getMbTel(), rsvNumber, rsvTime, rsvTableNo };
+		return new Object[]{mbNo.getMbNo(), mbNo.getMbName(), mbNo.getMbTel(), rsvNumber, sd.format(rsvTime), rsvTableNo };
 	}
 	
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
 package kr.or.yi.food_mgm_program.service;
 
+import java.util.List;
+
 import kr.or.yi.food_mgm_program.dao.ReservationDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.ReservationDaoImpl;
@@ -27,6 +29,8 @@ public class PanelReservationService {
 		return rDao.insertRsv(rsv);
 	}
 	
-	
+	public List<Reservation> selectByTime(){
+		return rDao.selectByTime();
+	}
 	
 }

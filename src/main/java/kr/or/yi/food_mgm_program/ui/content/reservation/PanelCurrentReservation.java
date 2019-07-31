@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.yi.food_mgm_program.dto.Reservation;
+import kr.or.yi.food_mgm_program.service.PanelCurrentReservationService;
 import kr.or.yi.food_mgm_program.ui.content.statistics.DateLabelFormatter;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -22,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -30,13 +32,17 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	private JTable table;
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmPopDelete;
+	private JMenuItem mntmPopUpdate;
 	private List<Reservation> rsvList;
 	private JPanel panel;
 	private JDatePickerImpl datePicker;
 	private JButton btnNewButton;
+	private PanelCurrentReservationService service;
+	private PanelInputReservation pInput;
 	
 	public PanelCurrentReservation() {
-		
+		service = PanelCurrentReservationService.getInstance();
+		rsvList = service.selectByTime();
 		initComponents();
 	}
 	private void initComponents() {
@@ -49,7 +55,11 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 		scrollPane.setViewportView(table);		
 		
 		popupMenu = new JPopupMenu();
-
+		
+		mntmPopUpdate = new JMenuItem("수정");
+		mntmPopUpdate.addActionListener(this);
+		popupMenu.add(mntmPopUpdate);
+		
 		mntmPopDelete = new JMenuItem("삭제");
 		mntmPopDelete.addActionListener(this);
 		popupMenu.add(mntmPopDelete);
@@ -79,8 +89,8 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	public void reloadData() {
 		table.setModel(new DefaultTableModel(getRows(), getColumnNames()));
 
-		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
-		tableSetWidth(50,100,150,100,150,100);
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5,6,7);
+		tableSetWidth(50,100,150,100,150,100,150,150);
 	}
 
 	private Object[][] getRows() {
@@ -95,7 +105,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "회원번호", "회원명", "전화번호", "인원", "시간","테이블 번호"};
+		return new String[] { "회원번호", "회원명", "전화번호", "인원", "시간","테이블 번호", "예약등록날짜", "수정날짜"};
 	}
 
 	// 테이블 셀 내용의 정렬
@@ -122,13 +132,82 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
-		// TODO Auto-generated method stub
+		if (e.getSource() == mntmPopUpdate) {
+			try {
+				actionPerformedmntmPopUpdate();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource() == mntmPopDelete) {
+			try {
+				actionPerformedmntmPopDelete();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 		
 	}
 	
+	private void actionPerformedmntmPopDelete() throws ParseException {
+		int i = table.getSelectedRow();
+		String time = (String) table.getModel().getValueAt(i, 4);
+		String tableNo = (String) table.getModel().getValueAt(i, 5);
+		Reservation rsv = new Reservation();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		rsv.setRsvTime(sd.parse(time));
+		rsv.setRsvTableNo(tableNo);
+		
+		int a = JOptionPane.showConfirmDialog(null, "예약을 취소하시겠습니까?");
+		if(a==0) {
+			service.deleteRsv(rsv);
+			rsvList = service.selectByTime();
+			reloadData();
+		}else {
+			return;
+		}
+		
+		
+		
+		
+		
+	}
+	private void actionPerformedmntmPopUpdate() throws ParseException {
+		int i = table.getSelectedRow();
+		String time = (String) table.getModel().getValueAt(i, 4);
+		String tableNo = (String) table.getModel().getValueAt(i, 5);
+		Reservation rsv = new Reservation();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		rsv.setRsvTime(sd.parse(time));
+		rsv.setRsvTableNo(tableNo);
+		
+	}
 	public void setList(List<Reservation> rsvlist) {
 		this.rsvList = rsvlist;
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
 	}
+	
+	
+	public void setPInput(PanelInputReservation pinput) {
+		this.pInput = pinput;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

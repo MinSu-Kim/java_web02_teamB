@@ -44,6 +44,8 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 	private JLabel lblNewLabel_9;
 	private JTextField tfMinute;
 	private JLabel lblNewLabel_10;
+	private PanelCurrentReservation pCR;
+	
 	
 	public PanelInputReservation() {
 
@@ -183,6 +185,8 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		btnCancel.addActionListener(this);
 		btnCancel.setFont(new Font("Dialog", Font.BOLD, 15));
 		add(btnCancel);
+		
+		actionPerformedBtnNewButton_1();
 	}
 
 	
@@ -244,6 +248,8 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		service.insertRsv(rsv);
 		JOptionPane.showMessageDialog(null, "예약 완료");
 		actionPerformedBtnNewButton_1();
+		pCR.setList(service.selectByTime());
+		pCR.reloadData();
 		
 	}
 	
@@ -252,9 +258,12 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		tfMemberName.setText("");
 		tfTel.setText("");
 		tfPeopleNumber.setText("");
-		tfYear.setText("");
-		tfMonth.setText("");
-		tfDay.setText("");
+		Date date = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
+		String d = sd.format(date);
+		tfYear.setText(d.substring(0, 4));
+		tfMonth.setText(d.substring(4, 6));
+		tfDay.setText(d.substring(6, 8));
 		tfHour.setText("");
 		tfMinute.setText("");
 		cbTableNo.setSelectedIndex(-1);
@@ -262,6 +271,10 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 	
 	public void setService(PanelReservationService service) {
 		this.service = service;
+	}
+	
+	public void setPCR(PanelCurrentReservation pcr) {
+		this.pCR = pcr;
 	}
 }
 

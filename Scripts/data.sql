@@ -1,22 +1,24 @@
+insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
+select * from menu;
+
+set foreign_key_checks = 0;
+
 load data local infile 'd://foodKind.csv' into table food.foodkind
 character set 'utf8'
 fields terminated by ',';
-
 select * from foodkind;
+
 load data local infile 'd://food.csv' into table food.food
 character set 'utf8'
 fields terminated by ',';
+select * from food;
 
 set foreign_key_checks = 1;
 
-select * from food;
-
-desc grade;
 insert into grade values ('vip',15),('gold',10),('silver',5);
 insert into grade values ('bronze',0);
 select * from grade;
 
-desc coupon;
 insert into coupon values (1,'생일쿠폰',10,0);
 insert into coupon values (2, '졸업쿠폰',5,0);
 select * from coupon;
@@ -36,15 +38,10 @@ set foreign_key_checks = 1;
 */
 set foreign_key_checks = 1;
 
-insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (1, '김우빈',now(),'01012345678',1200,'gold','서울',true);
+insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (1, '임종호',now(),'01044155014',1200,'vip','대구',true);
 insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (2, '김재욱',now(),'01087654321',1500,'vip','서울',true);
 select * from member;
 
-insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
-select * from menu;
-select * from foodkind;
-select * from sale;
-desc sale;
 select * from manager where mg_pwd = password('rootroot');
 select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123');
 
@@ -86,8 +83,6 @@ delete from no_manager where nmg_id = '1jongho1227';
 insert into no_manager values ('1jongho1227', password('whdgh123'));
 
 select * from member;
-insert into member(mb_no, mb_name) values (0,'비회원');
-
 
 LOAD data LOCAL INFILE 'D:\\zipcode_DB\\대구광역시.txt' 
 INTO table food.post
@@ -102,17 +97,13 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
-insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
-		values(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1');
 
-select * from reservation where rsv_time like concat(current_date(),'%');
-truncate reservation;
+create view member_reservation as
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
 
-alter table reservation add column rsv_tableNo varcharacter(5);
+select * from member_reservation where rsv_time like concat(current_date(),'%');
+
+select * from member_reservation;
 
 select * from member;
-select * from member where mb_name='김우빈' and mb_tel='01012345678';
 	
-
-
-
