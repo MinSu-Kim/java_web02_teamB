@@ -44,9 +44,9 @@ ALTER TABLE food.foodKind
 -- 회원
 CREATE TABLE food.member (
 	mb_no         INT         NOT NULL COMMENT '회원번호', -- 회원번호
+	mb_tel        VARCHAR(13) NOT NULL COMMENT '전화번호', -- 전화번호
 	mb_name       VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
 	mb_birth      DATE        NULL     COMMENT '생년월일', -- 생년월일
-	mb_tel        VARCHAR(13) NULL     COMMENT '전화번호', -- 전화번호
 	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
 	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
 	mb_address    VARCHAR(50) NULL     COMMENT '주소', -- 주소
@@ -189,10 +189,14 @@ ALTER TABLE food.no_manager
 
 -- 예약
 CREATE TABLE food.reservation (
-	rsv_no     INT      NOT NULL COMMENT '예약번호', -- 예약번호
-	mb_no      INT      NOT NULL COMMENT '회원번호', -- 회원번호
-	rsv_number int      NOT NULL COMMENT '인원', -- 인원
-	rsv_time   DATETIME NOT NULL COMMENT '시간' -- 시간
+	rsv_no          INT        NOT NULL COMMENT '예약번호', -- 예약번호
+	rsv_number      int        NOT NULL COMMENT '인원', -- 인원
+	rsv_time        DATETIME   NOT NULL COMMENT '시간', -- 시간
+	mb_no           INT        NULL     COMMENT '회원번호', -- 회원번호
+	rsv_tableNo     VARCHAR(5) NOT NULL COMMENT '테이블번호', -- 테이블번호
+	rsv_input_time  DATETIME   NOT NULL COMMENT '등록날짜', -- 등록날짜
+	rsv_update_time DATETIME   NULL     COMMENT '수정날짜', -- 수정날짜
+	rsv_cancel      TINYINT    NOT NULL COMMENT '예약취소' -- 예약취소
 )
 COMMENT '예약';
 
@@ -321,4 +325,8 @@ create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
 m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+
+-- 예약정보 뷰
+create view member_reservation as
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
 
