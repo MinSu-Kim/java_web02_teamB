@@ -37,7 +37,7 @@ public class SaleList extends AbstractList<Payment> {
 	@Override
 	protected String[] getColumnNames() {
 		// TODO Auto-generated method stub
-		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","할인정보","할인금액","결제방식","회원"};
+		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","할인정보","할인금액","결제방식","회원","결제상태"};
 	}
 
 	@Override
@@ -52,8 +52,10 @@ public class SaleList extends AbstractList<Payment> {
 		int sum =0;
 		int discountSum = 0;
 		for(Payment p : itemList) {
-			sum += p.getPayPrice();
-			discountSum += p.getPayDiscountPrice();
+			if(p.getPayCancel()==0) {
+				sum += p.getPayPrice();
+				discountSum += p.getPayDiscountPrice();
+			}
 		}
 		
 		rows[itemList.size()] = new Object[]{"","","",String.format("%,d원", sum),"",String.format("%,d원", discountSum),"",""};

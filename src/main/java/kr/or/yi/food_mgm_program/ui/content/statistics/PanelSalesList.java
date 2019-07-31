@@ -105,6 +105,10 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		setListRank();
 		panel_2.setItemList(itemList);
 		panel_2.reloadData();
+		
+		pieDataset = new DefaultPieDataset();
+		setDefaultChart(pieDataset);
+		plot.setDataset(pieDataset);
 	}
 
 	private void setListRank() {
@@ -150,10 +154,12 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		}
 	}
 	protected void actionPerformedBtnSelectbyAll(ActionEvent e) { //전체보기
-		datePicker.getJFormattedTextField().setValue(null);
+		setDatePickerText();
 		setListAll();
-		pieDataset = new DefaultPieDataset();
-		setDefaultChart(pieDataset);
-		plot.setDataset(pieDataset);
+		
+	}
+	
+	public void setDatePickerText() {
+		datePicker.getJFormattedTextField().setValue(null);
 	}
 }

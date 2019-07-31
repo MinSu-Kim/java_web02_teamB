@@ -12,6 +12,7 @@ public class Payment {
 	private String payMember;
 	private String payDiscountInfo;
 	private int payDiscountPrice;
+	private int payCancel;
 
 	public Payment() {
 		super();
@@ -30,10 +31,25 @@ public class Payment {
 		this.payDiscountInfo = payDiscountInfo;
 		this.payDiscountPrice = payDiscountPrice;
 	}
-
+	
+	
 	
 	
 		
+	public Payment(int payNo, Date payTime, String payMenu, int payPrice, int payType, String payMember,
+			String payDiscountInfo, int payDiscountPrice, int payCancel) {
+		super();
+		this.payNo = payNo;
+		this.payTime = payTime;
+		this.payMenu = payMenu;
+		this.payPrice = payPrice;
+		this.payType = payType;
+		this.payMember = payMember;
+		this.payDiscountInfo = payDiscountInfo;
+		this.payDiscountPrice = payDiscountPrice;
+		this.payCancel = payCancel;
+	}
+
 	public int getPayNo() {
 		return payNo;
 	}
@@ -97,19 +113,30 @@ public class Payment {
 	public void setPayDiscountPrice(int payDiscountPrice) {
 		this.payDiscountPrice = payDiscountPrice;
 	}
+	
+	
+
+	public int getPayCancel() {
+		return payCancel;
+	}
+
+	public void setPayCancel(int payCancel) {
+		this.payCancel = payCancel;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Payment [payNo=%s, payTime=%s, payMenu=%s, payPrice=%s, payType=%s, payMember=%s, payDiscountInfo=%s, payDiscountPrice=%s]",
-				payNo, payTime, payMenu, payPrice, payType, payMember, payDiscountInfo, payDiscountPrice);
+				"Payment [payNo=%s, payTime=%s, payMenu=%s, payPrice=%s, payType=%s, payMember=%s, payDiscountInfo=%s, payDiscountPrice=%s, payCancel=%s]",
+				payNo, payTime, payMenu, payPrice, payType, payMember, payDiscountInfo, payDiscountPrice, payCancel);
 	}
 
 	public Object[] toArray() {
 		SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String[] arrPayMenu = payMenu.split(",");
 		return new Object[] { payNo, sDate.format(payTime), payMenu,String.format("%,d원", payPrice) , payDiscountInfo, String.format("%,d원", payDiscountPrice),
-				payType == 1 ? "현금" : "카드", payMember };
+				payType == 1 ? "현금" : "카드", payMember ,payCancel==0?"결제완료":"취소"};
 	}
 
 }

@@ -25,6 +25,7 @@ public class ErpMain {
 			ex.printStackTrace();
 		}
 		
+		
 		EventQueue.invokeLater(new Runnable() {
 			private LoginFrame frame;
 
