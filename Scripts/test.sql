@@ -116,3 +116,7 @@ group by mb_no having not m.mb_no = 0;
 
 update member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no set c.cp_use = true where m.mb_no = 1 and c.cp_name = '생일쿠폰';
 select * from coupon;
+
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
+m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
