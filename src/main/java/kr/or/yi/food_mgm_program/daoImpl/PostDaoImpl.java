@@ -18,4 +18,24 @@ public class PostDaoImpl implements PostDao {
 		}
 	}
 
+	@Override
+	public List<Post> selectByDoro(Post post) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectByDoro", post);
+		}
+	}
+
+	@Override
+	public List<Post> selectBySiGunGuDoroAddr1(Post post) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectBySiGunGuDoroAddr1", post);
+		}
+	}
+
+	@Override
+	public List<Post> selectBySiGunGuDoroAddr1Addr2(Post post) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectBySiGunGuDoroAddr1Addr2", post);
+		}
+	}
 }

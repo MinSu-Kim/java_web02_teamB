@@ -311,7 +311,11 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
--- drop  view payment;
+
+
+drop view payment;
+
+
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 

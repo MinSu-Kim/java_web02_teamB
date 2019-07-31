@@ -21,9 +21,9 @@ public class FoodDaoImpl implements FoodDao {
 	@Override
 	public int insertFood(Food food) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			int res = sqlSession.insert(namespace + ".insertFood", food);
+			sqlSession.insert(namespace + ".insertFood", food);
 			sqlSession.commit();
-			return res;
+			return food.getFdNo();
 		}
 	}
 
