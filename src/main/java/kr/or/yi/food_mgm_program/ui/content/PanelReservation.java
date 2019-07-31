@@ -31,7 +31,7 @@ public class PanelReservation extends JPanel {
 		panel.setService(service);
 		panel.setPCR(panel_1);
 		
-		panel.setPreferredSize(new Dimension(700, 300));
+		panel.setPreferredSize(new Dimension(500, 300));
 		add(panel, BorderLayout.WEST);
 		add(panel_1, BorderLayout.CENTER);
 		

@@ -122,6 +122,7 @@ select * from member_reservation2 where rsv_cancel = 0;
 
 select * from member_reservation;
 
+
 select * from member;
 
 

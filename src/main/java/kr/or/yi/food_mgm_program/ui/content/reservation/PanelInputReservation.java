@@ -63,13 +63,13 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		initComponents();
 	}
 	private void initComponents() {
-		setBorder(new EmptyBorder(100, 0, 100, 0));
-		setLayout(new GridLayout(0, 2, 0, 10));
+		setBorder(new EmptyBorder(100, 20, 100, 20));
+		setLayout(new GridLayout(0, 2, 0, 30));
 		
 		JLabel lblNewLabel = new JLabel("회원번호");
 		lblNewLabel.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel);
 		
 		tfMemberNo = new JTextField();
@@ -79,8 +79,9 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfMemberNo.setEnabled(false);
 		
 		JLabel lblNewLabel_1 = new JLabel("회원명");
+		lblNewLabel_1.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel_1.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_1);
 		
 		tfMemberName = new JTextField();
@@ -90,8 +91,9 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfMemberName.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("전화번호");
+		lblNewLabel_2.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel_2.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_2);
 		
 		tfTel = new JTextField();
@@ -101,8 +103,9 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfTel.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("인원");
+		lblNewLabel_3.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel_3.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_3);
 		
 		tfPeopleNumber = new JTextField();
@@ -111,8 +114,9 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfPeopleNumber.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("시간");
+		lblNewLabel_4.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel_4.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_4);
 		
 		panel = new JPanel();
@@ -129,7 +133,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		panel_1.add(tfYear);
 		tfYear.setColumns(10);
 		
-		lblNewLabel_6 = new JLabel("년");
+		lblNewLabel_6 = new JLabel(" 년");
 		lblNewLabel_6.setFont(new Font("Dialog", Font.BOLD, 15));
 		panel_1.add(lblNewLabel_6);
 		
@@ -139,7 +143,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		panel_1.add(tfMonth);
 		tfMonth.setColumns(10);
 		
-		lblNewLabel_7 = new JLabel("월");
+		lblNewLabel_7 = new JLabel(" 월");
 		lblNewLabel_7.setFont(new Font("Dialog", Font.BOLD, 15));
 		panel_1.add(lblNewLabel_7);
 		
@@ -149,7 +153,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		panel_1.add(tfDay);
 		tfDay.setColumns(10);
 		
-		lblNewLabel_8 = new JLabel("일");
+		lblNewLabel_8 = new JLabel(" 일");
 		lblNewLabel_8.setFont(new Font("Dialog", Font.BOLD, 15));
 		panel_1.add(lblNewLabel_8);
 		
@@ -163,7 +167,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		panel_2.add(tfHour);
 		tfHour.setColumns(10);
 		
-		lblNewLabel_9 = new JLabel("시");
+		lblNewLabel_9 = new JLabel(" 시");
 		lblNewLabel_9.setFont(new Font("Dialog", Font.BOLD, 15));
 		panel_2.add(lblNewLabel_9);
 		
@@ -173,13 +177,14 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		panel_2.add(tfMinute);
 		tfMinute.setColumns(10);
 		
-		lblNewLabel_10 = new JLabel("분");
+		lblNewLabel_10 = new JLabel(" 분");
 		lblNewLabel_10.setFont(new Font("Dialog", Font.BOLD, 15));
 		panel_2.add(lblNewLabel_10);
 		
 		JLabel lblNewLabel_5 = new JLabel("테이블번호");
+		lblNewLabel_5.setBorder(new EmptyBorder(20, 20, 20, 20));
 		lblNewLabel_5.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_5);
 		
 		cbTableNo = new JComboBox<String>(table);
@@ -273,10 +278,6 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		
 		Reservation rsv = new Reservation(rsvNumber, date, date2, null, member, tableNo, false);
 		
-		if(tfMemberNo.getText().substring(0, 1).equals("N")) {
-			service.insertMember(member);
-		}
-		
 		List<Reservation> list = service.selectByRangeTime(rsv);
 		
 		for(Reservation rssv : list) {
@@ -286,6 +287,11 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 			}
 			
 		}
+		
+		if(tfMemberNo.getText().substring(0, 1).equals("N")) {
+			service.insertMember(member);
+		}
+		
 		service.insertRsv(rsv);
 		JOptionPane.showMessageDialog(null, "예약 완료");
 		actionPerformedBtnNewButton_1();

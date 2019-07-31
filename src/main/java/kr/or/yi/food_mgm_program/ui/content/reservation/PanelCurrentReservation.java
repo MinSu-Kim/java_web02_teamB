@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,7 +33,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 
-public class PanelCurrentReservation extends JPanel implements ActionListener, FocusListener {
+public class PanelCurrentReservation extends JPanel implements ActionListener{
 	private JTable table;
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmPopDelete;
@@ -86,16 +87,17 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		panel.add(datePicker);
 		
-		btnNewButton = new JButton("검색");
+		btnNewButton = new JButton("날짜로 검색");
 		btnNewButton.addActionListener(this);
 		panel.add(btnNewButton);
 		
-		tfTel = new JTextField("전화번호로 검색");
-		tfTel.addFocusListener(this);
+		tfTel = new JTextField();
+		tfTel.addActionListener(this);
+		
 		panel.add(tfTel);
 		tfTel.setColumns(10);
 		
-		btnNewButton_1 = new JButton("회원검색");
+		btnNewButton_1 = new JButton("전화번호로 검색");
 		btnNewButton_1.addActionListener(this);
 		panel.add(btnNewButton_1);
 		
@@ -122,7 +124,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "회원번호", "회원명", "전화번호", "인원", "시간","테이블 번호", "예약등록날짜", "수정등록날짜", "예약상태"};
+		return new String[] { "회원번호", "회원명", "전화번호", "인원", "예약시간","테이블 번호", "예약등록날짜", "변경날짜", "예약상태"};
 	}
 
 	// 테이블 셀 내용의 정렬
@@ -146,6 +148,9 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == tfTel) {
+			actionPerformedTfTel(e);
+		}
 		if (e.getSource() == btnNewButton_1) {
 			actionPerformedBtnNewButton_1(e);
 		}
@@ -181,13 +186,23 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 		int i = table.getSelectedRow();
 		String time = (String) table.getModel().getValueAt(i, 4);
 		String tableNo = (String) table.getModel().getValueAt(i, 5);
+		String tableCurrent = (String) table.getModel().getValueAt(i, 8);
+		
+		if(tableCurrent.equals("취소")) {
+			JOptionPane.showMessageDialog(null, "이미 취소된 예약입니다.");
+			return;
+		}
+		
 		Reservation rsv = new Reservation();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
 		rsv.setRsvTime(sd.parse(time));
 		rsv.setRsvTableNo(tableNo);
+		rsv.setRsvUpdateTime(new Date());
 		rsv.setRsvCancel(true);
 		
+		
 		int a = JOptionPane.showConfirmDialog(null, "예약을 취소하시겠습니까?");
+		
 		if(a==0) {
 			service.deleteRsv(rsv);
 			rsvList = service.selectByTime();
@@ -207,6 +222,13 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 		String time = (String) table.getModel().getValueAt(i, 4);
 		String tableNo = (String) table.getModel().getValueAt(i, 5);
 		String time2 = (String) table.getModel().getValueAt(i, 6);
+		String tableCurrent = (String) table.getModel().getValueAt(i, 8);
+		
+		if(tableCurrent.equals("취소")) {
+			JOptionPane.showMessageDialog(null, "취소된 예약은 수정할 수 없습니다.");
+			return;
+		}
+		
 		Reservation rsv = new Reservation();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
 		rsv.setRsvTime(sd.parse(time));
@@ -236,30 +258,35 @@ public class PanelCurrentReservation extends JPanel implements ActionListener, F
 		this.pInput = pinput;
 	}
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
-		String tel = tfTel.getText();
-		Member member = new Member();
-		member.setMbTel(tel);
-		List<Reservation> list = service.selectByTel(member);
-		this.rsvList = list;
-		reloadData();
+		searchPhone();
 		
 	}
 	
+	protected void actionPerformedTfTel(ActionEvent e) {
+		searchPhone();
+	}
 	public void setClear() {
 		tfTel.setText("");
 		datePicker.getJFormattedTextField().setText("");
 	}
-	public void focusGained(FocusEvent e) {
-		if (e.getSource() == tfTel) {
-			focusGainedTfTel(e);
+	
+	private void searchPhone() {
+		String tel = tfTel.getText();
+		Member member = new Member();
+		member.setMbTel(tel);
+		List<Reservation> list = service.selectByTel(member);
+		
+		if(list.size()==0) {
+			JOptionPane.showMessageDialog(null, "없는 번호 입니다.");
+			tfTel.setText("");
+			return;
 		}
-	}
-	public void focusLost(FocusEvent e) {
-		tfTel.setText("전화번호로 검색");
-	}
-	protected void focusGainedTfTel(FocusEvent e) {
+		
+		this.rsvList = list;
 		tfTel.setText("");
+		reloadData();
 	}
+	
 }
 
 

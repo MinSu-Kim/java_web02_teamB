@@ -28,7 +28,7 @@
 	
 	<update id="deleteRsv">
 		update reservation
-		set rsv_cancel = #{rsvCancel}
+		set rsv_cancel = #{rsvCancel}, rsv_update_time = #{rsvUpdateTime}
 		where rsv_time=#{rsvTime} and rsv_tableNo=#{rsvTableNo}
 	</update>
 	
@@ -39,7 +39,7 @@
 	</update>
 	
 	<select id="selectByTel" parameterType="Member" resultMap="resultRsvLJH2">
-		select * from member_reservation where mb_tel=#{mbTel}
+		select * from member_reservation where mb_tel like concat('%',#{mbTel},'%')
 	</select>
 	
 	<select id="selectByDate" parameterType="String" resultMap="resultRsvLJH2">

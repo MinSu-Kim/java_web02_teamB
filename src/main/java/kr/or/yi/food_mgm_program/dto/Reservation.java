@@ -125,7 +125,7 @@ public class Reservation {
 		if(rsvCancel==true) {
 			current = "취소";
 		}
-		return new Object[]{name, mbNo.getMbName(), mbNo.getMbTel(), rsvNumber, sd.format(rsvTime), rsvTableNo,sd.format(rsvInputTime) , updateTime, current};
+		return new Object[]{name, mbNo.getMbName(), mbNo.getMbTel(), rsvNumber+"명", sd.format(rsvTime), rsvTableNo,sd.format(rsvInputTime) , updateTime, current};
 	}
 	
 }
