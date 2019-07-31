@@ -36,12 +36,20 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel pSale;
 	private JPanel pSales;
 	private PanelReservationService service;
+	private PanelMember pMember;
+
+
 	
 	public JPanel getpSale() {
 		return pSale;
 	}
 	public JPanel getpSales() {
 		return pSales;
+	}
+	
+	
+	public JPanel getpMember() {
+		return pMember;
 	}
 	public MainFrame() {
 		service = PanelReservationService.getInstance();
@@ -80,13 +88,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		PanelMain pSeat = new PanelMain(this);
 		tabbedPane.addTab("좌석 관리", null, pSeat, null);
-		
+
 		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {	
-			pSale = new PanelSaleList();
-			tabbedPane.addTab("판매 관리", null, pSale, null);
 			
+			pSale = new PanelSaleList(this);
+			tabbedPane.addTab("결제 관리", null, pSale, null);
+
 			pSales = new PanelSalesList();
-			tabbedPane.addTab("매출 관리", null, pSales, null);
+			tabbedPane.addTab("판매 관리", null, pSales, null);
 			
 			pFood = new PanelFood();
 			tabbedPane.addTab("음식 관리", null, pFood, null);
@@ -99,7 +108,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			lblManager.setText("["+LoginFrame.noManager.getNmgId()+"]");
 			JOptionPane.showMessageDialog(null, LoginFrame.noManager.getNmgId()+"님 환영합니다.");
 		}
-		PanelMember pMember = new PanelMember();
+		pMember = new PanelMember();
 		tabbedPane.addTab("회원 관리", null, pMember, null);
 		
 		PanelReservation pRsv = new PanelReservation(pMember, service, pSeat);
@@ -127,6 +136,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	public void setLoginForm(LoginFrame frame) {
 		this.parent = frame;
 	}
+	
 }
 
 

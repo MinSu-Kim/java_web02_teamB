@@ -3,27 +3,35 @@ package kr.or.yi.food_mgm_program.ui.content.statistics;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Payment;
+import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PanelSaleListService;
+import kr.or.yi.food_mgm_program.ui.MainFrame;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.list.SaleList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -32,7 +40,7 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 @SuppressWarnings("serial")
 public class PanelSaleList extends JPanel implements DocumentListener, ActionListener {
 	private JPanel panel_1;
-	private SaleList panel_2;
+	private SaleList pList;
 	private ChartPanel panel_3;
 	private List<Payment> itemList;
 	private PanelSaleListService service;
@@ -40,11 +48,21 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 	private JButton btnSelectByAll;
 	private CategoryPlot plot;
 	private DefaultCategoryDataset dataset;
+	
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmUpdate;
+	private MainFrame frame;
+	
 
 	public PanelSaleList() {
+		super();
+	}
+
+	public PanelSaleList(MainFrame frame) {
 		service = PanelSaleListService.getInstance();
 		initComponents();
 		setListAll();
+		this.frame = frame;
 	}
 
 	private void initComponents() {
@@ -68,11 +86,11 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
+		panel_1.setLayout(new GridLayout(2, 0, 10, 0));
 
-		panel_2 = new SaleList((String) null);
+		pList = new SaleList((String) null);
 
-		panel_1.add(panel_2);
+		panel_1.add(pList);
 
 		// jfreeChart
 		itemList = service.selectPaymentByAll();
@@ -92,6 +110,13 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		panel_3 = new ChartPanel(chart);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		panel_1.add(panel_3);
+		
+		popupMenu = new JPopupMenu();
+		mntmUpdate = new JMenuItem("수정");
+		mntmUpdate.addActionListener(this);
+		popupMenu.add(mntmUpdate);
+
+		pList.setPopupMenu(popupMenu);
 
 	}
 
@@ -108,12 +133,15 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		int cardPrice = 0;
 		int cashPrice = 0;
 		for (Payment p : itemList) {
-			int type = p.getPayType(); // 0 카드 /1현금
-			if(type==1) { //현금이면
-				cashPrice += p.getPayPrice();
-			}else{
-				cardPrice += p.getPayPrice();
+			if(p.getPayCancel()==0) {
+				int type = p.getPayType(); // 0 카드 /1현금
+				if(type==1) { //현금이면
+					cashPrice += p.getPayPrice();
+				}else{
+					cardPrice += p.getPayPrice();
+				}
 			}
+			
 		}
 		
 		
@@ -123,14 +151,18 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 	public void setListAll() {
 		itemList = service.selectPaymentByAll();
-		panel_2.setItemList(itemList);
-		panel_2.reloadData();
+		pList.setItemList(itemList);
+		pList.reloadData();
+		
+		dataset = new DefaultCategoryDataset();
+		setDefaultChart(dataset);
+		plot.setDataset(dataset);
 	}
 
 	public void setListBydate(String searchDate) {
 		itemList = service.selectPaymentByDate(searchDate);
-		panel_2.setItemList(itemList);
-		panel_2.reloadData();
+		pList.setItemList(itemList);
+		pList.reloadData();
 	}
 
 	@Override
@@ -138,8 +170,8 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		System.out.println(datePicker.getJFormattedTextField().getText());
 		String searchDate = datePicker.getJFormattedTextField().getText();
 		itemList = service.selectPaymentByDate(searchDate);
-		panel_2.setItemList(itemList);
-		panel_2.reloadData();
+		pList.setItemList(itemList);
+		pList.reloadData();
 		
 		dataset = new DefaultCategoryDataset();
 		setDefaultChart(dataset);
@@ -157,17 +189,59 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { //결제취소
 		if (e.getSource() == btnSelectByAll) {
 			actionPerformedBtnSelectByAll(e);
 		}
+		if(e.getSource() == mntmUpdate) {
+			Member member = null;
+			Payment pay = pList.getSelectedItem();
+			JOptionPane.showMessageDialog(null, pay);
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("cancel", 1);
+			map.put("no", pay.getPayNo());
+			if(pay.getPayMember().equals("비회원")) { //비회원일 경우
+				service.updateSaleByCancel(map);//sale테이블의 sale_cancel를 1(true)로 바꿈
+			}else { //회원일 경우(마일리지)
+				member = new Member();
+				member.setMbNo(pay.getPayMemberNo());
+				member.setMbMileage(pay.getPayDiscountPrice());
+				service.updateCancelUpdateMileage(map, member); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀
+			}
+			 
+			
+			setDatePickerText(); //달력 텍스트 초기화
+			setListAll(); //테이블 다시쓰기
+			
+			//차트 다시쓰기
+			dataset = new DefaultCategoryDataset();
+			setDefaultChart(dataset);
+			plot.setDataset(dataset);
+			
+			//PanelSalesList(판매 패널)다시쓰기
+			PanelSalesList f =  (PanelSalesList) frame.getpSales();
+			f.setDatePickerText();
+			f.setListAll();
+			
+			//회원패널 다시쓰기
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
+			
+			
+			
+			
+			
+		}
 	}
 
+
 	protected void actionPerformedBtnSelectByAll(ActionEvent e) { //전체보기
-		datePicker.getJFormattedTextField().setValue(null);
+		setDatePickerText();
 		setListAll();
-		dataset = new DefaultCategoryDataset();
-		setDefaultChart(dataset);
-		plot.setDataset(dataset);
+		
+	}
+	
+	public void setDatePickerText() {
+		datePicker.getJFormattedTextField().setValue(null);
 	}
 }

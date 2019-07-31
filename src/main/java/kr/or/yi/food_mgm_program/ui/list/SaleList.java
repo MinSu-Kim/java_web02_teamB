@@ -18,13 +18,9 @@ public class SaleList extends AbstractList<Payment> {
 
 	@Override
 	protected void tableAlignmentAndWidth() {
-		// no, sale_no, sale_time, order_cnt,  sale_type, name, name
-				//번호, 판매번호,판매시간,판매수량,판매종류 ,결제방식,메뉴명,회원명
-		tableCellAlignment(SwingConstants.CENTER, 0, 1, 4,6,7);
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 4,6,7,8);
 		tableCellAlignment(SwingConstants.RIGHT, 3,5);
-		
-		// 직책번호, 직책명의 폭을 (100, 200)으로 가능하면 설정
-		tableSetWidth(40, 150, 200,80,150,50,30,30);
+		tableSetWidth(40, 110, 730,80,150,50,30,30);
 		
 	}
 
@@ -37,7 +33,7 @@ public class SaleList extends AbstractList<Payment> {
 	@Override
 	protected String[] getColumnNames() {
 		// TODO Auto-generated method stub
-		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","할인정보","할인금액","결제방식","회원"};
+		return new String[] {"판매번호","판매시간","판매메뉴","판매금액","할인정보","할인금액","결제방식","회원","결제상태"};
 	}
 
 	@Override
@@ -52,8 +48,10 @@ public class SaleList extends AbstractList<Payment> {
 		int sum =0;
 		int discountSum = 0;
 		for(Payment p : itemList) {
-			sum += p.getPayPrice();
-			discountSum += p.getPayDiscountPrice();
+			if(p.getPayCancel()==0) {
+				sum += p.getPayPrice();
+				discountSum += p.getPayDiscountPrice();
+			}
 		}
 		
 		rows[itemList.size()] = new Object[]{"","","",String.format("%,d원", sum),"",String.format("%,d원", discountSum),"",""};

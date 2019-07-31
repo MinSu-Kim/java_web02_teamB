@@ -26,29 +26,29 @@ truncate sale;
 select * from `member`;
 insert into member values(0,"비회원",now(),"111111111",0,"vip","o");
 select * from grade;
-insert into sale values (1,1,now(),1,1,0,1,1);
-insert into sale values (2,1,now(),3,1,0,1,1);
-insert into sale values (3,1,now(),4,1,0,2,1);
-insert into sale values (4,1,now(),5,1,0,2,1);
-insert into sale values (5,1,now(),2,1,0,2,1);
-insert into sale values (6,1,now(),1,1,0,3,1);
-insert into sale values (7,1,now(),3,1,0,4,1);
+insert into sale values (1,1,now(),1,1,0,1,1,"마일리지:100원",100,false);
+insert into sale values (2,1,now(),3,1,0,1,1,"마일리지:100원",100,false);
+insert into sale values (3,1,now(),4,1,0,2,1,"마일리지:100원",100,false);
+insert into sale values (4,1,now(),5,1,0,2,1,"마일리지:100원",100,false);
+insert into sale values (5,1,now(),2,1,0,2,1,"마일리지:100원",100,true);
+insert into sale values (6,1,now(),1,1,0,3,1,"마일리지:100원",100,false);
+insert into sale values (7,1,now(),3,1,0,4,1,"마일리지:100원",100,false);
 
 insert into sale values (8,2,now(),1,1,0,1,1);
 insert into sale values (9,2,now(),3,1,0,1,1);
 insert into sale values (10,2,now(),4,1,0,2,1);
 insert into sale values (11,3,now(),5,1,0,2,1);
-insert into sale values (12,3,now(),2,1,0,2,1);
+insert into sale values (12,5,now(),4,1,0,2,1,"마일리지:100원",100,true);
 insert into sale values (13,3,now(),1,1,0,3,1);
 insert into sale values (14,3,now(),3,1,0,4,1);
 
-insert into sale values (15,4,now(),3,1,0,32,1);
+insert into sale values (15,7,'2019-07-30',4,1,0,2,1,"마일리지:100원",100,false);
 insert into sale values (16,5,now(),5,1,0,14,1);
 insert into sale values (17,5,now(),2,1,0,42,2);
 insert into sale values (18,6,now(),1,1,0,32,2);
 insert into sale values (19,6,now(),1,1,0,33,2);
 insert into sale values (20,6,now(),1,1,0,13,2);
-
+select * from sale;
 select ssName, ssCount, ssTotalPrice, ssShare from stateFood;
 
 
@@ -124,3 +124,34 @@ m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member 
 
 select * from post where replace(p_doro,' ','') like replace('%현충 로 6길%',' ','');
 
+desc sale;
+
+show tables;
+select * from sale;
+
+select * from payment;
+
+update sale set sale_cancel = 0 where sale_no=1;
+
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
+m.mb_name as payMemeber, s.sale_cancel as payCancel from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+
+
+
+
+select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
+	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
+	from(
+	select f.fd_name as name, sum(sale_order_cnt) as count, f.fd_price as price,s.sale_cancel,
+	sum(sale_order_cnt*f.fd_price) as ssTotalPrice
+	from sale s left join food f on s.fd_no = f.fd_no where s.sale_cancel = 0
+	group by s.fd_no
+	order by ssTotalPrice desc) sub1 join (
+	select sum(sale_order_cnt*f.fd_price) as sum1
+	from sale s left join food f on s.fd_no = f.fd_no where s.sale_cancel = 0
+	)sub2;
+
+
+select * from member;
+update member set mb_mileage = mb_mileage+100 where mb_no = 1;

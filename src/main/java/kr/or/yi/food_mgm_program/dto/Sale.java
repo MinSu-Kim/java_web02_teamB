@@ -14,12 +14,29 @@ public class Sale {
 	private Member mbNo;
 	private String saleDiscountInfo;
 	private int saleDiscountPrice;
-	
+	private boolean saleCancel;
+
 	public Sale() {
 	}
-	
+
+	public Sale(int saleNo, Date saletime, int saleOrderCnt, boolean saleOrderKind, int saleType, Food fdNo,
+			Member mbNo, String saleDiscountInfo, int saleDiscountPrice, boolean saleCancel) {
+		super();
+		this.saleNo = saleNo;
+		this.saletime = saletime;
+		this.saleOrderCnt = saleOrderCnt;
+		this.saleOrderKind = saleOrderKind;
+		this.saleType = saleType;
+		this.fdNo = fdNo;
+		this.mbNo = mbNo;
+		this.saleDiscountInfo = saleDiscountInfo;
+		this.saleDiscountPrice = saleDiscountPrice;
+		this.saleCancel = saleCancel;
+	}
+
 	public Sale(int no, int saleNo, Date saletime, int saleOrderCnt, boolean saleOrderKind, int saleType, Food fdNo,
-			Member mbNo, String saleDiscountInfo, int saleDiscountPrice) {
+			Member mbNo, String saleDiscountInfo, int saleDiscountPrice, boolean saleCancel) {
+		super();
 		this.no = no;
 		this.saleNo = saleNo;
 		this.saletime = saletime;
@@ -30,19 +47,7 @@ public class Sale {
 		this.mbNo = mbNo;
 		this.saleDiscountInfo = saleDiscountInfo;
 		this.saleDiscountPrice = saleDiscountPrice;
-	}
-
-	public Sale(int saleNo, Date saletime, int saleOrderCnt, boolean saleOrderKind, int saleType, Food fdNo,
-			Member mbNo, String saleDiscountInfo, int saleDiscountPrice) {
-		this.saleNo = saleNo;
-		this.saletime = saletime;
-		this.saleOrderCnt = saleOrderCnt;
-		this.saleOrderKind = saleOrderKind;
-		this.saleType = saleType;
-		this.fdNo = fdNo;
-		this.mbNo = mbNo;
-		this.saleDiscountInfo = saleDiscountInfo;
-		this.saleDiscountPrice = saleDiscountPrice;
+		this.saleCancel = saleCancel;
 	}
 
 	public int getNo() {
@@ -125,12 +130,20 @@ public class Sale {
 		this.saleDiscountPrice = saleDiscountPrice;
 	}
 
+	public boolean isSaleCancel() {
+		return saleCancel;
+	}
+
+	public void setSaleCancel(boolean saleCancel) {
+		this.saleCancel = saleCancel;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
-				"Sale [no=%s, saleNo=%s, saletime=%s, saleOrderCnt=%s, saleOrderKind=%s, saleType=%s, fdNo=%s, mbNo=%s, saleDiscountInfo=%s, saleDiscountPrice=%s]",
+				"Sale [no=%s, saleNo=%s, saletime=%s, saleOrderCnt=%s, saleOrderKind=%s, saleType=%s, fdNo=%s, mbNo=%s, saleDiscountInfo=%s, saleDiscountPrice=%s, saleCancel=%s]",
 				no, saleNo, saletime, saleOrderCnt, saleOrderKind, saleType, fdNo, mbNo, saleDiscountInfo,
-				saleDiscountPrice);
+				saleDiscountPrice, saleCancel);
 	}
 
 	public String toString2() {

@@ -61,6 +61,10 @@ public class SalesStatus {
 	public void setSsShare(String ssShare) {
 		this.ssShare = ssShare;
 	}
+	
+	
+
+
 
 	@Override
 	public String toString() {

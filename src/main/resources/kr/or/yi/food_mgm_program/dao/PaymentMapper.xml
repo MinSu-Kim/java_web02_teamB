@@ -10,14 +10,16 @@
 		<result property="payMember" column="payMemeber" />
 		<result property="payDiscountInfo" column="payDiscountInfo"/>
 		<result property="payDiscountPrice" column="payDiscountPrice"/>
+		<result property="payCancel" column="payCancel"/>
+		<result property="payMemberNo" column="payMemberNo"/>
 	</resultMap>
 	
 	<select id="selectPaymentByAll" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber from payment
+		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment
 	</select>
 	
 	<select id="selectPaymentByDate" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber from payment where payTime like CONCAT( #{date}, '%')
+		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment where payTime like CONCAT( #{date}, '%')
 	</select>
 	
 </mapper>

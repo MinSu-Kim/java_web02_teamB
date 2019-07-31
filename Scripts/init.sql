@@ -120,7 +120,8 @@ CREATE TABLE food.sale (
 	fd_no               INT         NULL     COMMENT '음식번호', -- 음식번호
 	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
 	sale_discount_info  VARCHAR(30) NULL     COMMENT '할인정보', -- 할인정보
-	sale_discount_price INT         NULL     COMMENT '할인금액' -- 할인금액
+	sale_discount_price INT         NULL     COMMENT '할인금액', -- 할인금액
+	sale_cancel			TINYINT     NULL     COMMENT '결제취소여부' -- 결제취소여부
 )
 COMMENT '결제';
 
@@ -303,27 +304,27 @@ create view stateFood as
 select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	ssTotalPrice , round(sub1.ssTotalPrice/sub2.sum1*100,1) as ssShare
 	from(
-	select f.fd_name as name, sum(sale_order_cnt) as count, f.fd_price as price,
+	select f.fd_name as name, sum(sale_order_cnt) as count, f.fd_price as price,s.sale_cancel,
 	sum(sale_order_cnt*f.fd_price) as ssTotalPrice
-	from sale s left join food f on s.fd_no = f.fd_no
+	from sale s left join food f on s.fd_no = f.fd_no where sale_cancel = 0
 	group by s.fd_no
 	order by ssTotalPrice desc) sub1 join (
 	select sum(sale_order_cnt*f.fd_price) as sum1
-	from sale s left join food f on s.fd_no = f.fd_no
+	from sale s left join food f on s.fd_no = f.fd_no where sale_cancel = 0
 	)sub2;
-;
+
+
 
 
 -- 결제 통계 쿼리 (view)
 
 
-drop view payment;
 
-
+select * from payment;
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
-m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+m.mb_name as payMemeber, s.sale_cancel as payCancel, s.mb_no as payMemberNo from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
 
 -- 예약정보 뷰
 create view member_reservation as

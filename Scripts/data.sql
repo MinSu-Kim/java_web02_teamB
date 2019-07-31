@@ -36,7 +36,6 @@ set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
 set foreign_key_checks = 1;
 */
-set foreign_key_checks = 1;
 
 insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (1, '임종호',now(),'01044155014',1200,'vip','대구',true);
 insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (2, '김재욱',now(),'01087654321',1500,'vip','서울',true);
@@ -97,12 +96,18 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
+
 truncate reservation;
 
 drop view member_reservation;
 
+
 create view member_reservation as
+
 select rsv_no, m.mb_no, mb_name, mb_tel, mb_birth, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time, rsv_cancel from member m join reservation r on m.mb_no = r.mb_no;
+
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
+
 
 create view member_reservation2 as
 select * from member_reservation where rsv_time like concat(current_date(),'%');
@@ -119,6 +124,10 @@ select * from member_reservation;
 
 select * from member;
 
+
 select * member_reservation where mb_tel='01044155014';
 select * from member_reservation where rsv_time like concat('2019-07-31','%');
+
+
+
 	

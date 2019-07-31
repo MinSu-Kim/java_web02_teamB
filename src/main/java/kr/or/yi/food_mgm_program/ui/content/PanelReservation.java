@@ -15,7 +15,7 @@ public class PanelReservation extends JPanel {
 	private PanelMember pMember;
 	private PanelMain pSeat;
 	
-	public PanelReservation(PanelMember pMember,PanelReservationService service,PanelMain pSeat) {
+	public PanelReservation(PanelMember pMember, PanelReservationService service, PanelMain pSeat) {
 		this.service = service;
 		this.pMember = pMember;
 		this.pSeat = pSeat;

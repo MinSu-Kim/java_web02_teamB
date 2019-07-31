@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.logging.log4j.core.impl.MementoMessage;
+
 import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
@@ -25,16 +27,17 @@ import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PaymentService;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
+import kr.or.yi.food_mgm_program.ui.list.memberList;
 
 public class PaymentFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JButton btnMember;
 	private PanelPaymentInfo panelInfo;
-	private JPanel panelCal;
 	private JPanel panelButton;
 	private JButton btnCash;
 	private JButton btnCard;
@@ -58,18 +61,11 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		setTitle("결제화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setBounds(100, 100, 1014, 541);
+		setBounds(100, 100, 676, 481);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 3, 15, 0));
-
-		panelInfo = new PanelPaymentInfo();
-		contentPane.add(panelInfo);
-		panelInfo.setLayout(new GridLayout(0, 2, 0, 0));
-
-		panelCal = new JPanel();
-		contentPane.add(panelCal);
+		contentPane.setLayout(new GridLayout(0, 2, 15, 0));
 
 		panelButton = new JPanel();
 		contentPane.add(panelButton);
@@ -102,6 +98,10 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		btnMileage.setEnabled(false);
 		btnCoupon.setEnabled(false);
 		btnGrade.setEnabled(false);
+
+		panelInfo = new PanelPaymentInfo();
+		contentPane.add(panelInfo);
+		panelInfo.setLayout(new GridLayout(0, 2, 0, 0));
 
 	}
 
@@ -228,7 +228,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
 			s.setListAll();
 			s2.setListAll();
 
@@ -256,13 +257,15 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			} else if (mem != null) {
 				service.insertSale(map);
 			}
-			
+
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
+			
 			s.setListAll();
 			s2.setListAll();
-			
+
 			PaymentFrame.this.dispose();
 		}
 

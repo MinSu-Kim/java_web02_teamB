@@ -150,4 +150,31 @@ public class Member {
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
 		
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mbName == null) ? 0 : mbName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		if (mbName == null) {
+			if (other.mbName != null)
+				return false;
+		} else if (!mbName.equals(other.mbName))
+			return false;
+		return true;
+	}
+	
+	
 }
