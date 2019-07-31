@@ -31,6 +31,7 @@ import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PanelSaleListService;
 import kr.or.yi.food_mgm_program.ui.MainFrame;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.list.SaleList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -199,19 +200,17 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("cancel", 1);
 			map.put("no", pay.getPayNo());
-			if(pay.getPayMember().equals("비회원")) {
+			if(pay.getPayMember().equals("비회원")) { //비회원일 경우
 				service.updateSaleByCancel(map);//sale테이블의 sale_cancel를 1(true)로 바꿈
-			}else {
+			}else { //회원일 경우(마일리지)
 				member = new Member();
 				member.setMbNo(pay.getPayMemberNo());
 				member.setMbMileage(pay.getPayDiscountPrice());
 				service.updateCancelUpdateMileage(map, member); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀
 			}
-			
 			 
 			
-			
-			setDatePickerText();
+			setDatePickerText(); //달력 텍스트 초기화
 			setListAll(); //테이블 다시쓰기
 			
 			//차트 다시쓰기
@@ -223,6 +222,10 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 			PanelSalesList f =  (PanelSalesList) frame.getpSales();
 			f.setDatePickerText();
 			f.setListAll();
+			
+			//회원패널 다시쓰기
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
 			
 			
 			

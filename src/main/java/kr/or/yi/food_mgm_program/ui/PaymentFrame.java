@@ -27,6 +27,7 @@ import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PaymentService;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
@@ -227,7 +228,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
 			s.setListAll();
 			s2.setListAll();
 
@@ -258,7 +260,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-			
+			PanelMember m = (PanelMember) frame.getpMember();
+			m.reloadList();
 			
 			s.setListAll();
 			s2.setListAll();

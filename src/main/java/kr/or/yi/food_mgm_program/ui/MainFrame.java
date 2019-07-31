@@ -34,6 +34,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel pFood;
 	private JPanel pSale;
 	private JPanel pSales;
+	private JPanel pMember;
 
 	
 	public JPanel getpSale() {
@@ -41,6 +42,11 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 	public JPanel getpSales() {
 		return pSales;
+	}
+	
+	
+	public JPanel getpMember() {
+		return pMember;
 	}
 	public MainFrame() {
 		
@@ -101,7 +107,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			lblManager.setText("["+LoginFrame.noManager.getNmgId()+"]");
 			JOptionPane.showMessageDialog(null, LoginFrame.noManager.getNmgId()+"님 환영합니다.");
 		}
-		PanelMember pMember = new PanelMember();
+		pMember = new PanelMember();
 		tabbedPane.addTab("회원 관리", null, pMember, null);
 		
 		PanelReservation pRsv = new PanelReservation();
@@ -129,6 +135,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	public void setLoginForm(LoginFrame frame) {
 		this.parent = frame;
 	}
+	
 }
 
 
