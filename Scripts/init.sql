@@ -115,7 +115,7 @@ ALTER TABLE food.member_coupon
 		);
 	
 ALTER TABLE food.member_coupon
-	ADD COLUMN cp_use TINYINT NULL COMMENT '사용유무';
+	ADD COLUMN cp_use TINYINT default false  COMMENT '사용유무';
 
 -- 결제
 CREATE TABLE food.sale (

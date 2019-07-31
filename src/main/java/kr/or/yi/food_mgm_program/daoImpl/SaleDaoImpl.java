@@ -55,4 +55,14 @@ public class SaleDaoImpl implements SaleDao {
 		}
 	}
 
+	@Override
+	public int totalPrice(int number) {
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int total = sqlSession.selectOne(namespace + "totalPrice", number);
+			return total;
+		}
+				
+				
+	}
+
 }

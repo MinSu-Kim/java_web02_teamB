@@ -136,7 +136,7 @@ public class PanelPaymentInfo extends JPanel implements KeyListener {
 	}
 	
 	public void setDiscountInfoCoupon(Coupon searchCoupon) {
-		tfDisCountInfo.setText("쿠폰 : " + searchCoupon.getCpName() + "("+searchCoupon.getCpDiscount()+"%)");
+		tfDisCountInfo.setText("쿠폰 :"+searchCoupon.getCpName()+"("+searchCoupon.getCpDiscount()+"%)");
 		disPrice = sum*((double)searchCoupon.getCpDiscount()/100);
 		tfDiscountPrice.setText(String.format("%,d원", (int)disPrice));
 		tfTpReceive.setText(String.format("%,d원",(int)(sum-disPrice)));

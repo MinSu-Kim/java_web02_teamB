@@ -46,7 +46,7 @@ public class SaleDaoTest extends AbstractTest{
 		Assert.assertNotNull(lists);
 	}
 	
-	@Test
+	//@Test
 	public void test03updateSaleByCancel() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -54,6 +54,12 @@ public class SaleDaoTest extends AbstractTest{
 		map.put("no", 1);
 		dao.updateSaleByCancel(map);
 	}
+	
+	@Test
+		public void test04updateSaleByCancel() {
+			log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+			dao.totalPrice(2);
+		}
 
 
 }
