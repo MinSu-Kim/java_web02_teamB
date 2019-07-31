@@ -15,6 +15,7 @@ public class Member {
 	private String mbAddress;
 	private List<Coupon> coupon;
 	private boolean mbWithdrawal;
+	private int mbCount;
 
 	public Member() {
 		super();
@@ -132,20 +133,32 @@ public class Member {
 	public void setMbWithdrawal(boolean mbWithdrawal) {
 		this.mbWithdrawal = mbWithdrawal;
 	}
+	
+	public int getMbCount() {
+		return mbCount;
+	}
+
+	public void setMbCount(int mbCount) {
+		this.mbCount = mbCount;
+	}
 
 	@Override
 	public String toString() {
 		final int maxLen = 10;
 		return String.format(
-				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s, mbWithdrawal=%s]",
+				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s, mbWithdrawal=%s, mbCount=%s]",
 				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
-				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null, mbWithdrawal);
+				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null, mbWithdrawal, mbCount);
 	}
 
 	public Object[] toArray() {
+		String[] array = new String[coupon.size()];
+		for (int i = 0; i < coupon.size(); i++) {
+			array[i] = coupon.get(i).toString();
+		}
 		
 		if(mbBirth != null) {
-			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), coupon, mbWithdrawal?"YES":"NO"};
+			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO"};
 		}else 
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
 		

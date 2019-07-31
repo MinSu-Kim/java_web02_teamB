@@ -2,7 +2,6 @@ package kr.or.yi.food_mgm_program.ui.list;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -10,10 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public abstract class AbstractList<T> extends JPanel {
@@ -47,7 +49,13 @@ public abstract class AbstractList<T> extends JPanel {
 	}
 
 	public void reloadData() {
-		table.setModel(new DefaultTableModel(getRows(), getColumnNames()));
+		MyTableModel model = new MyTableModel(getRows(), getColumnNames());
+		table.setModel(model);
+//		table.setModel(new DefaultTableModel(getRows(), getColumnNames()));
+		RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+		table.setRowSorter(sorter);
+		
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2);
 		tableAlignmentAndWidth();
 	}
 

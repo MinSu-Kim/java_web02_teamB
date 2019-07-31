@@ -93,4 +93,11 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
+	@Override
+	public List<Member> selectMemberByAllNM() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectMemberByAllNM");
+		}
+	}
+
 }
