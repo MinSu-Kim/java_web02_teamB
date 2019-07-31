@@ -47,28 +47,28 @@ select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123')
 
 
 -- sale 테이블 데이터
-insert into sale values (1,1,now(),1,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (2,1,now(),3,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (3,1,now(),4,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (4,1,now(),5,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (5,1,now(),2,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (6,1,now(),1,1,0,3,1,'생일쿠폰(10%)',1000);
-insert into sale values (7,1,now(),3,1,0,4,1,'생일쿠폰(10%)',1000);
+insert into sale values (1,1,now(),1,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (2,1,now(),3,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (3,1,now(),4,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (4,1,now(),5,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (5,1,now(),2,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (6,1,now(),1,1,0,3,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (7,1,now(),3,1,0,4,1,'생일쿠폰(10%)',1000,false);
 
-insert into sale values (8,2,now(),1,1,0,1,1,'생일쿠폰(10%)',2000);
-insert into sale values (9,2,now(),3,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (10,2,now(),4,1,0,2,1,'생일쿠폰(10%)',2000);
-insert into sale values (11,3,now(),5,1,0,2,1,'졸업쿠폰(5%)',1000);
-insert into sale values (12,3,now(),2,1,0,2,1,'졸업쿠폰(5%)',1000);
-insert into sale values (13,3,now(),1,1,0,3,1,'졸업쿠폰(5%)',1000);
-insert into sale values (14,3,now(),3,1,0,4,1,'졸업쿠폰(5%)',1000);
+insert into sale values (8,2,now(),1,1,0,1,1,'생일쿠폰(10%)',2000,false);
+insert into sale values (9,2,now(),3,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (10,2,now(),4,1,0,2,1,'생일쿠폰(10%)',2000,false);
+insert into sale values (11,3,now(),5,1,0,2,1,'졸업쿠폰(5%)',1000,false);
+insert into sale values (12,3,now(),2,1,0,2,1,'졸업쿠폰(5%)',1000,false);
+insert into sale values (13,3,now(),1,1,0,3,1,'졸업쿠폰(5%)',1000,true);
+insert into sale values (14,3,now(),3,1,0,4,1,'졸업쿠폰(5%)',1000,false);
 
-insert into sale values (15,4,now(),3,1,0,32,1,'마일리지',1500);
-insert into sale values (16,5,now(),5,1,0,14,1,'마일리지',1500);
-insert into sale values (17,5,now(),2,1,0,42,2,'마일리지',1500);
-insert into sale values (18,6,now(),1,1,0,32,2,'마일리지',1500);
-insert into sale values (19,6,now(),1,1,0,33,2,'마일리지',1500);
-insert into sale values (20,6,now(),1,1,0,13,2,'마일리지',1500);
+insert into sale values (15,4,now(),3,1,0,32,1,'마일리지',1500,false);
+insert into sale values (16,5,now(),5,1,0,14,1,'마일리지',1500,true);
+insert into sale values (17,5,now(),2,1,0,42,2,'마일리지',1500,false);
+insert into sale values (18,6,now(),1,1,0,32,2,'마일리지',1500,false);
+insert into sale values (19,6,now(),1,1,0,33,2,'마일리지',1500,false);
+insert into sale values (20,6,now(),1,1,0,13,2,'마일리지',1500,false);
 
 select * from sale;
 select * from sale order by no desc limit 1;
