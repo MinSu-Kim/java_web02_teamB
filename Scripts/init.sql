@@ -120,7 +120,8 @@ CREATE TABLE food.sale (
 	fd_no               INT         NULL     COMMENT '음식번호', -- 음식번호
 	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
 	sale_discount_info  VARCHAR(30) NULL     COMMENT '할인정보', -- 할인정보
-	sale_discount_price INT         NULL     COMMENT '할인금액' -- 할인금액
+	sale_discount_price INT         NULL     COMMENT '할인금액', -- 할인금액
+	sale_cancel			TINYINT     NULL     COMMENT '결제취소여부' -- 결제취소여부
 )
 COMMENT '결제';
 
