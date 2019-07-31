@@ -174,7 +174,9 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		return new Member(mbNo, name, birth, tel, address, grade, mileage);
 	}
 	
-	public Member getNoMember() {
+	public Member getNoMember() throws Exception {
+		validCheck2();
+		
 		int mbNo = Integer.parseInt(tfId.getText().trim().substring(1));
 		String name = tfName.getText().trim();
 		String tel = tfTel.getText().trim();
@@ -184,14 +186,25 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	}
 	
 	private void validCheck() throws Exception {
+		validCheck2();
+		
+		SimpleDateFormat sdfm = new SimpleDateFormat("yyyymmdd");
+		String birth = sdfm.format(tfBirth.getDate());
+		String date = sdfm.format(new Date());
+		if(birth.equals(date)) {
+			throw new Exception("생년월일을 입력하세요.");
+		}
+		if(tfAddr.getText().equals("")) {
+			throw new Exception("주소를 입력하세요.");
+		}
+	}
+
+	public void validCheck2() throws Exception {
 		if(tfName.getText().equals("")) {
 			throw new Exception("이름을 입력하세요.");
 		}
 		if(tfTel.getText().equals("")) {
 			throw new Exception("전화번호를 입력하세요.");
-		}
-		if(tfAddr.getText().equals("")) {
-			throw new Exception("주소를 입력하세요.");
 		}
 	}
 	
@@ -213,5 +226,4 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	public void setAddr(String addr) {
 		tfAddr.setText(addr);
 	}
-
 }

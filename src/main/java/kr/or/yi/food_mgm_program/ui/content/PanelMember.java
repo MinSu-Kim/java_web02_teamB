@@ -37,6 +37,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private PanelMemberInfo pMember;
 	private PanelMemberService service;
 	private List<Member> list;
+	private List<Member> listNM;
 	
 	private JPanel pInsert;
 	private JPanel pList;
@@ -49,6 +50,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
 	private JButton btnNomem;
+	private JButton btnAll;
 	
 	public JPanel getpList() {
 		return pList;
@@ -57,6 +59,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	public PanelMember() {
 		service = PanelMemberService.getInstance();
 		list = service.selectMemberByAll();
+		listNM = service.selectMemberByAllNM();
 		initComponents();
 	}
 	
@@ -117,10 +120,15 @@ public class PanelMember extends JPanel implements ActionListener {
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnSearch);
 		
-		btnList = new JButton("전체보기");
+		btnList = new JButton("회원보기");
 		btnList.addActionListener(this);
 		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnList);
+		
+		btnAll = new JButton("전체보기");
+		btnAll.addActionListener(this);
+		btnAll.setBorder(new EmptyBorder(10, 20, 10, 20));
+		pSearch.add(btnAll);
 		
 		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
@@ -146,11 +154,14 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAll) {
+			actionPerformedBtnAll(e);
+		}
 		if (e.getSource() == btnNomem) {
 			try {
 				actionPerformedBtnNomem(e);
 			} catch (Exception e1) {
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 		}
 		if (e.getSource() == btnList) {
@@ -203,6 +214,7 @@ public class PanelMember extends JPanel implements ActionListener {
 
 	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
+		member.setMbWithdrawal(true);
 		service.insertMember(member);
 		reloadList();
 	}
@@ -214,8 +226,9 @@ public class PanelMember extends JPanel implements ActionListener {
 
 	public void lastNum() {
 		int lastNo = 0;
-		if(!list.isEmpty()) {
-			Member last = list.get(list.size()-1);
+		if(!listNM.isEmpty()) {
+			listNM = service.selectMemberByAllNM();
+			Member last = listNM.get(listNM.size()-1);
 			lastNo = last.getMbNo()+1;
 		}
 		pMember.clearMemberInfo(lastNo);
@@ -248,5 +261,11 @@ public class PanelMember extends JPanel implements ActionListener {
 		Member member = pMember.getNoMember();
 		service.insertMember(member);
 		reloadList();
+	}
+	
+	protected void actionPerformedBtnAll(ActionEvent e) {
+		listNM = service.selectMemberByAllNM();
+		pMemberList.setItemList(listNM);
+		pMemberList.reloadData();
 	}
 }

@@ -19,8 +19,8 @@ insert into grade values ('vip',15),('gold',10),('silver',5);
 insert into grade values ('bronze',0);
 select * from grade;
 
-insert into coupon values (1,'생일쿠폰',10,0);
-insert into coupon values (2, '졸업쿠폰',5,0);
+insert into coupon values (1,'생일쿠폰',10);
+insert into coupon values (2, '졸업쿠폰',5);
 select * from coupon;
 
 desc manager;
@@ -46,36 +46,37 @@ select * from manager where mg_id='jongho1227' and mg_pwd = password('whdgh123')
 
 
 -- sale 테이블 데이터
-insert into sale values (1,1,now(),1,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (2,1,now(),3,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (3,1,now(),4,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (4,1,now(),5,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (5,1,now(),2,1,0,2,1,'생일쿠폰(10%)',1000);
-insert into sale values (6,1,now(),1,1,0,3,1,'생일쿠폰(10%)',1000);
-insert into sale values (7,1,now(),3,1,0,4,1,'생일쿠폰(10%)',1000);
+insert into sale values (1,1,now(),1,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (2,1,now(),3,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (3,1,now(),4,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (4,1,now(),5,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (5,1,now(),2,1,0,2,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (6,1,now(),1,1,0,3,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (7,1,now(),3,1,0,4,1,'생일쿠폰(10%)',1000,false);
 
-insert into sale values (8,2,now(),1,1,0,1,1,'생일쿠폰(10%)',2000);
-insert into sale values (9,2,now(),3,1,0,1,1,'생일쿠폰(10%)',1000);
-insert into sale values (10,2,now(),4,1,0,2,1,'생일쿠폰(10%)',2000);
-insert into sale values (11,3,now(),5,1,0,2,1,'졸업쿠폰(5%)',1000);
-insert into sale values (12,3,now(),2,1,0,2,1,'졸업쿠폰(5%)',1000);
-insert into sale values (13,3,now(),1,1,0,3,1,'졸업쿠폰(5%)',1000);
-insert into sale values (14,3,now(),3,1,0,4,1,'졸업쿠폰(5%)',1000);
+insert into sale values (8,2,now(),1,1,0,1,1,'생일쿠폰(10%)',2000,false);
+insert into sale values (9,2,now(),3,1,0,1,1,'생일쿠폰(10%)',1000,false);
+insert into sale values (10,2,now(),4,1,0,2,1,'생일쿠폰(10%)',2000,false);
+insert into sale values (11,3,now(),5,1,0,2,1,'졸업쿠폰(5%)',1000,false);
+insert into sale values (12,3,now(),2,1,0,2,1,'졸업쿠폰(5%)',1000,false);
+insert into sale values (13,3,now(),1,1,0,3,1,'졸업쿠폰(5%)',1000,true);
+insert into sale values (14,3,now(),3,1,0,4,1,'졸업쿠폰(5%)',1000,false);
 
-insert into sale values (15,4,now(),3,1,0,32,1,'마일리지',1500);
-insert into sale values (16,5,now(),5,1,0,14,1,'마일리지',1500);
-insert into sale values (17,5,now(),2,1,0,42,2,'마일리지',1500);
-insert into sale values (18,6,now(),1,1,0,32,2,'마일리지',1500);
-insert into sale values (19,6,now(),1,1,0,33,2,'마일리지',1500);
-insert into sale values (20,6,now(),1,1,0,13,2,'마일리지',1500);
+insert into sale values (15,4,now(),3,1,0,32,1,'마일리지',1500,false);
+insert into sale values (16,5,now(),5,1,0,14,1,'마일리지',1500,true);
+insert into sale values (17,5,now(),2,1,0,42,2,'마일리지',1500,false);
+insert into sale values (18,6,now(),1,1,0,32,2,'마일리지',1500,false);
+insert into sale values (19,6,now(),1,1,0,33,2,'마일리지',1500,false);
+insert into sale values (20,6,now(),1,1,0,13,2,'마일리지',1500,false);
+
 
 select * from sale;
 select * from sale order by no desc limit 1;
 
 -- member_coupon 데이터 추가
 select * from member_coupon;
-insert into member_coupon values (1, 1), (1,2), (2,1);
-insert into member_coupon values (2,2);
+insert into member_coupon values (1, 1,0), (1,2,0), (2,1,0);
+insert into member_coupon values (2,2,0);
 
 select * from no_manager;
 delete from no_manager where nmg_id = '1jongho1227';
@@ -108,23 +109,15 @@ select rsv_no, m.mb_no, mb_name, mb_tel, mb_birth, rsv_number, rsv_time, rsv_tab
 
 select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
 
-
-create view member_reservation2 as
-select * from member_reservation where rsv_time like concat(current_date(),'%');
-
 select subtime(now(),'0:30:0');
 
 select * from member_reservation where rsv_time between subtime(now(),'0:30:0') and addtime(now(),'0:30:0');
 
 
-create view member_reservation3 as
-select * from member_reservation2 where rsv_cancel = 0;
-
 select * from member_reservation;
 
 
 select * from member;
-
 
 select * member_reservation where mb_tel='01044155014';
 select * from member_reservation where rsv_time like concat('2019-07-31','%');
