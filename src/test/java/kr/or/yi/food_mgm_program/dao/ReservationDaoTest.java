@@ -48,13 +48,53 @@ public class ReservationDaoTest extends AbstractTest{
 //		
 //	}
 	
+//	@Test
+//	public void test01SelectByTime() throws ParseException {
+//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+//		List<Reservation> list = rDao.selectByTime();
+//		log.debug(list.toString());
+//		Assert.assertNotNull(list);
+//		
+//	}
+	
 	@Test
-	public void test01SelectByTime() throws ParseException {
+	public void test01DeleteRsv() throws ParseException {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-		List<Reservation> list = rDao.selectByTime();
-		log.debug(list.toString());
-		Assert.assertNotNull(list);
+		Reservation rsv = new Reservation();
+		
+		String date = "2019-07-31 10:03";
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		
+		
+		rsv.setRsvTime(sd.parse(date));
+		rsv.setRsvTableNo("no.1");
+		
+		int res = rDao.deleteRsv(rsv);
+		
+		
+		Assert.assertEquals(7, res);
 		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,20 +4,26 @@
 	
 	<resultMap type="Reservation" id="resultRsvLJH">
 		<result column="rsv_no" property="rsvNo"/>
-		<result column="mb_no" property="mbNo.mbNo"/>
 		<result column="rsv_number" property="rsvNumber"/>
 		<result column="rsv_time" property="rsvTime"/>
 		<result column="rsv_tableNo" property="rsvTableNo"/>
 	</resultMap>
 	
+	<resultMap type="Reservation" id="resultRsvLJH2" extends="resultRsvLJH">
+		<association property="mbNo" resultMap="kr.or.yi.food_mgm_program.dao.MemberMapper.resultMemberBJY"></association>
+	</resultMap>
+	
 	
 	<insert id="insertRsv" parameterType="Reservation">
 		insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
-		values(#{mbNo.mbNo},#{rsvNumber},#{rsvTime},#{rsvTableNo})
+		values(#{mbNo.mbNo},#{rsvNumber},#{rsvTime},#{rsvTableNo}) <!-- 객체로 집어넣어야 하는데 번호만 뽑아서 집어넣음. 객체로 넣어야함. -->
 	</insert>
 	
-	<select id="selectByTime" parameterType="date" resultMap="resultRsvLJH">
-		select * from reservation where rsv_time like concat(current_date(),'%');
+	<select id="selectByTime" resultMap="resultRsvLJH2">
+		select * from member_reservation where rsv_time like concat(current_date(),'%');
 	</select>
 	
+	<delete id="deleteRsv">
+		delete from reservation where rsv_time=#{rsvTime} and rsv_tableNo=#{rsvTableNo}
+	</delete>
 </mapper>

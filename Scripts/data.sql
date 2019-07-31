@@ -104,14 +104,23 @@ select * from reservation;
 insert into reservation(mb_no, rsv_number, rsv_time, rsv_tableNo) 
 		values(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1'),(1,10,now(),'no.1');
 
-select * from reservation where rsv_time like concat(current_date(),'%');
+
+
+create view member_reservation as
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
+
+
+select * from member_reservation where rsv_time like concat(current_date(),'%');
+
+select * from member_reservation;
+
 truncate reservation;
 
 alter table reservation add column rsv_tableNo varcharacter(5);
-
+alter table reservation add column rsv_tableNo varcharacter(5);
 select * from member;
 select * from member where mb_name='김우빈' and mb_tel='01012345678';
 	
-
+delete from reservation where rsv_time 
 
 

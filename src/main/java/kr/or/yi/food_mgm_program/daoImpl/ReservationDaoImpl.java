@@ -25,4 +25,12 @@ public class ReservationDaoImpl implements ReservationDao {
 			return sqlSession.selectList(namespace + ".selectByTime");
 		}
 	}
+	@Override
+	public int deleteRsv(Reservation rsv) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
+			int res = sqlSession.insert(namespace+".deleteRsv", rsv);
+			sqlSession.commit();
+			return res;
+		}
+	}
 }
