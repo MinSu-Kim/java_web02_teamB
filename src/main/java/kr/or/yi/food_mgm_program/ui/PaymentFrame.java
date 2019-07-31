@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.logging.log4j.core.impl.MementoMessage;
+
 import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
@@ -28,6 +30,7 @@ import kr.or.yi.food_mgm_program.service.PaymentService;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
+import kr.or.yi.food_mgm_program.ui.list.memberList;
 
 public class PaymentFrame extends JFrame implements ActionListener {
 
@@ -255,7 +258,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-
+			
+			
 			s.setListAll();
 			s2.setListAll();
 
