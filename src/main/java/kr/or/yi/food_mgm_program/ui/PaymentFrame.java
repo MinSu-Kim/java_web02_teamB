@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.ui;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -82,26 +83,32 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		panelButton.setLayout(new GridLayout(0, 2, 0, 0));
 
 		btnCash = new JButton("현금");
+		btnCash.setBackground(SystemColor.activeCaption);
 		btnCash.addActionListener(this);
 		panelButton.add(btnCash);
 
 		btnCard = new JButton("신용카드");
+		btnCard.setBackground(SystemColor.activeCaption);
 		btnCard.addActionListener(this);
 		panelButton.add(btnCard);
 
 		btnMileage = new JButton("마일리지");
+		btnMileage.setBackground(SystemColor.inactiveCaption);
 		btnMileage.addActionListener(this);
 		panelButton.add(btnMileage);
 
 		btnMember = new JButton("회원");
+		btnMember.setBackground(SystemColor.activeCaption);
 		btnMember.addActionListener(this);
 		panelButton.add(btnMember);
 
 		btnCoupon = new JButton("쿠폰");
+		btnCoupon.setBackground(SystemColor.inactiveCaption);
 		btnCoupon.addActionListener(this);
 		panelButton.add(btnCoupon);
 
 		btnGrade = new JButton("등급 할인");
+		btnGrade.setBackground(SystemColor.inactiveCaption);
 		btnGrade.addActionListener(this);
 		panelButton.add(btnGrade);
 
