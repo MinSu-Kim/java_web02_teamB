@@ -47,6 +47,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
+	private JButton btnNomem;
 
 	public PanelMember() {
 		service = PanelMemberService.getInstance();
@@ -75,12 +76,17 @@ public class PanelMember extends JPanel implements ActionListener {
 		pBtns.add(pBtn, BorderLayout.NORTH);
 		
 		btnJoin = new JButton("가입");
-		btnJoin.setBorder(new EmptyBorder(20, 50, 20, 50));
+		btnJoin.setBorder(new EmptyBorder(20, 30, 20, 30));
 		btnJoin.addActionListener(this);
+		
+		btnNomem = new JButton("비회원등록");
+		btnNomem.addActionListener(this);
+		btnNomem.setBorder(new EmptyBorder(20, 15, 20, 15));
+		pBtn.add(btnNomem);
 		pBtn.add(btnJoin);
 		
 		btnCancel = new JButton("취소");
-		btnCancel.setBorder(new EmptyBorder(20, 50, 20, 50));
+		btnCancel.setBorder(new EmptyBorder(20, 30, 20, 30));
 		btnCancel.addActionListener(this);
 		pBtn.add(btnCancel);
 		
@@ -135,6 +141,13 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNomem) {
+			try {
+				actionPerformedBtnNomem(e);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
 		if (e.getSource() == btnList) {
 			actionPerformedBtnList(e);
 		}
@@ -178,7 +191,7 @@ public class PanelMember extends JPanel implements ActionListener {
 
 	private void actionPerformedMntmDelete(ActionEvent e) {
 		Member member = pMemberList.getSelectedItem();
-		member.setMbWithdrawal(true);
+		member.setMbWithdrawal(false);
 		service.deleteMember(member);
 		reloadList();
 	}
@@ -224,5 +237,11 @@ public class PanelMember extends JPanel implements ActionListener {
 	protected void actionPerformedBtnList(ActionEvent e) {
 		reloadList();
 		tfSearch.setText("");
+	}
+	
+	protected void actionPerformedBtnNomem(ActionEvent e) throws Exception {
+		Member member = pMember.getNoMember();
+		service.insertMember(member);
+		reloadList();
 	}
 }

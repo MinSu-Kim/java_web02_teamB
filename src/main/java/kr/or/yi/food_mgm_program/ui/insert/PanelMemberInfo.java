@@ -174,6 +174,15 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		return new Member(mbNo, name, birth, tel, address, grade, mileage);
 	}
 	
+	public Member getNoMember() {
+		int mbNo = Integer.parseInt(tfId.getText().trim().substring(1));
+		String name = tfName.getText().trim();
+		String tel = tfTel.getText().trim();
+		boolean tf = false;
+		
+		return new Member(mbNo, name, tel, tf);
+	}
+	
 	private void validCheck() throws Exception {
 		if(tfName.getText().equals("")) {
 			throw new Exception("이름을 입력하세요.");
@@ -201,4 +210,5 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	public void setAddr(String addr) {
 		tfAddr.setText(addr);
 	}
+
 }
