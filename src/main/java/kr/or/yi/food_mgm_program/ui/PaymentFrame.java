@@ -243,6 +243,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			s.setListAll();
 			s2.setListAll();
 			parent.setClear();
+			JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
 			PaymentFrame.this.dispose();
 		}
 	}
@@ -277,6 +278,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			s.setListAll();
 			s2.setListAll();
 			parent.setClear();
+			JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
 			PaymentFrame.this.dispose();
 		}
 
