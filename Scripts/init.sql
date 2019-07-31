@@ -327,5 +327,5 @@ m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member 
 
 -- 예약정보 뷰
 create view member_reservation as
-select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time from member m join reservation r on m.mb_no = r.mb_no;
 

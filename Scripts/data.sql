@@ -96,9 +96,10 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
+drop view member_reservation;
 
 create view member_reservation as
-select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo from member m join reservation r on m.mb_no = r.mb_no;
+select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time from member m join reservation r on m.mb_no = r.mb_no;
 
 select * from member_reservation where rsv_time like concat(current_date(),'%');
 
