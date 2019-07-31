@@ -36,6 +36,7 @@ set foreign_key_checks = 0;
 alter table member change column mb_no mb_no int(11) auto_increment;
 set foreign_key_checks = 1;
 */
+set foreign_key_checks = 1;
 
 insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (1, '임종호',now(),'01044155014',1200,'vip','대구',true);
 insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) values (2, '김재욱',now(),'01087654321',1500,'vip','서울',true);
