@@ -21,6 +21,7 @@ public class PanelMemberService {
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
+	
 	public List<Member> selectMemberByTel(Member member){
 		return dao.selectMemberByTel(member);
 	}
@@ -28,11 +29,16 @@ public class PanelMemberService {
 	public int updateMember(Member member) {
 		return dao.updateMember(member);
 	}
+	
 	public int deleteMember(Member member) {
 		return dao.deleteMember(member);
 	}
+	
 	public int insertMember(Member member) {
 		return dao.insertMember(member);
 	}
 	
+	public List<Member> selectMemberByAllNM(){
+		return dao.selectMemberByAllNM();
+	}
 }

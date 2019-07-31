@@ -60,13 +60,18 @@ ALTER TABLE food.member
 		PRIMARY KEY (
 			mb_no -- 회원번호
 		);
+	
+ALTER TABLE food.member
+	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
+
+ALTER TABLE food.member
+	ADD COLUMN mb_count INT DEFAULT 0 NULL COMMENT '결제건수';
 
 -- 쿠폰
 CREATE TABLE food.coupon (
 	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
 	cp_name     VARCHAR(10) NULL     COMMENT '쿠폰명', -- 쿠폰명
-	cp_discount INT         NULL     COMMENT '할인율', -- 할인율
-	cp_use      TINYINT     NULL     COMMENT '사용유무' -- 사용유무
+	cp_discount INT         NULL     COMMENT '할인율' -- 할인율
 )
 COMMENT '쿠폰';
 
@@ -108,6 +113,9 @@ ALTER TABLE food.member_coupon
 			mb_no, -- 회원번호
 			cp_no  -- 쿠폰번호
 		);
+	
+ALTER TABLE food.member_coupon
+	ADD COLUMN cp_use TINYINT NULL COMMENT '사용유무';
 
 -- 결제
 CREATE TABLE food.sale (
@@ -317,10 +325,6 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
-
-
-
-select * from payment;
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
