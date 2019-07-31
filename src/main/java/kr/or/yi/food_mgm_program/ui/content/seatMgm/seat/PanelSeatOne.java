@@ -214,6 +214,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		List<Food> list = null;
 		pList.setList(list);
 		btnPrice.setText("");
+		foodList = null;
 	}
 }
 
