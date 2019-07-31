@@ -190,6 +190,7 @@ public class PanelMember extends JPanel implements ActionListener {
 				}
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
+				//e1.printStackTrace();
 			}
 		}
 		if (e.getSource() == mntmDelete) {
@@ -281,11 +282,14 @@ public class PanelMember extends JPanel implements ActionListener {
 				pMemberList.reloadData();
 			}
 		}
+		lastNum();
+		btnJoin.setText("가입");
 	}
 	
 	protected void actionPerformedBtnList(ActionEvent e) {
 		reloadList();
 		tfSearch.setText("");
+		btnJoin.setText("가입");
 	}
 	
 	protected void actionPerformedBtnNomem(ActionEvent e) throws Exception {
@@ -298,5 +302,6 @@ public class PanelMember extends JPanel implements ActionListener {
 		listNM = service.selectMemberByAllNM();
 		pMemberList.setItemList(listNM);
 		pMemberList.reloadData();
+		btnJoin.setText("가입");
 	}
 }

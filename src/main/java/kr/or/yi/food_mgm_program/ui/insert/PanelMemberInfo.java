@@ -222,7 +222,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddr.getText().trim();
 		Grade grade = new Grade("bronze");
-		if(tfMileage.equals("")) {
+		if(tfMileage.getText().equals("")) {
 			mileage = 1000;
 		}else {
 			mileage = Integer.valueOf(tfMileage.getText());
