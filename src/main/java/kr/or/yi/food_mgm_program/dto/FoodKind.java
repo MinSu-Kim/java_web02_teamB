@@ -16,6 +16,10 @@ public class FoodKind {
 		this.foodMenuNo = menuNo;
 	}
 	
+	public FoodKind(String fkName) {
+		this.fkName = fkName;
+	}
+
 	public FoodKind(int fkNo, String fkName, FoodMenu menuNo) {
 		this.fkNo = fkNo;
 		this.fkName = fkName;
@@ -46,7 +50,7 @@ public class FoodKind {
 		this.foodMenuNo = menuNo;
 	}
 	
-
+	
 //	@Override
 //	public int hashCode() {
 //		final int prime = 31;
@@ -72,8 +76,42 @@ public class FoodKind {
 //		return true;
 //	}
 
+	
+
+	
+	public String toString2() {
+		return String.format("FoodKind [fkNo=%s, fkName=%s, foodMenuNo=%s]", fkNo, fkName, foodMenuNo);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fkName == null) ? 0 : fkName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FoodKind other = (FoodKind) obj;
+		if (fkName == null) {
+			if (other.fkName != null)
+				return false;
+		} else if (!fkName.equals(other.fkName))
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s", fkName);
 	}
+	
+	
 }

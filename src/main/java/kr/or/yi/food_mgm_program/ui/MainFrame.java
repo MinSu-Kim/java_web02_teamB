@@ -21,6 +21,7 @@ import kr.or.yi.food_mgm_program.ui.content.PanelReservation;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
+import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
@@ -64,8 +65,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		pLogout.add(panel, BorderLayout.EAST);
 		
 		JLabel lblManager = new JLabel();
-		lblManager.setForeground(Color.magenta);
-		lblManager.setFont(new Font("궁서", Font.BOLD, 18));
+		lblManager.setForeground(SystemColor.activeCaptionText);
+		lblManager.setFont(new Font("새굴림", Font.BOLD, 20));
 		
 		panel.add(lblManager);
 		

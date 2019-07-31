@@ -15,26 +15,37 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.dao.PostDao;
+import kr.or.yi.food_mgm_program.daoImpl.PostDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.ui.PostFrame;
+
 import java.awt.Font;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class PanelMemberInfo extends JPanel {
+public class PanelMemberInfo extends JPanel implements ActionListener {
 	private JTextField tfId;
 	private JTextField tfName;
 	private JTextField tfTel;
 	private JDateChooser tfBirth;
 	private JPanel pMember;
 	private JTextField tfAddr;
+	private JPanel pAddr;
+	private JButton btnSearch;
 //	private JPanel panel;
 //	private JLabel lblImg;
+	
+	private PostFrame pFrame;
 	
 	public PanelMemberInfo() {
 		initComponents();
@@ -53,7 +64,7 @@ public class PanelMemberInfo extends JPanel {
 //		panel.add(lblImg);		
 		
 		pMember = new JPanel();
-		pMember.setBorder(new EmptyBorder(100, 0, 100, 10));
+		pMember.setBorder(new EmptyBorder(100, 0, 100, 0));
 		add(pMember);
 		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
@@ -112,10 +123,18 @@ public class PanelMemberInfo extends JPanel {
 		pMember.add(lblAddr);
 		lblAddr.setHorizontalAlignment(SwingConstants.RIGHT);
 		
+		pAddr = new JPanel();
+		pMember.add(pAddr);
+		pAddr.setLayout(new BorderLayout(0, 0));
+		
 		tfAddr = new JTextField();
+		pAddr.add(tfAddr);
 		tfAddr.setFont(new Font("굴림", Font.PLAIN, 15));
-		pMember.add(tfAddr);
-		tfAddr.setColumns(15);
+		tfAddr.setColumns(10);
+		
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		pAddr.add(btnSearch, BorderLayout.EAST);
 	}
 	
 //	private void createImage() {
@@ -155,6 +174,15 @@ public class PanelMemberInfo extends JPanel {
 		return new Member(mbNo, name, birth, tel, address, grade, mileage);
 	}
 	
+	public Member getNoMember() {
+		int mbNo = Integer.parseInt(tfId.getText().trim().substring(1));
+		String name = tfName.getText().trim();
+		String tel = tfTel.getText().trim();
+		boolean tf = false;
+		
+		return new Member(mbNo, name, tel, tf);
+	}
+	
 	private void validCheck() throws Exception {
 		if(tfName.getText().equals("")) {
 			throw new Exception("이름을 입력하세요.");
@@ -162,8 +190,25 @@ public class PanelMemberInfo extends JPanel {
 		if(tfTel.getText().equals("")) {
 			throw new Exception("전화번호를 입력하세요.");
 		}
-//		if(tfBirth.getText().equals("")) {
-//			throw new Exception("생년월일을 입력하세요.");
-//		}
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
+	}
+	
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		if(pFrame == null) {
+			pFrame = new PostFrame();
+			pFrame.setParent(this);
+		}
+		pFrame.clear();
+		pFrame.setVisible(true);
+	}
+	
+	public void setAddr(String addr) {
+		tfAddr.setText(addr);
+	}
+
 }

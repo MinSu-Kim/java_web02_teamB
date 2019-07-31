@@ -54,6 +54,13 @@ public class Member {
 		this.mbMileage = mbMileage;
 	}
 
+	public Member(int mbNo, String mbName, String mbTel, boolean mbWithdrawal) {
+		this.mbNo = mbNo;
+		this.mbName = mbName;
+		this.mbTel = mbTel;
+		this.mbWithdrawal = mbWithdrawal;
+	}
+
 	public int getMbNo() {
 		return mbNo;
 	}
@@ -136,6 +143,11 @@ public class Member {
 	}
 
 	public Object[] toArray() {
-		return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), coupon, mbWithdrawal};
+		
+		if(mbBirth != null) {
+			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), coupon, mbWithdrawal?"YES":"NO"};
+		}else 
+			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
+		
 	}
 }
