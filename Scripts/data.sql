@@ -128,6 +128,14 @@ select * from member;
 select * member_reservation where mb_tel='01044155014';
 select * from member_reservation where rsv_time like concat('2019-07-31','%');
 
+-- sale data
+insert into sale values (1,1,now(),1,1,0,1,1,"마일리지:100원",100,false);
+insert into sale values (2,1,now(),3,1,0,1,1,"마일리지:100원",100,false);
+insert into sale values (3,2,now(),4,1,0,2,1,"마일리지:100원",100,false);
+insert into sale values (4,2,now(),5,1,0,2,1,"마일리지:100원",100,false);
+insert into sale values (5,3,now(),2,1,0,2,1,"마일리지:100원",100,true);
+insert into sale values (6,4,now(),1,1,0,3,1,"마일리지:100원",100,false);
+insert into sale values (7,5,now(),3,1,0,4,1,"마일리지:100원",100,false);
 
 
 	
