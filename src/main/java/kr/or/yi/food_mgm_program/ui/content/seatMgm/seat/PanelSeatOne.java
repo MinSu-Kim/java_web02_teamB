@@ -200,6 +200,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		payFrame.setInitWork(sum,saleList);
 		payFrame.setMainFrame(frame);
 		payFrame.setVisible(true);
+		payFrame.setParent(this);
 	}
 	
 	public void btnColor() {

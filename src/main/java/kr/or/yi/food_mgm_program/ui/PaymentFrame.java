@@ -28,6 +28,7 @@ import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PaymentService;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.seat.PanelSeatOne;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
@@ -51,11 +52,20 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private int sum;
 
 	private MainFrame frame;
+	private PanelSeatOne parent;
 
 	public PaymentFrame() {
 		initComponents();
 		service = PaymentService.getInstance();
 	}
+	
+
+
+	public void setParent(PanelSeatOne parent) {
+		this.parent = parent;
+	}
+
+
 
 	private void initComponents() {
 		setTitle("결제화면");
@@ -232,7 +242,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			m.reloadList();
 			s.setListAll();
 			s2.setListAll();
-
+			parent.setClear();
 			PaymentFrame.this.dispose();
 		}
 	}
@@ -261,11 +271,12 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
 			PanelMember m = (PanelMember) frame.getpMember();
-			m.reloadList();
 			
+			
+			m.reloadList();
 			s.setListAll();
 			s2.setListAll();
-
+			parent.setClear();
 			PaymentFrame.this.dispose();
 		}
 
