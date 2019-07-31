@@ -41,4 +41,8 @@ public class PanelMemberService {
 	public List<Member> selectMemberByAllNM(){
 		return dao.selectMemberByAllNM();
 	}
+	
+	public int updateTrnasMember(Member member) {
+		return dao.updateTrnasMember(member);
+	}
 }

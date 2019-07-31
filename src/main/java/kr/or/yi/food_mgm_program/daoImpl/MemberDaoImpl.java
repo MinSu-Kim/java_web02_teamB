@@ -100,4 +100,22 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
+	@Override
+	public int updateTrnasMember(Member member) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.update(namespace + ".updateTrnasMember", member);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
+	@Override	
+	public int updateGrade(Member mem) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.update(namespace + ".updateGrade", mem);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
 }

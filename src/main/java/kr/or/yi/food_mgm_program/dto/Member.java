@@ -152,16 +152,24 @@ public class Member {
 	}
 
 	public Object[] toArray() {
+//		String[] array;
+//		if(coupon != null) {
+//			 array = new String[coupon.size()];
+//			for (int i = 0; i < coupon.size(); i++) {
+//				array[i] = coupon.get(i).toString();
+//			}
+//		}else {
+//			array = new String[] {""};
+//		}
 		String[] array = new String[coupon.size()];
 		for (int i = 0; i < coupon.size(); i++) {
 			array[i] = coupon.get(i).toString();
 		}
-		
+
 		if(mbBirth != null) {
 			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO"};
 		}else 
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
-		
 	}
 
 	@Override

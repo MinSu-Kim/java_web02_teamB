@@ -17,4 +17,7 @@ public interface MemberDao {
 	public int couponDelete(Map<String, Object> map);
 	public Member selectByNameTel(Member member);
 	public List<Member> selectMemberByAllNM();
+	
+	public int updateTrnasMember(Member member);
+	public int updateGrade(Member mem);
 }

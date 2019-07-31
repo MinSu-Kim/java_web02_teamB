@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.ui.insert;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,8 @@ import kr.or.yi.food_mgm_program.daoImpl.PostDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.service.PanelMCouponService;
+import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.PostFrame;
 
 import java.awt.Font;
@@ -31,6 +34,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JList;
 
 @SuppressWarnings("serial")
 public class PanelMemberInfo extends JPanel implements ActionListener {
@@ -46,8 +51,16 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 //	private JLabel lblImg;
 	
 	private PostFrame pFrame;
+	private JLabel lblCoupon;
+	private JComboBox<String> cmbCoupon;
+	private JLabel lblMileage;
+	private JTextField tfMileage;
+	private List<Coupon> couponList;
+	private PanelMCouponService service;
 	
 	public PanelMemberInfo() {
+		service = PanelMCouponService.getInstance();
+		couponList = service.selectByCouponAll();
 		initComponents();
 	}
 	
@@ -64,7 +77,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 //		panel.add(lblImg);		
 		
 		pMember = new JPanel();
-		pMember.setBorder(new EmptyBorder(100, 0, 100, 0));
+		pMember.setBorder(new EmptyBorder(100, 0, 50, 0));
 		add(pMember);
 		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
@@ -135,6 +148,35 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		pAddr.add(btnSearch, BorderLayout.EAST);
+		
+		lblMileage = new JLabel("마일리지");
+		lblMileage.setHorizontalTextPosition(SwingConstants.LEADING);
+		lblMileage.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMileage.setFont(new Font("굴림", Font.PLAIN, 15));
+		lblMileage.setBorder(new EmptyBorder(0, 0, 0, 20));
+		pMember.add(lblMileage);
+		
+		tfMileage = new JTextField();
+		tfMileage.setFont(new Font("굴림", Font.PLAIN, 15));
+		tfMileage.setColumns(15);
+		pMember.add(tfMileage);
+		
+		lblCoupon = new JLabel("쿠폰");
+		lblCoupon.setHorizontalTextPosition(SwingConstants.LEADING);
+		lblCoupon.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCoupon.setFont(new Font("굴림", Font.PLAIN, 15));
+		lblCoupon.setBorder(new EmptyBorder(0, 0, 0, 20));
+		pMember.add(lblCoupon);
+		
+		
+		String[] coupons = new String[couponList.size()];
+		for (int i = 0; i < couponList.size(); i++) {
+			coupons[i] = couponList.get(i).toString();
+		}
+		
+		cmbCoupon = new JComboBox<String>(coupons);
+		cmbCoupon.setFont(new Font("굴림", Font.PLAIN, 15));
+		pMember.add(cmbCoupon);
 	}
 	
 //	private void createImage() {
@@ -149,7 +191,16 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfTel.setText("");
 		tfBirth.setDate(new Date());
 		tfAddr.setText("");
+		tfMileage.setText("");
 		tfId.setEditable(false);
+		tfMileage.setEditable(false);
+		cmbCoupon.setSelectedIndex(-1);
+		cmbCoupon.setEnabled(false);
+	}
+	
+	public void setEditable() {
+		tfMileage.setEditable(true);
+		cmbCoupon.setEnabled(true);
 	}
 	
 	public void setMember(Member member) {
@@ -158,18 +209,24 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfTel.setText(member.getMbTel());
 		tfBirth.setDate(member.getMbBirth());
 		tfAddr.setText(member.getMbAddress());
+		tfMileage.setText(member.getMbMileage()+"");
 	}
 	
 	public Member getMember() throws Exception {
 		validCheck();
 		
+		int mileage = 0;
 		int mbNo = Integer.parseInt(tfId.getText().trim().substring(1));
 		String name = tfName.getText().trim();
 		Date birth = tfBirth.getDate();
 		String tel = tfTel.getText().trim();
 		String address = tfAddr.getText().trim();
 		Grade grade = new Grade("bronze");
-		int mileage = 1000;
+		if(tfMileage.getText().equals("")) {
+			mileage = 1000;
+		}else {
+			mileage = Integer.valueOf(tfMileage.getText());
+		}
 		
 		return new Member(mbNo, name, birth, tel, address, grade, mileage);
 	}
@@ -188,9 +245,10 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	private void validCheck() throws Exception {
 		validCheck2();
 		
-		SimpleDateFormat sdfm = new SimpleDateFormat("yyyymmdd");
+		SimpleDateFormat sdfm = new SimpleDateFormat("yyyyMMdd");
 		String birth = sdfm.format(tfBirth.getDate());
 		String date = sdfm.format(new Date());
+		
 		if(birth.equals(date)) {
 			throw new Exception("생년월일을 입력하세요.");
 		}

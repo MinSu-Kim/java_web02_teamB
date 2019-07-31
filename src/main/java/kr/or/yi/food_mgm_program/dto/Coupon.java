@@ -4,7 +4,6 @@ public class Coupon {
 	private int cpNo;
 	private String cpName;
 	private int cpDiscount;
-	private boolean cpUse;
 	
 	public Coupon() {
 	}
@@ -43,14 +42,6 @@ public class Coupon {
 		this.cpDiscount = cpDiscount;
 	}
 	
-	public boolean isCpUse() {
-		return cpUse;
-	}
-
-	public void setCpUse(boolean cpUse) {
-		this.cpUse = cpUse;
-	}
-
 	@Override
 	public String toString() {
 		return String.format("%s", cpName);

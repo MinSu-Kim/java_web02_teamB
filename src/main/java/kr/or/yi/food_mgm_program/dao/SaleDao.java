@@ -17,4 +17,5 @@ public interface SaleDao {
 	public int updateSaleByCancel(Map<String,Integer> map);
 	public Sale selectLastNo();
 	
+	public int totalPrice(int number);
 }

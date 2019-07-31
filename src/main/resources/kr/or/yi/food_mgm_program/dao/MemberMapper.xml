@@ -47,7 +47,12 @@
 	</select>
 	
 	<update id="updateMember" parameterType="Member">
-		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_address = #{mbAddress} where mb_no = #{mbNo};		
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_address = #{mbAddress}, mb_mileage = #{mbMileage} where mb_no = #{mbNo};		
+	</update>
+	
+	<update id="updateTrnasMember" parameterType="Member">
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade} 
+		where mb_no = #{mbNo};		
 	</update>
 	
 	<delete id="deleteMember" parameterType="Member">
@@ -67,11 +72,19 @@
 	</select>
 	
 	<update id="mileageUpdate" parameterType="Member">
-		update member set mb_mileage = #{mbMileage} where mb_no = #{mbNo}
+		update member set mb_mileage = #{mbMileage},mb_count = mb_count+1 where mb_no = #{mbNo}
 	</update>
 	
 	<update id="mileageUpdateKCM" parameterType="Member">
 		update member set mb_mileage = mb_mileage+#{mbMileage} where mb_no = #{mbNo}
+	</update>
+	
+	<update id="CountUpdateKCM" parameterType="Member">
+		update member set mb_count = mb_count+1  where mb_no = #{mbNo}
+	</update>
+	
+	<update id="CountUpdateKCM2" parameterType="Member">
+		update member set mb_count = mb_count-1  where mb_no = #{mbNo}
 	</update>
 	
 	<delete id="couponDelete" parameterType="map">
@@ -82,6 +95,10 @@
 	<select id="selectByNameTel" parameterType="Member" resultMap="resultMemberBJY">
 		select * from member where mb_name=#{mbName} and mb_tel=#{mbTel}
 	</select>
+	
+	<update id="updateGrade" parameterType="Member">
+		update member set mb_grade = #{mbGrade.grade} where mb_no = #{mbNo}
+	</update>
 </mapper>
 
 

@@ -19,6 +19,7 @@ import java.awt.FlowLayout;
 import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
+import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
@@ -49,6 +50,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
+	private JMenuItem mntmTrans;
 	private JButton btnNomem;
 	private JButton btnAll;
 	
@@ -142,6 +144,10 @@ public class PanelMember extends JPanel implements ActionListener {
 		mntmDelete = new JMenuItem("삭제");
 		mntmDelete.addActionListener(this);
 		popupMenu.add(mntmDelete);
+		
+		mntmTrans = new JMenuItem("회원전환");
+		mntmTrans.addActionListener(this);
+		popupMenu.add(mntmTrans);
 
 		pMemberList.setPopupMenu(popupMenu);
 	}
@@ -179,9 +185,12 @@ public class PanelMember extends JPanel implements ActionListener {
 						actionPerformedBtnJoin(e);
 				}else if(e.getActionCommand().equals("수정")) {
 					actionPerformedBtnUpdate(e);
+				}else if(e.getActionCommand().equals("회원전환")) {
+					actionPerformedBtnTrans(e);
 				}
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
+				//e1.printStackTrace();
 			}
 		}
 		if (e.getSource() == mntmDelete) {
@@ -190,8 +199,30 @@ public class PanelMember extends JPanel implements ActionListener {
 		if (e.getSource() == mntmUpdate) {
 			actionPerformedMntmUpdate(e);
 		}
+		if(e.getSource() == mntmTrans) {
+			actionPerformedMntmTrans();
+		}
 	}
 	
+	private void actionPerformedBtnTrans(ActionEvent e) throws Exception {
+		Member member = pMember.getMember();
+		member.setMbWithdrawal(true);
+		member.setMbGrade(new Grade("bronze"));
+		service.updateTrnasMember(member);
+		reloadList();
+		btnJoin.setText("가입");
+	}
+
+	private void actionPerformedMntmTrans() {
+		Member member = pMemberList.getSelectedItem();
+		if(member.isMbWithdrawal() == true) {
+			JOptionPane.showMessageDialog(null, "이미 회원입니다.");
+		}else {
+			pMember.setMember(member);
+			btnJoin.setText("회원전환");
+		}
+	}
+
 	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
 		service.updateMember(member);
@@ -202,6 +233,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private void actionPerformedMntmUpdate(ActionEvent e) {
 		Member member = pMemberList.getSelectedItem();
 		pMember.setMember(member);
+		pMember.setEditable();
 		btnJoin.setText("수정");
 	}
 
@@ -250,11 +282,14 @@ public class PanelMember extends JPanel implements ActionListener {
 				pMemberList.reloadData();
 			}
 		}
+		lastNum();
+		btnJoin.setText("가입");
 	}
 	
 	protected void actionPerformedBtnList(ActionEvent e) {
 		reloadList();
 		tfSearch.setText("");
+		btnJoin.setText("가입");
 	}
 	
 	protected void actionPerformedBtnNomem(ActionEvent e) throws Exception {
@@ -267,5 +302,6 @@ public class PanelMember extends JPanel implements ActionListener {
 		listNM = service.selectMemberByAllNM();
 		pMemberList.setItemList(listNM);
 		pMemberList.reloadData();
+		btnJoin.setText("가입");
 	}
 }
