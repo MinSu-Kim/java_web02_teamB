@@ -252,7 +252,9 @@ public class PanelMain extends JPanel implements ActionListener {
 		this.seatOne = seatOne;
 	}
 
-	
+	public PanelSeat getPanelSeat() {
+		return pSeat;
+	}
 	
 	
 }

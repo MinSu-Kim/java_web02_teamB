@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.food_mgm_program.service.PanelReservationService;
 import kr.or.yi.food_mgm_program.ui.content.PanelFood;
 import kr.or.yi.food_mgm_program.ui.content.PanelMember;
 import kr.or.yi.food_mgm_program.ui.content.PanelReservation;
@@ -34,7 +35,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private JPanel pFood;
 	private JPanel pSale;
 	private JPanel pSales;
-
+	private PanelReservationService service;
 	
 	public JPanel getpSale() {
 		return pSale;
@@ -43,7 +44,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		return pSales;
 	}
 	public MainFrame() {
-		
+		service = PanelReservationService.getInstance();
 		initComponents();
 	}
 	private void initComponents() {
@@ -81,9 +82,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		tabbedPane.addTab("좌석 관리", null, pSeat, null);
 		
 		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {	
-			
-			tabbedPane.addTab("좌석 관리", null, pSeat, null);
-
 			pSale = new PanelSaleList();
 			tabbedPane.addTab("판매 관리", null, pSale, null);
 			
@@ -104,7 +102,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		PanelMember pMember = new PanelMember();
 		tabbedPane.addTab("회원 관리", null, pMember, null);
 		
-		PanelReservation pRsv = new PanelReservation();
+		PanelReservation pRsv = new PanelReservation(pMember, service, pSeat);
 		tabbedPane.addTab("예약 관리", null, pRsv, null);
 		
 

@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -19,9 +22,14 @@ import javax.swing.border.EmptyBorder;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Reservation;
 import kr.or.yi.food_mgm_program.service.PanelReservationService;
-import javax.swing.BoxLayout;
+import kr.or.yi.food_mgm_program.ui.content.PanelMember;
+import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
 
-public class PanelInputReservation extends JPanel implements ActionListener {
+import javax.swing.BoxLayout;
+import java.awt.event.FocusListener;
+import java.awt.event.FocusEvent;
+
+public class PanelInputReservation extends JPanel implements ActionListener{
 	private JTextField tfMemberNo;
 	private JTextField tfMemberName;
 	private JTextField tfTel;
@@ -45,10 +53,13 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 	private JTextField tfMinute;
 	private JLabel lblNewLabel_10;
 	private PanelCurrentReservation pCR;
+	private PanelMember pMember;
+	private Reservation reservation;
+	private PanelMain pSeat;
 	
-	
-	public PanelInputReservation() {
-
+	public PanelInputReservation(PanelMember pMember, PanelMain pSeat) {
+		this.pMember = pMember;
+		this.pSeat = pSeat;
 		initComponents();
 	}
 	private void initComponents() {
@@ -198,17 +209,28 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 			actionPerformedTfTel();
 		}
 		if (e.getSource() == btnAdd) {
-			try {
-				actionPerformedBtnNewButton();
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if(e.getActionCommand().equals("등록")) {
+				try {
+					actionPerformedBtnNewButton();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else {
+				try {
+					actionPerformedBtnUdate();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
+			
 		}
 		if (e.getSource() == tfMemberName) {
 			actionPerformedTfMemberName();
 		}
 	}
+	
 	protected void actionPerformedTfMemberName() {
 		JOptionPane.showMessageDialog(null, "전화번호를 입력하세요");
 	}
@@ -219,46 +241,69 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		Member member = new Member(name, tel);
 		Member memberNo = service.selectByNameTel(member);
 		if(memberNo==null) {
-			tfMemberNo.setText(String.format("N%03d", Integer.toString(1)));
-		}else {
-			tfMemberNo.setText(String.format("M%03d", Integer.toString(memberNo.getMbNo())));
+			tfMemberNo.setText(String.format("N%03d", service.selectListSize()));
+		}else if(memberNo.getMbBirth()==null) {
+			tfMemberNo.setText(String.format("N%03d", memberNo.getMbNo()));
+		}
+		else {
+			tfMemberNo.setText(String.format("M%03d", memberNo.getMbNo()));
 		}
 		
 	}
 	
 	protected void actionPerformedBtnNewButton() throws ParseException {
-		int mbNo = Integer.parseInt(tfMemberNo.getText());//회원번호
+		int mbNo = Integer.parseInt(tfMemberNo.getText().substring(1));//회원번호
+		
 		String name = tfMemberName.getText(); //회원 이름
 		String tel = tfTel.getText(); //전화번호
-		Member member = new Member(mbNo);
+		Member member = new Member(mbNo); // 회원 번호 등록할 멤버 객체
 		member.setMbName(name);
 		member.setMbTel(tel);
-		int rsvNumber =  Integer.parseInt(tfPeopleNumber.getText());
+		int rsvNumber =  Integer.parseInt(tfPeopleNumber.getText()); // 예약 인원
 		String year = tfYear.getText();
 		String month =tfMonth.getText();
 		String day =tfDay.getText();
 		String hour =tfHour.getText();
 		String minute =tfMinute.getText();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
-		Date date =  sd.parse(year+"-"+month+"-"+day+" "+hour+":"+minute);
-		String tableNo = (String) cbTableNo.getSelectedItem();
+		Date date =  sd.parse(year+"-"+month+"-"+day+" "+hour+":"+minute); //  예약시간
+		String tableNo = (String) cbTableNo.getSelectedItem(); // 테이블 번호
 		
-		Reservation rsv = new Reservation(rsvNumber, date, member, tableNo);
+		Date date2 = new Date(); // 예약 등록 시간
 		
+		Reservation rsv = new Reservation(rsvNumber, date, date2, null, member, tableNo, false);
+		
+		if(tfMemberNo.getText().substring(0, 1).equals("N")) {
+			service.insertMember(member);
+		}
+		
+		List<Reservation> list = service.selectByRangeTime(rsv);
+		
+		for(Reservation rssv : list) {
+			if(rssv.getRsvTableNo().equals(tableNo)) {
+				JOptionPane.showMessageDialog(null, "예약된 좌석입니다.");
+				return;
+			}
+			
+		}
 		service.insertRsv(rsv);
 		JOptionPane.showMessageDialog(null, "예약 완료");
 		actionPerformedBtnNewButton_1();
 		pCR.setList(service.selectByTime());
+		pCR.setClear();
+		pMember.reloadList();
 		pCR.reloadData();
+		
+		pSeat.getPanelSeat().setBtnColor();
 		
 	}
 	
 	protected void actionPerformedBtnNewButton_1() {
 		tfMemberNo.setText("");
 		tfMemberName.setText("");
-		tfTel.setText("");
 		tfPeopleNumber.setText("");
 		Date date = new Date();
+		tfTel.setText("");
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
 		String d = sd.format(date);
 		tfYear.setText(d.substring(0, 4));
@@ -267,6 +312,7 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		tfHour.setText("");
 		tfMinute.setText("");
 		cbTableNo.setSelectedIndex(-1);
+		
 	}
 	
 	public void setService(PanelReservationService service) {
@@ -275,6 +321,80 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 	
 	public void setPCR(PanelCurrentReservation pcr) {
 		this.pCR = pcr;
+	}
+	
+	public void setTf(Reservation rsv, Reservation rsv2) {
+		if(rsv.getMbNo().getMbBirth()==null) {
+			tfMemberNo.setText(String.format("N%03d", rsv.getMbNo().getMbNo()));
+		}else {
+			tfMemberNo.setText(String.format("M%03d", rsv.getMbNo().getMbNo()));
+		}
+		tfMemberName.setText(rsv.getMbNo().getMbName());
+		tfTel.setText(rsv.getMbNo().getMbTel());
+		tfPeopleNumber.setText(Integer.toString(rsv.getRsvNumber()));
+		cbTableNo.setSelectedItem(rsv.getRsvTableNo());
+		
+		reservation = rsv2;
+		
+		
+		btnAdd.setText("수정");
+		
+		
+	}
+	
+	private void actionPerformedBtnUdate() throws ParseException {
+		
+		int mbNo = Integer.parseInt(tfMemberNo.getText().substring(1));//회원번호
+		String name = tfMemberName.getText(); //회원 이름
+		String tel = tfTel.getText(); //전화번호
+		Member member = new Member(mbNo); // 회원 번호 등록할 멤버 객체
+		member.setMbName(name);
+		member.setMbTel(tel);
+		int rsvNumber =  Integer.parseInt(tfPeopleNumber.getText()); // 예약 인원
+		String year = tfYear.getText();
+		String month =tfMonth.getText();
+		String day =tfDay.getText();
+		String hour =tfHour.getText();
+		String minute =tfMinute.getText();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		Date date =  sd.parse(year+"-"+month+"-"+day+" "+hour+":"+minute); //  예약시간
+		String tableNo = (String) cbTableNo.getSelectedItem(); // 테이블 번호
+		
+		Date date2 = new Date(); // 예약 등록 시간
+		
+		Reservation rsv = new Reservation(rsvNumber, date, reservation.getRsvInputTime(), date2, member, tableNo, false);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("update", rsv);
+		map.put("search", reservation);
+		
+		
+		List<Reservation> list = service.selectByRangeTime(rsv);
+		
+		for(Reservation rssv : list) {
+			if(rssv.getRsvTableNo().equals(tableNo)) {
+				JOptionPane.showMessageDialog(null, "예약된 좌석입니다.");
+				return;
+			}
+			
+		}
+		
+		
+		service.updateRsv(map);
+		JOptionPane.showMessageDialog(null, "수정 완료");
+		actionPerformedBtnNewButton_1();
+		pCR.setList(service.selectByTime());
+		btnAdd.setText("등록");
+		pCR.setClear();
+		pMember.reloadList();
+		pCR.reloadData();
+		pSeat.getPanelSeat().setBtnColor();
+		
+		}
+	
+	protected void focusGainedTfTel(FocusEvent e) {
+		tfTel.setText("");
 	}
 }
 

@@ -19,12 +19,21 @@ public class Reservation {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Reservation(int rsvNumber, Date rsvTime, Member mbNo, String rsvTableNo) {
+	
+	
+
+	public Reservation(int rsvNumber, Date rsvTime, Date rsvInputTime, Date rsvUpdateTime, Member mbNo,
+			String rsvTableNo, boolean rsvCancel) {
 		this.rsvNumber = rsvNumber;
 		this.rsvTime = rsvTime;
+		this.rsvInputTime = rsvInputTime;
+		this.rsvUpdateTime = rsvUpdateTime;
 		this.mbNo = mbNo;
 		this.rsvTableNo = rsvTableNo;
+		this.rsvCancel = rsvCancel;
 	}
+
+
 
 
 	public Date getRsvInputTime() {
@@ -102,11 +111,45 @@ public class Reservation {
 
 	public Object[] toArray() {
 		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		String updateTime = "";
+		String name = String.format("M%03d", mbNo.getMbNo());
 		
-		return new Object[]{mbNo.getMbNo(), mbNo.getMbName(), mbNo.getMbTel(), rsvNumber, sd.format(rsvTime), rsvTableNo,sd.format(rsvInputTime) ,sd.format(rsvUpdateTime) };
+		String current = "예약";
+		
+		if(rsvUpdateTime!=null) {
+			updateTime = sd.format(rsvUpdateTime);
+		}
+		if(mbNo.getMbBirth()==null) {
+			name = String.format("N%03d", mbNo.getMbNo());
+		}
+		if(rsvCancel==true) {
+			current = "취소";
+		}
+		return new Object[]{name, mbNo.getMbName(), mbNo.getMbTel(), rsvNumber, sd.format(rsvTime), rsvTableNo,sd.format(rsvInputTime) , updateTime, current};
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

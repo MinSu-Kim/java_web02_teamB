@@ -3,9 +3,15 @@ package kr.or.yi.food_mgm_program.ui.content.seatMgm.seat;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import kr.or.yi.food_mgm_program.dto.Reservation;
+import kr.or.yi.food_mgm_program.service.PanelReservationService;
 import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.PaymentFrame;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.PanelMain;
@@ -29,9 +35,11 @@ public class PanelSeat extends JPanel {
 	private PanelOrderList pList;
 	private PanelMain panelMain;
 	private MainFrame frame;
+	private PanelReservationService service;
 	
 	public PanelSeat(MainFrame frame) {
 		this.frame = frame;
+		service = PanelReservationService.getInstance();
 		initComponents();
 		
 	}
@@ -91,9 +99,43 @@ public class PanelSeat extends JPanel {
 		pE = new JPanel();
 		add(pE, BorderLayout.EAST);
 		
-
-		
-		
+		setBtnColor();
+	}
+	public void setBtnColor() {
+		Reservation rsv = new Reservation();
+		rsv.setRsvTime(new Date());
+		List<Reservation> list = service.selectByRangeTime(rsv);
+		p1.btnColor2();
+		p2.btnColor2();
+		p3.btnColor2();
+		p4.btnColor2();
+		p5.btnColor2();
+		p6.btnColor2();
+		p7.btnColor2();
+		for(Reservation rssv : list) {
+			if(rssv.getRsvTableNo().equals("no.1")) {
+				p1.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.2")) {
+				p2.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.3")) {
+				p3.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.4")) {
+				p4.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.5")) {
+				p5.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.6")) {
+				p6.btnColor();
+			}
+			if(rssv.getRsvTableNo().equals("no.7")) {
+				p7.btnColor();
+			}
+			
+		}
 	}
 	public void setPanelSeatOne() {
 		p1.setPlist(pList);

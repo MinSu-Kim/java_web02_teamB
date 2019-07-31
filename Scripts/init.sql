@@ -327,5 +327,11 @@ m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member 
 
 -- 예약정보 뷰
 create view member_reservation as
-select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time from member m join reservation r on m.mb_no = r.mb_no;
+select rsv_no, m.mb_no, mb_name, mb_tel, mb_birth, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time, rsv_cancel from member m join reservation r on m.mb_no = r.mb_no;
+
+create view member_reservation2 as -- 오늘 예약한 애들
+select * from member_reservation where rsv_time like concat(current_date(),'%');
+
+create view member_reservation3 as -- 오늘 예약한 애들중에 취소 안한애들
+select * from member_reservation2 where rsv_cancel = 0;
 

@@ -196,6 +196,13 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		payFrame.setMainFrame(frame);
 		payFrame.setVisible(true);
 	}
+	
+	public void btnColor() {
+		btnNumber.setBackground(Color.RED);
+	}
+	public void btnColor2() {
+		btnNumber.setBackground(SystemColor.activeCaption);
+	}
 }
 
 

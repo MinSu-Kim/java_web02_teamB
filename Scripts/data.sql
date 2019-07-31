@@ -97,14 +97,28 @@ select * from post where p_sigungu like "동구%";
 
 select * from reservation;
 
+truncate reservation;
+
 drop view member_reservation;
 
 create view member_reservation as
-select rsv_no, m.mb_no, mb_name, mb_tel, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time from member m join reservation r on m.mb_no = r.mb_no;
+select rsv_no, m.mb_no, mb_name, mb_tel, mb_birth, rsv_number, rsv_time, rsv_tableNo, rsv_input_time, rsv_update_time, rsv_cancel from member m join reservation r on m.mb_no = r.mb_no;
 
+create view member_reservation2 as
 select * from member_reservation where rsv_time like concat(current_date(),'%');
+
+select subtime(now(),'0:30:0');
+
+select * from member_reservation where rsv_time between subtime(now(),'0:30:0') and addtime(now(),'0:30:0');
+
+
+create view member_reservation3 as
+select * from member_reservation2 where rsv_cancel = 0;
 
 select * from member_reservation;
 
 select * from member;
+
+select * member_reservation where mb_tel='01044155014';
+select * from member_reservation where rsv_time like concat('2019-07-31','%');
 	
