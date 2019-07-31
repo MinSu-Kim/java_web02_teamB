@@ -85,10 +85,10 @@ public class MainFrame extends JFrame implements ActionListener {
 			tabbedPane.addTab("좌석 관리", null, pSeat, null);
 
 			pSale = new PanelSaleList();
-			tabbedPane.addTab("판매 관리", null, pSale, null);
+			tabbedPane.addTab("결제 관리", null, pSale, null);
 			
 			pSales = new PanelSalesList();
-			tabbedPane.addTab("매출 관리", null, pSales, null);
+			tabbedPane.addTab("판매 관리", null, pSales, null);
 			
 			pFood = new PanelFood();
 			tabbedPane.addTab("음식 관리", null, pFood, null);
