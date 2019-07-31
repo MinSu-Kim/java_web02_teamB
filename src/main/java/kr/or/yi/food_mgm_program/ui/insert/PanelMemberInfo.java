@@ -190,6 +190,9 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		if(tfTel.getText().equals("")) {
 			throw new Exception("전화번호를 입력하세요.");
 		}
+		if(tfAddr.getText().equals("")) {
+			throw new Exception("주소를 입력하세요.");
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {

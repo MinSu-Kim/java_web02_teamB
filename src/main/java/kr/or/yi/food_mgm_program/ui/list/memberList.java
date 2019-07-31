@@ -39,8 +39,8 @@ public class memberList extends AbstractList<Member> {
 		for (int i = 0; i < itemList.size(); i++) {
 			rows[i] = toArray(i);
 		}
-		
-	
 		return rows;
 	}
+	
+	
 }

@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class PanelMember extends JPanel implements ActionListener {
@@ -48,6 +49,10 @@ public class PanelMember extends JPanel implements ActionListener {
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
 	private JButton btnNomem;
+	
+	public JPanel getpList() {
+		return pList;
+	}
 
 	public PanelMember() {
 		service = PanelMemberService.getInstance();

@@ -219,9 +219,9 @@ public class PanelInputReservation extends JPanel implements ActionListener {
 		Member member = new Member(name, tel);
 		Member memberNo = service.selectByNameTel(member);
 		if(memberNo==null) {
-			tfMemberNo.setText("0");
+			tfMemberNo.setText(String.format("N%03d", Integer.toString(1)));
 		}else {
-			tfMemberNo.setText(Integer.toString(memberNo.getMbNo()));
+			tfMemberNo.setText(String.format("M%03d", Integer.toString(memberNo.getMbNo())));
 		}
 		
 	}
