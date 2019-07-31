@@ -128,6 +128,6 @@ select * from member;
 select * member_reservation where mb_tel='01044155014';
 select * from member_reservation where rsv_time like concat('2019-07-31','%');
 
-
+select * from sale order by no desc limit 1;
 
 	

@@ -179,7 +179,12 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	protected void actionPerformedBtnPrice(ActionEvent e) {
 		List<Sale> saleList = new ArrayList<Sale>();
 		sales = service.selectLastNo();
-		int Number = sales.getSaleNo()+1; // 판매번호
+		int Number = 0;
+		if(sales==null) {
+			Number = 1;
+		}else {
+			Number = sales.getSaleNo()+1; // 판매번호
+		}
 		int sum = 0; //총금액
 		for(Food food : foodList) {
 			Sale sale = new Sale();
@@ -202,6 +207,12 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	}
 	public void btnColor2() {
 		btnNumber.setBackground(SystemColor.activeCaption);
+	}
+	
+	public void setClear() {
+		pCC.removeAll();
+		List<Food> list = null;
+		pList.setList(list);
 	}
 }
 
