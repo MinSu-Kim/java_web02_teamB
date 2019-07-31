@@ -86,7 +86,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 0));
+		panel_1.setLayout(new GridLayout(2, 0, 10, 0));
 
 		pList = new SaleList((String) null);
 

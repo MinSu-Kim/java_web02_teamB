@@ -18,13 +18,9 @@ public class SaleList extends AbstractList<Payment> {
 
 	@Override
 	protected void tableAlignmentAndWidth() {
-		// no, sale_no, sale_time, order_cnt,  sale_type, name, name
-				//번호, 판매번호,판매시간,판매수량,판매종류 ,결제방식,메뉴명,회원명
-		tableCellAlignment(SwingConstants.CENTER, 0, 1, 4,6,7);
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 4,6,7,8);
 		tableCellAlignment(SwingConstants.RIGHT, 3,5);
-		
-		// 직책번호, 직책명의 폭을 (100, 200)으로 가능하면 설정
-		tableSetWidth(40, 150, 200,80,150,50,30,30);
+		tableSetWidth(40, 110, 730,80,150,50,30,30);
 		
 	}
 
