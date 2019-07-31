@@ -89,8 +89,8 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	public void reloadData() {
 		table.setModel(new DefaultTableModel(getRows(), getColumnNames()));
 
-		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
-		tableSetWidth(50,100,150,100,150,100);
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5,6,7);
+		tableSetWidth(50,100,150,100,150,100,150,150);
 	}
 
 	private Object[][] getRows() {
@@ -105,7 +105,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener {
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "회원번호", "회원명", "전화번호", "인원", "시간","테이블 번호"};
+		return new String[] { "회원번호", "회원명", "전화번호", "인원", "시간","테이블 번호", "예약등록날짜", "수정날짜"};
 	}
 
 	// 테이블 셀 내용의 정렬
