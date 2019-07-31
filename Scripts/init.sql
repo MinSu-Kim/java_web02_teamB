@@ -315,6 +315,7 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 drop view payment;
 
+select * from payment;
 
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,

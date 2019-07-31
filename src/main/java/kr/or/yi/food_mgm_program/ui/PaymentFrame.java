@@ -34,7 +34,6 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnMember;
 	private PanelPaymentInfo panelInfo;
-	private JPanel panelCal;
 	private JPanel panelButton;
 	private JButton btnCash;
 	private JButton btnCard;
@@ -58,18 +57,11 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		setTitle("결제화면");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setBounds(100, 100, 1014, 541);
+		setBounds(100, 100, 676, 481);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 3, 15, 0));
-
-		panelInfo = new PanelPaymentInfo();
-		contentPane.add(panelInfo);
-		panelInfo.setLayout(new GridLayout(0, 2, 0, 0));
-
-		panelCal = new JPanel();
-		contentPane.add(panelCal);
+		contentPane.setLayout(new GridLayout(0, 2, 15, 0));
 
 		panelButton = new JPanel();
 		contentPane.add(panelButton);
@@ -102,6 +94,10 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		btnMileage.setEnabled(false);
 		btnCoupon.setEnabled(false);
 		btnGrade.setEnabled(false);
+
+		panelInfo = new PanelPaymentInfo();
+		contentPane.add(panelInfo);
+		panelInfo.setLayout(new GridLayout(0, 2, 0, 0));
 
 	}
 
@@ -256,13 +252,13 @@ public class PaymentFrame extends JFrame implements ActionListener {
 			} else if (mem != null) {
 				service.insertSale(map);
 			}
-			
+
 			PanelSalesList s = (PanelSalesList) frame.getpSales();
 			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
 
 			s.setListAll();
 			s2.setListAll();
-			
+
 			PaymentFrame.this.dispose();
 		}
 
