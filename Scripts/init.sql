@@ -322,11 +322,10 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 drop view payment;
 
 select * from payment;
-
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
-m.mb_name as payMemeber, s.sale_cancel as payCancel from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+m.mb_name as payMemeber, s.sale_cancel as payCancel, s.mb_no as payMemberNo from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
 
 -- 예약정보 뷰
 create view member_reservation as

@@ -26,6 +26,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PanelSaleListService;
@@ -192,13 +193,22 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 			actionPerformedBtnSelectByAll(e);
 		}
 		if(e.getSource() == mntmUpdate) {
-			
+			Member member = null;
 			Payment pay = pList.getSelectedItem();
 			JOptionPane.showMessageDialog(null, pay);
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("cancel", 1);
 			map.put("no", pay.getPayNo());
-			service.updateSaleByCancel(map); //sale테이블의 sale_cancel를 1(true)로 바꿈
+			if(pay.getPayMember().equals("비회원")) {
+				service.updateSaleByCancel(map);//sale테이블의 sale_cancel를 1(true)로 바꿈
+			}else {
+				member = new Member();
+				member.setMbNo(pay.getPayMemberNo());
+				member.setMbMileage(pay.getPayDiscountPrice());
+				service.updateCancelUpdateMileage(map, member); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀
+			}
+			
+			 
 			
 			
 			setDatePickerText();

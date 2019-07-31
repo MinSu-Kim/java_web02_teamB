@@ -7,13 +7,12 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.dto.Member;
-import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
 public class SaleDaoImpl implements SaleDao {
 	private String namespace = "kr.or.yi.food_mgm_program.dao.SaleMapper.";
-	private String namespace2 = "kr.or.yi.food_mgm_program.dao.MemberMapper.";
+	
 
 	@Override
 	public List<Sale> selectSaleByAll() {
@@ -45,29 +44,7 @@ public class SaleDaoImpl implements SaleDao {
 		}
 	}
 
-	@Override
-	public void insertSaleUpdateMileage(Map<String, List<Sale>> map, Member member) {
-		int res = 0;
-		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
-		try {
-			res += sqlSession.insert(namespace + "insertSale", map);
-			res += sqlSession.update(namespace2 + "mileageUpdate", member);
 
-			if (res >= 2) {
-				sqlSession.commit();
-			} else {
-				throw new Exception();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			sqlSession.rollback();
-			throw new RuntimeException(e.getCause());
-		} finally {
-			sqlSession.close();
-		}
-
-	}
 
 	@Override
 	public int updateSaleByCancel(Map<String,Integer> map) {

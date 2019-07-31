@@ -62,6 +62,10 @@
 		update member set mb_mileage = #{mbMileage} where mb_no = #{mbNo}
 	</update>
 	
+	<update id="mileageUpdateKCM" parameterType="Member">
+		update member set mb_mileage = mb_mileage+#{mbMileage} where mb_no = #{mbNo}
+	</update>
+	
 	<delete id="couponDelete" parameterType="map">
 		update member m left join member_coupon mc on m.mb_no = mc.mb_no 
 		left join coupon c on mc.cp_no = c.cp_no set c.cp_use = true where m.mb_no = 1 and c.cp_name = '생일쿠폰'

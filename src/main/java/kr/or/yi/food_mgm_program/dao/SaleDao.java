@@ -13,7 +13,8 @@ public interface SaleDao {
 	public List<Sale> selectSaleByAll();
 	public List<Sale> selectSaleByDate(String date);
 	public int insertSale(Map<String, List<Sale>> map);
-	public void insertSaleUpdateMileage(Map<String, List<Sale>> map,Member member);
+	
 	public int updateSaleByCancel(Map<String,Integer> map);
 	public Sale selectLastNo();
+	
 }

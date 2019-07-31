@@ -13,6 +13,7 @@ public class Payment {
 	private String payDiscountInfo;
 	private int payDiscountPrice;
 	private int payCancel;
+	private int payMemberNo;
 
 	public Payment() {
 		super();
@@ -124,13 +125,24 @@ public class Payment {
 		this.payCancel = payCancel;
 	}
 
+	
+
+	public int getPayMemberNo() {
+		return payMemberNo;
+	}
+
+	public void setPayMemberNo(int payMemberNo) {
+		this.payMemberNo = payMemberNo;
+	}
+
 
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Payment [payNo=%s, payTime=%s, payMenu=%s, payPrice=%s, payType=%s, payMember=%s, payDiscountInfo=%s, payDiscountPrice=%s, payCancel=%s]",
-				payNo, payTime, payMenu, payPrice, payType, payMember, payDiscountInfo, payDiscountPrice, payCancel);
+				"Payment [payNo=%s, payTime=%s, payMenu=%s, payPrice=%s, payType=%s, payMember=%s, payDiscountInfo=%s, payDiscountPrice=%s, payCancel=%s, payMemberNo=%s]",
+				payNo, payTime, payMenu, payPrice, payType, payMember, payDiscountInfo, payDiscountPrice, payCancel,
+				payMemberNo);
 	}
 
 	public Object[] toArray() {
