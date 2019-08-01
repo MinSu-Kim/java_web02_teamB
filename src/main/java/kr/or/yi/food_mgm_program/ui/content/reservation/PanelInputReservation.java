@@ -318,6 +318,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfHour.setText("");
 		tfMinute.setText("");
 		cbTableNo.setSelectedIndex(-1);
+		btnAdd.setText("등록");
 		
 	}
 	
@@ -379,7 +380,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		List<Reservation> list = service.selectByRangeTime(rsv);
 		
 		for(Reservation rssv : list) {
-			if(rssv.getRsvTableNo().equals(tableNo)) {
+			if(rssv.getRsvTableNo().equals(tableNo) && rssv.getMbNo().getMbNo() != mbNo) {
 				JOptionPane.showMessageDialog(null, "예약된 좌석입니다.");
 				return;
 			}
@@ -399,9 +400,6 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		
 		}
 	
-	protected void focusGainedTfTel(FocusEvent e) {
-		tfTel.setText("");
-	}
 }
 
 

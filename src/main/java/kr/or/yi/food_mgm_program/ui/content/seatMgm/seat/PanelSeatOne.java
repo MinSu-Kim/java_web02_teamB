@@ -177,6 +177,11 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	
 
 	protected void actionPerformedBtnPrice(ActionEvent e) {
+		if(e.getActionCommand().equals("")) {
+			return;
+		}
+		
+		
 		List<Sale> saleList = new ArrayList<Sale>();
 		sales = service.selectLastNo();
 		int Number = 0;
@@ -212,9 +217,11 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	
 	public void setClear() {
 		pCC.removeAll();
+		btnPrice.setText("");
+		pCC.revalidate();
+		pCC.repaint();
 		List<Food> list = null;
 		pList.setList(list);
-		btnPrice.setText("");
 		foodList = null;
 	}
 }

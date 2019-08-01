@@ -163,7 +163,6 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		}
 
 		if (mem != null) {
-			JOptionPane.showMessageDialog(null, mem);
 			panelInfo.setMemberInfo(mem, sum); // 회원정보가 올라감
 
 			btnMileage.setEnabled(true);
@@ -324,5 +323,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	public void setMainFrame(MainFrame frame) {
 		this.frame = frame;
 	}
+	
+	
 
 }

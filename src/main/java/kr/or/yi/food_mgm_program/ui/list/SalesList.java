@@ -1,10 +1,15 @@
 package kr.or.yi.food_mgm_program.ui.list;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
-import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.dto.SalesStatus;
 
 @SuppressWarnings("serial")
@@ -59,6 +64,21 @@ public class SalesList extends AbstractList<SalesStatus> {
 		rows[itemList.size()] = new Object[]{"","",String.format("%d개", count),String.format("%,d원", sum),sum>0?"100.0%" : "0.0%"};
 		return rows;
 	}
+
+	@Override
+	protected void tableSetWidth(int... width) {
+		
+		TableColumnModel cModel = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+		
+	}
+	
+
+
+	
+	
 
 	
 }

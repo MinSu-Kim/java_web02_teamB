@@ -1,6 +1,7 @@
 package kr.or.yi.food_mgm_program.ui.content.statistics;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -84,6 +85,7 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		chart.getLegend().setItemFont(new Font("맑은 고딕", Font.BOLD, 12));
 		plot = (PiePlot) chart.getPlot();
 		plot.setLabelFont(new Font("맑은 고딕", Font.BOLD, 12));
+		plot.setBackgroundPaint(Color.white);
 		
 		panel_3 = new ChartPanel(chart);
 		panel_3.setLayout(new BorderLayout(0, 0));

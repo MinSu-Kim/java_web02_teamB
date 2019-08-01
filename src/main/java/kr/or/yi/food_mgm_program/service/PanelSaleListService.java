@@ -54,7 +54,7 @@ public class PanelSaleListService {
 		return dao3.updateGrade(mem);
 	}
 	
-	public void updateCancelUpdateMileage(Map<String,Integer> map,Member member,Map<String, Object> map2) {
+	public void updateCancelUpdateMileageCoupon(Map<String,Integer> map,Member member,Map<String, Object> map2) {
 		int resUpdateMileage= 0;
 		int resUpdateCancel = 0;
 		int resupdateCount = 0;
@@ -67,6 +67,33 @@ public class PanelSaleListService {
 			resUpdateCoupon += sqlSession.update(namespace2 + "couponDelete",map2); //사용한 쿠폰을 없앰
 			
 			if (resUpdateCancel > 0 && resUpdateMileage >0 && resupdateCount>0 && resUpdateCoupon>0) {
+				sqlSession.commit();
+			} else {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			sqlSession.rollback();
+			throw new RuntimeException(e.getCause());
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	public void updateCancelUpdateMileage(Map<String,Integer> map,Member member) {
+		int resUpdateMileage= 0;
+		int resUpdateCancel = 0;
+		int resupdateCount = 0;
+		
+		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
+		try {
+			resUpdateCancel +=  sqlSession.update(namespace + "updateSaleByCancel",map); //결제를 취소로 변경
+			resUpdateMileage += sqlSession.update(namespace2 + "mileageUpdateKCM", member); //마일리지 원상복구
+			resupdateCount += sqlSession.update(namespace2 + "CountUpdateKCM2", member); // 사용 횟수를 -1
+			
+			
+			if (resUpdateCancel > 0 && resUpdateMileage >0 && resupdateCount>0) {
 				sqlSession.commit();
 			} else {
 				throw new Exception();
