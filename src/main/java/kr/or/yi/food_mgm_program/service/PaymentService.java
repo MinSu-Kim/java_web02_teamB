@@ -9,6 +9,7 @@ import kr.or.yi.food_mgm_program.dao.MemberDao;
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
@@ -47,6 +48,10 @@ public class PaymentService {
 		return mDao.updateGrade(mem);
 	}
 	
+	public Member selectCouponByTel(int tel){
+		return mDao.selectCouponByTel(tel);
+	}
+	
 
 	
 	public void insertSaleUpdateMileageTransaciton(Map<String, List<Sale>> map,Member member) {
@@ -77,8 +82,8 @@ public class PaymentService {
 		int resUpdate = 0;
 		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
 		try {
-			resInsert += sqlSession.insert(namespace + "insertSale", map);
-			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);
+			resInsert += sqlSession.insert(namespace + "insertSale", map);//판매테이블에 추가
+			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);// 사용횟수 1증가
 
 			if (resInsert > 0 && resUpdate >0) {
 				sqlSession.commit();
@@ -102,9 +107,9 @@ public class PaymentService {
 		int resUpdate2 = 0;
 		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
 		try {
-			resInsert += sqlSession.insert(namespace + "insertSale", map);
-			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);
-			resUpdate2 += sqlSession.update(namespace2 + "couponDelete",map2);
+			resInsert += sqlSession.insert(namespace + "insertSale", map); //판매테이블에 추가
+			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member); // 사용횟수 1증가
+			resUpdate2 += sqlSession.update(namespace2 + "couponDelete",map2); //쿠폰 사용 체크함
 			if (resInsert > 0 && resUpdate >0 && resUpdate2>0) {
 				sqlSession.commit();
 			} else {
