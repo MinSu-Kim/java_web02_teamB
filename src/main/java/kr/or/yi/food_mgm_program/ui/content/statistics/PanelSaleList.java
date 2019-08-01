@@ -197,67 +197,68 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		if(e.getSource() == mntmUpdate) {
 			Member member = null;
 			Payment pay = pList.getSelectedItem();
-			JOptionPane.showMessageDialog(null, pay);
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put("cancel", 1);
-			map.put("no", pay.getPayNo());
-			if(pay.getPayMember().equals("비회원")) { //비회원일 경우
-				service.updateSaleByCancel(map);//sale테이블의 sale_cancel를 1(true)로 바꿈
-			}else { //회원일 경우(마일리지)
-				member = new Member();
-				member.setMbNo(pay.getPayMemberNo());
-				member.setMbMileage(pay.getPayDiscountPrice());
-				
-				String info = pay.getPayDiscountInfo();
-				int a = info.indexOf(":");
-				int b = info.indexOf("(");
+			int res = JOptionPane.showConfirmDialog(null, "정말 결제취소  하시겠습니까?","결제취소 확인",JOptionPane.YES_OPTION);
+			if(res == 0) {
+				Map<String, Integer> map = new HashMap<String, Integer>();
+				map.put("cancel", 1);
+				map.put("no", pay.getPayNo());
+				if(pay.getPayMember().equals("비회원")) { //비회원일 경우
+					service.updateSaleByCancel(map);//sale테이블의 sale_cancel를 1(true)로 바꿈
+				}else { //회원일 경우(마일리지)
+					member = new Member();
+					member.setMbNo(pay.getPayMemberNo());
+					member.setMbMileage(pay.getPayDiscountPrice());
+					
+					String info = pay.getPayDiscountInfo();
+					int a = info.indexOf(":");
+					int b = info.indexOf("(");
 
-				String cou = info.substring(a+1, b) ;
-				
-				Map<String, Object> map2 = new HashMap<String, Object>();
-				map2.put("whether", 0);
-				map2.put("no", pay.getPayMemberNo());
-				map2.put("cpname", cou);
-				service.updateCancelUpdateMileage(map, member,map2); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀/count -1/쿠폰 복귀
-				
-				//등급 변경
-				int total = service.totalPrice(pay.getPayMemberNo());
-				Member mem2 = new Member(pay.getPayMemberNo()); 
-				
-				if(total > 0 && total <= 299999) { //등급 변경
-					mem2.setMbGrade(new Grade("bronze"));
+					String cou = info.substring(a+1, b) ;
+					
+					Map<String, Object> map2 = new HashMap<String, Object>();
+					map2.put("whether", 0);
+					map2.put("no", pay.getPayMemberNo());
+					map2.put("cpname", cou);
+					service.updateCancelUpdateMileage(map, member,map2); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀/count -1/쿠폰 복귀
+					
+					//등급 변경
+					int total = service.totalPrice(pay.getPayMemberNo());
+					Member mem2 = new Member(pay.getPayMemberNo()); 
+					
+					if(total > 0 && total <= 299999) { //등급 변경
+						mem2.setMbGrade(new Grade("bronze"));
+						service.updateGrade(mem2);
+					}
+					else if(total > 300000 && total <= 499999) {
+						mem2.setMbGrade(new Grade("silver"));
+						service.updateGrade(mem2);
+					}else if(total >500000 && total <=999999) {
+						mem2.setMbGrade(new Grade("gold"));
+					}else if(total > 1000000) {
+						mem2.setMbGrade(new Grade("vip"));
+					}
 					service.updateGrade(mem2);
 				}
-				else if(total > 300000 && total <= 499999) {
-					mem2.setMbGrade(new Grade("silver"));
-					service.updateGrade(mem2);
-				}else if(total >500000 && total <=999999) {
-					mem2.setMbGrade(new Grade("gold"));
-				}else if(total > 1000000) {
-					mem2.setMbGrade(new Grade("vip"));
-				}
-				service.updateGrade(mem2);
+				 
+				
+				setDatePickerText(); //달력 텍스트 초기화
+				setListAll(); //테이블 다시쓰기
+				
+				//차트 다시쓰기
+				dataset = new DefaultCategoryDataset();
+				setDefaultChart(dataset);
+				plot.setDataset(dataset);
+				
+				//PanelSalesList(판매 패널)다시쓰기
+				PanelSalesList f =  (PanelSalesList) frame.getpSales();
+				f.setDatePickerText();
+				f.setListAll();
+				
+				//회원패널 다시쓰기
+				PanelMember m = (PanelMember) frame.getpMember();
+				m.reloadList();
+				
 			}
-			 
-			
-			setDatePickerText(); //달력 텍스트 초기화
-			setListAll(); //테이블 다시쓰기
-			
-			//차트 다시쓰기
-			dataset = new DefaultCategoryDataset();
-			setDefaultChart(dataset);
-			plot.setDataset(dataset);
-			
-			//PanelSalesList(판매 패널)다시쓰기
-			PanelSalesList f =  (PanelSalesList) frame.getpSales();
-			f.setDatePickerText();
-			f.setListAll();
-			
-			//회원패널 다시쓰기
-			PanelMember m = (PanelMember) frame.getpMember();
-			m.reloadList();
-			
-			
 			
 			
 			

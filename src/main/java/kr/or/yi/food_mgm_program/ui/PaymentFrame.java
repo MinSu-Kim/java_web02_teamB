@@ -324,5 +324,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	public void setMainFrame(MainFrame frame) {
 		this.frame = frame;
 	}
+	
+	
 
 }

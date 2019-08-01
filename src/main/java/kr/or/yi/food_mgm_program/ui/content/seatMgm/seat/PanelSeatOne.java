@@ -212,6 +212,8 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	
 	public void setClear() {
 		pCC.removeAll();
+		pCC.revalidate();
+		pCC.repaint();
 		List<Food> list = null;
 		pList.setList(list);
 		btnPrice.setText("");
