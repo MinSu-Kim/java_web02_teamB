@@ -202,7 +202,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setText("");
 		tfId.setEditable(false);
 		tfMileage.setEditable(false);
-		cmbCoupon.setSelectedIndex(1);
+		cmbCoupon.setSelectedIndex(-1);
 	}
 	
 	public void setEditable() {
@@ -229,20 +229,21 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddr.getText().trim();
 		Grade grade = new Grade("bronze");
-		
 		if(tfMileage.getText().equals("")) {
 			mileage = 1000;
 		}else {
 			mileage = Integer.valueOf(tfMileage.getText());
 		}
 		
-			Member member = new Member(mbNo);
-			Coupon coupon = (Coupon) cmbCoupon.getSelectedItem();
-			MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
-			Member member2 = new Member(mbNo, name, birth, tel, address, grade, mileage);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("member", member2);
-			map.put("memberCoupon", memberCoupon);
+		Member member = new Member(mbNo);
+		Coupon coupon = (Coupon) cmbCoupon.getSelectedItem();
+		MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
+		Member member2 = new Member(mbNo, name, birth, tel, address, grade, mileage);
+		member2.setMbJoin(new Date());
+		//JOptionPane.showMessageDialog(null, member2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member", member2);
+		map.put("memberCoupon", memberCoupon);
 		return map;
 	}
 	

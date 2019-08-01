@@ -1,9 +1,8 @@
 package kr.or.yi.food_mgm_program.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 public class Member {
 	private int mbNo;
@@ -15,8 +14,9 @@ public class Member {
 	private String mbAddress;
 	private List<Coupon> coupon;
 	private boolean mbWithdrawal;
+	private Date mbJoin;
 	private int mbCount;
-
+	
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -164,13 +164,22 @@ public class Member {
 		this.mbCount = mbCount;
 	}
 
+	public Date getMbJoin() {
+		return mbJoin;
+	}
+
+	public void setMbJoin(Date mbJoin) {
+		this.mbJoin = mbJoin;
+	}
+
 	@Override
 	public String toString() {
 		final int maxLen = 10;
 		return String.format(
-				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s, mbWithdrawal=%s, mbCount=%s]",
+				"Member [mbNo=%s, mbName=%s, mbBirth=%s, mbTel=%s, mbMileage=%s, mbGrade=%s, mbAddress=%s, coupon=%s, mbWithdrawal=%s, mbJoin=%s, mbCount=%s]",
 				mbNo, mbName, mbBirth, mbTel, mbMileage, mbGrade, mbAddress,
-				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null, mbWithdrawal, mbCount);
+				coupon != null ? coupon.subList(0, Math.min(coupon.size(), maxLen)) : null, mbWithdrawal, mbJoin,
+				mbCount);
 	}
 
 	public Object[] toArray() {
@@ -187,9 +196,15 @@ public class Member {
 		for (int i = 0; i < coupon.size(); i++) {
 			array[i] = coupon.get(i).toString();
 		}
+		
+		SimpleDateFormat sdfm = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		String joinDate = "";
+		if(mbJoin != null) {
+			joinDate = sdfm.format(mbJoin);
+		}
 
 		if(mbBirth != null) {
-			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO"};
+			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO", joinDate};
 		}else 
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
 	}

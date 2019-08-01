@@ -70,6 +70,9 @@ ALTER TABLE food.member
 ALTER TABLE food.member
 	ADD COLUMN mb_count INT DEFAULT 0 NULL COMMENT '결제건수';
 
+ALTER TABLE food.member
+	ADD COLUMN mb_join DATE NULL COMMENT '결제건수';
+
 -- 쿠폰
 CREATE TABLE food.coupon (
 	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
