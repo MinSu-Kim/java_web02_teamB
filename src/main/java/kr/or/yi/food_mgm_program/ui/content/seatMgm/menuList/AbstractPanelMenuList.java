@@ -65,7 +65,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 			}else if(list.get(i).getFkName().equals("음료") || list.get(i).getFkName().equals("맥주")) {
 				image3 = image1.getScaledInstance(260, 260, Image.SCALE_SMOOTH);
 			}else {
-				image3 = image1.getScaledInstance(200, 120, Image.SCALE_SMOOTH);
+				image3 = image1.getScaledInstance(172, 107, Image.SCALE_SMOOTH);
 			}
 			ImageIcon image4 = new ImageIcon(image3);
 			JButton btn = new JButton(list.get(i).getFkName(), image4);

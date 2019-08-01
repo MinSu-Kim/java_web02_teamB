@@ -23,7 +23,7 @@
 	</insert>
 	
 	<select id="selectByTime" resultMap="resultRsvLJH2">
-		select * from member_reservation2 where rsv_cancel = 0;
+		select * from member_reservation3 where timediff(rsv_time, now())>0;
 	</select>
 	
 	<update id="deleteRsv">

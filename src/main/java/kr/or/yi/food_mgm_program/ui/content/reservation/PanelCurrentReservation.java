@@ -41,12 +41,13 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	private List<Reservation> rsvList;
 	private JPanel panel;
 	private JDatePickerImpl datePicker;
-	private JButton btnNewButton;
+	private JButton btnDate;
 	private PanelCurrentReservationService service;
 	private PanelInputReservation pInput;
 	private JTextField tfTel;
-	private JButton btnNewButton_1;
+	private JButton btnTel;
 	private PanelMain pSeat;
+	private JButton btnRemain;
 	public PanelCurrentReservation(PanelMain pSeat) {
 		this.pSeat = pSeat;
 		service = PanelCurrentReservationService.getInstance();
@@ -87,9 +88,9 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		panel.add(datePicker);
 		
-		btnNewButton = new JButton("날짜로 검색");
-		btnNewButton.addActionListener(this);
-		panel.add(btnNewButton);
+		btnDate = new JButton("날짜로 검색");
+		btnDate.addActionListener(this);
+		panel.add(btnDate);
 		
 		tfTel = new JTextField();
 		tfTel.addActionListener(this);
@@ -97,9 +98,13 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		panel.add(tfTel);
 		tfTel.setColumns(10);
 		
-		btnNewButton_1 = new JButton("전화번호로 검색");
-		btnNewButton_1.addActionListener(this);
-		panel.add(btnNewButton_1);
+		btnTel = new JButton("전화번호로 검색");
+		btnTel.addActionListener(this);
+		panel.add(btnTel);
+		
+		btnRemain = new JButton("오늘남은예약보기");
+		btnRemain.addActionListener(this);
+		panel.add(btnRemain);
 		
 		
 	}
@@ -151,12 +156,12 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		if (e.getSource() == tfTel) {
 			actionPerformedTfTel(e);
 		}
-		if (e.getSource() == btnNewButton_1) {
-			actionPerformedBtnNewButton_1(e);
+		if (e.getSource() == btnTel) {
+			actionPerformedBtnTel(e);
 		}
-		if (e.getSource() == btnNewButton) {
+		if (e.getSource() == btnDate) {
 			try {
-				actionPerformedBtnNewButton(e);
+				actionPerformedBtnDate(e);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -178,10 +183,17 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 		}
-		
+		if(e.getSource() == btnRemain) {
+			actionPerformedBtnRemain();
+		}
 		
 	}
 	
+	private void actionPerformedBtnRemain() {
+		rsvList = service.selectByTime();
+		reloadData();
+		
+	}
 	private void actionPerformedmntmPopDelete() throws ParseException {
 		int i = table.getSelectedRow();
 		String time = (String) table.getModel().getValueAt(i, 4);
@@ -247,9 +259,10 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	public void setList(List<Reservation> rsvlist) {
 		this.rsvList = rsvlist;
 	}
-	protected void actionPerformedBtnNewButton(ActionEvent e) throws ParseException {
+	protected void actionPerformedBtnDate(ActionEvent e) throws ParseException {
 		String date = datePicker.getJFormattedTextField().getText();
 		rsvList = service.selectByDate(date);
+		setClear();
 		reloadData();
 	}
 	
@@ -257,7 +270,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	public void setPInput(PanelInputReservation pinput) {
 		this.pInput = pinput;
 	}
-	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+	protected void actionPerformedBtnTel(ActionEvent e) {
 		searchPhone();
 		
 	}
@@ -283,7 +296,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		}
 		
 		this.rsvList = list;
-		tfTel.setText("");
+		setClear();
 		reloadData();
 	}
 	

@@ -89,7 +89,7 @@ select subtime(now(),'0:30:0');
 select * from member_reservation where rsv_time between subtime(now(),'0:30:0') and addtime(now(),'0:30:0');
 
 
-select * from member_reservation;
+
 
 
 select * from member;
@@ -109,3 +109,16 @@ insert into sale values (4,2,now(),5,1,0,2,1,"마일리지:100원",100,false);
 insert into sale values (5,3,now(),2,1,0,2,1,"마일리지:100원",100,true);
 insert into sale values (6,4,now(),1,1,0,3,1,"마일리지:100원",100,false);
 insert into sale values (7,5,now(),3,1,0,4,1,"마일리지:100원",100,false);
+
+select * from member_reservation3 where timediff(rsv_time, now())>0;
+
+select * from member_reservation3;
+
+select timediff(rsv_time, now())>0 from member_reservation3;
+
+
+
+
+
+
+
