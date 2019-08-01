@@ -5,6 +5,7 @@ import kr.or.yi.food_mgm_program.dto.Member;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+import javax.swing.table.TableColumnModel;
 
 @SuppressWarnings("serial")
 public class memberList extends AbstractList<Member> {
@@ -42,5 +43,12 @@ public class memberList extends AbstractList<Member> {
 		return rows;
 	}
 	
-	
+	@Override
+	protected void tableSetWidth(int... width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+		
+	}
 }
