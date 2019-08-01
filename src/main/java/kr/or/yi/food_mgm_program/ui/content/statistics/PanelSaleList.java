@@ -113,7 +113,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		panel_1.add(panel_3);
 		
 		popupMenu = new JPopupMenu();
-		mntmUpdate = new JMenuItem("수정");
+		mntmUpdate = new JMenuItem("결제 취소");
 		mntmUpdate.addActionListener(this);
 		popupMenu.add(mntmUpdate);
 
@@ -207,11 +207,24 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 				member = new Member();
 				member.setMbNo(pay.getPayMemberNo());
 				member.setMbMileage(pay.getPayDiscountPrice());
-				service.updateCancelUpdateMileage(map, member); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀
 				
+				String info = pay.getPayDiscountInfo();
+				int a = info.indexOf(":");
+				int b = info.indexOf("(");
+
+				String cou = info.substring(a+1, b) ;
+				
+				Map<String, Object> map2 = new HashMap<String, Object>();
+				map2.put("whether", 0);
+				map2.put("no", pay.getPayMemberNo());
+				map2.put("cpname", cou);
+				service.updateCancelUpdateMileage(map, member,map2); //sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지 원상복귀/count -1/쿠폰 복귀
+				
+				//등급 변경
 				int total = service.totalPrice(pay.getPayMemberNo());
-				Member mem2 = new Member(pay.getPayMemberNo());
-				if(total > 0 && total <= 299999) {
+				Member mem2 = new Member(pay.getPayMemberNo()); 
+				
+				if(total > 0 && total <= 299999) { //등급 변경
 					mem2.setMbGrade(new Grade("bronze"));
 					service.updateGrade(mem2);
 				}

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.yi.food_mgm_program.dao.MemberDao;
-import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.jdbc.MybatisSqlSessionFactory;
 
@@ -119,10 +118,12 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Coupon> selectCouponByTel() {
+	public Member selectCouponByTel(int tel) {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
-			return sqlSession.selectList(namespace + ".selectCouponByTel");
+			return sqlSession.selectOne(namespace + ".selectCouponByTel",tel);
 		}
 	}
+
+
 
 }

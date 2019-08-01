@@ -55,6 +55,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 	private MainFrame frame;
 	private PanelSeatOne parent;
+	
+	private int number;
 
 	public PaymentFrame() {
 		initComponents();
@@ -156,11 +158,12 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		}
 
 		if (sNumber != null) {
-			int number = Integer.parseInt(sNumber);
+			number = Integer.parseInt(sNumber);
 			mem = service.selectByTel(number); // 번호에 맞는 회원객체
 		}
 
 		if (mem != null) {
+			JOptionPane.showMessageDialog(null, mem);
 			panelInfo.setMemberInfo(mem, sum); // 회원정보가 올라감
 
 			btnMileage.setEnabled(true);
@@ -198,26 +201,33 @@ public class PaymentFrame extends JFrame implements ActionListener {
 	}
 
 	protected void actionPerformedBtnCoupon(ActionEvent e) { // 쿠폰 버튼 클릭시
-		List<Coupon> couponList = mem.getCoupon();
-		String[] selectionValues = new String[couponList.size()];
-		int size = 0;
+		mem = service.selectCouponByTel(number);
+		if(mem == null) {
+			mem = service.selectByTel(number);
+			JOptionPane.showMessageDialog(null, "사용가능한 쿠폰이 없습니다.");
+		}else {
+			List<Coupon> couponList = mem.getCoupon();
+			String[] selectionValues = new String[couponList.size()];
+			int size = 0;
 
-		for (Coupon c : couponList) {
-			selectionValues[size++] = c.getCpName();
-		}
-
-		String coupon = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요", "쿠폰 선택",
-				JOptionPane.QUESTION_MESSAGE, null, selectionValues, selectionValues[0]);
-
-		Coupon searchCoupon = new Coupon(coupon);
-
-		for (Coupon c : couponList) {
-			if (c.equals(searchCoupon)) {
-				searchCoupon = c;
+			for (Coupon c : couponList) {
+				selectionValues[size++] = c.getCpName();
 			}
-		}
 
-		panelInfo.setDiscountInfoCoupon(searchCoupon);
+			String coupon = (String) JOptionPane.showInputDialog(null, "사용할 쿠폰을 선택하세요", "쿠폰 선택",
+					JOptionPane.QUESTION_MESSAGE, null, selectionValues, selectionValues[0]);
+
+			Coupon searchCoupon = new Coupon(coupon);
+
+			for (Coupon c : couponList) {
+				if (c.equals(searchCoupon)) {
+					searchCoupon = c;
+				}
+			}
+
+			panelInfo.setDiscountInfoCoupon(searchCoupon);
+		}
+		
 	}
 
 	protected void actionPerformedBtnGrade(ActionEvent e) { // 등급 버튼 클릭시
@@ -228,63 +238,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		int res = JOptionPane.showConfirmDialog(null, "정말 결제(현금) 하시겠습니까?", "결제확인", JOptionPane.YES_OPTION);
 		if (res == 0) {
 			saleList = panelInfo.getInfo(saleList, mem, 1);
-
-			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", saleList);
-			Member member = mem;
-			
-			String info = panelInfo.getTfDisCountInfo().getText();
-			int a = info.indexOf(":");
-			int b = info.indexOf("(");
-			
-			if (info.contains("마일리지") && mem != null) { //마일리지 사용한 회원 결제시
-				
-				member.setMbMileage(updateMileage); 
-				service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
-			}else if(mem != null && info.contains("쿠폰")) { //쿠폰 사용시
-				String cou = info.substring(a+1, b) ;
-				Map<String, Object> map2 = new HashMap<String, Object>();
-				map2.put("whether", 1);
-				map2.put("no", mem.getMbNo());
-				map2.put("cpname", cou);
-				service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
-			}
-			
-			else if (mem == null) { //회원이 아닐시
-				service.insertSale(map);
-			} else if (mem != null) { //회원인데 마일리지,쿠폰 사용안할시
-				
-				service.insertSaleUpdateCountTransaciton(map, member);
-			}
-			//금액에 따라 등급 변경됨
-			
-			if(mem!=null) {
-				int total = service.totalPrice(mem.getMbNo());
-				Member mem2 = new Member(mem.getMbNo());
-				if(total > 0 && total <= 299999) {
-					mem2.setMbGrade(new Grade("bronze"));
-					service.updateGrade(mem2);
-				}
-				else if(total > 300000 && total <= 499999) {
-					mem2.setMbGrade(new Grade("silver"));
-					service.updateGrade(mem2);
-				}else if(total >500000 && total <=999999) {
-					mem2.setMbGrade(new Grade("gold"));
-				}else if(total > 1000000) {
-					mem2.setMbGrade(new Grade("vip"));
-				}
-				service.updateGrade(mem2);
-			}
-
-			PanelSalesList s = (PanelSalesList) frame.getpSales();
-			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-			PanelMember m = (PanelMember) frame.getpMember();
-			m.reloadList();
-			s.setListAll();
-			s2.setListAll();
-			parent.setClear();
-			JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
-			PaymentFrame.this.dispose();
+			payment();
 		}
 	}
 
@@ -293,63 +247,71 @@ public class PaymentFrame extends JFrame implements ActionListener {
 
 		if (res == 0) {
 			saleList = panelInfo.getInfo(saleList, mem, 0);
-
-			Map<String, List<Sale>> map = new HashMap<>();
-			map.put("list", saleList);
-			Member member = mem;
-			
-			String info = panelInfo.getTfDisCountInfo().getText();
-			int a = info.indexOf(":");
-			int b = info.indexOf("(");
-			
-			if (info.contains("마일리지") && mem != null) { //마일리지 사용한 회원 결제시
-				
-				member.setMbMileage(updateMileage); 
-				service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
-			}else if(mem != null && info.contains("쿠폰")) {
-				String cou = info.substring(a+1, b) ;
-				Map<String, Object> map2 = new HashMap<String, Object>();
-				map2.put("whether", 1);
-				map2.put("no", mem.getMbNo());
-				map2.put("cpname", cou);
-				service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
-			}else if (mem == null) { //회원이 아닐시
-				service.insertSale(map);
-			} else if (mem != null) { //회원인데 마일리지 사용안할시
-				
-				service.insertSaleUpdateCountTransaciton(map, member);
-			}
-			//금액에 따라 등급 변경됨
-			
-			if(mem!=null) {
-				int total = service.totalPrice(mem.getMbNo());
-				Member mem2 = new Member(mem.getMbNo());
-				if(total > 0 && total <= 299999) {
-					mem2.setMbGrade(new Grade("bronze"));
-					service.updateGrade(mem2);
-				}
-				else if(total > 300000 && total <= 499999) {
-					mem2.setMbGrade(new Grade("silver"));
-					service.updateGrade(mem2);
-				}else if(total >500000 && total <=999999) {
-					mem2.setMbGrade(new Grade("gold"));
-				}else if(total > 1000000) {
-					mem2.setMbGrade(new Grade("vip"));
-				}
-				service.updateGrade(mem2);
-			}
-
-			PanelSalesList s = (PanelSalesList) frame.getpSales();
-			PanelSaleList s2 = (PanelSaleList) frame.getpSale();
-			PanelMember m = (PanelMember) frame.getpMember();
-			m.reloadList();
-			s.setListAll();
-			s2.setListAll();
-			parent.setClear();
-			JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
-			PaymentFrame.this.dispose();
+			payment();
+		
 		}
 
+	}
+
+
+
+	private void payment() {
+		Map<String, List<Sale>> map = new HashMap<>();
+		map.put("list", saleList);
+		Member member = mem;
+		
+		String info = panelInfo.getTfDisCountInfo().getText();
+		int a = info.indexOf(":");
+		int b = info.indexOf("(");
+		
+		if (info.contains("마일리지") && mem != null) { //마일리지 사용한 회원 결제시
+			
+			member.setMbMileage(updateMileage); 
+			service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
+		}else if(mem != null && info.contains("쿠폰")) { //쿠폰 사용시
+			String cou = info.substring(a+1, b) ;
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("whether", 1);
+			map2.put("no", mem.getMbNo());
+			map2.put("cpname", cou);
+			service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
+		}
+		
+		else if (mem == null) { //회원이 아닐시
+			service.insertSale(map);
+		} else if (mem != null) { //회원인데 마일리지,쿠폰 사용안할시
+			
+			service.insertSaleUpdateCountTransaciton(map, member);
+		}
+		//금액에 따라 등급 변경됨
+		
+		if(mem!=null) {
+			int total = service.totalPrice(mem.getMbNo());
+			Member mem2 = new Member(mem.getMbNo());
+			if(total > 0 && total <= 299999) {
+				mem2.setMbGrade(new Grade("bronze"));
+				service.updateGrade(mem2);
+			}
+			else if(total > 300000 && total <= 499999) {
+				mem2.setMbGrade(new Grade("silver"));
+				service.updateGrade(mem2);
+			}else if(total >500000 && total <=999999) {
+				mem2.setMbGrade(new Grade("gold"));
+			}else if(total > 1000000) {
+				mem2.setMbGrade(new Grade("vip"));
+			}
+			service.updateGrade(mem2);
+		}
+
+		PanelSalesList s = (PanelSalesList) frame.getpSales();
+		PanelSaleList s2 = (PanelSaleList) frame.getpSale();
+		PanelMember m = (PanelMember) frame.getpMember();
+		m.reloadList();
+		s.setListAll();
+		s2.setListAll();
+		parent.setClear();
+		JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
+		PaymentFrame.this.dispose();
 	}
 
 	public void setInitWork(int sum, List<Sale> saleList) { // 주문창에서 받아온 sale list

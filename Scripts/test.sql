@@ -159,6 +159,8 @@ update member set mb_mileage = mb_mileage+100 where mb_no = 1;
 
 select * from coupon;
 select * from member_coupon;
+update member_coupon set cp_use = 1 where cp_no=2 and mb_no=1;
+
 
 update member set mb_count = mb_count+1  where mb_no = 2;
 select * from grade;
