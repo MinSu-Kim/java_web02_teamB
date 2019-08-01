@@ -104,6 +104,7 @@ public class PanelOrderList extends JPanel {
 		reloadData();
 	}
 	public void resetList() {
+		lblNewLabel.setText("테이블 번호 :");
 		list.clear();
 		reloadData();
 	}
