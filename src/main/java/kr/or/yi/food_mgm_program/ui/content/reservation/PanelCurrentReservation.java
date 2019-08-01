@@ -1,6 +1,8 @@
 package kr.or.yi.food_mgm_program.ui.content.reservation;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -10,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import kr.or.yi.food_mgm_program.dto.Member;
@@ -30,8 +34,6 @@ import kr.or.yi.food_mgm_program.ui.content.statistics.DateLabelFormatter;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import java.awt.event.FocusListener;
-import java.awt.event.FocusEvent;
 
 public class PanelCurrentReservation extends JPanel implements ActionListener{
 	private JTable table;
@@ -145,12 +147,40 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 
 	// 테이블 셀의 폭 설정
 	protected void tableSetWidth(int... width) {
+		
+		for (int i = 0; i < getColumnNames().length; i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(new ReturnTableCellRenderer());
+		}
+		
 		TableColumnModel cModel = table.getColumnModel();
 
 		for (int i = 0; i < width.length; i++) {
 			cModel.getColumn(i).setPreferredWidth(width[i]);
 		}
 	}
+	
+	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			if (value==null) return this;
+			setText(value.toString());
+			setOpaque(true);
+			
+			setHorizontalAlignment(JLabel.CENTER);
+		
+			if (table.getValueAt(row, 8).toString().equals("취소")) {
+				setForeground(Color.RED);
+			}else {
+				setForeground(Color.BLACK);
+			}
+			if (isSelected) {
+				setBackground(new Color(57, 105, 138));
+			}else {
+				setBackground(Color.WHITE);
+			}
+			return this;
+		}
+	}	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == tfTel) {

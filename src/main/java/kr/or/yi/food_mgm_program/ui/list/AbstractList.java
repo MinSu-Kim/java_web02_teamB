@@ -87,7 +87,7 @@ public abstract class AbstractList<T> extends JPanel {
 		for (int i = 0; i < width.length; i++) {
 			cModel.getColumn(i).setPreferredWidth(width[i]);
 		}
-	}
+	}; 
 
 	public T getSelectedItem() {
 		int i = table.getSelectedRow();

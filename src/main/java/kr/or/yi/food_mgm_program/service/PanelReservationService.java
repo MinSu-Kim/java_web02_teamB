@@ -36,7 +36,7 @@ public class PanelReservationService {
 	}
 	
 	public int selectListSize() {
-		return mDao.selectMemberByAll().size()+1;
+		return mDao.selectMemberByAllNM().size()+1;
 	}
 	
 	public int insertMember(Member member) {

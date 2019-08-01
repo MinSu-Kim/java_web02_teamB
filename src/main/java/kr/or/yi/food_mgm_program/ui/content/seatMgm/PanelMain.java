@@ -233,8 +233,14 @@ public class PanelMain extends JPanel implements ActionListener {
 		cards.show(pMenuList, "pMain");
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {
-		seatOne.setPcc(pList.getList());
+		if(pList.getTableNo()==null) {
+			JOptionPane.showMessageDialog(null, "테이블을 선택하세요.");
+			pList.resetList();
+			
+			return;
+		}
 		
+		seatOne.setPcc(pList.getList());
 		int price = 0;
 		String price1 = "";
 		for(Food food : pList.getList()) {
