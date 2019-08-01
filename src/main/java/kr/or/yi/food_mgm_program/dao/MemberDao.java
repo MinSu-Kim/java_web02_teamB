@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 
 public interface MemberDao {
@@ -20,4 +21,5 @@ public interface MemberDao {
 	
 	public int updateTrnasMember(Member member);
 	public int updateGrade(Member mem);
+	public List<Coupon> selectCouponByTel();
 }

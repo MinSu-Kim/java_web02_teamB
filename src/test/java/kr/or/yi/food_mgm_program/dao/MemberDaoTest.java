@@ -85,7 +85,7 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test05DeleteMember() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -95,7 +95,7 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-	@Test
+	//@Test
 	public void test06SelectByTel() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
@@ -119,13 +119,16 @@ public class MemberDaoTest extends AbstractTest {
 		Assert.assertEquals(1, res);
 	}
 	
-//	@Test
-//	public void test08CouponDelete() {
-//		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
-//		
-//		Map<String, Object> map = new HashMap<>();
-//		
-//		
-//		
-//	}
+	@Test
+	public void test08SelectCouponByTel() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		
+		Member member = memberDao.selectByTel(87654321);
+		log.debug(member.toString());
+		
+		for(Coupon c : member.getCoupon()) {
+			log.debug(c.toString());
+		}
+		Assert.assertNotNull(member);
+	}
 }
