@@ -202,10 +202,10 @@ public class MenuListFrame extends JFrame implements ActionListener {
 			ImageIcon image = new ImageIcon("image/"+fd.getFdName()+".jpg");
 			Image image1 = image.getImage();
 			Image image3 = null;
-		if(fd.getFkNo().getFkNo()==5) {
-				image3 = image1.getScaledInstance(350, 400, Image.SCALE_SMOOTH);
+			if(fd.getFkNo().getFkNo()==5) {
+				image3 = image1.getScaledInstance(360, 450, Image.SCALE_SMOOTH);
 			}else {
-				image3 = image1.getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+				image3 = image1.getScaledInstance(360, 200, Image.SCALE_SMOOTH);
 
 			}
 			ImageIcon image4 = new ImageIcon(image3);

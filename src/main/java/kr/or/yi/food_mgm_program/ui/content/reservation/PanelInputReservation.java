@@ -64,7 +64,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 	}
 	private void initComponents() {
 		setBorder(new EmptyBorder(100, 20, 100, 20));
-		setLayout(new GridLayout(0, 2, 0, 30));
+		setLayout(new GridLayout(0, 2, 0, 25));
 		
 		JLabel lblNewLabel = new JLabel("회원번호");
 		lblNewLabel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -121,7 +121,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		
 		panel = new JPanel();
 		add(panel);
-		panel.setLayout(new GridLayout(0, 1, 10, 10));
+		panel.setLayout(new GridLayout(0, 1, 10, 5));
 		
 		panel_1 = new JPanel();
 		panel.add(panel_1);
