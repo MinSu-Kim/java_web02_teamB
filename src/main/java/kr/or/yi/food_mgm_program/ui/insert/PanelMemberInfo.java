@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,8 +20,10 @@ import javax.swing.border.EmptyBorder;
 import kr.or.yi.food_mgm_program.dao.PostDao;
 import kr.or.yi.food_mgm_program.daoImpl.PostDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
+import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.dto.MemberCoupon;
 import kr.or.yi.food_mgm_program.service.PanelMCouponService;
 import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.PostFrame;
@@ -30,6 +33,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -52,7 +56,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	
 	private PostFrame pFrame;
 	private JLabel lblCoupon;
-	private JComboBox<String> cmbCoupon;
+	private JComboBox<Coupon> cmbCoupon;
 	private JLabel lblMileage;
 	private JTextField tfMileage;
 	private List<Coupon> couponList;
@@ -168,13 +172,8 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		lblCoupon.setBorder(new EmptyBorder(0, 0, 0, 20));
 		pMember.add(lblCoupon);
 		
-		
-		String[] coupons = new String[couponList.size()];
-		for (int i = 0; i < couponList.size(); i++) {
-			coupons[i] = couponList.get(i).toString();
-		}
-		
-		cmbCoupon = new JComboBox<String>(coupons);
+		cmbCoupon = new JComboBox<Coupon>();
+		setCbm();
 		cmbCoupon.setFont(new Font("굴림", Font.PLAIN, 15));
 		pMember.add(cmbCoupon);
 	}
@@ -185,17 +184,21 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 //		lblImg.setIcon(imageIcon);
 //	}
 
+	private void setCbm() {
+		DefaultComboBoxModel<Coupon> fkModels = new DefaultComboBoxModel<Coupon>(new Vector<Coupon>(couponList));
+		cmbCoupon.setModel(fkModels);
+	}
+
 	public void clearMemberInfo(int nextNo) {
 		tfId.setText(String.format("M%03d", nextNo));
 		tfName.setText("");
 		tfTel.setText("");
-		tfBirth.setDate(new Date());
+		tfBirth.setDate(null);
 		tfAddr.setText("");
 		tfMileage.setText("");
 		tfId.setEditable(false);
 		tfMileage.setEditable(false);
 		cmbCoupon.setSelectedIndex(-1);
-		cmbCoupon.setEnabled(false);
 	}
 	
 	public void setEditable() {
@@ -227,6 +230,11 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		}else {
 			mileage = Integer.valueOf(tfMileage.getText());
 		}
+		
+		Member member = new Member(mbNo);
+		Coupon coupon = (Coupon)cmbCoupon.getSelectedItem();
+		MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
+		service.insertMemberCoupon(memberCoupon);
 		
 		return new Member(mbNo, name, birth, tel, address, grade, mileage);
 	}

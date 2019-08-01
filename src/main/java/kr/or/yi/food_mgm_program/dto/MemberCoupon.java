@@ -8,6 +8,11 @@ public class MemberCoupon {
 	public MemberCoupon() {
 	}
 
+	public MemberCoupon(Coupon cpNo, Member mbNo) {
+		this.cpNo = cpNo;
+		this.mbNo = mbNo;
+	}
+
 	public Coupon getCpNo() {
 		return cpNo;
 	}

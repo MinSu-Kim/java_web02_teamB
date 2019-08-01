@@ -19,9 +19,9 @@ insert into grade values ('vip',15),('gold',10),('silver',5);
 insert into grade values ('bronze',0);
 select * from grade;
 
-insert into coupon values (1,'생일쿠폰',10);
-insert into coupon values (2,'졸업쿠폰',5);
-insert into coupon values (3,'쿠폰1',5), (4,'쿠폰2',5), (5,'쿠폰3',5);
+insert into coupon values (1,'10%쿠폰',10);
+insert into coupon values (2,'5%쿠폰',5);
+insert into coupon values (3,'15%쿠폰',15);
 select * from coupon;
 
 desc manager;

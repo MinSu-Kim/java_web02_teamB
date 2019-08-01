@@ -45,4 +45,5 @@ public class PanelMemberService {
 	public int updateTrnasMember(Member member) {
 		return dao.updateTrnasMember(member);
 	}
+	
 }

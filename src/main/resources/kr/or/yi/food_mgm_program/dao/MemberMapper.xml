@@ -51,7 +51,7 @@
 	</update>
 	
 	<update id="updateTrnasMember" parameterType="Member">
-		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade} 
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_mileage = #{mbMileage}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade} 
 		where mb_no = #{mbNo};		
 	</update>
 	
@@ -60,9 +60,9 @@
 	</delete>
 
 	<!-- <select id="selectMemberByNo" resultType="Member" parameterType="Member">
-		select m.mb_name, g.mb_grade, g.g_discount as g_discount2, m.mb_mileage, c.cp_name, c.cp_discount
-		from member m join grade g on m.grade = g.grade join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
-		where m.mb_no = #{mbNo}
+		select m.mb_no, m.mb_name, g.grade, g.g_discount as g_discount2, m.mb_mileage, c.cp_name, c.cp_discount
+		from member m join grade g on m.mb_grade = g.grade join member_coupon mc on m.mb_no = mc.mb_no join coupon c on mc.cp_no = c.cp_no
+		where m.mb_no = #{mbNo};
 	</select> -->
 	
 	<select id="selectByTel" parameterType="int" resultMap="resultMemberBJY">

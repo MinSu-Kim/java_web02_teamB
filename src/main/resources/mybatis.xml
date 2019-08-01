@@ -39,6 +39,6 @@
 		<mapper resource="kr/or/yi/food_mgm_program/dao/PaymentMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/PostMapper.xml"/>
 		<mapper resource="kr/or/yi/food_mgm_program/dao/ReservationMapper.xml"/>
-		
+		<mapper resource="kr/or/yi/food_mgm_program/dao/MemberCouponMapper.xml"/>
 	</mappers>
 </configuration>

@@ -207,6 +207,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private void actionPerformedBtnTrans(ActionEvent e) throws Exception {
 		Member member = pMember.getMember();
 		member.setMbWithdrawal(true);
+		member.setMbMileage(1000);
 		member.setMbGrade(new Grade("bronze"));
 		service.updateTrnasMember(member);
 		reloadList();
