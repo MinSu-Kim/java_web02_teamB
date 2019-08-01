@@ -1,8 +1,14 @@
 package kr.or.yi.food_mgm_program.ui.list;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.yi.food_mgm_program.dto.Payment;
 import kr.or.yi.food_mgm_program.dto.Sale;
@@ -58,5 +64,15 @@ public class SaleList extends AbstractList<Payment> {
 		return rows;
 	}
 
+	@Override
+	protected void tableSetWidth(int... width) {
+		
+		TableColumnModel cModel = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+		
+	}
 	
+
 }

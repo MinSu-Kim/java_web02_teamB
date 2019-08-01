@@ -3,6 +3,7 @@ package kr.or.yi.food_mgm_program.ui.list;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+import javax.swing.table.TableColumnModel;
 
 import kr.or.yi.food_mgm_program.dto.Food;
 
@@ -43,6 +44,17 @@ public class FoodList extends AbstractList<Food> {
 	
 		return rows;
 	}
+
+	@Override
+	protected void tableSetWidth(int... width) {
+		TableColumnModel cModel = table.getColumnModel();
+		for (int i = 0; i < width.length; i++) {
+			cModel.getColumn(i).setPreferredWidth(width[i]);
+		}
+		
+	}
+
+
 
 
 }

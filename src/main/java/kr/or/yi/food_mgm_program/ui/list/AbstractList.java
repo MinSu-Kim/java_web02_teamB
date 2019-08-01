@@ -20,7 +20,7 @@ import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public abstract class AbstractList<T> extends JPanel {
-	private JTable table;
+	protected JTable table;
 	protected List<T> itemList;
 	private JScrollPane scrollPane;
 
@@ -81,6 +81,7 @@ public abstract class AbstractList<T> extends JPanel {
 	}
 
 	// 테이블 셀의 폭 설정
+
 	protected void tableSetWidth(int... width) {
 		TableColumnModel cModel = table.getColumnModel();
 
