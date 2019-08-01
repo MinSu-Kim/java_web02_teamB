@@ -12,4 +12,5 @@ public interface FoodDao {
 	public int deletFood(Food food);
 	public List<Food> selectByName(Food food);
 	public Food selectByNames(Food food);
+	public List<Food> selectFoodByAllF();
 }

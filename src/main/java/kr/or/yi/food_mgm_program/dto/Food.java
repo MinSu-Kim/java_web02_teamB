@@ -9,6 +9,8 @@ public class Food {
 	private int fdPrice;
 	private String fdName;
 	private FoodKind fkNo;
+	private boolean fdWithdrawal;
+	
 	private int count = 1;
 	
 	public static NumberFormat formatter = new DecimalFormat("###,###");
@@ -87,6 +89,14 @@ public class Food {
 		this.fkNo = fkNo;
 	}
 	
+	public boolean isFdWithdrawal() {
+		return fdWithdrawal;
+	}
+
+	public void setFdWithdrawal(boolean fdWithdrawal) {
+		this.fdWithdrawal = fdWithdrawal;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

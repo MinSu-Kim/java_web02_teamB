@@ -5,6 +5,7 @@ import javax.swing.JPopupMenu;
 
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.Map;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -21,6 +22,7 @@ import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.dto.MemberCoupon;
 import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
@@ -205,11 +207,14 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 	
 	private void actionPerformedBtnTrans(ActionEvent e) throws Exception {
-		Member member = pMember.getMember();
+		Map<String, Object> map = pMember.getMember(e);
+		Member member = (Member) map.get("member");
+		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
 		member.setMbWithdrawal(true);
 		member.setMbMileage(1000);
 		member.setMbGrade(new Grade("bronze"));
 		service.updateTrnasMember(member);
+		service.insertMemberCoupon(membercoupon);
 		reloadList();
 		btnJoin.setText("가입");
 	}
@@ -225,8 +230,12 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
-		Member member = pMember.getMember();
+		Map<String, Object> map = pMember.getMember(e);
+		Member member = (Member) map.get("member");
+		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
+		member.setMbWithdrawal(true);
 		service.updateMember(member);
+		service.insertMemberCoupon(membercoupon);
 		reloadList();
 		btnJoin.setText("가입");
 	}
@@ -246,9 +255,12 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception {
-		Member member = pMember.getMember();
+		Map<String, Object> map = pMember.getMember(e);
+		Member member = (Member) map.get("member");
+		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
 		member.setMbWithdrawal(true);
 		service.insertMember(member);
+		service.insertMemberCoupon(membercoupon);
 		reloadList();
 	}
 	
@@ -263,6 +275,8 @@ public class PanelMember extends JPanel implements ActionListener {
 			listNM = service.selectMemberByAllNM();
 			Member last = listNM.get(listNM.size()-1);
 			lastNo = last.getMbNo()+1;
+		}else {
+			lastNo = 1;
 		}
 		pMember.clearMemberInfo(lastNo);
 	}

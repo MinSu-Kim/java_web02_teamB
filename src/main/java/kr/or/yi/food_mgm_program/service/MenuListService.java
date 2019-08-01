@@ -59,4 +59,7 @@ public class MenuListService {
 		return dao.insertFood(food);
 	}
 	
+	public List<Food> selectFoodByAllF() {
+		return dao.selectFoodByAllF();
+	}
 }

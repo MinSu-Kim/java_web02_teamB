@@ -35,6 +35,7 @@ public class PanelFood extends JPanel implements ActionListener {
 	
 	private MenuListService service;
 	private List<Food> fList;
+	private List<Food> fListAll;
 	private List<FoodKind> fkList;
 
 	private FoodList pFoodList;
@@ -48,12 +49,14 @@ public class PanelFood extends JPanel implements ActionListener {
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
+	private JButton btnAll;
 	
 	public PanelFood() {
 		service = MenuListService.getInstance();
 		
 		fList = service.selectFoodByAll();
 		fkList = service.selectFoodKindByAll();
+		fListAll = service.selectFoodByAllF();
 		initComponents();
 	}
 	
@@ -111,6 +114,11 @@ public class PanelFood extends JPanel implements ActionListener {
 		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnList);
 		
+		btnAll = new JButton("New button");
+		btnAll.setBorder(new EmptyBorder(10, 20, 10, 20));
+		btnAll.addActionListener(this);
+		pSearch.add(btnAll);
+		
 		pFoodList = new FoodList((String) null);
 		pList.add(pFoodList, BorderLayout.CENTER);
 		reloadList();
@@ -135,6 +143,9 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAll) {
+			actionPerformedBtnNewButton(e);
+		}
 		if (e.getSource() == btnList) {
 			actionPerformedBtnList(e);
 		}
@@ -176,9 +187,13 @@ public class PanelFood extends JPanel implements ActionListener {
 	}
 
 	private void actionPerformedMntmDelete(ActionEvent e) {
-		Food food = pFoodList.getSelectedItem();
-		service.deleteFood(food);
-		reloadList();
+		int result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?", "삭제확인", JOptionPane.YES_NO_OPTION);
+		if(result == JOptionPane.YES_OPTION) {
+			Food food = pFoodList.getSelectedItem();
+			food.setFdWithdrawal(true);
+			service.deleteFood(food);
+			reloadList();
+		}
 	}
 
 	protected void actionPerformedBtnAdd(ActionEvent e) throws Exception {
@@ -218,5 +233,11 @@ public class PanelFood extends JPanel implements ActionListener {
 	protected void actionPerformedBtnList(ActionEvent e) {
 		reloadList();
 		tfSearch.setText("");
+	}
+	
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		fListAll = service.selectFoodByAllF();
+		pFoodList.setItemList(fListAll);
+		pFoodList.reloadData();
 	}
 }

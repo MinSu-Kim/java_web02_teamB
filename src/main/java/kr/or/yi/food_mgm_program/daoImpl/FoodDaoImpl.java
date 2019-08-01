@@ -65,5 +65,12 @@ public class FoodDaoImpl implements FoodDao {
 			return sqlSession.selectOne(namespace + ".selectByNames", food);
 		}
 	}
+
+	@Override
+	public List<Food> selectFoodByAllF() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectFoodByAllF");
+		}
+	}
 	
 }

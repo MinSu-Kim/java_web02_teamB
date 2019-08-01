@@ -22,7 +22,7 @@
 		<!-- select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member -->
 		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
-		group by mb_no having mb_withdrawal=true
+		group by mb_no having mb_withdrawal = true
 	</select>
 	
 	<select id="selectMemberByAllNM" resultMap="resultMemberBJY">
@@ -37,7 +37,7 @@
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 	</select> -->
 	
-	<insert id="insertMember" parameterType="Member">
+	<insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="mb_no">
 		insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) 
 		values (#{mbNo},#{mbName},#{mbBirth},#{mbTel},#{mbMileage},#{mbGrade.grade},#{mbAddress},#{mbWithdrawal})
 	</insert>

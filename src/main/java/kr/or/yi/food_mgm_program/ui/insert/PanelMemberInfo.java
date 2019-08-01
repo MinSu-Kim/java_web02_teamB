@@ -6,8 +6,11 @@ import java.awt.Image;
 import java.awt.ScrollPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -65,6 +68,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 	public PanelMemberInfo() {
 		service = PanelMCouponService.getInstance();
 		couponList = service.selectByCouponAll();
+		//JOptionPane.showConfirmDialog(null, couponList);
 		initComponents();
 	}
 	
@@ -198,7 +202,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setText("");
 		tfId.setEditable(false);
 		tfMileage.setEditable(false);
-		cmbCoupon.setSelectedIndex(-1);
+		cmbCoupon.setSelectedIndex(1);
 	}
 	
 	public void setEditable() {
@@ -215,7 +219,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setText(member.getMbMileage()+"");
 	}
 	
-	public Member getMember() throws Exception {
+	public Map<String, Object> getMember(ActionEvent e) throws Exception {
 		validCheck();
 		
 		int mileage = 0;
@@ -225,18 +229,21 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddr.getText().trim();
 		Grade grade = new Grade("bronze");
+		
 		if(tfMileage.getText().equals("")) {
 			mileage = 1000;
 		}else {
 			mileage = Integer.valueOf(tfMileage.getText());
 		}
 		
-		Member member = new Member(mbNo);
-		Coupon coupon = (Coupon)cmbCoupon.getSelectedItem();
-		MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
-		service.insertMemberCoupon(memberCoupon);
-		
-		return new Member(mbNo, name, birth, tel, address, grade, mileage);
+			Member member = new Member(mbNo);
+			Coupon coupon = (Coupon) cmbCoupon.getSelectedItem();
+			MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
+			Member member2 = new Member(mbNo, name, birth, tel, address, grade, mileage);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("member", member2);
+			map.put("memberCoupon", memberCoupon);
+		return map;
 	}
 	
 	public Member getNoMember() throws Exception {
@@ -256,9 +263,14 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		SimpleDateFormat sdfm = new SimpleDateFormat("yyyyMMdd");
 		String birth = sdfm.format(tfBirth.getDate());
 		String date = sdfm.format(new Date());
+		int b = Integer.parseInt(birth);
+		int d = Integer.parseInt(date);
 		
 		if(birth.equals(date)) {
 			throw new Exception("생년월일을 입력하세요.");
+		}
+		if(b > d) {
+			throw new Exception("생년월일을 잘못 입력하셨습니다.");
 		}
 		if(tfAddr.getText().equals("")) {
 			throw new Exception("주소를 입력하세요.");

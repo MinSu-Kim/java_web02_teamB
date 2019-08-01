@@ -13,6 +13,9 @@ CREATE TABLE food.food (
 )
 COMMENT '음식';
 
+ALTER TABLE food.food
+	ADD COLUMN fd_withdrawal TINYINT DEFAULT false NULL COMMENT '삭제여부';
+
 -- 음식
 ALTER TABLE food.food
 	ADD CONSTRAINT PK_food -- 음식 기본키

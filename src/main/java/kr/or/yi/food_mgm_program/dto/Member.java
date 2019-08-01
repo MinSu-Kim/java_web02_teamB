@@ -73,6 +73,17 @@ public class Member {
 		this.mbWithdrawal = mbWithdrawal;
 	}
 
+	public Member(int mbNo, String mbName, Date mbBirth, String mbTel, String mbAddress, Grade mbGrade, int mbMileage, List<Coupon> couponlist) {
+		this.mbNo = mbNo;
+		this.mbName = mbName;
+		this.mbBirth = mbBirth;
+		this.mbTel = mbTel;
+		this.mbAddress = mbAddress;
+		this.mbGrade = mbGrade;
+		this.mbMileage = mbMileage;
+		coupon = couponlist;
+	}
+
 	public int getMbNo() {
 		return mbNo;
 	}

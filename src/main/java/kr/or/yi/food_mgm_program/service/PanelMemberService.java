@@ -2,13 +2,17 @@ package kr.or.yi.food_mgm_program.service;
 
 import java.util.List;
 
+import kr.or.yi.food_mgm_program.dao.MemberCouponDao;
 import kr.or.yi.food_mgm_program.dao.MemberDao;
+import kr.or.yi.food_mgm_program.daoImpl.MemberCouponDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Member;
+import kr.or.yi.food_mgm_program.dto.MemberCoupon;
 
 public class PanelMemberService {
 	private static PanelMemberService service = new PanelMemberService();
 	private MemberDao dao;
+	private MemberCouponDao mcDao;
 	
 	public static PanelMemberService getInstance() {
 		return service;
@@ -16,6 +20,7 @@ public class PanelMemberService {
 
 	public PanelMemberService() {
 		dao = new MemberDaoImpl();
+		mcDao = new MemberCouponDaoImpl();
 	}
 	
 	public List<Member> selectMemberByAll(){
@@ -44,6 +49,10 @@ public class PanelMemberService {
 	
 	public int updateTrnasMember(Member member) {
 		return dao.updateTrnasMember(member);
+	}
+	
+	public int insertMemberCoupon(MemberCoupon memberCoupon) {
+		return mcDao.insertMemberCoupon(memberCoupon);
 	}
 	
 }
