@@ -102,9 +102,9 @@ public class PaymentService {
 		int resUpdate2 = 0;
 		SqlSession sqlSession = MybatisSqlSessionFactory.openSession();
 		try {
-			resInsert += sqlSession.insert(namespace + "insertSale", map);
-			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member);
-			resUpdate2 += sqlSession.update(namespace2 + "couponDelete",map2);
+			resInsert += sqlSession.insert(namespace + "insertSale", map); //판매테이블에 추가
+			resUpdate += sqlSession.update(namespace2 + "CountUpdateKCM", member); // 사용횟수 1증가
+			resUpdate2 += sqlSession.update(namespace2 + "couponDelete",map2); //쿠폰 사용 체크함
 			if (resInsert > 0 && resUpdate >0 && resUpdate2>0) {
 				sqlSession.commit();
 			} else {

@@ -241,16 +241,18 @@ public class PaymentFrame extends JFrame implements ActionListener {
 				
 				member.setMbMileage(updateMileage); 
 				service.insertSaleUpdateMileageTransaciton(map, member);//마일리지 수정이랑  count 1증가
-			}else if(mem != null && info.contains("쿠폰")) {
+			}else if(mem != null && info.contains("쿠폰")) { //쿠폰 사용시
 				String cou = info.substring(a+1, b) ;
 				Map<String, Object> map2 = new HashMap<String, Object>();
 				map2.put("whether", 1);
 				map2.put("no", mem.getMbNo());
 				map2.put("cpname", cou);
 				service.insertSaleUpdateCountUpdateCouponTransaciton(map, member, map2);
-			}else if (mem == null) { //회원이 아닐시
+			}
+			
+			else if (mem == null) { //회원이 아닐시
 				service.insertSale(map);
-			} else if (mem != null) { //회원인데 마일리지 사용안할시
+			} else if (mem != null) { //회원인데 마일리지,쿠폰 사용안할시
 				
 				service.insertSaleUpdateCountTransaciton(map, member);
 			}
