@@ -77,6 +77,13 @@ public class PanelMemberService {
 		return mcDao.deleteByMbNo(memberCoupon);
 	}
 	
+	public List<MemberCoupon> selectByAll(){
+		return mcDao.selectByAll();
+	}
+	
+	public int plusMileage(Member member) {
+		return dao.plusMileage(member);
+	}
 }
 
 

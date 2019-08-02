@@ -7,6 +7,7 @@
 		<result column="cp_use" property="cpUse"/>
 	</resultMap>
 	
+	
 	<insert id="insertMemberCoupon" parameterType="MemberCoupon">
 		insert into member_coupon(mb_no, cp_name) values(#{mbNo.mbNo}, #{cpNo.cpName})
 	</insert>
@@ -14,6 +15,11 @@
 	<select id="selectByMbNo" parameterType="MemberCoupon" resultMap="resultCoupon">
 		select * from member_coupon where mb_no=#{mbNo.mbNo} and cp_use=false
 	</select>
+	
+	<select id="selectByAll" parameterType="MemberCoupon" resultMap="resultCoupon">
+		select * from member_coupon where cp_use=false
+	</select>
+	
 	
 	<delete id="deleteByMbNo" parameterType="MemberCoupon">
 		delete from member_coupon where mb_no=#{mbNo.mbNo} and cp_name=#{cpNo.cpName}

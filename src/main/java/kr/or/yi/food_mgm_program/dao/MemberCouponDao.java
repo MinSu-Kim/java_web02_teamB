@@ -9,4 +9,6 @@ public interface MemberCouponDao {
 	public int insertMemberCoupon(MemberCoupon memberCoupon);
 	public List<MemberCoupon> selectByMbNo(MemberCoupon memberCoupon);
 	public int deleteByMbNo(MemberCoupon memberCoupon);
+	public List<MemberCoupon> selectByAll();
+	
 }

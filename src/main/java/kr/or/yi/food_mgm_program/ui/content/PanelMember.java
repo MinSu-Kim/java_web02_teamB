@@ -73,6 +73,7 @@ public class PanelMember extends JPanel implements ActionListener {
 	private Member member;
 
 	private JButton btnAdd; 
+	private JButton btnCouponAll;
 	
 	public JPanel getpList() {
 		return pList;
@@ -156,6 +157,10 @@ public class PanelMember extends JPanel implements ActionListener {
 		btnAll.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnAll);
 		
+		btnCouponAll = new JButton("쿠폰일괄지급");
+		btnCouponAll.addActionListener(this);
+		pSearch.add(btnCouponAll);
+		
 		pMemberList = new memberList((String) null);
 		pList.add(pMemberList, BorderLayout.CENTER);
 		reloadList();
@@ -189,9 +194,9 @@ public class PanelMember extends JPanel implements ActionListener {
 		
 		couponDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		couponDialog.setBounds(100, 100, 348, 99);
-		couponDialog.setLayout(new BorderLayout());
+		couponDialog.getContentPane().setLayout(new BorderLayout());
 		dialogContentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		couponDialog.add(dialogContentPanel, BorderLayout.CENTER);
+		couponDialog.getContentPane().add(dialogContentPanel, BorderLayout.CENTER);
 		dialogContentPanel.setLayout(null);
 		couponBox = new JComboBox<Coupon>();
 		couponBox.setBounds(19, 10, 179, 38);
@@ -270,11 +275,65 @@ public class PanelMember extends JPanel implements ActionListener {
 				actionPerformedMntmCouponAdd();
 			}else if(e.getActionCommand().equals("쿠폰삭제")) {
 				actionPerformedMntmCouponCancel();
+			}else if(e.getActionCommand().equals("쿠폰일괄지급")) {
+				actionPerformedMntmCouponAddAll();
 			}
+		}
+		if(e.getSource() == btnCouponAll) {
+			actionPerformedBtnCouponAll();
 		}
 		
 	}
 	
+	private void actionPerformedMntmCouponAddAll() {
+		//선택한 쿠폰 회원에게 일괄 지급.
+		//이미 쿠폰을 보유한 경우 마일리지로 지급.
+		int b = JOptionPane.showConfirmDialog(null, "쿠폰일괄지급을 하시겠습니까?");
+		if(b==0) {
+			boolean a = false;
+			Coupon coupon = (Coupon) couponBox.getSelectedItem(); // 선택한 쿠폰
+			
+			//전체 회원 번호 출력.
+			List<Member> list = service.selectMemberByAll();
+			
+			List<MemberCoupon> couponList = service.selectByAll();
+		
+			for(Member member : list) {
+				MemberCoupon memberCoupon = new MemberCoupon();
+				memberCoupon.setCpNo(coupon);
+				memberCoupon.setMbNo(member); // 부여할 쿠폰 종류, 회원 번호
+				memberCoupon.setCpUse(false);
+				
+				for(MemberCoupon membercoupon2 : couponList) { // 멤버쿠폰 테이블에 해당 하는 정보가 있는지 확인.
+					if(membercoupon2.equals(memberCoupon)) { // 만약 회원이 쿠폰을 보유 하고 있는 경우 일괄적으로 마일리지 1000원으로 대체.
+						a = true;
+						break;
+					}
+				}
+				if(a==true) {
+					service.plusMileage(member);
+				}else {
+					service.insertMemberCoupon(memberCoupon);
+				}
+			}
+			reloadList();
+		}else {
+			return;
+		}
+		
+	}
+
+	private void actionPerformedBtnCouponAll() {
+		//전체 쿠폰 리스트 출력
+		List<Coupon> couponList = service.selectByCouponAll();
+		setCouponBox(couponList);
+		btnAdd.setText("쿠폰일괄지급");
+		couponDialog.setVisible(true);
+		
+	
+		
+	}
+
 	private void actionPerformedMntmCouponCancel() {
 		// 회원번호랑 쿠폰이름 받아서 membercoupon테이블에서 삭제.
 		

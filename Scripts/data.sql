@@ -51,6 +51,10 @@ insert into no_manager values ('1jongho1227', password('whdgh123'));
 
 select * from member;
 
+update `member`
+set mb_mileage = mb_mileage+1000
+where mb_no = 1;
+
 select * from member_coupon;
 
 select * from coupon;
@@ -75,4 +79,6 @@ insert into member_coupon values (5,1,0);
 select * from member_coupon where mb_no=5 and cp_use=false;
 
 select cp_no, cp_name as coupon, cp_discount from coupon order by cp_discount;
+
+select m.mb_no, c.cp_name
 

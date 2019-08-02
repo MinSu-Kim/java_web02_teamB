@@ -37,8 +37,35 @@ public class MemberCoupon {
 		this.cpUse = cpUse;
 	}
 
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpNo == null) ? 0 : cpNo.hashCode());
+		result = prime * result + ((mbNo == null) ? 0 : mbNo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		MemberCoupon other = (MemberCoupon) obj;
+		if (mbNo.getMbNo()==other.mbNo.getMbNo() && cpNo.getCpName().equals(other.cpNo.getCpName()))
+			return true;
+		return false;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("MemberCoupon [cpNo=%s, mbNo=%s, cpUse=%s]", cpNo, mbNo, cpUse);
+		return String.format("MemberCoupon [cpNo=%s, mbNo=%s, cpUse=%s]", cpNo.toString2(), mbNo, cpUse);
 	}
 }
+
+
+
+
+
+
+
+

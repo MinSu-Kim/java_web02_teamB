@@ -37,4 +37,13 @@ public class MemberCouponDaoImpl implements MemberCouponDao {
 			return res;
 		}
 	}
+
+	@Override
+	public List<MemberCoupon> selectByAll() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectByAll");
+		}
+	}
+
+	
 }

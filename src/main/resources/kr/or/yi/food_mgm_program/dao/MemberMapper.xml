@@ -106,6 +106,10 @@
 		from member m left join member_coupon mc on m.mb_name = mc.mb_name left join coupon c on mc.cp_no = c.cp_no left join grade g on m.mb_grade = g.grade
 		where right(mb_tel,8) = #{mbTel} and mc.cp_use = 0;
 	</select>
+	
+	<update id="plusMileage" parameterType="Member">
+		update member set mb_mileage = mb_mileage+100 where mb_no = #{mbNo};
+	</update>
 </mapper>
 
 
