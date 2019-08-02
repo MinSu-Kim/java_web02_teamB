@@ -196,15 +196,9 @@ public class Member {
 		for (int i = 0; i < coupon.size(); i++) {
 			array[i] = coupon.get(i).toString();
 		}
-		
-		SimpleDateFormat sdfm = new SimpleDateFormat("yyyy-MM-dd kk:mm");
-		String joinDate = "";
-		if(mbJoin != null) {
-			joinDate = sdfm.format(mbJoin);
-		}
 
 		if(mbBirth != null) {
-			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO", joinDate};
+			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO", String.format("%tF", mbJoin)};
 		}else 
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
 	}
