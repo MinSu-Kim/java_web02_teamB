@@ -197,7 +197,7 @@ public class Member {
 			array[i] = coupon.get(i).toString();
 		}
 		
-		SimpleDateFormat sdfm = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		SimpleDateFormat sdfm = new SimpleDateFormat("yyyy-MM-dd");
 		String joinDate = "";
 		if(mbJoin != null) {
 			joinDate = sdfm.format(mbJoin);

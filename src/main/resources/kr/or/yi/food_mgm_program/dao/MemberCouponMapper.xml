@@ -3,11 +3,19 @@
 <mapper namespace="kr.or.yi.food_mgm_program.dao.MemberCouponMapper">
 	<resultMap type="MemberCoupon" id="resultCoupon">
 		<result column="mb_no" property="mbNo.mbNo"/>
-		<result column="cp_no" property="cpNo.cpNo"/>
+		<result column="cp_name" property="cpNo.cpName"/>
 		<result column="cp_use" property="cpUse"/>
 	</resultMap>
 	
 	<insert id="insertMemberCoupon" parameterType="MemberCoupon">
-		insert into member_coupon(mb_no, cp_no) values(#{mbNo.mbNo}, #{cpNo.cpNo})
+		insert into member_coupon(mb_no, cp_name) values(#{mbNo.mbNo}, #{cpNo.cpName})
 	</insert>
+	
+	<select id="selectByMbNo" parameterType="MemberCoupon" resultMap="resultCoupon">
+		select * from member_coupon where mb_no=#{mbNo.mbNo} and cp_use=false
+	</select>
+	
+	<delete id="deleteByMbNo" parameterType="MemberCoupon">
+		delete from member_coupon where mb_no=#{mbNo.mbNo} and cp_name=#{cpNo.cpName}
+	</delete>
 </mapper>

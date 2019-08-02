@@ -2,17 +2,22 @@ package kr.or.yi.food_mgm_program.service;
 
 import java.util.List;
 
+import kr.or.yi.food_mgm_program.dao.CouponDao;
 import kr.or.yi.food_mgm_program.dao.MemberCouponDao;
 import kr.or.yi.food_mgm_program.dao.MemberDao;
+import kr.or.yi.food_mgm_program.daoImpl.CouponDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.MemberCouponDaoImpl;
 import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
+import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.MemberCoupon;
+import kr.or.yi.food_mgm_program.ui.list.memberList;
 
 public class PanelMemberService {
 	private static PanelMemberService service = new PanelMemberService();
 	private MemberDao dao;
 	private MemberCouponDao mcDao;
+	private CouponDao cDao;
 	
 	public static PanelMemberService getInstance() {
 		return service;
@@ -21,6 +26,7 @@ public class PanelMemberService {
 	public PanelMemberService() {
 		dao = new MemberDaoImpl();
 		mcDao = new MemberCouponDaoImpl();
+		cDao = new CouponDaoImpl(); 
 	}
 	
 	public List<Member> selectMemberByAll(){
@@ -55,4 +61,30 @@ public class PanelMemberService {
 		return mcDao.insertMemberCoupon(memberCoupon);
 	}
 	
+	public Member selectByNameTel(Member member){
+		return dao.selectByNameTel(member);
+	}
+	
+	public List<Coupon> selectByCouponAll(){
+		return cDao.selectByCouponAll();
+	}
+	
+	public List<MemberCoupon> selectByMbNo(MemberCoupon memberCoupon){
+		return mcDao.selectByMbNo(memberCoupon);
+	}
+	
+	public int deleteByMbNo(MemberCoupon memberCoupon) {
+		return mcDao.deleteByMbNo(memberCoupon);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

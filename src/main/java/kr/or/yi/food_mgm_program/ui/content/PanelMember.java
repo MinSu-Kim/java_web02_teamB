@@ -4,14 +4,18 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -24,6 +28,7 @@ import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.MemberCoupon;
+import kr.or.yi.food_mgm_program.service.PanelMCouponService;
 import kr.or.yi.food_mgm_program.service.PanelMemberService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelMemberInfo;
 import javax.swing.border.EmptyBorder;
@@ -34,6 +39,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -45,20 +52,27 @@ public class PanelMember extends JPanel implements ActionListener {
 	private PanelMemberService service;
 	private List<Member> list;
 	private List<Member> listNM;
-	
 	private JPanel pInsert;
 	private JPanel pList;
 	private JButton btnJoin;
 	private JButton btnCancel;
 	private JButton btnSearch;
 	private JButton btnList;
-	
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
 	private JMenuItem mntmTrans;
+	private JMenuItem mntmCouponPlus;
+	private JMenuItem mntmCouponMinus;
 	private JButton btnNomem;
 	private JButton btnAll;
+	private JDialog couponDialog;
+	private JPanel dialogContentPanel = new JPanel();
+	private JComboBox<Coupon> couponBox; 
+	private DefaultComboBoxModel<Coupon> DcouponBox;
+	private Member member;
+
+	private JButton btnAdd; 
 	
 	public JPanel getpList() {
 		return pList;
@@ -68,9 +82,13 @@ public class PanelMember extends JPanel implements ActionListener {
 		service = PanelMemberService.getInstance();
 		list = service.selectMemberByAll();
 		listNM = service.selectMemberByAllNM();
+		couponDialog = new JDialog();
+		createJDialog();
+		
+		
 		initComponents();
 	}
-	
+
 	private void initComponents() {
 		setLayout(new BorderLayout(0, 0));
 		
@@ -154,12 +172,45 @@ public class PanelMember extends JPanel implements ActionListener {
 		mntmTrans = new JMenuItem("회원전환");
 		mntmTrans.addActionListener(this);
 		popupMenu.add(mntmTrans);
+		
+		mntmCouponPlus = new JMenuItem("쿠폰추가");
+		mntmCouponPlus.addActionListener(this);
+		popupMenu.add(mntmCouponPlus);
+		
+		mntmCouponMinus = new JMenuItem("쿠폰삭제");
+		mntmCouponMinus.addActionListener(this);
+		popupMenu.add(mntmCouponMinus);
+		
 
 		pMemberList.setPopupMenu(popupMenu);
 	}
-
+	
+	private void createJDialog() {
+		
+		couponDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		couponDialog.setBounds(100, 100, 348, 99);
+		couponDialog.setLayout(new BorderLayout());
+		dialogContentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		couponDialog.add(dialogContentPanel, BorderLayout.CENTER);
+		dialogContentPanel.setLayout(null);
+		couponBox = new JComboBox<Coupon>();
+		couponBox.setBounds(19, 10, 179, 38);
+		dialogContentPanel.add(couponBox);
+		btnAdd = new JButton("쿠폰추가");
+		btnAdd.addActionListener(this);
+		btnAdd.setBounds(210, 10, 97, 38);
+		dialogContentPanel.add(btnAdd);
+		
+	}
+	private void setCouponBox(List<Coupon> couponList) {
+		DcouponBox = new DefaultComboBoxModel<Coupon>(new Vector<Coupon>(couponList));
+		couponBox.setModel(DcouponBox);
+		
+	}
+	
 	public void reloadList() {
 		list = service.selectMemberByAll();
+		
 		pMemberList.setItemList(list);
 		pMemberList.reloadData();
 		lastNum();
@@ -208,17 +259,115 @@ public class PanelMember extends JPanel implements ActionListener {
 		if(e.getSource() == mntmTrans) {
 			actionPerformedMntmTrans();
 		}
+		if(e.getSource() == mntmCouponPlus) {
+			actionPerformedMntmCouponPlus();
+		}
+		if(e.getSource() == mntmCouponMinus) {
+			actionPerformedMntmCouponMinus();
+		}
+		if(e.getSource() == btnAdd) {
+			if(e.getActionCommand().equals("쿠폰추가")) {
+				actionPerformedMntmCouponAdd();
+			}else if(e.getActionCommand().equals("쿠폰삭제")) {
+				actionPerformedMntmCouponCancel();
+			}
+		}
+		
 	}
 	
+	private void actionPerformedMntmCouponCancel() {
+		// 회원번호랑 쿠폰이름 받아서 membercoupon테이블에서 삭제.
+		
+		int a = JOptionPane.showConfirmDialog(null, "쿠폰을 삭제 하시겠습니까?");
+		if(a==0) {
+			Coupon coupon = (Coupon) couponBox.getSelectedItem();
+			String couponName = coupon.getCpName();
+			coupon.setCpName(couponName);
+			MemberCoupon memberCoupon = new MemberCoupon();
+			memberCoupon.setCpNo(coupon);
+			memberCoupon.setMbNo(member);
+			service.deleteByMbNo(memberCoupon);
+			reloadList();
+			couponDialog.setVisible(false);
+		}else {
+			return;
+		}
+		
+		
+	}
+
+	private void actionPerformedMntmCouponAdd() {
+		//회원번호랑 쿠폰이름 받아서 membercoupon테이블에 추가
+		int a = JOptionPane.showConfirmDialog(null, "쿠폰을 추가 하시겠습니까?");
+		if(a==0) {
+			Coupon coupon = (Coupon) couponBox.getSelectedItem();
+			String couponName = coupon.getCpName();
+			coupon.setCpName(couponName);
+			MemberCoupon memberCoupon = new MemberCoupon();
+			memberCoupon.setCpNo(coupon);
+			memberCoupon.setMbNo(member);
+			service.insertMemberCoupon(memberCoupon);
+			reloadList();
+			couponDialog.setVisible(false);
+		}else {
+			return;
+		}
+	}
+
+	
+	
+	private void actionPerformedMntmCouponMinus() {
+		//쿠폰 삭제
+		//보유하고 있는 쿠폰이 나와야함.
+		Member member = pMemberList.getSelectedItem();
+		this.member = member;
+		MemberCoupon memberCoupon = new MemberCoupon();
+		memberCoupon.setMbNo(member);
+		List<MemberCoupon> list = service.selectByMbNo(memberCoupon);
+		List<Coupon> couponList = new ArrayList<Coupon>();
+		
+		for(MemberCoupon mc : list) {
+			Coupon coupon = mc.getCpNo();
+			couponList.add(coupon);
+		}
+		setCouponBox(couponList);
+		btnAdd.setText("쿠폰삭제");
+		couponDialog.setVisible(true);
+		
+	}
+
+	private void actionPerformedMntmCouponPlus() {
+		//쿠폰 추가
+		//보유하지 않은 쿠폰이 나와야함.
+		Member member = pMemberList.getSelectedItem();
+		this.member = member;
+		
+		MemberCoupon memberCoupon = new MemberCoupon();
+		memberCoupon.setMbNo(member);
+		List<MemberCoupon> list = service.selectByMbNo(memberCoupon);
+		
+		List<Coupon> couponList = service.selectByCouponAll();
+		
+		for(MemberCoupon mc : list) {
+			Coupon coupon = mc.getCpNo();
+			couponList.remove(coupon);
+		}
+		setCouponBox(couponList);
+		btnAdd.setText("쿠폰추가");
+		couponDialog.setVisible(true);
+	}
+
 	private void actionPerformedBtnTrans(ActionEvent e) throws Exception {
-		Map<String, Object> map = pMember.getMember(e);
-		Member member = (Member) map.get("member");
-		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
+		Member member = pMember.getMember(e);
+		Member member2 = new Member(member.getMbNo());
+		Coupon coupon = new Coupon("회원가입쿠폰");
+		MemberCoupon memberCoupon = new MemberCoupon(coupon, member2);
+		
 		member.setMbWithdrawal(true);
 		member.setMbMileage(1000);
 		member.setMbGrade(new Grade("bronze"));
 		service.updateTrnasMember(member);
-		service.insertMemberCoupon(membercoupon);
+		service.insertMemberCoupon(memberCoupon);
 		reloadList();
 		btnJoin.setText("가입");
 	}
@@ -233,13 +382,10 @@ public class PanelMember extends JPanel implements ActionListener {
 		}
 	}
 
-	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception {
-		Map<String, Object> map = pMember.getMember(e);
-		Member member = (Member) map.get("member");
-		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
+	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception { // 수정버튼 누를때
+		Member member = pMember.getMember(e);
 		member.setMbWithdrawal(true);
 		service.updateMember(member);
-		service.insertMemberCoupon(membercoupon);
 		reloadList();
 		btnJoin.setText("가입");
 	}
@@ -258,14 +404,28 @@ public class PanelMember extends JPanel implements ActionListener {
 		reloadList();
 	}
 
-	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception {
-		Map<String, Object> map = pMember.getMember(e);
-		Member member = (Member) map.get("member");
-		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
+	protected void actionPerformedBtnJoin(ActionEvent e) throws Exception { // 가입버튼 누를때.
+//		Map<String, Object> map = pMember.getMember(e);
+//		Member member = (Member) map.get("member");
+//		MemberCoupon membercoupon = (MemberCoupon) map.get("memberCoupon");
+		
+		Member member = pMember.getMember(e);
+		Member member2 = new Member(member.getMbNo());
+		Coupon coupon = new Coupon();
+		coupon.setCpName("회원가입쿠폰");
+		MemberCoupon memberCoupon = new MemberCoupon(coupon, member2);
+		
+		if(service.selectByNameTel(member)!=null) {
+			JOptionPane.showMessageDialog(null, "이미 가입되어있습니다.");
+			return;
+		}
 		member.setMbWithdrawal(true);
 		service.insertMember(member);
-		service.insertMemberCoupon(membercoupon);
+		service.insertMemberCoupon(memberCoupon);
 		reloadList();
+		
+		//가입 버튼 누를때 member_coupon 테이블에 회원번호랑 회원가입 쿠폰 들어가게함.
+		// 회원 중복체크도 하고.
 	}
 	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
@@ -275,12 +435,11 @@ public class PanelMember extends JPanel implements ActionListener {
 
 	public void lastNum() {
 		int lastNo = 0;
-		if(!listNM.isEmpty()) {
-			listNM = service.selectMemberByAllNM();
-			Member last = listNM.get(listNM.size()-1);
-			lastNo = last.getMbNo()+1;
+		listNM = service.selectMemberByAllNM();
+		if(listNM.size()==0) {
+			lastNo=1;
 		}else {
-			lastNo = 1;
+			lastNo = listNM.size()+1;	
 		}
 		pMember.clearMemberInfo(lastNo);
 	}
@@ -311,7 +470,7 @@ public class PanelMember extends JPanel implements ActionListener {
 		btnJoin.setText("가입");
 	}
 	
-	protected void actionPerformedBtnNomem(ActionEvent e) throws Exception {
+	protected void actionPerformedBtnNomem(ActionEvent e) throws Exception {//비회원 등록
 		Member member = pMember.getNoMember();
 		service.insertMember(member);
 		reloadList();
