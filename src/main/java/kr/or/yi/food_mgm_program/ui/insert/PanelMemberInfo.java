@@ -58,8 +58,6 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 //	private JLabel lblImg;
 	
 	private PostFrame pFrame;
-	private JLabel lblCoupon;
-	private JComboBox<Coupon> cmbCoupon;
 	private JLabel lblMileage;
 	private JTextField tfMileage;
 	private List<Coupon> couponList;
@@ -168,18 +166,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setFont(new Font("굴림", Font.PLAIN, 15));
 		tfMileage.setColumns(15);
 		pMember.add(tfMileage);
-		
-		lblCoupon = new JLabel("쿠폰");
-		lblCoupon.setHorizontalTextPosition(SwingConstants.LEADING);
-		lblCoupon.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCoupon.setFont(new Font("굴림", Font.PLAIN, 15));
-		lblCoupon.setBorder(new EmptyBorder(0, 0, 0, 20));
-		pMember.add(lblCoupon);
-		
-		cmbCoupon = new JComboBox<Coupon>();
 		setCbm();
-		cmbCoupon.setFont(new Font("굴림", Font.PLAIN, 15));
-		pMember.add(cmbCoupon);
 	}
 	
 //	private void createImage() {
@@ -190,7 +177,6 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 
 	private void setCbm() {
 		DefaultComboBoxModel<Coupon> fkModels = new DefaultComboBoxModel<Coupon>(new Vector<Coupon>(couponList));
-		cmbCoupon.setModel(fkModels);
 	}
 
 	public void clearMemberInfo(int nextNo) {
@@ -202,12 +188,12 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setText("");
 		tfId.setEditable(false);
 		tfMileage.setEditable(false);
-		cmbCoupon.setSelectedIndex(-1);
+	
 	}
 	
 	public void setEditable() {
 		tfMileage.setEditable(true);
-		cmbCoupon.setEnabled(true);
+		
 	}
 	
 	public void setMember(Member member) {
@@ -219,7 +205,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		tfMileage.setText(member.getMbMileage()+"");
 	}
 	
-	public Map<String, Object> getMember(ActionEvent e) throws Exception {
+	public Member getMember(ActionEvent e) throws Exception {
 		validCheck();
 		
 		int mileage = 0;
@@ -235,16 +221,19 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 			mileage = Integer.valueOf(tfMileage.getText());
 		}
 		
-		Member member = new Member(mbNo);
-		Coupon coupon = (Coupon) cmbCoupon.getSelectedItem();
-		MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
+//		Member member = new Member(mbNo);
+//		Coupon coupon = new Coupon(2);
+//		MemberCoupon memberCoupon = new MemberCoupon(coupon, member);
 		Member member2 = new Member(mbNo, name, birth, tel, address, grade, mileage);
-		member2.setMbJoin(new Date());
-		//JOptionPane.showMessageDialog(null, member2);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member", member2);
-		map.put("memberCoupon", memberCoupon);
-		return map;
+		if(e.getActionCommand().equals("가입")||e.getActionCommand().equals("회원전환")) {
+			member2.setMbJoin(new Date());
+		}
+		
+//		//JOptionPane.showMessageDialog(null, member2);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("member", member2);
+//		map.put("memberCoupon", memberCoupon);
+		return member2;
 	}
 	
 	public Member getNoMember() throws Exception {
