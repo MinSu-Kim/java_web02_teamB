@@ -324,6 +324,8 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		this.frame = frame;
 	}
 	
-	
-
+	public void setClear() {
+		panelInfo.setClear();
+	}
+		
 }
