@@ -46,7 +46,7 @@ ALTER TABLE food.foodKind
 CREATE TABLE food.member (
 	mb_no         INT         NOT NULL COMMENT '회원번호', -- 회원번호
 	mb_tel        VARCHAR(13) NOT NULL COMMENT '전화번호', -- 전화번호
-	mb_name       VARCHAR(10) NULL     COMMENT '회원명', -- 회원명
+	mb_name       VARCHAR(10) NOT NULL     COMMENT '회원명', -- 회원명
 	mb_birth      DATE        NULL     COMMENT '생년월일', -- 생년월일
 	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
 	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
@@ -63,9 +63,6 @@ ALTER TABLE food.member
 		PRIMARY KEY (
 			mb_no -- 회원번호
 		);
-
-ALTER TABLE food.member
-	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
 
 -- 쿠폰
 CREATE TABLE food.coupon (

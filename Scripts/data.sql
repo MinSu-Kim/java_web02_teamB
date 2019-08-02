@@ -69,16 +69,6 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 
 select * from post;
 
-truncate member;
-
-truncate member_coupon;
-
-insert into member_coupon values (1,1,0);
-insert into member_coupon values (5,1,0);
-
-select * from member_coupon where mb_no=5 and cp_use=false;
-
-select cp_no, cp_name as coupon, cp_discount from coupon order by cp_discount;
-
-select m.mb_no, c.cp_name
+insert into member(mb_no, mb_tel, mb_name) values (0, '01000000000','비회원');
+select * from `member`;
 
