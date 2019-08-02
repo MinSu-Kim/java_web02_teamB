@@ -10,6 +10,7 @@
 		<result column="mb_mileage" property="mbMileage"/>
 		<result column="mb_address" property="mbAddress"/>
 		<result column="mb_withdrawal" property="mbWithdrawal"/>
+		<result column="mb_join" property="mbJoin"/>
 		<result column="mb_count" property="mbCount"/>
 	</resultMap>
 	
@@ -20,14 +21,14 @@
 	
 	<select id="selectMemberByAll" resultMap="resultMemberBJY">
 		<!-- select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member -->
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal, mb_join
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
-		group by mb_no having mb_withdrawal=true
+		group by mb_no having mb_withdrawal = true
 	</select>
 	
 	<select id="selectMemberByAllNM" resultMap="resultMemberBJY">
 		<!-- select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member -->
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal, mb_join
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 		group by mb_no
 	</select>
@@ -37,9 +38,9 @@
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
 	</select> -->
 	
-	<insert id="insertMember" parameterType="Member">
-		insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal) 
-		values (#{mbNo},#{mbName},#{mbBirth},#{mbTel},#{mbMileage},#{mbGrade.grade},#{mbAddress},#{mbWithdrawal})
+	<insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="mb_no">
+		insert into member(mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, mb_withdrawal, mb_join) 
+		values (#{mbNo},#{mbName},#{mbBirth},#{mbTel},#{mbMileage},#{mbGrade.grade},#{mbAddress},#{mbWithdrawal},#{mbJoin})
 	</insert>
 	
 	<select id="selectMemberByTel" resultType="Member" parameterType="Member">
@@ -51,7 +52,7 @@
 	</update>
 	
 	<update id="updateTrnasMember" parameterType="Member">
-		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_mileage = #{mbMileage}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade} 
+		update member set mb_name = #{mbName}, mb_tel = #{mbTel}, mb_birth = #{mbBirth}, mb_address = #{mbAddress}, mb_mileage = #{mbMileage}, mb_withdrawal = #{mbWithdrawal}, mb_grade = #{mbGrade.grade}, mb_join = #{mbJoin} 
 		where mb_no = #{mbNo};		
 	</update>
 	
@@ -91,7 +92,6 @@
 		update member m left join member_coupon mc on m.mb_no = mc.mb_no 
 		left join coupon c on mc.cp_no = c.cp_no set mc.cp_use = #{whether} where m.mb_no = #{no} and c.cp_name = #{cpname}
 	</delete>
-	
 	
 	<select id="selectByNameTel" parameterType="Member" resultMap="resultMemberBJY">
 		select * from member where mb_name=#{mbName} and mb_tel=#{mbTel}

@@ -13,6 +13,9 @@ CREATE TABLE food.food (
 )
 COMMENT '음식';
 
+ALTER TABLE food.food
+	ADD COLUMN fd_withdrawal TINYINT DEFAULT false NULL COMMENT '삭제여부';
+
 -- 음식
 ALTER TABLE food.food
 	ADD CONSTRAINT PK_food -- 음식 기본키
@@ -66,6 +69,9 @@ ALTER TABLE food.member
 
 ALTER TABLE food.member
 	ADD COLUMN mb_count INT DEFAULT 0 NULL COMMENT '결제건수';
+
+ALTER TABLE food.member
+	ADD COLUMN mb_join DATE NULL COMMENT '결제건수';
 
 -- 쿠폰
 CREATE TABLE food.coupon (

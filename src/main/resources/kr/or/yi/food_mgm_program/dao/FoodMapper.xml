@@ -7,6 +7,7 @@
 		<id column="fd_no" property="fdNo"/>
 		<result column="fd_price" property="fdPrice"/>
 		<result column="fd_name" property="fdName"/>
+		<result column="fd_withdrawal" property="fdWithdrawal"/>
 	</resultMap>
 	
 	<resultMap type="Food" id="resultFoodBJY" extends="resultFood">
@@ -14,6 +15,10 @@
 	</resultMap>
 	
 	<select id="selectFoodByAll" resultMap="resultFoodBJY">
+		select f.fd_no, f.fd_name, f.fd_price, fk.fk_name from food f join foodkind fk on f.fk_no = fk.fk_no where fd_withdrawal = false order by fk.fk_no
+	</select>
+	
+	<select id="selectFoodByAllF" resultMap="resultFoodBJY">
 		select f.fd_no, f.fd_name, f.fd_price, fk.fk_name from food f join foodkind fk on f.fk_no = fk.fk_no
 	</select>
 	
@@ -38,7 +43,7 @@
 	</update>
 	
 	<delete id="deletFood" parameterType="Food">
-		delete from food where fd_no = #{fdNo};
+		update food set fd_withdrawal = #{fdWithdrawal} where fd_no = #{fdNo};
 	</delete>
 </mapper>
 
