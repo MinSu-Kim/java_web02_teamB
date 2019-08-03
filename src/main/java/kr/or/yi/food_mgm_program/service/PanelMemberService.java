@@ -84,6 +84,10 @@ public class PanelMemberService {
 	public int plusMileage(Member member) {
 		return dao.plusMileage(member);
 	}
+	
+	public List<Member> selectMemberByAll2() {
+		return dao.selectMemberByAll2();
+	}
 }
 
 

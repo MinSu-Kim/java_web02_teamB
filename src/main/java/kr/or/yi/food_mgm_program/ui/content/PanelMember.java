@@ -296,22 +296,22 @@ public class PanelMember extends JPanel implements ActionListener {
 			//전체 회원 번호 출력.
 			List<Member> list = service.selectMemberByAll();
 			
-			List<MemberCoupon> couponList = service.selectByAll();
+			List<MemberCoupon> couponList = service.selectByAll(); // 회원의 안쓴 쿠폰들만 출력
 		
 			for(Member member : list) {
 				MemberCoupon memberCoupon = new MemberCoupon();
 				memberCoupon.setCpNo(coupon);
 				memberCoupon.setMbNo(member); // 부여할 쿠폰 종류, 회원 번호
-				memberCoupon.setCpUse(false);
-				
+			
 				for(MemberCoupon membercoupon2 : couponList) { // 멤버쿠폰 테이블에 해당 하는 정보가 있는지 확인.
-					if(membercoupon2.equals(memberCoupon)) { // 만약 회원이 쿠폰을 보유 하고 있는 경우 일괄적으로 마일리지 1000원으로 대체.
+					if(membercoupon2.equals(memberCoupon)) { // 만약 회원이 쿠폰을 보유 하고 있는 경우 일괄적으로 마일리지 100원으로 대체.
 						a = true;
 						break;
 					}
 				}
 				if(a==true) {
 					service.plusMileage(member);
+					a = false;
 				}else {
 					service.insertMemberCoupon(memberCoupon);
 				}

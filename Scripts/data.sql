@@ -51,9 +51,7 @@ insert into no_manager values ('1jongho1227', password('whdgh123'));
 
 select * from member;
 
-update `member`
-set mb_mileage = mb_mileage+1000
-where mb_no = 1;
+
 
 select * from member_coupon;
 
@@ -70,5 +68,6 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 select * from post;
 
 insert into member(mb_no, mb_tel, mb_name) values (0, '01000000000','비회원');
-select * from `member`;
+delete from member where mb_no = 0;
+
 
