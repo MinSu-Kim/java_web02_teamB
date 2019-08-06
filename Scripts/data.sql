@@ -70,4 +70,19 @@ select * from post;
 insert into member(mb_no, mb_tel, mb_name) values (0, '01000000000','비회원');
 delete from member where mb_no = 0;
 
+select * from reservation;
+select * from member_reservation;
+select * from member_reservation2;
+select * from member_reservation where rsv_time like concat(current_date(),'%');
+select * from member_reservation4;
+
+select * from reservation where rsv_cancel = 0;
+
+
+
+
+
+
+
+
 
