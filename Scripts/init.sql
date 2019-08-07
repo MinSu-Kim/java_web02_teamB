@@ -334,3 +334,7 @@ select * from member_reservation where rsv_time like concat(current_date(),'%');
 create view member_reservation3 as -- 오늘 예약한 애들중에 취소 안한애들
 select * from member_reservation2 where rsv_cancel = 0;
 
+create view member_reservation4 as -- 전체 예약중에 취소 안한 예약.
+select * from reservation where rsv_cancel = 0;
+
+
