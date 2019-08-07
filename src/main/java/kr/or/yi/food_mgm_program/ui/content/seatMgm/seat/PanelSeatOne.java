@@ -51,7 +51,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private PanelSeatService service;
 	
 	public PanelSeatOne(MainFrame frame) {
-		payFrame = new PaymentFrame();
+		
 		this.frame = frame;
 		initComponents();
 		service = PanelSeatService.getInstance();
@@ -131,15 +131,10 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	}
 	protected void actionPerformedBtnNumber(ActionEvent e) {
 		String no = btnNumber.getText();
-			
 			pList.setList(foodList);
 			pList.setTableNo(no);
 			panelMain.setSeatOne(this);
-			
-	
-		
-		
-	}
+		}
 	public void setPcc(List<Food> list) {
 		pCC.removeAll();
 		if(list==null) {
@@ -201,7 +196,8 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 			saleList.add(sale);
 			 sum += food.getFdPrice()*food.getCount();
 		}
-		
+		payFrame = new PaymentFrame();
+		payFrame.setClear();
 		payFrame.setInitWork(sum,saleList);
 		payFrame.setMainFrame(frame);
 		payFrame.setVisible(true);

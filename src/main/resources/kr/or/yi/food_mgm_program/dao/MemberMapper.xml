@@ -21,15 +21,15 @@
 	
 	<select id="selectMemberByAll" resultMap="resultMemberBJY">
 		<!-- select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member -->
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal, mb_join
-		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(c.cp_name) coupon, mb_withdrawal, mb_join, cp_use
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name
 		group by mb_no having mb_withdrawal = true
 	</select>
 	
 	<select id="selectMemberByAllNM" resultMap="resultMemberBJY">
 		<!-- select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from member -->
-		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon, mb_withdrawal, mb_join
-		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(c.cp_name) coupon, mb_withdrawal, mb_join
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name
 		group by mb_no
 	</select>
 	
@@ -68,8 +68,13 @@
 	
 	<select id="selectByTel" parameterType="int" resultMap="resultMemberBJY">
 		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount
+<<<<<<< HEAD
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no left join grade g on m.mb_grade = g.grade
 		where right(mb_tel,8) = #{mbTel} and mb_withdrawal=1
+=======
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+		where right(mb_tel,8) = #{mbTel}
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web02_teamB.git
 	</select>
 	
 	<update id="mileageUpdate" parameterType="Member">
@@ -90,7 +95,7 @@
 	
 	<delete id="couponDelete" parameterType="map">
 		update member m left join member_coupon mc on m.mb_no = mc.mb_no 
-		left join coupon c on mc.cp_no = c.cp_no set mc.cp_use = #{whether} where m.mb_no = #{no} and c.cp_name = #{cpname}
+		left join coupon c on mc.cp_name = c.cp_name set mc.cp_use = #{whether} where m.mb_no = #{no} and c.cp_name = #{cpname}
 	</delete>
 	
 	<select id="selectByNameTel" parameterType="Member" resultMap="resultMemberBJY">
@@ -103,8 +108,19 @@
 	
 	<select id="selectCouponByTel" resultType="Member" resultMap="resultMemberBJY">
 		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount
-		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_no = c.cp_no left join grade g on m.mb_grade = g.grade
-		where right(mb_tel,8) = #{mbTel} and mc.cp_use = 0 ;
+
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+		where right(mb_tel,8) = #{mbTel} and mc.cp_use = 0;
+
+	</select>
+	
+	<update id="plusMileage" parameterType="Member">
+		update member set mb_mileage = mb_mileage+100 where mb_no = #{mbNo};
+	</update>
+	
+	<select id="selectMemberByAll2" resultMap="resultMemberBJY">
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_name as coupon, mb_withdrawal, mb_join
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
 	</select>
 </mapper>
 

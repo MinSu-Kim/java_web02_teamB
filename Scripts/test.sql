@@ -166,6 +166,7 @@ update member set mb_count = mb_count+1  where mb_no = 2;
 select * from grade;
 select sum(payPrice) as totalPrice from payment where payMemberNo = 2;
 
+
 select * from member;
 
 select * from member;
@@ -173,4 +174,18 @@ select * from member;
 select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address from member m  join grade g on m.mb_grade = g.grade;
 select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address from member m  join grade g on m.mb_grade = g.grade where mb_no=1;
 		
+
+
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(c.cp_name) coupon, mb_withdrawal, mb_join, cp_use
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name
+		group by mb_no having mb_withdrawal = true
+		
+select * from member m left join member_coupon mc on m.mb_no = mc.mb_no where cp_use = false;
+
+select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_name as coupon, mb_withdrawal, mb_join
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+		where mc.cp_use = 0;
 	
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_name as coupon, mb_withdrawal, mb_join
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+

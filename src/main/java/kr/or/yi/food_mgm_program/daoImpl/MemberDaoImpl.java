@@ -124,6 +124,21 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
+	@Override
+	public int plusMileage(Member member) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			int res = sqlSession.insert(namespace + ".plusMileage", member);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
+	@Override
+	public List<Member> selectMemberByAll2() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + ".selectMemberByAll2");
+		}
+	}
 
 
 }

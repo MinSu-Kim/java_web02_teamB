@@ -22,4 +22,6 @@ public interface MemberDao {
 	public int updateTrnasMember(Member member);
 	public int updateGrade(Member mem);
 	public Member selectCouponByTel(int tel);
+	public int plusMileage(Member member);
+	public List<Member> selectMemberByAll2();
 }

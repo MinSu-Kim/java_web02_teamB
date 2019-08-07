@@ -282,7 +282,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		
 		for(Reservation rssv : list) {
 			if(rssv.getRsvTableNo().equals(tableNo)) {
-				JOptionPane.showMessageDialog(null, "예약된 좌석입니다.");
+				JOptionPane.showMessageDialog(null, "해당시간에 좌석이 예약되어있습니다.");
 				return;
 			}
 			

@@ -183,6 +183,7 @@ public class Member {
 	}
 
 	public Object[] toArray() {
+
 		String[] array;
 		if(coupon != null) {
 			 array = new String[coupon.size()];
@@ -201,10 +202,11 @@ public class Member {
 		}
 
 
+
 		if(mbBirth != null) {
-			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), ("".join(",", array)), mbWithdrawal?"YES":"NO", joinDate};
+			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), mbWithdrawal?"YES":"NO", String.format("%tF", mbJoin)};
 		}else 
-			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", "", mbWithdrawal?"YES":"NO"};
+			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", mbWithdrawal?"YES":"NO"};
 	}
 
 	@Override

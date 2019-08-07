@@ -6,15 +6,13 @@ CREATE SCHEMA food;
 
 -- 음식
 CREATE TABLE food.food (
-	fd_no    INT         NOT NULL COMMENT '음식번호', -- 음식번호
-	fd_price INT         NULL     COMMENT '음식가격', -- 음식가격
-	fd_name  VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
-	fk_no    INT         NULL     COMMENT '음식종류번호' -- 음식종류번호
+	fd_no         INT         NOT NULL COMMENT '음식번호', -- 음식번호
+	fd_price      INT         NULL     COMMENT '음식가격', -- 음식가격
+	fd_name       VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
+	fk_no         INT         NULL     COMMENT '음식종류번호', -- 음식종류번호
+	fd_withdrawal TINYINT     NULL     DEFAULT false COMMENT '삭제여부' -- 삭제여부
 )
 COMMENT '음식';
-
-ALTER TABLE food.food
-	ADD COLUMN fd_withdrawal TINYINT DEFAULT false NULL COMMENT '삭제여부';
 
 -- 음식
 ALTER TABLE food.food
@@ -53,7 +51,9 @@ CREATE TABLE food.member (
 	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
 	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
 	mb_address    VARCHAR(50) NULL     COMMENT '주소', -- 주소
-	mb_withdrawal TINYINT     NULL     COMMENT '탈퇴여부' -- 탈퇴여부
+	mb_withdrawal TINYINT     NULL     COMMENT '탈퇴여부', -- 탈퇴여부
+	mb_count      INT         NULL     DEFAULT 0 COMMENT '결제건수', -- 결제건수
+	mb_join       DATETIME    NULL     COMMENT '가입일' -- 가입일
 )
 COMMENT '회원';
 
@@ -63,20 +63,14 @@ ALTER TABLE food.member
 		PRIMARY KEY (
 			mb_no -- 회원번호
 		);
-	
+
 ALTER TABLE food.member
 	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
 
-ALTER TABLE food.member
-	ADD COLUMN mb_count INT DEFAULT 0 NULL COMMENT '결제건수';
-
-ALTER TABLE food.member
-	ADD COLUMN mb_join DATE NULL COMMENT '결제건수';
-
 -- 쿠폰
 CREATE TABLE food.coupon (
-	cp_no       INT         NOT NULL COMMENT '쿠폰번호', -- 쿠폰번호
-	cp_name     VARCHAR(10) NULL     COMMENT '쿠폰명', -- 쿠폰명
+	cp_name     VARCHAR(10) NOT NULL COMMENT '쿠폰명', -- 쿠폰명
+	cp_no       INT         NULL     COMMENT '쿠폰번호', -- 쿠폰번호
 	cp_discount INT         NULL     COMMENT '할인율' -- 할인율
 )
 COMMENT '쿠폰';
@@ -85,11 +79,8 @@ COMMENT '쿠폰';
 ALTER TABLE food.coupon
 	ADD CONSTRAINT PK_coupon -- 쿠폰 기본키
 		PRIMARY KEY (
-			cp_no -- 쿠폰번호
+			cp_name -- 쿠폰명
 		);
-
-ALTER TABLE food.coupon
-	MODIFY COLUMN cp_no INT NOT NULL AUTO_INCREMENT COMMENT '쿠폰번호';
 
 -- 등급
 CREATE TABLE food.grade (
@@ -107,21 +98,21 @@ ALTER TABLE food.grade
 
 -- 회원,쿠폰
 CREATE TABLE food.member_coupon (
-	mb_no INT NOT NULL COMMENT '회원번호', -- 회원번호
-	cp_no INT NOT NULL COMMENT '쿠폰번호' -- 쿠폰번호
+	mc_no   INT         NOT NULL COMMENT '번호', -- 번호
+	mb_no   INT         NOT NULL COMMENT '회원번호', -- 회원번호
+	cp_name VARCHAR(10) NOT NULL COMMENT '쿠폰명', -- 쿠폰명
+	cp_use  TINYINT     NULL     DEFAULT false COMMENT '사용유무' -- 사용유무
 )
 COMMENT '회원,쿠폰';
+ALTER TABLE food.member_coupon
+	MODIFY COLUMN mc_no INT NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 -- 회원,쿠폰
 ALTER TABLE food.member_coupon
 	ADD CONSTRAINT PK_member_coupon -- 회원,쿠폰 기본키
 		PRIMARY KEY (
-			mb_no, -- 회원번호
-			cp_no  -- 쿠폰번호
+			mc_no -- 번호
 		);
-	
-ALTER TABLE food.member_coupon
-	ADD COLUMN cp_use TINYINT default false  COMMENT '사용유무';
 
 -- 결제
 CREATE TABLE food.sale (
@@ -135,7 +126,7 @@ CREATE TABLE food.sale (
 	mb_no               INT         NULL     COMMENT '회원번호', -- 회원번호
 	sale_discount_info  VARCHAR(30) NULL     COMMENT '할인정보', -- 할인정보
 	sale_discount_price INT         NULL     COMMENT '할인금액', -- 할인금액
-	sale_cancel			TINYINT     NULL     COMMENT '결제취소여부' -- 결제취소여부
+	sale_cancel         TINYINT     NULL     DEFAULT false COMMENT '결제취소여부' -- 결제취소여부
 )
 COMMENT '결제';
 
@@ -211,7 +202,7 @@ CREATE TABLE food.reservation (
 	rsv_tableNo     VARCHAR(5) NOT NULL COMMENT '테이블번호', -- 테이블번호
 	rsv_input_time  DATETIME   NOT NULL COMMENT '등록날짜', -- 등록날짜
 	rsv_update_time DATETIME   NULL     COMMENT '수정날짜', -- 수정날짜
-	rsv_cancel      TINYINT    NOT NULL COMMENT '예약취소' -- 예약취소
+	rsv_cancel      TINYINT    NOT NULL DEFAULT false COMMENT '예약취소' -- 예약취소
 )
 COMMENT '예약';
 
@@ -269,10 +260,10 @@ ALTER TABLE food.member_coupon
 ALTER TABLE food.member_coupon
 	ADD CONSTRAINT FK_coupon_TO_member_coupon -- 쿠폰 -> 회원,쿠폰
 		FOREIGN KEY (
-			cp_no -- 쿠폰번호
+			cp_name -- 쿠폰명
 		)
 		REFERENCES food.coupon ( -- 쿠폰
-			cp_no -- 쿠폰번호
+			cp_name -- 쿠폰명
 		);
 
 -- 결제
@@ -344,4 +335,8 @@ select * from member_reservation where rsv_time like concat(current_date(),'%');
 
 create view member_reservation3 as -- 오늘 예약한 애들중에 취소 안한애들
 select * from member_reservation2 where rsv_cancel = 0;
+
+create view member_reservation4 as -- 전체 예약중에 취소 안한 예약.
+select * from reservation where rsv_cancel = 0;
+
 

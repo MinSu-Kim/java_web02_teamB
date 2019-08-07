@@ -205,4 +205,18 @@ public class PanelPaymentInfo extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void setClear() {
+		tfSaleNo.setText("");
+		tfTotalPrice.setText("");
+		tfDiscountPrice.setText("");
+		tfDisCountInfo.setText("");
+		tfTpReceive.setText("");
+		tfReceive.setText("");
+		tfChange.setText("");
+		tfMember.setText("");
+	}
+	
+	
+	
 }

@@ -19,9 +19,9 @@ insert into grade values ('vip',15),('gold',10),('silver',5);
 insert into grade values ('bronze',0);
 select * from grade;
 
-insert into coupon values (1,'서비스쿠폰',5);
-insert into coupon values (2,'회원가입쿠폰',10);
-insert into coupon values (3,'생일쿠폰',15);
+insert into coupon values ('서비스쿠폰',1,5);
+insert into coupon values ('회원가입쿠폰',2,10);
+insert into coupon values ('생일쿠폰',3,15);
 select * from coupon;
 
 desc manager;
@@ -51,6 +51,12 @@ insert into no_manager values ('1jongho1227', password('whdgh123'));
 
 select * from member;
 
+
+
+select * from member_coupon;
+
+select * from coupon;
+
 LOAD data LOCAL INFILE 'D:\\zipcode_DB\\대구광역시.txt' 
 INTO table food.post
 character set 'utf8'
@@ -61,5 +67,22 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 
 select * from post;
 
-insert into `member` values (1,'01011111111','임종호',now(),1000,'vip','eorn',true,0);
-insert into member_coupon values (1,1,0);
+insert into member(mb_no, mb_tel, mb_name) values (0, '01000000000','비회원');
+delete from member where mb_no = 0;
+
+select * from reservation;
+select * from member_reservation;
+select * from member_reservation2;
+select * from member_reservation where rsv_time like concat(current_date(),'%');
+select * from member_reservation4;
+
+select * from reservation where rsv_cancel = 0;
+
+
+
+
+
+
+
+
+

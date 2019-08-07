@@ -55,6 +55,11 @@ public class Coupon {
 		return result;
 	}
 
+
+	public String toString2() {
+		return String.format("Coupon [cpNo=%s, cpName=%s, cpDiscount=%s]", cpNo, cpName, cpDiscount);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -71,4 +76,8 @@ public class Coupon {
 			return false;
 		return true;
 	}
+
+	
+
+	
 }
