@@ -37,8 +37,6 @@ public class MemberCoupon {
 		this.cpUse = cpUse;
 	}
 
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
