@@ -64,9 +64,6 @@ ALTER TABLE food.member
 			mb_no -- 회원번호
 		);
 
-ALTER TABLE food.member
-	MODIFY COLUMN mb_no INT NOT NULL AUTO_INCREMENT COMMENT '회원번호';
-
 -- 쿠폰
 CREATE TABLE food.coupon (
 	cp_name     VARCHAR(10) NOT NULL COMMENT '쿠폰명', -- 쿠폰명
@@ -104,8 +101,6 @@ CREATE TABLE food.member_coupon (
 	cp_use  TINYINT     NULL     DEFAULT false COMMENT '사용유무' -- 사용유무
 )
 COMMENT '회원,쿠폰';
-ALTER TABLE food.member_coupon
-	MODIFY COLUMN mc_no INT NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 -- 회원,쿠폰
 ALTER TABLE food.member_coupon
@@ -113,6 +108,10 @@ ALTER TABLE food.member_coupon
 		PRIMARY KEY (
 			mc_no -- 번호
 		);
+	
+ALTER TABLE food.member_coupon
+	MODIFY COLUMN mc_no INT NOT NULL AUTO_INCREMENT COMMENT '번호';
+
 
 -- 결제
 CREATE TABLE food.sale (

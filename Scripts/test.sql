@@ -128,6 +128,7 @@ desc sale;
 
 show tables;
 select * from sale;
+delete from sale where sale_no = 19;
 
 select * from payment;
 
@@ -168,6 +169,7 @@ select sum(payPrice) as totalPrice from payment where payMemberNo = 2;
 
 
 select * from member;
+select * from payment;
 
 select * from member;
 
@@ -188,4 +190,16 @@ select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c
 	
 		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c.cp_name as coupon, mb_withdrawal, mb_join
 		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+		
+		
+		
+		select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, g_discount, mb_address, c.cp_no, c.cp_name as coupon, c.cp_discount
+		from member m left join member_coupon mc on m.mb_no = mc.mb_no left join coupon c on mc.cp_name = c.cp_name left join grade g on m.mb_grade = g.grade
+		where  mc.cp_use = 0 ;
+	
+	update member m left join member_coupon mc on m.mb_no = mc.mb_no 
+		left join coupon c on mc.cp_name = c.cp_name set mc.cp_use = #{whether} where m.mb_no = #{no} and c.cp_name = #{cpname}
+		
+		select * from member_coupon;
+		select * from 
 
