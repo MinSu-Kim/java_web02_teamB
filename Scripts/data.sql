@@ -76,13 +76,3 @@ select * from member_reservation where rsv_time like concat(current_date(),'%');
 select * from member_reservation4;
 
 select * from reservation where rsv_cancel = 0;
-
-
-
-
-
-
-
-
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web02_teamB.git
-
