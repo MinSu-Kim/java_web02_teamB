@@ -287,9 +287,13 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 			}
 			
 		}
-		
+		Member search = new Member();
+		search.setMbTel(tel);
 		if(tfMemberNo.getText().substring(0, 1).equals("N")) {
-			service.insertMember(member);
+			if(service.selectByTel(search)==null) {
+				service.insertMember(member);
+			}
+			
 		}
 		
 		service.insertRsv(rsv);
