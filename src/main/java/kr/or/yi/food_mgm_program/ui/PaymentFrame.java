@@ -1,13 +1,9 @@
 package kr.or.yi.food_mgm_program.ui;
 
-import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.apache.logging.log4j.core.impl.MementoMessage;
-
-import kr.or.yi.food_mgm_program.dao.MemberDao;
-import kr.or.yi.food_mgm_program.dao.SaleDao;
-import kr.or.yi.food_mgm_program.daoImpl.MemberDaoImpl;
-import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Coupon;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
@@ -34,7 +24,6 @@ import kr.or.yi.food_mgm_program.ui.content.seatMgm.seat.PanelSeatOne;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSaleList;
 import kr.or.yi.food_mgm_program.ui.content.statistics.PanelSalesList;
 import kr.or.yi.food_mgm_program.ui.insert.PanelPaymentInfo;
-import kr.or.yi.food_mgm_program.ui.list.memberList;
 
 public class PaymentFrame extends JFrame implements ActionListener {
 
@@ -309,6 +298,7 @@ public class PaymentFrame extends JFrame implements ActionListener {
 		s.setListAll();
 		s2.setListAll();
 		parent.setClear();
+		
 		JOptionPane.showMessageDialog(null, "결제가 완료 되었습니다.");
 		PaymentFrame.this.dispose();
 	}

@@ -75,4 +75,3 @@ select * from member_reservation2;
 select * from member_reservation where rsv_time like concat(current_date(),'%');
 select * from member_reservation4;
 
-select * from reservation where rsv_cancel = 0;
