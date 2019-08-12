@@ -6,9 +6,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -19,18 +25,17 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
-import kr.or.yi.food_mgm_program.dao.SalesStatusDao;
-import kr.or.yi.food_mgm_program.daoImpl.SalesStatusDaoImpl;
 import kr.or.yi.food_mgm_program.dto.SalesStatus;
 import kr.or.yi.food_mgm_program.service.PanelSaleListService2;
-import kr.or.yi.food_mgm_program.ui.MainFrame;
 import kr.or.yi.food_mgm_program.ui.list.SalesList;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 @SuppressWarnings("serial")
-public class PanelSalesList extends JPanel implements DocumentListener, ActionListener {
+public class PanelSalesList extends JPanel implements DocumentListener, ActionListener, ItemListener {
 	private JPanel panel_1;
 	private SalesList panel_2;
 	private ChartPanel panel_3;
@@ -40,6 +45,10 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	private PiePlot plot;
 	private DefaultPieDataset pieDataset;
 	private JButton btnSelectbyAll;
+	private JComboBox<String> cmbYear;
+	private JComboBox<String> cmbMonth;
+	ArrayList<String> y;
+	ArrayList<String> m;
 	
 
 	public PanelSalesList() {
@@ -63,6 +72,16 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		
 		btnSelectbyAll = new JButton("전체보기");
 		btnSelectbyAll.addActionListener(this);
+		
+		cmbYear = new JComboBox<String>();
+		cmbYear.addItemListener(this);
+		panel.add(cmbYear);
+		
+		cmbMonth = new JComboBox<String>();
+		cmbMonth.addItemListener(this);
+		panel.add(cmbMonth);
+		
+		setCmbYearMonth();
 		panel.add(btnSelectbyAll);
 
 		datePicker.getJFormattedTextField().getDocument().addDocumentListener(this);
@@ -138,6 +157,8 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 		pieDataset = new DefaultPieDataset();
 		setDefaultChart(pieDataset);
 		plot.setDataset(pieDataset);
+		
+		setCmbClear();
 	}
 
 	@Override
@@ -158,10 +179,94 @@ public class PanelSalesList extends JPanel implements DocumentListener, ActionLi
 	protected void actionPerformedBtnSelectbyAll(ActionEvent e) { //전체보기
 		setDatePickerText();
 		setListAll();
+		setCmbClear();
 		
 	}
 	
 	public void setDatePickerText() {
 		datePicker.getJFormattedTextField().setValue(null);
 	}
+	
+	public void setCmbYearMonth() {
+		 //년도,월별
+		Calendar cal= Calendar.getInstance();
+		 int nyear = cal.get(Calendar.YEAR)+1 ;
+		 y = new ArrayList<String>();
+		 y.add("연도를 선택해주세요");
+		 for (int i = 2002; i < nyear; i++) {
+			y.add(String.valueOf(i)+"년");
+			
+		}
+		 
+		 m = new ArrayList<String>();
+		m.add("월을 선택해주세요");
+		for(int i=1; i<13; i++) {
+			if(i<10) {
+				m.add("0"+i+"월");
+			}else {
+				m.add(i+"월");
+			}
+		}
+		
+		DefaultComboBoxModel<String> deptModels = new DefaultComboBoxModel<String>(new Vector<String>(y));
+		cmbYear.setModel(deptModels);
+		cmbYear.setSelectedIndex(0);
+		
+		DefaultComboBoxModel<String> deptModels2 = new DefaultComboBoxModel<String>(new Vector<String>(m));
+		cmbMonth.setModel(deptModels2);
+		cmbMonth.setSelectedIndex(0);
+		 
+	}
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == cmbMonth) {
+			itemStateChangedCmbMonth(e);
+		}
+		if (e.getSource() == cmbYear) {
+			itemStateChangedCmbYear(e);
+		}
+	}
+	protected void itemStateChangedCmbYear(ItemEvent e) {
+		cmbMonth.setSelectedIndex(0);
+		if(cmbYear.getSelectedIndex()!=0) {
+			String selDate = (String) cmbYear.getSelectedItem();
+			setListBydate(selDate.replace("년", ""));
+			pieDataset = new DefaultPieDataset();
+			setDefaultChart(pieDataset);
+			plot.setDataset(pieDataset); 
+			setDatePickerText();
+		}else if(cmbYear.getSelectedIndex()==0) {
+			cmbMonth.setSelectedIndex(0);
+		}
+		
+	}
+	protected void itemStateChangedCmbMonth(ItemEvent e) {
+		if(cmbMonth.getSelectedIndex()!=0 && cmbYear.getSelectedIndex()==0) { //연도 선택x, 월만 선택
+			Calendar cal= Calendar.getInstance();
+			 int nyear = cal.get(Calendar.YEAR)+1 ;
+			 String selDate2 = (String) cmbMonth.getSelectedItem();
+			String sd =nyear+"-"+selDate2.replace("월", "");
+			setListBydate(sd);
+			setDatePickerText();
+			
+			cmbYear.setSelectedIndex(y.size()-1);
+			pieDataset = new DefaultPieDataset();
+			setDefaultChart(pieDataset);
+			plot.setDataset(pieDataset);
+		}else if(cmbYear.getSelectedIndex()!=0 && cmbMonth.getSelectedIndex()!=0) { //연도 , 월 선택
+			String selDate = (String) cmbYear.getSelectedItem();
+			String selDate2 = (String) cmbMonth.getSelectedItem();
+			String sd =selDate.replace("년", "")+"-"+selDate2.replace("월", "");
+			setListBydate(sd);
+			pieDataset = new DefaultPieDataset();
+			setDefaultChart(pieDataset);
+			plot.setDataset(pieDataset);
+			setDatePickerText();
+		}
+	}
+	
+	public void setCmbClear() {
+		cmbYear.setSelectedIndex(0);
+		cmbMonth.setSelectedIndex(0);
+	}
+	
 }
