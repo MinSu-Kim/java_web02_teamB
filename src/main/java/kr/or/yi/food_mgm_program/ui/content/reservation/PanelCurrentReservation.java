@@ -324,7 +324,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		String date = datePicker.getJFormattedTextField().getText();
 		String date2 = datePicker2.getJFormattedTextField().getText();
 		
-		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if(sd.parse(date).getTime()>sd.parse(date2).getTime()) {
 			JOptionPane.showMessageDialog(null, "검색시작 날짜 이후만 선택가능합니다.");

@@ -103,7 +103,7 @@ public abstract class AbstractPanelMenuList extends JPanel implements ActionList
 		service.selectByNo(food); // 해당 종류의 음식리스트
 //		JOptionPane.showMessageDialog(null, food.getFkNo().getFkNo());
 //		JOptionPane.showMessageDialog(null, fDao.selectByNo(food).toString());
-		
+		frame.setTitle(fk.getFkName());
 		frame.setFood(service.selectByNo(food));
 		frame.setService(service);
 		frame.setPOrder(pOrder);

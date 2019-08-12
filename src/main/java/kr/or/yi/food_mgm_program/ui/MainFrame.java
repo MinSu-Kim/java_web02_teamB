@@ -87,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		PanelMain pSeat = new PanelMain(this);
-		tabbedPane.addTab("좌석 관리", null, pSeat, null);
+		tabbedPane.addTab("주문 관리", null, pSeat, null);
 
 		if(LoginFrame.manager!=null && LoginFrame.noManager==null) {	
 			
