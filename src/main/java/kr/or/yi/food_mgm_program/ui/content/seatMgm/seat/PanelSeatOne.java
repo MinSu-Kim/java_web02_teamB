@@ -13,6 +13,7 @@ import javax.swing.border.MatteBorder;
 import kr.or.yi.food_mgm_program.dao.SaleDao;
 import kr.or.yi.food_mgm_program.daoImpl.SaleDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
+import kr.or.yi.food_mgm_program.dto.Reservation;
 import kr.or.yi.food_mgm_program.dto.Sale;
 import kr.or.yi.food_mgm_program.service.PanelSeatService;
 import kr.or.yi.food_mgm_program.ui.MainFrame;
@@ -23,6 +24,7 @@ import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -49,6 +51,7 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	private MainFrame frame;
 	private Sale sales;
 	private PanelSeatService service;
+	private Reservation rssv;
 	
 	public PanelSeatOne(MainFrame frame) {
 		
@@ -131,6 +134,10 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	}
 	protected void actionPerformedBtnNumber(ActionEvent e) {
 		String no = btnNumber.getText();
+		if(rssv!=null) {
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+			JOptionPane.showMessageDialog(null, sd.format(rssv.getRsvTime())+"에 예약이 있는 좌석입니다.");
+		}
 			pList.setList(foodList);
 			pList.setTableNo(no);
 			panelMain.setSeatOne(this);
@@ -206,6 +213,8 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 	
 	public void btnColor() {
 		btnNumber.setBackground(Color.RED);
+		
+		
 	}
 	public void btnColor2() {
 		btnNumber.setBackground(SystemColor.activeCaption);
@@ -219,6 +228,10 @@ public class PanelSeatOne extends JPanel implements ActionListener {
 		List<Food> list = null;
 		pList.setList(list);
 		foodList = null;
+	}
+	
+	public void setRssv(Reservation rssv) {
+		this.rssv = rssv;
 	}
 }
 

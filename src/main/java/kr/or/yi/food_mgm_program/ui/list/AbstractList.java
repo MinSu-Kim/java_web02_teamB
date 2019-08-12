@@ -104,4 +104,7 @@ public abstract class AbstractList<T> extends JPanel {
 		item = itemList.get(i);
 		return item;
 	}
+	public JTable getTable() {
+		return table;
+	}
 }
