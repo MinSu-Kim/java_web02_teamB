@@ -1,6 +1,7 @@
 package kr.or.yi.food_mgm_program.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.yi.food_mgm_program.dao.ReservationDao;
 import kr.or.yi.food_mgm_program.daoImpl.ReservationDaoImpl;
@@ -39,6 +40,10 @@ public class PanelCurrentReservationService {
 	
 	public Reservation selectByTimeTable(Reservation rsv) {
 		return dao.selectByTimeTable(rsv);
+	}
+	
+	public List<Reservation> selectByRangeDate(Map<String, Object> map){
+		return dao.selectByRangeDate(map);
 	}
 	
 }

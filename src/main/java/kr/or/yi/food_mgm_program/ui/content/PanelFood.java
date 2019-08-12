@@ -109,12 +109,12 @@ public class PanelFood extends JPanel implements ActionListener {
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnSearch);
 		
-		btnList = new JButton("전체보기");
+		btnList = new JButton("음식보기");
 		btnList.addActionListener(this);
 		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnList);
 		
-		btnAll = new JButton("New button");
+		btnAll = new JButton("전체보기");
 		btnAll.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnAll.addActionListener(this);
 		pSearch.add(btnAll);

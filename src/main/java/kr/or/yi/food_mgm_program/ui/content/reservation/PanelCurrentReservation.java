@@ -9,7 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,6 +45,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	private List<Reservation> rsvList;
 	private JPanel panel;
 	private JDatePickerImpl datePicker;
+	private JDatePickerImpl datePicker2;
 	private JButton btnDate;
 	private PanelCurrentReservationService service;
 	private PanelInputReservation pInput;
@@ -50,6 +53,8 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	private JButton btnTel;
 	private PanelMain pSeat;
 	private JButton btnRemain;
+	private JButton btnAll;
+	private JLabel lblNewLabel;
 	public PanelCurrentReservation(PanelMain pSeat) {
 		this.pSeat = pSeat;
 		service = PanelCurrentReservationService.getInstance();
@@ -90,6 +95,14 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		panel.add(datePicker);
 		
+		lblNewLabel = new JLabel("~");
+		panel.add(lblNewLabel);
+		
+		UtilDateModel model2 = new UtilDateModel();
+		JDatePanelImpl datePanel2 = new JDatePanelImpl(model2);
+		datePicker2 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+		panel.add(datePicker2);
+		
 		btnDate = new JButton("날짜로 검색");
 		btnDate.addActionListener(this);
 		panel.add(btnDate);
@@ -107,6 +120,10 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		btnRemain = new JButton("오늘남은예약보기");
 		btnRemain.addActionListener(this);
 		panel.add(btnRemain);
+		
+		btnAll = new JButton("전체예약보기");
+		btnAll.addActionListener(this);
+		panel.add(btnAll);
 		
 		
 	}
@@ -159,6 +176,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 			if (value==null) return this;
@@ -217,8 +235,21 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 			actionPerformedBtnRemain();
 		}
 		
+		if(e.getSource() == btnAll) {
+			actionPerformedBtnAll();
+		}
+		
 	}
 	
+	private void actionPerformedBtnAll() {
+		Member member = new Member();
+		member.setMbTel("");
+		List<Reservation> list = service.selectByTel(member);
+		this.rsvList = list;
+		setClear();
+		reloadData();
+		
+	}
 	private void actionPerformedBtnRemain() {
 		rsvList = service.selectByTime();
 		reloadData();
@@ -291,7 +322,19 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	}
 	protected void actionPerformedBtnDate(ActionEvent e) throws ParseException {
 		String date = datePicker.getJFormattedTextField().getText();
-		rsvList = service.selectByDate(date);
+		String date2 = datePicker2.getJFormattedTextField().getText();
+		
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd kk:mm");
+		
+		if(sd.parse(date).getTime()>sd.parse(date2).getTime()) {
+			JOptionPane.showMessageDialog(null, "검색시작 날짜 이후만 선택가능합니다.");
+		}
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("date", date);
+		map.put("date2", date2);
+		rsvList = service.selectByRangeDate(map);
 		setClear();
 		reloadData();
 	}
@@ -311,6 +354,7 @@ public class PanelCurrentReservation extends JPanel implements ActionListener{
 	public void setClear() {
 		tfTel.setText("");
 		datePicker.getJFormattedTextField().setText("");
+		datePicker2.getJFormattedTextField().setText("");
 	}
 	
 	private void searchPhone() {

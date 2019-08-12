@@ -51,6 +51,9 @@ public class PanelReservationService {
 		return rDao.selectByRangeTime(rsv);
 	}
 	
+	public Member selectByTel(Member member) {
+		return mDao.selectTel(member);
+	}
 }
 
 

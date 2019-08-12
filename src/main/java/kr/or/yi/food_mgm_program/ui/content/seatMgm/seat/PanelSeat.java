@@ -112,28 +112,45 @@ public class PanelSeat extends JPanel {
 		p5.btnColor2();
 		p6.btnColor2();
 		p7.btnColor2();
+		if(list==null || list.size()==0) {
+			p1.setRssv(null);
+			p2.setRssv(null);
+			p3.setRssv(null);
+			p4.setRssv(null);
+			p5.setRssv(null);
+			p6.setRssv(null);
+			p7.setRssv(null);
+		}
 		for(Reservation rssv : list) {
 			if(rssv.getRsvTableNo().equals("no.1")) {
 				p1.btnColor();
+				p1.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.2")) {
 				p2.btnColor();
+				p2.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.3")) {
 				p3.btnColor();
+				p3.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.4")) {
 				p4.btnColor();
+				p4.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.5")) {
 				p5.btnColor();
+				p5.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.6")) {
 				p6.btnColor();
+				p6.setRssv(rssv);
 			}
 			if(rssv.getRsvTableNo().equals("no.7")) {
 				p7.btnColor();
+				p7.setRssv(rssv);
 			}
+		
 			
 		}
 	}

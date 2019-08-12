@@ -108,10 +108,9 @@ ALTER TABLE food.member_coupon
 		PRIMARY KEY (
 			mc_no -- 번호
 		);
-	
+
 ALTER TABLE food.member_coupon
 	MODIFY COLUMN mc_no INT NOT NULL AUTO_INCREMENT COMMENT '번호';
-
 
 -- 결제
 CREATE TABLE food.sale (

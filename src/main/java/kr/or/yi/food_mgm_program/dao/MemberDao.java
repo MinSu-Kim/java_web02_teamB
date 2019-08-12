@@ -24,4 +24,5 @@ public interface MemberDao {
 	public Member selectCouponByTel(int tel);
 	public int plusMileage(Member member);
 	public List<Member> selectMemberByAll2();
+	public Member selectTel(Member member);
 }
