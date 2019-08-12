@@ -1,8 +1,6 @@
 package kr.or.yi.food_mgm_program.ui.content.statistics;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,15 +23,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import kr.or.yi.food_mgm_program.chart.InitScene;
+import kr.or.yi.food_mgm_program.chart.PanelBarChart;
+import kr.or.yi.food_mgm_program.chart.PanelPieChart;
 import kr.or.yi.food_mgm_program.dto.Grade;
 import kr.or.yi.food_mgm_program.dto.Member;
 import kr.or.yi.food_mgm_program.dto.Payment;
@@ -49,13 +44,15 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 public class PanelSaleList extends JPanel implements DocumentListener, ActionListener, ItemListener {
 	private JPanel panel_1;
 	private SaleList pList;
-	private ChartPanel panel_3;
+	private PanelBarChart panel_3;
+	private PanelPieChart panel_4;
 	private List<Payment> itemList;
 	private PanelSaleListService service;
 	private JDatePickerImpl datePicker;
 	private JButton btnSelectByAll;
-	private CategoryPlot plot;
-	private DefaultCategoryDataset dataset;
+	/*
+	 * private CategoryPlot plot; private DefaultCategoryDataset dataset;
+	 */
 
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
@@ -113,78 +110,56 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		pList = new SaleList((String) null);
 
 		panel_1.add(pList);
-
+		JPanel panel2 = new JPanel();
+		panel_1.add(panel2);
+		panel2.setLayout(new GridLayout(0, 3, 0, 0));
 		// jfreeChart
 		itemList = service.selectPaymentByAll();
-		dataset = new DefaultCategoryDataset();
-
-		setDefaultChart(dataset);
-
-		JFreeChart chart = ChartFactory.createBarChart("결제 통계", "결제수단", "판매액", dataset, PlotOrientation.VERTICAL, true,
-				true, false);
-		chart.getTitle().setFont(new Font("맑은 고딕", Font.BOLD, 13));
-		chart.getLegend().setItemFont((new Font("맑은 고딕", Font.BOLD, 12)));
-
-		plot = chart.getCategoryPlot();
-		chartFontSet(plot);
-		plot.setBackgroundPaint(Color.white);
+		 panel_3 = new PanelBarChart(itemList);
+		 panel2.add(panel_3);
+		 Platform.runLater(() -> initFX(panel_3));
 		
-		plot.setOrientation(PlotOrientation.HORIZONTAL);
-		panel_3 = new ChartPanel(chart);
-		panel_3.setLayout(new BorderLayout(0, 0));
-		panel_1.add(panel_3);
-
-		popupMenu = new JPopupMenu();
-		mntmUpdate = new JMenuItem("결제 취소");
-		mntmUpdate.addActionListener(this);
-		popupMenu.add(mntmUpdate);
-
-		pList.setPopupMenu(popupMenu);
+		 panel_4 = new PanelPieChart(service.selectPaymentByNo());
+		 panel2.add(panel_4);
+		 Platform.runLater(() -> initFX(panel_4));
+		 
+		 popupMenu = new JPopupMenu(); 
+		 mntmUpdate = new JMenuItem("결제 취소");
+		  mntmUpdate.addActionListener(this); popupMenu.add(mntmUpdate);
+		  
+		  pList.setPopupMenu(popupMenu);
+		 
 
 	}
-
-	private void chartFontSet(CategoryPlot plot) {
-		plot.getDomainAxis().setLabelFont((new Font("맑은 고딕", Font.BOLD, 12)));
-		plot.getDomainAxis().setTickLabelFont((new Font("맑은 고딕", Font.BOLD, 12)));
-		plot.getRangeAxis().setLabelFont((new Font("맑은 고딕", Font.BOLD, 12)));
-
-		NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+	
+	public void initFX(InitScene fxPanel) {
+		Scene scene = fxPanel.createScene();
+		JFXPanel panel = (JFXPanel) fxPanel;
+		panel.setScene(scene);
 	}
 
-	private void setDefaultChart(DefaultCategoryDataset dataset) {
-		int cardPrice = 0;
-		int cashPrice = 0;
-		for (Payment p : itemList) {
-			if (p.getPayCancel() == 0) {
-				int type = p.getPayType(); // 0 카드 /1현금
-				if (type == 1) { // 현금이면
-					cashPrice += p.getPayPrice();
-				} else {
-					cardPrice += p.getPayPrice();
-				}
-			}
-
-		}
-
-		dataset.addValue((double) cardPrice, "카드", "카드");
-		dataset.addValue((double) cashPrice, "현금", "현금");
-	}
+	
 
 	public void setListAll() {
 		itemList = service.selectPaymentByAll();
 		pList.setItemList(itemList);
 		pList.reloadData();
 
-		dataset = new DefaultCategoryDataset();
-		setDefaultChart(dataset);
-		plot.setDataset(dataset);
+		/*
+		 * dataset = new DefaultCategoryDataset(); setDefaultChart(dataset);
+		 * plot.setDataset(dataset);
+		 */
 	}
 
 	public void setListBydate(String searchDate) {
 		itemList = service.selectPaymentByDate(searchDate);
 		pList.setItemList(itemList);
 		pList.reloadData();
+		 panel_3.setpList(itemList);
+		 Platform.runLater(() -> {
+			 panel_3.updateChartData();
+			}); 
+		
 	}
 
 	@Override
@@ -195,9 +170,17 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		pList.setItemList(itemList);
 		pList.reloadData();
 
-		dataset = new DefaultCategoryDataset();
-		setDefaultChart(dataset);
-		plot.setDataset(dataset);
+		
+		 panel_3.setpList(itemList);
+		 Platform.runLater(() -> {
+			 panel_3.updateChartData();
+			}); 
+		
+		/*
+		 * dataset = new DefaultCategoryDataset(); setDefaultChart(dataset);
+		 * plot.setDataset(dataset);
+		 */
+		
 		
 		setCmbClear();
 	}
@@ -272,9 +255,11 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 				setListAll(); // 테이블 다시쓰기
 				
 				// 차트 다시쓰기
-				dataset = new DefaultCategoryDataset();
-				setDefaultChart(dataset);
-				plot.setDataset(dataset);
+				 panel_3.setpList(itemList);
+				 Platform.runLater(() -> {
+					 panel_3.updateChartData();
+					}); 
+				
 
 				// PanelSalesList(판매 패널)다시쓰기
 				PanelSalesList f = (PanelSalesList) frame.getpSales();
@@ -298,6 +283,11 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		setDatePickerText();
 		setListAll();
 		setCmbClear();
+		 panel_3.setpList(itemList);
+		 Platform.runLater(() -> {
+			 panel_3.updateChartData();
+			}); 
+		
 	}
 
 	public void setDatePickerText() {
@@ -347,10 +337,12 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		if(cmbYear.getSelectedIndex()!=0) {
 			String selDate = (String) cmbYear.getSelectedItem();
 			setListBydate(selDate.replace("년", ""));
-			dataset = new DefaultCategoryDataset();
-			setDefaultChart(dataset);
-			plot.setDataset(dataset); 
+			/*
+			 * dataset = new DefaultCategoryDataset(); setDefaultChart(dataset);
+			 * plot.setDataset(dataset);
+			 */
 			setDatePickerText();
+			
 		}else if(cmbYear.getSelectedIndex()==0) {
 			cmbMonth.setSelectedIndex(0);
 		}
@@ -366,17 +358,19 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 			setDatePickerText();
 			
 			cmbYear.setSelectedIndex(y.size()-1);
-			dataset = new DefaultCategoryDataset();
-			setDefaultChart(dataset);
-			plot.setDataset(dataset);
+			/*
+			 * dataset = new DefaultCategoryDataset(); setDefaultChart(dataset);
+			 * plot.setDataset(dataset);
+			 */
 		}else if(cmbYear.getSelectedIndex()!=0 && cmbMonth.getSelectedIndex()!=0) { //연도 , 월 선택
 			String selDate = (String) cmbYear.getSelectedItem();
 			String selDate2 = (String) cmbMonth.getSelectedItem();
 			String sd =selDate.replace("년", "")+"-"+selDate2.replace("월", "");
 			setListBydate(sd);
-			dataset = new DefaultCategoryDataset();
-			setDefaultChart(dataset);
-			plot.setDataset(dataset);
+			/*
+			 * dataset = new DefaultCategoryDataset(); setDefaultChart(dataset);
+			 * plot.setDataset(dataset);
+			 */
 			setDatePickerText();
 		}
 	}

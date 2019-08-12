@@ -24,4 +24,11 @@ public class PaymentDaoImpl implements PaymentDao {
 		}
 	}
 
+	@Override
+	public List<Payment> selectPaymentByNo() {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + "selectPaymentByNo");
+		}
+	}
+
 }

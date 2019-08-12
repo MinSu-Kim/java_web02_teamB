@@ -209,5 +209,10 @@ select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c
 		
 		select * from member_coupon;
 select * from member;
+
+INSERT INTO food.`member`
+(mb_no, mb_tel, mb_name, mb_birth, mb_mileage, mb_grade, mb_address, mb_withdrawal, mb_count, mb_join)
+VALUES(4, '01022222222', '손흥민', '2019-07-07', 10000, 'bronze', '대구광역시 달서구 성지로16길 11 0', 1, 0, now());
+
 select sum(payPrice) as totalPrice from payment where payMemberNo =1 and payCancel=0;
-select * from payment;
+select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;

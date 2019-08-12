@@ -37,6 +37,9 @@ public class PanelSaleListService {
 	public List<Payment> selectPaymentByAll(){
 		return dao.selectPaymentByAll();
 	}
+	public List<Payment> selectPaymentByNo(){
+		return dao.selectPaymentByNo();
+	}
 	
 	public List<Payment> selectPaymentByDate(String date){
 		return dao.selectPaymentByDate(date);
@@ -53,6 +56,8 @@ public class PanelSaleListService {
 	public int updateGrade(Member mem) {
 		return dao3.updateGrade(mem);
 	}
+	
+	
 	
 	public void updateCancelUpdateMileageCoupon(Map<String,Integer> map,Member member,Map<String, Object> map2) {
 		int resUpdateMileage= 0;
