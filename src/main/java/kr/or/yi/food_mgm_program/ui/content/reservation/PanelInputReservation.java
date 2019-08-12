@@ -29,7 +29,7 @@ import javax.swing.BoxLayout;
 import java.awt.event.FocusListener;
 import java.awt.event.FocusEvent;
 
-public class PanelInputReservation extends JPanel implements ActionListener{
+public class PanelInputReservation extends JPanel implements ActionListener, FocusListener{
 	private JTextField tfMemberNo;
 	private JTextField tfMemberName;
 	private JTextField tfTel;
@@ -96,7 +96,8 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblNewLabel_2);
 		
-		tfTel = new JTextField();
+		tfTel = new JTextField("");
+		tfTel.addFocusListener(this);
 		tfTel.setFont(new Font("Dialog", Font.BOLD, 15));
 		tfTel.addActionListener(this);
 		add(tfTel);
@@ -313,7 +314,7 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		tfMemberName.setText("");
 		tfPeopleNumber.setText("");
 		Date date = new Date();
-		tfTel.setText("");
+		tfTel.setText("입력 후 엔터");
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
 		String d = sd.format(date);
 		tfYear.setText(d.substring(0, 4));
@@ -404,6 +405,22 @@ public class PanelInputReservation extends JPanel implements ActionListener{
 		
 		}
 	
+	public void focusGained(FocusEvent e) {
+		if (e.getSource() == tfTel) {
+			focusGainedTfTel(e);
+		}
+	}
+	public void focusLost(FocusEvent e) {
+		if(tfTel.getText().equals("")) {
+			tfTel.setText("입력 후 엔터");
+		}
+	}
+	protected void focusGainedTfTel(FocusEvent e) {
+		if(tfTel.getText().equals("입력 후 엔터")) {
+			tfTel.setText("");
+		}
+		
+	}
 }
 
 

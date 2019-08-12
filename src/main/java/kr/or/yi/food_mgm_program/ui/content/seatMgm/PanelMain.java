@@ -24,9 +24,11 @@ import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import kr.or.yi.food_mgm_program.ui.content.seatMgm.orderList.PanelOrderList;
+import javax.swing.UIManager;
 
 public class PanelMain extends JPanel implements ActionListener {
 
@@ -136,14 +138,19 @@ public class PanelMain extends JPanel implements ActionListener {
 		pBtn.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		btnMainMenu = new JButton("주메뉴");
+		btnMainMenu.setBackground(Color.CYAN);
+		btnMainMenu.setFont(new Font("굴림", Font.BOLD, 12));
 		btnMainMenu.addActionListener(this);
 		pBtn.add(btnMainMenu);
 		
 		btnSide = new JButton("부메뉴");
+		btnSide.setFont(new Font("Gulim", Font.PLAIN, 12));
+		btnSide.setBackground(UIManager.getColor("Button.background"));
 		btnSide.addActionListener(this);
 		pBtn.add(btnSide);
 		
 		btnDrink = new JButton("음료");
+		btnDrink.setFont(new Font("Gulim", Font.PLAIN, 12));
 		btnDrink.addActionListener(this);
 		pBtn.add(btnDrink);
 		
@@ -225,12 +232,30 @@ public class PanelMain extends JPanel implements ActionListener {
 	}
 	protected void actionPerformedBtnDrink(ActionEvent e) {
 		cards.show(pMenuList, "pDrink");
+		btnDrink.setBackground(Color.cyan);
+		btnSide.setBackground(UIManager.getColor("Button.background"));
+		btnMainMenu.setBackground(UIManager.getColor("Button.background"));
+		btnSide.setFont(new Font("Gulim", Font.PLAIN, 12));
+		btnMainMenu.setFont(new Font("Gulim", Font.PLAIN, 12));
+		btnDrink.setFont(new Font("Gulim", Font.BOLD, 12));
 	}
 	protected void actionPerformedBtnSide(ActionEvent e) {
 		cards.show(pMenuList, "pSide");
+		btnSide.setBackground(Color.cyan);
+		btnMainMenu.setBackground(UIManager.getColor("Button.background"));
+		btnDrink.setBackground(UIManager.getColor("Button.background"));
+		btnSide.setFont(new Font("Gulim", Font.BOLD, 12));
+		btnMainMenu.setFont(new Font("Gulim", Font.PLAIN, 12));
+		btnDrink.setFont(new Font("Gulim", Font.PLAIN, 12));
 	}
 	protected void actionPerformedBtnMainMenu(ActionEvent e) {
 		cards.show(pMenuList, "pMain");
+		btnMainMenu.setBackground(Color.cyan);
+		btnSide.setBackground(UIManager.getColor("Button.background"));
+		btnDrink.setBackground(UIManager.getColor("Button.background"));
+		btnSide.setFont(new Font("Gulim", Font.PLAIN, 12));
+		btnMainMenu.setFont(new Font("Gulim", Font.BOLD, 12));
+		btnDrink.setFont(new Font("Gulim", Font.PLAIN, 12));
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		if(pList.getTableNo()==null) {

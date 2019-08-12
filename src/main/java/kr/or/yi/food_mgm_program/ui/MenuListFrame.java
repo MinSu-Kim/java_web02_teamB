@@ -136,6 +136,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -168,7 +169,7 @@ public class MenuListFrame extends JFrame implements ActionListener {
 		setResizable(false);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(220, 250, 1500, 500);
+		setBounds(350, 300, 1500, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -192,7 +193,9 @@ public class MenuListFrame extends JFrame implements ActionListener {
 		for(Food fd : this.food) {
 			JPanel panel = new JPanel();
 			panel.setLayout(new BorderLayout(0, 0));
-			JLabel lblName = new JLabel(fd.getFdName()+"("+fd.getFdPrice()+")");
+			int price = fd.getFdPrice();
+			DecimalFormat formatter = new DecimalFormat("###,###");
+			JLabel lblName = new JLabel(fd.getFdName()+"("+formatter.format(price)+"원)");
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 			lblName.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 			panel.add(lblName, BorderLayout.NORTH);
