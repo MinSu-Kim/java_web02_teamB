@@ -78,7 +78,7 @@ select mb_no, mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address from m
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,sum(f.fd_price) as payPrice,s.sale_type as payType ,m.mb_name as payMemeber from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
 
-select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment where payTime like "2019-07-27%";
+select payNo,payTime,payMenu,payPrice,payType,payMemeber from payment where payTime like "2019%";
 
 
 select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, group_concat(cp_name) coupon
@@ -137,6 +137,13 @@ update sale set sale_cancel = 0 where sale_no=1;
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
 m.mb_name as payMemeber, s.sale_cancel as payCancel from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
+
+
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
+m.mb_name as payMemeber, s.sale_cancel as payCancel, s.mb_no as payMemberNo from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no having;
+
+select * from payment where payMemeber="김창민";
 
 
 
@@ -201,5 +208,6 @@ select m.mb_no, m.mb_name, mb_birth, mb_tel, mb_mileage, mb_grade, mb_address, c
 		left join coupon c on mc.cp_name = c.cp_name set mc.cp_use = #{whether} where m.mb_no = #{no} and c.cp_name = #{cpname}
 		
 		select * from member_coupon;
-		select * from 
-
+select * from member;
+select sum(payPrice) as totalPrice from payment where payMemberNo =1 and payCancel=0;
+select * from payment;
