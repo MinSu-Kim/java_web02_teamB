@@ -33,6 +33,9 @@ ALTER TABLE food.food
 ALTER TABLE food.food
 	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
 
+ALTER TABLE food.food
+	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
+
 -- 음식종류
 CREATE TABLE food.foodKind (
 	fk_no   INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
@@ -220,8 +223,57 @@ ALTER TABLE food.reservation
 			rsv_no -- 예약번호
 		);
 
+-- 공지사항
+CREATE TABLE food.notice (
+	no_no      INT         NOT NULL COMMENT '게시판번호', -- 게시판번호
+	no_title   VARCHAR(50) NULL     COMMENT '게시판제목', -- 게시판제목
+	no_content TEXT        NULL     COMMENT '게시판내용', -- 게시판내용
+	no_read_nt INT         NULL     DEFAULT 0 COMMENT '조회수', -- 조회수
+	no_writer  VARCHAR(20) NULL     COMMENT '작성자', -- 작성자
+	no_regdate DATETIME    NULL     COMMENT '등록일', -- 등록일
+	no_moddate DATETIME    NULL     COMMENT '수정일' -- 수정일
+)
+COMMENT '공지사항';
+
+-- 공지사항
+ALTER TABLE food.notice
+	ADD CONSTRAINT PK_notice -- 공지사항 기본키
+		PRIMARY KEY (
+			no_no -- 게시판번호
+		);
+
+ALTER TABLE food.notice
+	MODIFY COLUMN no_no INT NOT NULL AUTO_INCREMENT COMMENT '게시판번호';
+
+ALTER TABLE food.notice
+	Add COLUMN no_delete TINYINT NULL DEFAULT false COMMENT '삭제여부';
+
 ALTER TABLE food.reservation
 	MODIFY COLUMN rsv_no INT NOT NULL AUTO_INCREMENT COMMENT '예약번호';
+drop table event;
+-- 이벤트
+CREATE TABLE food.event (
+	e_no         INT         NOT NULL COMMENT '이벤트번호', -- 이벤트번호
+	e_name       VARCHAR(20) NOT NULL COMMENT '작성자', -- 작성자
+	e_title      TEXT        NOT NULL COMMENT '이벤트제목', -- 이벤트제목
+	e_text       TEXT        NULL     COMMENT '이벤트내용', -- 이벤트내용
+	e_img        VARCHAR(100) NULL     COMMENT '대표이미지', -- 대표이미지
+	e_start_date DATETIME    NULL     COMMENT '시작날짜', -- 시작날짜
+	e_end_date   DATETIME    NULL     COMMENT '마감날짜', -- 마감날짜
+	e_ing        TINYINT     NULL     COMMENT '진행여부' -- 진행여부
+)
+COMMENT '이벤트';
+
+-- 이벤트
+ALTER TABLE food.event
+	ADD CONSTRAINT PK_event -- 이벤트 기본키
+		PRIMARY KEY (
+			e_no -- 이벤트번호
+		);
+
+ALTER TABLE food.event
+	MODIFY COLUMN e_no INT NOT NULL AUTO_INCREMENT COMMENT '이벤트번호';
+
 
 -- 음식
 ALTER TABLE food.food
@@ -233,6 +285,12 @@ ALTER TABLE food.food
 			fk_no -- 음식종류번호
 		);
 
+ALTER TABLE food.food
+   ADD COLUMN fd_name_eng VARCHAR(60) null COMMENT '음식명';
+  
+ALTER TABLE food.food
+   ADD COLUMN fd_explain VARCHAR(150) null COMMENT '음식설명';
+  
 -- 음식종류
 ALTER TABLE food.foodKind
 	ADD CONSTRAINT FK_menu_TO_foodKind -- 메뉴분류 -> 음식종류
@@ -243,6 +301,9 @@ ALTER TABLE food.foodKind
 			menu_no -- 메뉴번호
 		);
 
+ALTER TABLE food.foodkind
+   ADD COLUMN fk_name_eng VARCHAR(60) null COMMENT '음식종류명';
+  
 -- 회원
 ALTER TABLE food.member
 	ADD CONSTRAINT FK_grade_TO_member -- 등급 -> 회원

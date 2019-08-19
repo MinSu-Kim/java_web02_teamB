@@ -116,8 +116,9 @@ public class PanelOrderList extends JPanel {
 	}
 	public void setPlus() {
 		int i = table.getSelectedRow();
-		list.get(i).plusCount();
+		list.get(i).plusCount();	
 		reloadData();
+		table.setRowSelectionInterval(i, i);
 		
 	}
 	
@@ -129,6 +130,7 @@ public class PanelOrderList extends JPanel {
 			return;
 		}
 		reloadData();
+		table.setRowSelectionInterval(i, i);
 	}
 	
 	public List<Food> getList(){
