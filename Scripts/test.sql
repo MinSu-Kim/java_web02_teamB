@@ -216,3 +216,13 @@ VALUES(4, '01022222222', '손흥민', '2019-07-07', 10000, 'bronze', '대구광�
 
 select sum(payPrice) as totalPrice from payment where payMemberNo =1 and payCancel=0;
 select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;
+
+select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 AND payTime like "2019-08-10%" group by payMemberNo;
+
+select * from sale;
+
+select payNo,payOrderKind,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;
+
+
+
+

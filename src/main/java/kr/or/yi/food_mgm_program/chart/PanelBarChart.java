@@ -59,7 +59,7 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		barChart = new BarChart<>(xAxis, yAxis);
 		barChart.setTitle("결제 수단별 결제금액");
 		
-		barChart.setPrefSize(500, 250);
+		barChart.setPrefSize(800, 250);
 		barChart.setData(getChartData());
 		
 		root.getChildren().add(barChart);

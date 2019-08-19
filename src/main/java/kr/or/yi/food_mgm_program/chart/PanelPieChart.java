@@ -29,6 +29,12 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		super();
 		this.pList = pList;
 	}
+	
+	
+
+	public void setpList(List<Payment> pList) {
+		this.pList = pList;
+	}
 
 	@Override
 	public Scene createScene() {
@@ -37,7 +43,7 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		root.setAutoSizeChildren(true);
 		
 		pieChart = new PieChart();
-		pieChart.setPrefSize(500, 250);
+		pieChart.setPrefSize(800, 250);
 		pieChart.setData(getChartData());
 		pieChart.setTitle("매출 순위");
 		pieChart.setLegendVisible(true);	// 범례 표시 유무
@@ -61,7 +67,7 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		ObservableList<Data> list = FXCollections.observableArrayList();
 		if(pList.size()>=3) {
 			for (int i = 0; i < 3; i++) {
-				list.add(new PieChart.Data(pList.get(i).getPayMember()+"("+ String.format("%,d원", pList.get(i).getPayPrice())+")" , pList.get(i).getPayPrice()));
+				list.add(new PieChart.Data(pList.get(i).getPayMember()+pList.get(i).getPayMemberNo(), pList.get(i).getPayPrice()));
 			}
 		}
 		
@@ -86,14 +92,13 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		}
 	}
 	
-	public void updateChartData(String title, int count) {
+	public void updateChartData() {
 		ObservableList<Data> list =  pieChart.getData();
 		
 		for(int i = 0; i<list.size(); i++) {
 			Data s = list.get(i);
-			String[] strD = s.getName().split(" ");
-			if (strD[0].equals(title)) {
-				s.setPieValue(count);
+			if (s.getName().equals(pList.get(i).getPayMember()+pList.get(i).getPayMemberNo())) {
+				s.setPieValue(pList.get(i).getPayPrice());
 				break;
 			}
 		}

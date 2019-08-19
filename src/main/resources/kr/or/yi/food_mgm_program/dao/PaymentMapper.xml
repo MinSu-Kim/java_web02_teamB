@@ -26,4 +26,8 @@
 		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;
 	</select>
 	
+	<select id="selectPaymentByNoDate" resultMap="resultPayment">
+		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 AND payTime like CONCAT( #{date}, '%') group by payMemberNo;
+	</select>
+	
 </mapper>

@@ -47,6 +47,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 	private PanelBarChart panel_3;
 	private PanelPieChart panel_4;
 	private List<Payment> itemList;
+	private List<Payment> itemList2;
 	private PanelSaleListService service;
 	private JDatePickerImpl datePicker;
 	private JButton btnSelectByAll;
@@ -112,14 +113,14 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		panel_1.add(pList);
 		JPanel panel2 = new JPanel();
 		panel_1.add(panel2);
-		panel2.setLayout(new GridLayout(0, 3, 0, 0));
+		panel2.setLayout(new GridLayout(0, 2, 0, 0));
 		// jfreeChart
 		itemList = service.selectPaymentByAll();
 		 panel_3 = new PanelBarChart(itemList);
 		 panel2.add(panel_3);
 		 Platform.runLater(() -> initFX(panel_3));
-		
-		 panel_4 = new PanelPieChart(service.selectPaymentByNo());
+		 itemList2 = service.selectPaymentByNo();
+		 panel_4 = new PanelPieChart(itemList2);
 		 panel2.add(panel_4);
 		 Platform.runLater(() -> initFX(panel_4));
 		 
@@ -142,6 +143,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 	public void setListAll() {
 		itemList = service.selectPaymentByAll();
+		itemList2 =service.selectPaymentByNo();
 		pList.setItemList(itemList);
 		pList.reloadData();
 
@@ -153,11 +155,16 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 	public void setListBydate(String searchDate) {
 		itemList = service.selectPaymentByDate(searchDate);
+		itemList2 = service.selectPaymentByNoDate(searchDate);
 		pList.setItemList(itemList);
 		pList.reloadData();
+		panel_4.setpList(itemList2);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
+			 if(itemList2.size()>0) {
+					panel_4.updateChartData();
+				 }
 			}); 
 		
 	}
@@ -167,13 +174,18 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		System.out.println(datePicker.getJFormattedTextField().getText());
 		String searchDate = datePicker.getJFormattedTextField().getText();
 		itemList = service.selectPaymentByDate(searchDate);
+		itemList2 = service.selectPaymentByNoDate(searchDate);
 		pList.setItemList(itemList);
 		pList.reloadData();
 
-		
+		panel_4.setpList(itemList2);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
+			 if(itemList2.size()>0) {
+				panel_4.updateChartData();
+			 }
+			
 			}); 
 		
 		/*
@@ -255,10 +267,14 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 				setListAll(); // 테이블 다시쓰기
 				
 				// 차트 다시쓰기
-				 panel_3.setpList(itemList);
+				panel_4.setpList(itemList);
+				 panel_3.setpList(itemList2);
 				 Platform.runLater(() -> {
 					 panel_3.updateChartData();
-					}); 
+					 if(itemList2.size()>0) {
+							panel_4.updateChartData();
+						 }
+					});  
 				
 
 				// PanelSalesList(판매 패널)다시쓰기
@@ -283,9 +299,13 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		setDatePickerText();
 		setListAll();
 		setCmbClear();
+		panel_4.setpList(itemList2);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
+			 if(itemList2.size()>0) {
+					panel_4.updateChartData();
+				 }
 			}); 
 		
 	}

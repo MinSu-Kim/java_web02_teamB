@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import kr.or.yi.food_mgm_program.ui.LoginFrame;
 
 public class ErpMain {
-
+  
 	public static void main(String[] args) {
 		try {
 			// select Look and Feel

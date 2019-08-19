@@ -8,4 +8,5 @@ public interface PaymentDao {
 	public List<Payment> selectPaymentByAll();
 	public List<Payment> selectPaymentByDate(String date);
 	public List<Payment> selectPaymentByNo();
+	public List<Payment> selectPaymentByNoDate(String date);
 }

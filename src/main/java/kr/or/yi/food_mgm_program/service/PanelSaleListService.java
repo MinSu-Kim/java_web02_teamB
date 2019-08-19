@@ -44,6 +44,9 @@ public class PanelSaleListService {
 	public List<Payment> selectPaymentByDate(String date){
 		return dao.selectPaymentByDate(date);
 	}
+	public List<Payment> selectPaymentByNoDate(String date){
+		return dao.selectPaymentByNoDate(date);
+	}
 	
 	public int updateSaleByCancel(Map<String,Integer> map) {
 		return dao2.updateSaleByCancel(map);

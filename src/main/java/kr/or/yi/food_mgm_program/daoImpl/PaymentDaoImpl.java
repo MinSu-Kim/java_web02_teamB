@@ -31,4 +31,11 @@ public class PaymentDaoImpl implements PaymentDao {
 		}
 	}
 
+	@Override
+	public List<Payment> selectPaymentByNoDate(String date) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			return sqlSession.selectList(namespace + "selectPaymentByNoDate",date);
+		}
+	}
+
 }

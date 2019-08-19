@@ -1,7 +1,8 @@
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
 
-set foreign_key_checks = 0;
+set foreign_key_checks = 1;
+truncate food;
 
 load data local infile 'd://foodKind.csv' into table food.foodkind
 character set 'utf8'

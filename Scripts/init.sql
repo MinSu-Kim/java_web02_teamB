@@ -10,9 +10,18 @@ CREATE TABLE food.food (
 	fd_price      INT         NULL     COMMENT '음식가격', -- 음식가격
 	fd_name       VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
 	fk_no         INT         NULL     COMMENT '음식종류번호', -- 음식종류번호
+	fd_img        VARCHAR(50) NULL     COMMENT '음식사진', -- 음식사진
 	fd_withdrawal TINYINT     NULL     DEFAULT false COMMENT '삭제여부' -- 삭제여부
 )
 COMMENT '음식';
+
+ALTER TABLE food.foodkind
+   ADD COLUMN fk_name_eng VARCHAR(60) null COMMENT '음식종류명';
+
+ALTER TABLE food.food
+   ADD COLUMN fd_name_eng VARCHAR(60) null COMMENT '음식명';
+ALTER TABLE food.food
+   ADD COLUMN fd_explain VARCHAR(150) null COMMENT '음식설명';  
 
 -- 음식
 ALTER TABLE food.food
@@ -320,8 +329,9 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 
 
 -- 결제 통계 쿼리 (view)
+drop view payment;
 create view payment as
-select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,
+select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,s.sale_order_kind as payOrderKind,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
 m.mb_name as payMemeber, s.sale_cancel as payCancel, s.mb_no as payMemberNo from sale s join food f on s.fd_no=f.fd_no  join member m on s.mb_no = m.mb_no group by s.sale_no;
 
