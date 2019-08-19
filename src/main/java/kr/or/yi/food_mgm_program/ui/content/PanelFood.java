@@ -1,13 +1,19 @@
 package kr.or.yi.food_mgm_program.ui.content;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,21 +22,16 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
-import kr.or.yi.food_mgm_program.dao.FoodDao;
-import kr.or.yi.food_mgm_program.dao.FoodKindDao;
-import kr.or.yi.food_mgm_program.daoImpl.FoodDaoImpl;
-import kr.or.yi.food_mgm_program.daoImpl.FoodKindDaoImpl;
 import kr.or.yi.food_mgm_program.dto.Food;
 import kr.or.yi.food_mgm_program.dto.FoodKind;
 import kr.or.yi.food_mgm_program.service.MenuListService;
 import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-public class PanelFood extends JPanel implements ActionListener {
+public class PanelFood extends JPanel implements ActionListener, MouseListener {
 	private JTextField tfSearch;
 	
 	private MenuListService service;
@@ -50,6 +51,8 @@ public class PanelFood extends JPanel implements ActionListener {
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
 	private JButton btnAll;
+	private JPanel pImg;
+	private JLabel lblImg;
 	
 	public PanelFood() {
 		service = MenuListService.getInstance();
@@ -120,6 +123,7 @@ public class PanelFood extends JPanel implements ActionListener {
 		pSearch.add(btnAll);
 		
 		pFoodList = new FoodList((String) null);
+		pFoodList.getTable().addMouseListener(this);
 		pList.add(pFoodList, BorderLayout.CENTER);
 		reloadList();
 		
@@ -133,8 +137,34 @@ public class PanelFood extends JPanel implements ActionListener {
 		popupMenu.add(mntmDelete);
 
 		pFoodList.setPopupMenu(popupMenu);
+		
+		pImg = new JPanel();
+		pList.add(pImg, BorderLayout.EAST);
+		pImg.setPreferredSize(new Dimension(500, 100));
+		pImg.setLayout(new BorderLayout(0, 0));
+		
+		lblImg = new JLabel("");
+		pImg.add(lblImg);
+		
+		
+		
 	}
 	
+	
+	public void setLableImg() {
+		String Img = pFoodList.ImgName();
+		if(Img==null) {
+			return;
+		}
+		ImageIcon image = new ImageIcon("image/"+Img+".jpg");
+		Image image1 = image.getImage();
+		Image image3 = image1.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+		ImageIcon image4 = new ImageIcon(image3);
+		lblImg.setIcon(image4);
+		
+		
+	}
+
 	public void reloadList() {
 		fList = service.selectFoodByAll();
 		pFoodList.setItemList(fList);
@@ -239,5 +269,21 @@ public class PanelFood extends JPanel implements ActionListener {
 		fListAll = service.selectFoodByAllF();
 		pFoodList.setItemList(fListAll);
 		pFoodList.reloadData();
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == pFoodList.getTable()) {
+			mouseClickedPFoodListTable(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedPFoodListTable(MouseEvent e) {
+		setLableImg();
 	}
 }

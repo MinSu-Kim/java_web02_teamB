@@ -54,7 +54,17 @@ public class FoodList extends AbstractList<Food> {
 		
 	}
 
+	public String ImgName() {
+		int i = table.getSelectedRow();
+		if(i==-1) {
+			return null;
+		}
+		String imgName = (String) table.getModel().getValueAt(i, 2);
+		
+		return imgName;
+	}
 
-
-
+	
+	
+	
 }

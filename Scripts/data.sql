@@ -1,7 +1,7 @@
 insert into menu values(1, '주메뉴'),(2, '부메뉴'),(3, '음료');
 select * from menu;
 
-set foreign_key_checks = 0;
+set foreign_key_checks = 1;
 
 load data local infile 'd://foodKind.csv' into table food.foodkind
 character set 'utf8'
@@ -74,4 +74,15 @@ select * from member_reservation;
 select * from member_reservation2;
 select * from member_reservation where rsv_time like concat(current_date(),'%');
 select * from member_reservation4;
+select * from event;
+select count(e_no) from event;
+select * from event order by e_no desc;
+update event
+		set e_title='바꿈', e_text='바꾜라', e_start_date=now(), e_end_date=now()
+		where e_no=7;
+		
+	
+	
+select * from food order by fd_no desc limit 0,4;
 
+select * from foodKind;
