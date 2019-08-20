@@ -11,17 +11,11 @@ CREATE TABLE food.food (
 	fd_name       VARCHAR(40) NULL     COMMENT '음식명', -- 음식명
 	fk_no         INT         NULL     COMMENT '음식종류번호', -- 음식종류번호
 	fd_img        VARCHAR(50) NULL     COMMENT '음식사진', -- 음식사진
-	fd_withdrawal TINYINT     NULL     DEFAULT false COMMENT '삭제여부' -- 삭제여부
+	fd_withdrawal TINYINT     NULL     DEFAULT false COMMENT '삭제여부', -- 삭제여부
+	fd_name_eng   VARCHAR(60) NULL     COMMENT '음식영어', -- 음식영어
+	fd_explain    TEXT        NULL     COMMENT '음식설명' -- 음식설명
 )
 COMMENT '음식';
-
-ALTER TABLE food.foodkind
-   ADD COLUMN fk_name_eng VARCHAR(60) null COMMENT '음식종류명';
-
-ALTER TABLE food.food
-   ADD COLUMN fd_name_eng VARCHAR(60) null COMMENT '음식명';
-ALTER TABLE food.food
-   ADD COLUMN fd_explain VARCHAR(150) null COMMENT '음식설명';  
 
 -- 음식
 ALTER TABLE food.food
@@ -33,14 +27,12 @@ ALTER TABLE food.food
 ALTER TABLE food.food
 	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
 
-ALTER TABLE food.food
-	MODIFY COLUMN fd_no INT NOT NULL AUTO_INCREMENT COMMENT '음식번호';
-
 -- 음식종류
 CREATE TABLE food.foodKind (
-	fk_no   INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
-	fk_name VARCHAR(40) NOT NULL COMMENT '음식종류명', -- 음식종류명
-	menu_no INT         NULL     COMMENT '메뉴번호' -- 메뉴번호
+	fk_no       INT         NOT NULL COMMENT '음식종류번호', -- 음식종류번호
+	fk_name     VARCHAR(40) NOT NULL COMMENT '음식종류명', -- 음식종류명
+	menu_no     INT         NULL     COMMENT '메뉴번호', -- 메뉴번호
+	fk_name_eng VARCHAR(60) NULL     COMMENT '음식종류영어' -- 음식종류영어
 )
 COMMENT '음식종류';
 
@@ -62,7 +54,7 @@ CREATE TABLE food.member (
 	mb_birth      DATE        NULL     COMMENT '생년월일', -- 생년월일
 	mb_mileage    INT         NULL     COMMENT '마일리지', -- 마일리지
 	mb_grade      CHAR(10)    NULL     COMMENT '고객등급', -- 고객등급
-	mb_address    VARCHAR(50) NULL     COMMENT '주소', -- 주소
+	mb_address    TEXT		  NULL     COMMENT '주소', -- 주소
 	mb_withdrawal TINYINT     NULL     COMMENT '탈퇴여부', -- 탈퇴여부
 	mb_count      INT         NULL     DEFAULT 0 COMMENT '결제건수', -- 결제건수
 	mb_join       DATETIME    NULL     COMMENT '가입일' -- 가입일
@@ -223,44 +215,19 @@ ALTER TABLE food.reservation
 			rsv_no -- 예약번호
 		);
 
--- 공지사항
-CREATE TABLE food.notice (
-	no_no      INT         NOT NULL COMMENT '게시판번호', -- 게시판번호
-	no_title   VARCHAR(50) NULL     COMMENT '게시판제목', -- 게시판제목
-	no_content TEXT        NULL     COMMENT '게시판내용', -- 게시판내용
-	no_read_nt INT         NULL     DEFAULT 0 COMMENT '조회수', -- 조회수
-	no_writer  VARCHAR(20) NULL     COMMENT '작성자', -- 작성자
-	no_regdate DATETIME    NULL     COMMENT '등록일', -- 등록일
-	no_moddate DATETIME    NULL     COMMENT '수정일' -- 수정일
-)
-COMMENT '공지사항';
-
--- 공지사항
-ALTER TABLE food.notice
-	ADD CONSTRAINT PK_notice -- 공지사항 기본키
-		PRIMARY KEY (
-			no_no -- 게시판번호
-		);
-
-ALTER TABLE food.notice
-	MODIFY COLUMN no_no INT NOT NULL AUTO_INCREMENT COMMENT '게시판번호';
-
-ALTER TABLE food.notice
-	Add COLUMN no_delete TINYINT NULL DEFAULT false COMMENT '삭제여부';
-
 ALTER TABLE food.reservation
 	MODIFY COLUMN rsv_no INT NOT NULL AUTO_INCREMENT COMMENT '예약번호';
-drop table event;
+
 -- 이벤트
 CREATE TABLE food.event (
-	e_no         INT         NOT NULL COMMENT '이벤트번호', -- 이벤트번호
-	e_name       VARCHAR(20) NOT NULL COMMENT '작성자', -- 작성자
-	e_title      TEXT        NOT NULL COMMENT '이벤트제목', -- 이벤트제목
-	e_text       TEXT        NULL     COMMENT '이벤트내용', -- 이벤트내용
+	e_no         INT          NOT NULL COMMENT '이벤트번호', -- 이벤트번호
+	e_name       VARCHAR(20)  NOT NULL COMMENT '작성자', -- 작성자
+	e_title      TEXT         NOT NULL COMMENT '이벤트제목', -- 이벤트제목
+	e_text       TEXT         NULL     COMMENT '이벤트내용', -- 이벤트내용
 	e_img        VARCHAR(100) NULL     COMMENT '대표이미지', -- 대표이미지
-	e_start_date DATETIME    NULL     COMMENT '시작날짜', -- 시작날짜
-	e_end_date   DATETIME    NULL     COMMENT '마감날짜', -- 마감날짜
-	e_ing        TINYINT     NULL     COMMENT '진행여부' -- 진행여부
+	e_start_date DATETIME     NULL     COMMENT '시작날짜', -- 시작날짜
+	e_end_date   DATETIME     NULL     COMMENT '마감날짜', -- 마감날짜
+	e_ing        TINYINT      NULL     COMMENT '진행여부' -- 진행여부
 )
 COMMENT '이벤트';
 
@@ -274,6 +241,28 @@ ALTER TABLE food.event
 ALTER TABLE food.event
 	MODIFY COLUMN e_no INT NOT NULL AUTO_INCREMENT COMMENT '이벤트번호';
 
+-- 공지사항
+CREATE TABLE food.notice (
+	no_no      INT         NOT NULL COMMENT '게시판번호', -- 게시판번호
+	no_title   VARCHAR(50) NULL     COMMENT '게시판제목', -- 게시판제목
+	no_content TEXT        NULL     COMMENT '게시판내용', -- 게시판내용
+	no_read_nt INT         NULL     DEFAULT 0 COMMENT '조회수', -- 조회수
+	no_writer  VARCHAR(20) NULL     COMMENT '작성자', -- 작성자
+	no_regdate DATETIME    NULL     COMMENT '등록일', -- 등록일
+	no_moddate DATETIME    NULL     COMMENT '수정일', -- 수정일
+	no_delete  TINYINT     NULL     DEFAULT false COMMENT '삭제여부' -- 삭제여부
+)
+COMMENT '공지사항';
+
+-- 공지사항
+ALTER TABLE food.notice
+	ADD CONSTRAINT PK_notice -- 공지사항 기본키
+		PRIMARY KEY (
+			no_no -- 게시판번호
+		);
+
+ALTER TABLE food.notice
+	MODIFY COLUMN no_no INT NOT NULL AUTO_INCREMENT COMMENT '게시판번호';
 
 -- 음식
 ALTER TABLE food.food
@@ -285,12 +274,6 @@ ALTER TABLE food.food
 			fk_no -- 음식종류번호
 		);
 
-ALTER TABLE food.food
-   ADD COLUMN fd_name_eng VARCHAR(60) null COMMENT '음식명';
-  
-ALTER TABLE food.food
-   ADD COLUMN fd_explain VARCHAR(150) null COMMENT '음식설명';
-  
 -- 음식종류
 ALTER TABLE food.foodKind
 	ADD CONSTRAINT FK_menu_TO_foodKind -- 메뉴분류 -> 음식종류
@@ -301,9 +284,6 @@ ALTER TABLE food.foodKind
 			menu_no -- 메뉴번호
 		);
 
-ALTER TABLE food.foodkind
-   ADD COLUMN fk_name_eng VARCHAR(60) null COMMENT '음식종류명';
-  
 -- 회원
 ALTER TABLE food.member
 	ADD CONSTRAINT FK_grade_TO_member -- 등급 -> 회원
@@ -363,7 +343,8 @@ ALTER TABLE food.reservation
 		REFERENCES food.member ( -- 회원
 			mb_no -- 회원번호
 		);
-	
+
+
 -- 계정과 권한부여
 grant all privileges 
 on food.* 
@@ -386,11 +367,7 @@ select sub1.name as ssName, sub1.count as ssCount, sub1.ssTotalPrice
 	from sale s left join food f on s.fd_no = f.fd_no where sale_cancel = 0
 	)sub2;
 
-
-
-
 -- 결제 통계 쿼리 (view)
-drop view payment;
 create view payment as
 select s.sale_no as payNo , s.sale_time as payTime, group_concat(f.fd_name) as payMenu ,s.sale_order_kind as payOrderKind,
 sum(f.fd_price*s.sale_order_cnt)-s.sale_discount_price as payPrice,s.sale_type as payType , s.sale_discount_info as payDiscountInfo,sale_discount_price as payDiscountPrice, 
@@ -407,5 +384,3 @@ select * from member_reservation2 where rsv_cancel = 0;
 
 create view member_reservation4 as -- 전체 예약중에 취소 안한 예약.
 select * from reservation where rsv_cancel = 0;
-
-
