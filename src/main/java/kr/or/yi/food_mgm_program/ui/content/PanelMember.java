@@ -163,6 +163,7 @@ public class PanelMember extends JPanel implements ActionListener {
 		pSearch.add(btnAll);
 		
 		btnCouponAll = new JButton("쿠폰일괄지급");
+		btnCouponAll.setBorder(new EmptyBorder(10, 20, 10, 20));
 		btnCouponAll.addActionListener(this);
 		pSearch.add(btnCouponAll);
 		

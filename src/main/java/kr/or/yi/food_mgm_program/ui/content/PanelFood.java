@@ -29,6 +29,8 @@ import kr.or.yi.food_mgm_program.ui.insert.PanelFoodInfo;
 import kr.or.yi.food_mgm_program.ui.list.FoodList;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class PanelFood extends JPanel implements ActionListener, MouseListener {
@@ -50,9 +52,10 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmUpdate;
 	private JMenuItem mntmDelete;
-	private JButton btnAll;
 	private JPanel pImg;
 	private JLabel lblImg;
+	private JPanel panel;
+	private JPanel panel_1;
 	
 	public PanelFood() {
 		service = MenuListService.getInstance();
@@ -68,18 +71,23 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 		
 		JPanel pInsert = new JPanel();
 		add(pInsert);
+		pInsert.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		pInsert.setLayout(new BoxLayout(pInsert, BoxLayout.X_AXIS));
+		panel = new JPanel();
+		pInsert.add(panel);
+		
+		panel_1 = new JPanel();
+		pInsert.add(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
 		pFood = new PanelFoodInfo();
+		panel_1.add(pFood);
 //		pFood.setList(fkList);
 		pFood.setFoodKindCmbModel(fkList);
 		
-		pInsert.add(pFood);
-		
 		JPanel pBtn = new JPanel();
+		panel_1.add(pBtn);
 		pBtn.setBorder(new EmptyBorder(0, 0, 0, 30));
-		pInsert.add(pBtn);
 		pBtn.setLayout(new BoxLayout(pBtn, BoxLayout.Y_AXIS));
 		
 		btnAdd = new JButton("추가");
@@ -112,15 +120,10 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 		btnSearch.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnSearch);
 		
-		btnList = new JButton("음식보기");
+		btnList = new JButton("메뉴보기");
 		btnList.addActionListener(this);
 		btnList.setBorder(new EmptyBorder(10, 20, 10, 20));
 		pSearch.add(btnList);
-		
-		btnAll = new JButton("전체보기");
-		btnAll.setBorder(new EmptyBorder(10, 20, 10, 20));
-		btnAll.addActionListener(this);
-		pSearch.add(btnAll);
 		
 		pFoodList = new FoodList((String) null);
 		pFoodList.getTable().addMouseListener(this);
@@ -139,6 +142,7 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 		pFoodList.setPopupMenu(popupMenu);
 		
 		pImg = new JPanel();
+		pImg.setBorder(new TitledBorder(null, "\uC74C\uC2DD \uC0AC\uC9C4", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		pList.add(pImg, BorderLayout.EAST);
 		pImg.setPreferredSize(new Dimension(500, 100));
 		pImg.setLayout(new BorderLayout(0, 0));
@@ -173,9 +177,6 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnAll) {
-			actionPerformedBtnNewButton(e);
-		}
 		if (e.getSource() == btnList) {
 			actionPerformedBtnList(e);
 		}
@@ -263,12 +264,6 @@ public class PanelFood extends JPanel implements ActionListener, MouseListener {
 	protected void actionPerformedBtnList(ActionEvent e) {
 		reloadList();
 		tfSearch.setText("");
-	}
-	
-	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		fListAll = service.selectFoodByAllF();
-		pFoodList.setItemList(fListAll);
-		pFoodList.reloadData();
 	}
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == pFoodList.getTable()) {

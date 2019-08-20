@@ -89,6 +89,13 @@ public class SaleList extends AbstractList<Payment> {
 			setText(value.toString());
 			setOpaque(true);
 
+			if(column==0 || column==1 || column==4 || column==6 || column==7 || column==8) {
+	            setHorizontalAlignment(CENTER);
+	         }else if(column==3 || column==5) {
+	            setHorizontalAlignment(RIGHT);
+	         }
+			
+			
 			if (table.getValueAt(row, 8).toString().equals("취소")) {
 				setForeground(Color.RED);
 			} else if(table.getValueAt(row, 8).toString().equals("")){

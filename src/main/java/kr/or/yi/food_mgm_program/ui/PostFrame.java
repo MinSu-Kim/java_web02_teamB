@@ -24,6 +24,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
 
 @SuppressWarnings("serial")
 public class PostFrame extends JFrame implements ActionListener {
@@ -39,6 +43,9 @@ public class PostFrame extends JFrame implements ActionListener {
 	private JButton btnOK;
 	
 	private PanelMemberInfo parent;
+	private JPanel panel;
+	private JLabel lblNewLabel;
+	private JPanel panel_1;
 
 	public PostFrame() {
 		dao = new PostDaoImpl();
@@ -55,11 +62,25 @@ public class PostFrame extends JFrame implements ActionListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new EmptyBorder(1, 5, 1, 0));
+		panel.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblNewLabel = new JLabel("※ 도로명 주소를 입력하세요.");
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setForeground(Color.BLUE);
+		
 		JPanel pAddr = new JPanel();
-		contentPane.add(pAddr, BorderLayout.NORTH);
+		panel.add(pAddr);
 		pAddr.setLayout(new BorderLayout(0, 0));
 		
 		tfAddr = new JTextField();
+		tfAddr.setText("");
 		tfAddr.registerKeyboardAction(this, "search", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
 		pAddr.add(tfAddr);
 		tfAddr.setColumns(10);
