@@ -45,7 +45,7 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		pieChart = new PieChart();
 		pieChart.setPrefSize(800, 250);
 		pieChart.setData(getChartData());
-		pieChart.setTitle("매출 순위");
+		pieChart.setTitle("결제 수단별 결제 현황");
 		pieChart.setLegendVisible(true);	// 범례 표시 유무
 		pieChart.setLegendSide(Side.BOTTOM);// 범례 위치
 		pieChart.setLabelLineLength(30);	// 원의 둘레 가장자리와 라벨간의 거리 지정
@@ -65,11 +65,27 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 	
 	private ObservableList<Data> getChartData() {
 		ObservableList<Data> list = FXCollections.observableArrayList();
-		if(pList.size()>=3) {
-			for (int i = 0; i < 3; i++) {
-				list.add(new PieChart.Data(pList.get(i).getPayMember()+pList.get(i).getPayMemberNo(), pList.get(i).getPayPrice()));
+		
+		int sum = 0; 
+		int sum2 = 0; 
+		for(Payment p : pList) {
+			if(p.getPayType()==1 && p.getPayCancel()==0) {
+				sum += p.getPayPrice();
+			}else if(p.getPayType()==0 && p.getPayCancel()==0) {
+				sum2 += p.getPayPrice();
 			}
 		}
+		
+		Payment p1 = new Payment();
+		p1.setPayType(1);
+		p1.setPayPrice(sum);
+		Payment p2 = new Payment();
+		p2.setPayType(0);
+		p2.setPayPrice(sum2);
+		
+		list.add(new PieChart.Data("현금", p1.getPayPrice()));
+		list.add(new PieChart.Data("카드", p2.getPayPrice()));
+	
 		
 		return list;
 	}
@@ -95,11 +111,29 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 	public void updateChartData() {
 		ObservableList<Data> list =  pieChart.getData();
 		
+		int sum = 0; 
+		int sum2 = 0; 
+		for(Payment p : pList) {
+			if(p.getPayType()==1 && p.getPayCancel()==0) {
+				sum += p.getPayPrice();
+			}else if(p.getPayType()==0 && p.getPayCancel()==0) {
+				sum2 += p.getPayPrice();
+			}
+		}
+		
+		Payment p1 = new Payment();
+		p1.setPayType(1);
+		p1.setPayPrice(sum);
+		Payment p2 = new Payment();
+		p2.setPayType(0);
+		p2.setPayPrice(sum2);
+		
 		for(int i = 0; i<list.size(); i++) {
 			Data s = list.get(i);
-			if (s.getName().equals(pList.get(i).getPayMember()+pList.get(i).getPayMemberNo())) {
-				s.setPieValue(pList.get(i).getPayPrice());
-				break;
+			if (s.getName().equals("현금")) {
+				s.setPieValue(p1.getPayPrice());
+			}else {
+				s.setPieValue(p2.getPayPrice());
 			}
 		}
 	}

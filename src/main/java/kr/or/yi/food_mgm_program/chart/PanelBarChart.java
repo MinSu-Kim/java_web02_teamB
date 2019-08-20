@@ -111,7 +111,6 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		p2.setPayPrice(sum2);
 		
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
 			Series<String, Number> s = list.get(i);
 			if (s.getName().equals("현금")) {
 				s.getData().set(0, new XYChart.Data<>("현금", p1.getPayPrice()));

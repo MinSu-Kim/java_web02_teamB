@@ -119,8 +119,8 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		 panel_3 = new PanelBarChart(itemList);
 		 panel2.add(panel_3);
 		 Platform.runLater(() -> initFX(panel_3));
-		 itemList2 = service.selectPaymentByNo();
-		 panel_4 = new PanelPieChart(itemList2);
+		 //itemList2 = service.selectPaymentByNo();
+		 panel_4 = new PanelPieChart(itemList);
 		 panel2.add(panel_4);
 		 Platform.runLater(() -> initFX(panel_4));
 		 
@@ -155,16 +155,15 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 
 	public void setListBydate(String searchDate) {
 		itemList = service.selectPaymentByDate(searchDate);
-		itemList2 = service.selectPaymentByNoDate(searchDate);
+		//itemList2 = service.selectPaymentByNoDate(searchDate);
 		pList.setItemList(itemList);
 		pList.reloadData();
-		panel_4.setpList(itemList2);
+		panel_4.setpList(itemList);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
-			 if(itemList2.size()>0) {
-					panel_4.updateChartData();
-				 }
+			 panel_4.updateChartData();
+			
 			}); 
 		
 	}
@@ -178,13 +177,11 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		pList.setItemList(itemList);
 		pList.reloadData();
 
-		panel_4.setpList(itemList2);
+		panel_4.setpList(itemList);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
-			 if(itemList2.size()>0) {
-				panel_4.updateChartData();
-			 }
+			 panel_4.updateChartData();
 			
 			}); 
 		
@@ -229,6 +226,9 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 					member.setMbMileage(pay.getPayDiscountPrice());
 					String cou = "";
 					String info = pay.getPayDiscountInfo();
+					if(info.contains("등급")) {
+						service.updateCancel(map, member);
+					}else {
 					int a = info.indexOf(":");
 					int b = info.indexOf("(");
 					try { // 쿠폰 or 마일리지 사용일경우
@@ -244,7 +244,7 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 						service.updateCancelUpdateMileage(map, member); // sale테이블의 sale_cancel를 1(true)로 바꿈/마일리지
 																		// 원상복귀/count -1/쿠폰 복귀
 					}
-
+					}
 					// 등급 변경
 					int total = service.totalPrice(pay.getPayMemberNo());
 					Member mem2 = new Member(pay.getPayMemberNo());
@@ -268,15 +268,16 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 				
 				// 차트 다시쓰기
 				panel_4.setpList(itemList);
-				 panel_3.setpList(itemList2);
+				 panel_3.setpList(itemList);
 				 Platform.runLater(() -> {
 					 panel_3.updateChartData();
-					 if(itemList2.size()>0) {
-							panel_4.updateChartData();
-						 }
-					});  
+					 panel_4.updateChartData();
+					
+					}); 
+				 
 				
 
+				 
 				// PanelSalesList(판매 패널)다시쓰기
 				PanelSalesList f = (PanelSalesList) frame.getpSales();
 				f.setDatePickerText();
@@ -299,13 +300,13 @@ public class PanelSaleList extends JPanel implements DocumentListener, ActionLis
 		setDatePickerText();
 		setListAll();
 		setCmbClear();
-		panel_4.setpList(itemList2);
+		//panel_4.setpList(itemList2);
+		panel_4.setpList(itemList);
 		 panel_3.setpList(itemList);
 		 Platform.runLater(() -> {
 			 panel_3.updateChartData();
-			 if(itemList2.size()>0) {
-					panel_4.updateChartData();
-				 }
+			 panel_4.updateChartData();
+			
 			}); 
 		
 	}

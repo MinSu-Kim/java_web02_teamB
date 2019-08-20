@@ -15,19 +15,19 @@
 	</resultMap>
 	
 	<select id="selectPaymentByAll" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment
+		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment order by payNo desc
 	</select>
 	
 	<select id="selectPaymentByDate" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment where payTime like CONCAT( #{date}, '%')
+		select payNo,payTime,payMenu,payPrice,payDiscountInfo,payDiscountPrice,payType,payMemeber,payCancel,payMemberNo from payment where payTime like CONCAT( #{date}, '%') order by payNo desc
 	</select>
 	
 	<select id="selectPaymentByNo" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;
+		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo order by payNo desc
 	</select>
 	
 	<select id="selectPaymentByNoDate" resultMap="resultPayment">
-		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 AND payTime like CONCAT( #{date}, '%') group by payMemberNo;
+		select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 AND payTime like CONCAT( #{date}, '%') group by payMemberNo order by payNo desc
 	</select>
 	
 </mapper>

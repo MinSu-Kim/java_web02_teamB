@@ -221,7 +221,9 @@ select payNo,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber
 
 select * from sale;
 
-select payNo,payOrderKind,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo;
+select * from payment order by payNo desc;
+
+select payNo,payOrderKind,payTime,payMenu,payType,payDiscountInfo,payDiscountPrice,payMemeber,payCancel,payMemberNo,sum(payPrice) as payPrice from payment where payCancel=0 group by payMemberNo order by payNo desc;
 
 
 
