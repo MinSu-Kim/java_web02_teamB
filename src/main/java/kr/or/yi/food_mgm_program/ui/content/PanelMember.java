@@ -504,13 +504,19 @@ public class PanelMember extends JPanel implements ActionListener {
 	}
 
 	private void actionPerformedMntmTrans() {
-		Member member = pMemberList.getSelectedItem();
-		if(member.isMbWithdrawal() == true) {
-			JOptionPane.showMessageDialog(null, "이미 회원입니다.");
-		}else {
-			pMember.setMember(member);
-			btnJoin.setText("회원전환");
-		}
+	  Member member = pMemberList.getSelectedItem();
+	  if(member.isMbWithdrawal() == true) {
+	     JOptionPane.showMessageDialog(null, "이미 회원입니다.");
+	  }else {
+	     if(member.getMbAddress() != null) {
+	        member.setMbWithdrawal(true);
+	        service.updateTrnasMember(member);
+	        reloadList();
+	     } else {
+	        pMember.setMember(member);
+	        btnJoin.setText("회원전환");
+	     }
+	  }
 	}
 
 	private void actionPerformedBtnUpdate(ActionEvent e) throws Exception { // 수정버튼 누를때

@@ -35,7 +35,7 @@
 	</insert>
 	
 	<select id="selectByNo" resultType="Food" resultMap="resultFoodBJY">
-		select f.fd_no, f.fd_price, f.fd_name, f.fk_no, fk.fk_name, fk.menu_no from food f left join foodkind fk on f.fk_no = fk.fk_no where f.fk_no = #{fkNo.fkNo}
+		select f.fd_no, f.fd_price, f.fd_name, f.fk_no, fk.fk_name, fk.menu_no from food f left join foodkind fk on f.fk_no = fk.fk_no where f.fk_no = #{fkNo.fkNo} and fd_withdrawal = 0
 	</select>
 	
 	<update id="updateFood" parameterType="Food">
