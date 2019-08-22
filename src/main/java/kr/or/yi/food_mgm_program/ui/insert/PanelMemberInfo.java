@@ -87,7 +87,7 @@ public class PanelMemberInfo extends JPanel implements ActionListener {
 		add(pMember);
 		pMember.setLayout(new GridLayout(0, 2, 10, 15));
 		
-		JLabel lblId = new JLabel("아이디");
+		JLabel lblId = new JLabel("회원번호");
 		lblId.setHorizontalTextPosition(SwingConstants.LEADING);
 		lblId.setBorder(new EmptyBorder(0, 0, 0, 20));
 		lblId.setFont(new Font("굴림", Font.PLAIN, 15));
