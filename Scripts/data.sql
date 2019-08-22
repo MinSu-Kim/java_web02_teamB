@@ -34,9 +34,9 @@ set p_zipcode=@zipcode, p_sido=@sido, p_sigungu=@sigungu, p_doro=@doro, p_addres
 
 insert into member(mb_no, mb_tel, mb_name) values (0, '01000000000','비회원');
 INSERT INTO `member` (mb_no,mb_tel,mb_name,mb_birth,mb_mileage,mb_grade,mb_address,mb_withdrawal,mb_count,mb_join) VALUES 
-(1,'01033333333','김창민','2013-08-01',1000,'bronze','서울 강남구 강남대로 238',1,0,'2015-06-13 15:35:58.000'),
-(2,'01022222222','임종호','2013-06-03',1000,'bronze','대구 남구 경상길 5',1,0,'2015-08-13 15:37:10.000'),
-(3,'01011111111','변지영','2013-02-12',1000,'bronze','제주특별자치도 서귀포시 가가로 14',1,0,'2019-01-13 15:38:20.000');
+(1,'01033333333','김창민','2013-08-01',1000,'silver','서울 강남구 강남대로 238',1,11,'2015-06-13 15:35:58.000'),
+(2,'01022222222','임종호','2013-06-03',1000,'silver','대구 남구 경상길 5',1,6,'2015-08-13 15:37:10.000'),
+(3,'01011111111','변지영','2013-02-12',1000,'vip','제주특별자치도 서귀포시 가가로 14',1,20,'2019-01-13 15:38:20.000');
 
 INSERT INTO sale (sale_no,sale_time,sale_order_cnt,sale_order_kind,sale_type,fd_no,mb_no,sale_discount_info,sale_discount_price,sale_cancel) VALUES 
 (1,'2019-01-20 11:50:11.000',3,0,1,30,1,'',0,0)

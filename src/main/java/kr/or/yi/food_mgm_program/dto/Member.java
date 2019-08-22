@@ -203,7 +203,7 @@ public class Member {
 
 
 
-		if(mbBirth != null) {
+		if(mbWithdrawal == true) {
 			return new Object[]{String.format("M%03d", mbNo), mbName, String.format("%tF", mbBirth), mbTel, mbAddress, mbGrade, String.format("%,d원", mbMileage), mbWithdrawal?"YES":"NO", String.format("%tF", mbJoin)};
 		}else 
 			return new Object[]{String.format("N%03d", mbNo), mbName, "", mbTel, "", "", "", mbWithdrawal?"YES":"NO"};
